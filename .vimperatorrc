@@ -1,0 +1,231 @@
+"2.3.1 (created: 2010/04/07 18:56:53)
+
+set runtimepath=/Users/tommy/.vimperator
+source! /Users/tommy/.vimperatorrc.local
+
+
+"+----------------------------------------------------------------------------------------+
+" 基本設定
+"+----------------------------------------------------------------------------------------+
+
+" for migemo find, hint
+" set hintmatching=custom
+set complete=slS
+
+set titlestring=Firefox
+"メニュー/ツール/リンクを表示
+"set guioptions=mTb
+"set guioptions=
+"ページ全体で検索語を強調表示
+set hlsearch
+
+"ビープ音を鳴らさずビジュアルベルを使用
+"set visualbell
+set visualbell
+highlight Bell display:none;
+
+
+"ｺﾏﾝﾄﾞﾗｲﾝﾓｰﾄﾞ時に自動でimeをOFFにする
+" http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
+style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+
+"[[と]]でページをめくる。日本語ページ対応
+"set nextpattern=\bnext,^>$,^>>$,^>,>$,\b>>\b,\bmore\b,\b次へ\b,\b続きを読む\b
+set nextpattern=\bnext\b,\bmore\b,next,^次(の)?ページ,\b次.*,→\b,^>$,^(>>|≫)$,^(>|≫),(>|≫)$,^次(へ|の|ペ),^続き,\bnext\b,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
+set previouspattern=\bprev|previous\b,prev,^前(の)?ページ,\b前.*,\b←,^<$,^(<<|≪)$,^(<|≪),(<|≪)$,^前(へ|の|ペ),^戻る,\bprev|previous\b,^<$,^(<<|«)$,^(<|«),(<|«)$ 
+
+"ページ読み込み時にテキストボックスに自動でフォーカスされないようにする
+"set default search engine to google japan 
+set defsearch=google_ja
+
+
+"+----------------------------------------------------------------------------------------+
+" キーマップ設定
+"+----------------------------------------------------------------------------------------+
+
+"j/kの移動量を5倍に
+map j 5<C-e>
+map k 5<C-y>
+
+"!でCSS無効
+"map ! :set invusermode<CR>
+map ,so :source ~/.vimperatorrc<CR>
+
+"yで選択範囲をコピー
+"map y :echo 'Yank!'<CR>Y
+"<BS>で「戻る」
+"map <BS> H
+"<A-Left>/<A-Right>かh/lでタブ移動
+"map <A-Left> <C-p>
+"map <A-Right> <C-n>
+"map h <C-p>
+"map l <C-n>
+"<A-Up>でその他のタブを閉じる
+"map <A-Up> :tabonly<CR>
+"<A-Down>で現在のタブを閉じる
+"map <A-Down> d
+"<S-Left>/<S-Right>で現在のタブの位置変更
+"map <S-Left>  :tabmove! -1<CR>
+"map <S-Right> :tabmove! +1<CR>
+"sで現在のページを保存
+"map s :saveas<CR>
+"<A-r>でFirefoxを再起動
+"map <A-r> :restart<CR>
+"<A-h>でヘルプを表示
+"map <A-h> :help<CR>
+
+"+----------------------------------------------------------------------------------------+
+" プラグイン設定
+"+----------------------------------------------------------------------------------------+
+
+"<C-Del>で検索語の強調表示をトグル(toggleHighlight.js)
+"map <C-Del> :toggleHighlight<CR>
+"<F2>でメニューバーをトグル(toggleToolbar-0.5.1.js)
+"map <F2> :toggleToolbar<CR>
+"<A-g>でGreasemonkeyをトグル(gmperator.js)
+"map <A-g> :gmset!<CR>
+"bではてブのコメントを表示(hatenabookmark_show.js 一部修正)
+"map b :hbinfo<CR>
+"<C-S-c>でタイトルとURLをコピー(copy.js)
+"map <C-C> :copy titleAndURL<CR>
+"<S-s>でBloglinesに登録(commandBookmarklet.js)
+"map S :Sub<CR>
+
+"+----------------------------------------------------------------------------------------+
+" 未プラグイン化スクリプト
+"+----------------------------------------------------------------------------------------+
+
+"Show feed-button to statusbar
+"http://d.hatena.ne.jp/teramako/20071205/p1
+":javascript <<EOF
+"(function(){
+"	var feedPanel = document.createElement('statusbarpanel');
+"	var feedButton = document.getElementById('feed-button');
+"	feedPanel.setAttribute('id','feed-panel-clone');
+"	feedPanel.appendChild(feedButton.cloneNode(true));
+"	feedButton.parentNode.removeChild(feedButton);
+"	document.getElementById('status-bar').insertBefore(feedPanel,document.getElementById('security-button'));
+"})();
+"EOF
+
+"<C-c>で選択範囲のコピーと読み込みの中断
+"http://d.hatena.ne.jp/teramako/20071128/p2
+
+
+
+" colorscheme
+" ======================================================================
+colorscheme BrewBlue
+"colorscheme Sweets
+style -name tab-style-fix chrome://* <<EOM
+.tab-text-shadow,
+.tabs-newtab-button {
+  display: none !important;
+}
+EOM
+
+
+" http://twitter.g.hatena.ne.jp/VoQn/20090101/1230755193
+"map ,m,s :so<Space>$RUNTIME/plugin/multi_requester.js
+
+"javascript <<EOF
+"/* DEFAULT SITES */
+"liberator.globalVariables.multi_requester_default_sites = "alc,goo,favotter-new,twitter-search-pcod-no-jp,search-twitter,wikipedia-jp"
+"
+"/* SITE_INFO */
+"liberator.globalVariables.multi_requester_siteinfo = [
+"    {
+"        name:           'favotter-new',
+"        description:    'favotter newest',
+"        url:            'http://favotter.matope.com/user.php?user=%s',
+"        xpath:          '//div[@class="hentry"]',
+"    },
+"    {
+"        name:           'twitter-search-pcod-no-jp',
+"        description:    'twitter search(yats)',
+"        url:            'http://pcod.no-ip.org/yats/search?query=%s',
+"        xpath:          '//li[@class="hentry"]',
+"    },
+"    {
+"        name:           'wikipedia-jp',
+"        description:    'wikipedia(japanese)',
+"        url:            'http://ja.wikipedia.org/wiki/%s',
+"        xpath:          'id("bodyContent")',
+"    },
+"    {
+"        name:           'search-twitter',
+"        description:    'twitter search(search.twitter.com)',
+"        url:            'http://search.twitter.com/search?q=%s',
+"        xpath:          'id("results")/ul/li',
+"    },
+"];
+"
+"/* KEY MAPPING */
+"liberator.globalVariables.multi_requester_mappings = [
+"	[',mt', 'twitter-search-pcod-no-jp'],
+"	[',Mt', 'twitter-search-pcod-no-jp', '!'],
+"	[',mT', 'twitter-search-pcod-no-jp',    , '["tommy_io"]'],
+"	[',MT', 'twitter-search-pcod-no-jp', '!', '["tommy_io"]'],
+"	[',mf', 'favotter-new'],
+"	[',Mf', 'favotter-new', '!'],
+"	[',mF', 'favotter-new',    ,'["tommy_io"]'],
+"	[',MF', 'favotter-new', '!', '["tommy_io"]'],
+"	[',ma', 'alc'],
+"	[',Ma', 'alc', '!'],
+"	[',mg', 'goo'],
+"	[',Mg', 'goo', '!'],
+"	[',mw', 'wikipedia-jp'],
+"	[',Mw', 'wikipedia-jp', '!']
+"];
+"EOF
+
+" copy.js
+"map c :copy<Space>
+map ,ctu :copy<Space>titleAndTinyUrl<CR>
+map ,cts :copy<Space>titleAndTinyUrlStarred<CR>
+"map ,ctt :copy<Space>title<CR>
+map ,ctt :copy<Space>titleAndUrl<CR>
+"map ,cu :copy<Space>tinyURL<CR>
+map ,ca :copy<Space>asin<CR>
+javascript <<EOF
+liberator.globalVariables.copy_templates = [
+    { label: 'titleAndTinyUrl', value: '', custom: function() { return '"' + buffer.title + '" ' + util.httpGet('http://api.bit.ly/v3/shorten?login=tommyio&apiKey=R_50fa223dc7c496cb8711738402105f1d&format=txt&uri=' + encodeURIComponent(buffer.URL)).responseText;} },
+    { label: 'titleAndTinyUrlStarred', value: '', custom: function() { return '#Starred "' + buffer.title + '" ' + util.httpGet('http://api.bit.ly/v3/shorten?login=tommyio&apiKey=R_50fa223dc7c496cb8711738402105f1d&format=txt&uri=' + encodeURIComponent(buffer.URL)).responseText;} },
+    { label: 'titleAndUrl',    value: '"%TITLE%" %URL%' },
+    { label: 'title',          value: '%TITLE%' },
+    { label: 'asin',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} },
+//    { label: 'hatena',         value: '[%URL%:title=%TITLE%]' },
+//    { label: 'hatenacite',     value: '>%URL%:title=%TITLE%>n%SEL%n<<' },
+//    { label: 'markdown',       value: '[%SEL%](%URL% "%TITLE%")' },
+//    { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
+//    { label: 'tinyURL', value:  'Get Tiny URL', custom: function() { return util.httpGet('http://tinyurl.com/api-create.php?url=' + encodeURIComponent(buffer.URL)).responseText; }},
+    { label: 'tinyURL', value:  'Get Tiny URL', custom: function() { return util.httpGet('http://api.bit.ly/v3/shorten?login=tommyio&apiKey=R_50fa223dc7c496cb8711738402105f1d&format=txt&uri=' + encodeURIComponent(buffer.URL)).responseText;}}
+];
+EOF
+
+
+" http://d.hatena.ne.jp/ruedap/20110205/vimperator_twipperator_twitter_google_url_shortener
+"javascript <<EOF
+"commands.addUserCommand(
+"    ["twuri"],
+"    "Twittperator tweet with URI",
+"    function(){
+"        let uri = 'https://www.googleapis.com/urlshortener/v1/url';
+"        let xhr = new XMLHttpRequest();
+"        xhr.open("POST", uri, false);
+"        xhr.setRequestHeader("Content-Type", "application/json");
+"        xhr.send(JSON.stringify({ longUrl: buffer.URI }));
+"        let result = JSON.parse(xhr.responseText).id;
+"        commandline.open(":",["tw"," /",buffer.title,result].join(" "),modes.EX);
+"    }
+");
+"EOM
+"
+"""" twittperator.js
+"nmap ,tt :<C-u>tw<Space>
+"nmap ,tf :<C-u>tw!<CR>
+"nmap ,tu :<C-u>tw!@<CR>
+"nmap ,tp :<C-u>twuri<CR><C-a><Right><Right><Right>
+
+
+" vim: set ft=vim:

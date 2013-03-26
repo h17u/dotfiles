@@ -1,0 +1,11 @@
+[user]
+	name = Tomonobu Higashikawa
+	email = higashikawa.tomonobu@gmail.com
+[github]
+	user = h17u
+	token = 72fc839ae18a45af11f66adf0fc2127f
+[color]
+	ui = auto
+[alias]
+[core]
+	#excludesfile = /Users/tommy/.gitignore_global

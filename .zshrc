@@ -106,7 +106,6 @@ autoload -U compinit && compinit
 #autoload -Uz vcs_info
 #autoload -U promptinit && promptinit
 #autoload predict-on && predict-on
-#autoload -U colors && colors
 
 #zstyle ':completion:*' menu select
 zstyle ':completion:*:default' menu select=1
@@ -115,12 +114,16 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 #zstyle ':completion:*' list-colors ''
 
-export LSCOLORS=exfxcxdxbxegedabagacad
+# LS_COLORS
+# http://qiita.com/items/84fa4e051c3325098be3
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-
-#export LSCOLORS=ExFxCxdxBxegedabagacad
-#export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-#zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+#eval $(gdircolors ~/.dircolors/dircolors.256dark)
+#eval $(gdircolors ~/.dircolors/dircolors.ansi-dark)
+#eval $(gdircolors ~/.dircolors/dircolors.ansi-light)
+eval $(gdircolors ~/.dircolors/dircolors.ansi-universal)
+if [ -n "$LS_COLORS" ]; then
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+fi
 
 
 

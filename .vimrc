@@ -32,11 +32,11 @@ NeoBundle 'git://github.com/Shougo/neocomplcache.git'
 NeoBundle 'git://github.com/thinca/vim-ref.git'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
-"NeoBundle 'git://github.com/Lokaltog/powerline.git' require python support
-NeoBundle 'git://github.com/Lokaltog/vim-powerline.git'
+NeoBundle 'git://github.com/Lokaltog/powerline.git'
+"NeoBundle 'git://github.com/Lokaltog/vim-powerline.git'
 "NeoBundle 'https://github.com/koron/cmigemo/blob/master/tools/migemo.vim'
 NeoBundle 'migemo', {'type' : 'nosync', 'base' : '~/.vim/bundle/manual'}
-
+NeoBundle 'https://github.com/kakkyz81/evervim'
 
 "NeoBundle 'tpope/vim-fugitive'
 "NeoBundle 'Lokaltog/vim-easymotion'
@@ -80,7 +80,7 @@ set encoding=utf-8
 "set encoding=shift_jis
 set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
 "set fileencodings=cp932,iso-2022-jp,utf-8,euc-jp
-let $LANG='ja'
+let $LANG='C'
 
 
 set laststatus=2
@@ -148,7 +148,7 @@ set nowrap         " don't wrap lines
 "let twitvim_count = 50 
 
 """" https://powerline.readthedocs.org/en/latest/overview.html 
-"set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 """" vim-powerline
 let g:Powerline_symbols = 'fancy'
@@ -231,3 +231,22 @@ inoremap jj <Esc>
  
 "Vimrcの反映
 "nnoremap <leader>rv :source $MYVIMRC<CR>
+
+
+"-------------------------------------------------
+" Plugin settings
+"-------------------------------------------------
+
+" * evervim {{{
+let g:evervim_devtoken='S=s1:U=f97c:E=14509054a1a:C=13db1541e1b:P=1cd:A=en-devtoken:V=2:H=4279c75fc904e7d3568c455c5f079c96'
+nnoremap <silent> ,el :<C-u>EvervimNotebookList<CR>
+nnoremap <silent> ,eT :<C-u>EvervimListTags<CR>
+nnoremap <silent> ,en :<C-u>EvervimCreateNote<CR>
+nnoremap <silent> ,eb :<C-u>EvervimOpenBrowser<CR>
+nnoremap <silent> ,ec :<C-u>EvervimOpenClient<CR>
+nnoremap ,es :<C-u>EvervimSearchByQuery<SPACE>
+nnoremap <silent> ,et :<C-u>EvervimSearchByQuery<SPACE>tag:todo -tag:done -tag:someday<CR>
+nnoremap <silent> ,eta :<C-u>EvervimSearchByQuery<SPACE>tag:todo -tag:done<CR>
+let g:evervim_splitoption=''
+" ------------------------ }}}
+

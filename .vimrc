@@ -34,6 +34,9 @@ NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
 "NeoBundle 'git://github.com/Lokaltog/powerline.git' require python support
 NeoBundle 'git://github.com/Lokaltog/vim-powerline.git'
+"NeoBundle 'https://github.com/koron/cmigemo/blob/master/tools/migemo.vim'
+NeoBundle 'migemo', {'type' : 'nosync', 'base' : '~/.vim/bundle/manual'}
+
 
 "NeoBundle 'tpope/vim-fugitive'
 "NeoBundle 'Lokaltog/vim-easymotion'

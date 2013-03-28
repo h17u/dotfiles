@@ -234,6 +234,8 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 # 20120110 MacPort
 export PATH=$PATH:/opt/local/bin:/opt/local/sbin
 
+# Use vim installed from macport
+alias vim=/opt/local/bin/vim
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -329,3 +331,4 @@ man() {
 		LESS_TERMCAP_us=$(printf "\e[1;32m") \
 		man "$@"
 }
+

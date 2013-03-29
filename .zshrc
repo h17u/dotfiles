@@ -45,6 +45,7 @@ case ${UID} in
     LANG=C
     ;;
 esac
+export MANPATH=/opt/local/share/man:$MANPATH
 
 
 # Set shell options
@@ -332,4 +333,9 @@ man() {
 		LESS_TERMCAP_us=$(printf "\e[1;32m") \
 		man "$@"
 }
+
+
+# Remove duplicate $PATH entries
+# http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command 
+export $PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 

@@ -33,7 +33,7 @@ colors
 #esac
 
 export BROWSER=w3m
-export EDITOR="vim"
+export EDITOR=vim
 set meta-flag on set input-meta on set output-meta on set convert-meta off # for japanese
 export TERM=xterm-256color
 export PAGER=less
@@ -240,11 +240,11 @@ alias vi=/opt/local/bin/vim
 alias vim=/opt/local/bin/vim
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export PATH=/usr/local/heroku/bin:$PATH
 
 #20130306
 ### Added for rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
 
 
@@ -309,9 +309,9 @@ export PATH=$PATH:~/bin
 # http://d.hatena.ne.jp/kitokitoki/20111128/p2
 # http://ref.layer8.sh/ja/entry/show/id/2691
 if [ "$PS1" ]; then
-	#PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-	export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-	export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+	#PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
+	export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+	export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
 fi
 
 
@@ -333,6 +333,10 @@ man() {
 		LESS_TERMCAP_us=$(printf "\e[1;32m") \
 		man "$@"
 }
+
+# Node.js
+export PATH=/usr/local/share/npm/bin:$PATH
+
 
 
 # Remove duplicate $PATH entries

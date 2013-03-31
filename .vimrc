@@ -43,6 +43,8 @@ NeoBundle 'https://github.com/Townk/vim-autoclose'
 NeoBundle 'https://github.com/vim-ruby/vim-ruby'
 NeoBundle 'https://github.com/msanders/snipmate.vim'
 NeoBundle 'https://github.com/pangloss/vim-javascript'
+NeoBundle 'https://github.com/jelera/vim-javascript-syntax'
+NeoBundle 'https://github.com/jiangmiao/simple-javascript-indenter'
 
 
 filetype plugin indent on
@@ -241,12 +243,11 @@ let g:evervim_splitoption=''
 
 
 " html indentation
-" https://github.com/pangloss/vim-javascript {{{
+" https://github.com/pangloss/vim-javascript
 " http://www.vim.org/scripts/script.php?script_id=2075
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
-" ------------------------ }}}
 
 " https://github.com/Lokaltog/vim-easymotion
 let g:EasyMotion_leader_key = '<Leader>'
@@ -262,3 +263,15 @@ let NERDShutUp = 1 "no alart undfined filetype
 
 " rails.vim
 let g:rails_level=3
+
+" https://github.com/jelera/vim-javascript-syntax
+au FileType javascript call JavaScriptFold
+
+" https://github.com/jiangmiao/simple-javascript-indenter
+" この設定入れるとshiftwidthを1にしてインデントしてくれる
+let g:SimpleJsIndenter_BriefMode = 1
+" この設定入れるとswitchのインデントがいくらかマシに
+let g:SimpleJsIndenter_CaseIndentLevel = -1
+
+
+

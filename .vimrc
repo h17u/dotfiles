@@ -5,7 +5,7 @@
 "-------------------------------------------------
 "" NeoBundle プラグイン管理
 "-------------------------------------------------
-"""" https://github.com/shougo/neobundle.vim
+"""" https://github.com/Shougo/neobundle.vim
 filetype off 
 set nocompatible
 
@@ -14,23 +14,35 @@ if has('vim_starting')
 endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
-NeoBundleFetch 'git://github.com/shougo/neobundle.vim'
-NeoBundle 'git://github.com/shougo/vimproc.git'
+NeoBundleFetch 'https://github.com/Shougo/neobundle.vim'
+NeoBundle 'https://github.com/Shougo/vimproc'
 
 "" My Bundles here:
 NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
-NeoBundle 'git://github.com/shougo/unite.vim.git'
-NeoBundle 'git://github.com/shougo/neocomplcache.git'
+NeoBundle 'git://github.com/Shougo/unite.vim.git'
+NeoBundle 'git://github.com/Shougo/neocomplcache.git'
 NeoBundle 'git://github.com/thinca/vim-ref.git'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
-NeoBundle 'git://github.com/lokaltog/powerline.git'
+NeoBundle 'git://github.com/Lokaltog/powerline.git' "Need Python interpriter
 "NeoBundle 'git://github.com/Lokaltog/vim-powerline.git'
 NeoBundle 'migemo', {'type' : 'nosync', 'base' : '~/.vim/bundle/manual'}
 NeoBundleLazy 'git://github.com/kakkyz81/evervim.git', {'command' : [ 'EvervimCreateNote', 'EvervimNotebookList', 'EvervimListTags', 'EvervimSearchByQuery' ] }
 NeoBundleLazy 'git://github.com/tpope/vim-rails.git', {'autoload': {'filetypes': ['ruby']}}
 NeoBundle 'git://github.com/tpope/vim-fugitive.git'
 "NeoBundleLazy 'git://github.com/tpope/vim-fugitive.git', {'command' : [ 'Gstatus' ] }
+NeoBundle 'https://github.com/scrooloose/nerdtree'
+NeoBundle 'https://github.com/scrooloose/nerdcommenter'
+NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
+
+NeoBundle 'https://bitbucket.org/ns9tks/vim-l9'
+NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
+NeoBundle 'https://github.com/kana/vim-fakeclip'
+NeoBundle 'https://github.com/vim-scripts/mru.vim'
+NeoBundle 'https://github.com/Townk/vim-autoclose'
+NeoBundle 'https://github.com/vim-ruby/vim-ruby'
+NeoBundle 'https://github.com/msanders/snipmate.vim'
+NeoBundle 'https://github.com/pangloss/vim-javascript'
 
 
 filetype plugin indent on
@@ -104,6 +116,7 @@ set wildmenu        " コマンドライン補完するときに補完候補を�
 set nowrap         " don't wrap lines
 "set list	" タブ文字、行末など不可視文字を表示する  
 "set listchars=eol:$,tab:>\ ,extends:<	" listで表示される文字のフォーマットを指定する
+set clipboard=unnamed
 
 " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 " Show trailing whitepace and spaces before a tab:
@@ -175,6 +188,10 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+
+" Tab
+nnoremap <C-n> gt
+nnoremap <C-p> gT
  
 "-------------------------------------------------
 " Function ユーザー定義関数
@@ -222,3 +239,26 @@ nnoremap <silent> ,eta :<C-u>EvervimSearchByQuery<SPACE>tag:todo -tag:done<CR>
 let g:evervim_splitoption=''
 " ------------------------ }}}
 
+
+" html indentation
+" https://github.com/pangloss/vim-javascript {{{
+" http://www.vim.org/scripts/script.php?script_id=2075
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+" ------------------------ }}}
+
+" https://github.com/Lokaltog/vim-easymotion
+let g:EasyMotion_leader_key = '<Leader>'
+
+" https://bitbucket.org/ns9tks/vim-fuzzyfinder
+let g:fuf_keyOpen = '<Tab>'
+let g:fuf_keyOpenTabpage = '<CR>'
+nnoremap <silent> ,ff : <C-u>FufFile **/<CR>
+nnoremap <silent> ,fmf : <C-u>FufMruFile<CR>
+
+" NEED Commenter
+let NERDShutUp = 1 "no alart undfined filetype
+
+" rails.vim
+let g:rails_level=3

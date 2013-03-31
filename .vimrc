@@ -5,63 +5,35 @@
 "-------------------------------------------------
 "" NeoBundle プラグイン管理
 "-------------------------------------------------
-"""" https://github.com/Shougo/neobundle.vim
+"""" https://github.com/shougo/neobundle.vim
 filetype off 
-set nocompatible               " Be iMproved
+set nocompatible
 
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Recommended to install
-" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
-NeoBundle 'git://github.com/Shougo/vimproc.git'
-"NeoBundle 'Shougo/vimproc'
+NeoBundleFetch 'git://github.com/shougo/neobundle.vim'
+NeoBundle 'git://github.com/shougo/vimproc.git'
 
 "" My Bundles here:
-"" Note: You don't set neobundle setting in .gvimrc!
-"" Original repos on github
 NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
-NeoBundle 'git://github.com/Shougo/unite.vim.git'
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
+NeoBundle 'git://github.com/shougo/unite.vim.git'
+NeoBundle 'git://github.com/shougo/neocomplcache.git'
 NeoBundle 'git://github.com/thinca/vim-ref.git'
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
-NeoBundle 'git://github.com/Lokaltog/powerline.git'
+NeoBundle 'git://github.com/lokaltog/powerline.git'
 "NeoBundle 'git://github.com/Lokaltog/vim-powerline.git'
-"NeoBundle 'https://github.com/koron/cmigemo/blob/master/tools/migemo.vim'
 NeoBundle 'migemo', {'type' : 'nosync', 'base' : '~/.vim/bundle/manual'}
-NeoBundle 'https://github.com/kakkyz81/evervim'
-
-"NeoBundle 'tpope/vim-fugitive'
-"NeoBundle 'Lokaltog/vim-easymotion'
-"NeoBundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-"" vim-scripts repos
-"NeoBundle 'L9'
-"NeoBundle 'FuzzyFinder'
-"NeoBundle 'rails.vim'
-"" Non github repos
-"NeoBundle 'git://git.wincent.com/command-t.git'
-"" Non git repos
-"NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
-"NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
+NeoBundleLazy 'git://github.com/kakkyz81/evervim.git', {'command' : [ 'EvervimCreateNote', 'EvervimNotebookList', 'EvervimListTags', 'EvervimSearchByQuery' ] }
+NeoBundleLazy 'git://github.com/tpope/vim-rails.git', {'autoload': {'filetypes': ['ruby']}}
+NeoBundle 'git://github.com/tpope/vim-fugitive.git'
+"NeoBundleLazy 'git://github.com/tpope/vim-fugitive.git', {'command' : [ 'Gstatus' ] }
 
 
-"NeoBundle 'git://github.com/tpope/vim-surround.git'
-"NeoBundle 'git://github.com/tpope/vim-repeat.git'
-"NeoBundle 'git://github.com/Shougo/neocomplcache-snippets-complete.git'
-" NeoBundle 'git://github.com/Shougo/vimshell.git'
-" NeoBundle 'git://github.com/mattn/zencoding-vim.git'
-" " NeoBundle 'git://github.com/c9s/perlomni.vim.git'
-" NeoBundle 'git://github.com/othree/eregex.vim.git'
-" NeoBundle 'QuickBuf'
-
-filetype plugin indent on     " Required!
+filetype plugin indent on
 "
 " Brief help
 " :NeoBundleList          - list configured bundles

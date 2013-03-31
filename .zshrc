@@ -46,7 +46,7 @@ case ${UID} in
     ;;
 esac
 export MANPATH=/opt/local/share/man:$MANPATH
-
+export MANPATH=/usr/local/share/man:$MANPATH
 
 # Set shell options
 setopt auto_cd auto_name_dirs auto_pushd pushd_ignore_dups
@@ -129,24 +129,27 @@ fi
 
 
 # key bindings
-bindkey -e
-#bindkey -v
-# bindkey -M emacs
-# bindkey -M viins
+#bindkey -e #Emacs
+bindkey -v #VIM
+#bindkey -M emacs
+#bindkey -M vicmd
+#bindkey -M viins
 # zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init
-# bindkey -M vicmd
-# bindkey '^p'	history-beginning-search-backward
-# bindkey '^n'	history-beginning-search-forward
 
-# historical backward/forward search with linehead string binded to ^P/^N
-#                                                                                                                                                   
-autoload history-search-end
+autoload -Uz history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
-bindkey "\\ep" history-beginning-search-backward-end
-bindkey "\\en" history-beginning-search-forward-end
+bindkey '^P' history-beginning-search-backward-end
+bindkey '^N' history-beginning-search-forward-end
+bindkey '\\ep' history-beginning-search-backward-end
+bindkey '\\en' history-beginning-search-forward-end
+bindkey -a 'q' push-line # Command line stack
+bindkey -a 'H' run-help
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
 
 
 
@@ -222,6 +225,32 @@ function extract () {
 #    # Cygwin 
 #    alias -g C='| putclip'
 #fi
+
+
+# http://memo.officebrook.net/20090205.html
+function google() {
+  local str opt
+  if [ $# != 0 ]; then
+    for i in $*; do
+      str="$str+$i"
+    done
+    str=`echo $str | sed 's/^\+//'`
+    opt='search?num=50&hl=ja&lr=lang_ja'
+    opt="${opt}&q=${str}"
+  fi
+  w3m http://www.google.com/$opt
+}
+
+
+function cdup() {
+echo
+cd ..
+zle reset-prompt
+}
+zle -N cdup
+bindkey '\^' cdup
+
+
 
 
 # 20111202
@@ -342,4 +371,5 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # Remove duplicate $PATH entries
 # http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command 
 export PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+export MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 

@@ -12,4 +12,5 @@
 !/.gitignore
 !/.gitignore_global
 !/.ssh
+!/bin
 

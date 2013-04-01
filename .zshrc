@@ -366,6 +366,9 @@ man() {
 # Node.js
 export PATH=/usr/local/share/npm/bin:$PATH
 
+# sutojump
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh ]]
+
 
 
 # Remove duplicate $PATH entries

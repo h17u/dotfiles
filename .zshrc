@@ -370,6 +370,8 @@ export PATH=/usr/local/share/npm/bin:$PATH
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh ]]
 
 
+# Create and attach tmux session
+~/bin/tmux_open_windows.sh 2>&1
 
 # Remove duplicate $PATH entries
 # http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command 

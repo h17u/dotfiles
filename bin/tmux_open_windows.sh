@@ -16,15 +16,6 @@ if tmux has-session >/dev/null 2>&1; then
     exit 0
 fi
 
-
-#if tmux has-session >/dev/null 2>&1
-#	\ && tmux list-sessions | grep -qE '.*]$'; then
-#    # detached session exists
-#    tmux attach && echo "tmux attached session "
-#    exit 0
-#fi
-
-
 # var for session name (to avoid repeated occurences)
 session_name=xyz
 window_name=win

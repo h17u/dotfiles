@@ -142,8 +142,10 @@ bindkey '^P' history-beginning-search-backward-end
 bindkey '^N' history-beginning-search-forward-end
 bindkey '\\ep' history-beginning-search-backward-end
 bindkey '\\en' history-beginning-search-forward-end
-bindkey -a 'q' push-line # Command line stack
-bindkey -a 'H' run-help
+bindkey -M vicmd 'q' push-line # Command line stack
+#bindkey -M vicmd 'q' push-line-or-edit
+#bindkey -M vicmd 'q' push-input
+bindkey -M vicmd 'H' run-help
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
@@ -376,5 +378,4 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command 
 export PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
-typeset -U path		# 配列の各要素値から重複するものを削除
-
+#typeset -U path		# 配列の各要素値から重複するものを削除

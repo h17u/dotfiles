@@ -28,13 +28,13 @@ NeoBundle 'git://github.com/Lokaltog/powerline.git' "Need Python interpriter
 "NeoBundle 'git://github.com/Lokaltog/vim-powerline.git'
 NeoBundle 'migemo', {'type' : 'nosync', 'base' : '~/.vim/bundle/manual'}
 NeoBundleLazy 'git://github.com/kakkyz81/evervim.git', {'command' : [ 'EvervimCreateNote', 'EvervimNotebookList', 'EvervimListTags', 'EvervimSearchByQuery' ] }
-NeoBundleLazy 'git://github.com/tpope/vim-rails.git', {'autoload': {'filetypes': ['ruby']}}
+"NeoBundleLazy 'git://github.com/tpope/vim-rails.git', {'autoload': {'filetypes': ['ruby']}}
+NeoBundleLazy 'git://github.com/tpope/vim-rails.git'
 NeoBundle 'git://github.com/tpope/vim-fugitive.git'
 "NeoBundleLazy 'git://github.com/tpope/vim-fugitive.git', {'command' : [ 'Gstatus' ] }
 NeoBundle 'https://github.com/scrooloose/nerdtree'
 NeoBundle 'https://github.com/scrooloose/nerdcommenter'
 NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
-
 NeoBundle 'https://bitbucket.org/ns9tks/vim-l9'
 NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
 NeoBundle 'https://github.com/kana/vim-fakeclip'
@@ -56,6 +56,10 @@ NeoBundle 'https://github.com/tyru/open-browser-github.vim'
 NeoBundle 'https://github.com/tell-k/vim-browsereload-mac'
 NeoBundle 'https://github.com/vim-jp/vimdoc-ja'
 NeoBundle 'https://github.com/hail2u/vim-css3-syntax'
+NeoBundle 'https://github.com/AtsushiM/sass-compile.vim'
+NeoBundle 'https://github.com/kchmck/vim-coffee-script'
+NeoBundle 'https://github.com/claco/jasmine.vim'
+NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides'
 
 
 
@@ -255,9 +259,9 @@ nnoremap gc `[v`]
 vnoremap gc :<C-u>normal gc<CR>
 onoremap gc :<C-u>normal gc<CR>
 "表示中のバッファをVimスクリプトと見なして再読込。.vimrc変更後など。
-nnoremap <Space>r :<C-u>execute "source " expand("%:p")<CR>
+"nnoremap <Space>r :<C-u>execute "source " expand("%:p")<CR>
 "vimrcとgvimrcを再読込。vimrc変更後など。
-nnoremap <Space>v :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
+"nnoremap <Space>v :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
 
 
 
@@ -467,7 +471,6 @@ nnoremap <Leader>g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 
 
 " https://github.com/tell-k/vim-browsereload-mac
-" リロード後に戻ってくるアプリ 変更してください
 let g:returnApp = "iTerm"
 nmap <Space>bc :ChromeReloadStart<CR>
 nmap <Space>bC :ChromeReloadStop<CR>
@@ -479,3 +482,79 @@ nmap <Space>bo :OperaReloadStart<CR>
 nmap <Space>bO :OperaReloadStop<CR>
 nmap <Space>ba :AllBrowserReloadStart<CR>
 nmap <Space>bA :AllBrowserReloadStop<CR>
+
+
+" https://github.com/AtsushiM/sass-compile.vim
+"{{{
+let g:sass_compile_auto = 1
+let g:sass_compile_cdloop = 5
+let g:sass_compile_cssdir = ['css', 'stylesheet']
+let g:sass_compile_file = ['scss', 'sass']
+let g:sass_started_dirs = []
+ 
+autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
+au! BufWritePost * SassCompile
+"}}}
+
+
+
+" vimにcoffeeファイルタイプを認識させる
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+" インデントを設定
+autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
+
+"""" http://qiita.com/items/fb442cfa78f91634cfaa
+" taglistの設定 coffeeを追加
+" let g:tlist_coffee_settings = 'coffee;f:function;v:variable'
+
+" QuickRunのcoffee
+" let g:quickrun_config['coffee'] = {
+"      \'command' : 'coffee',
+"      \'exec' : ['%c -cbp %s']
+"      \}
+
+"------------------------------------
+" vim-coffee-script
+"------------------------------------
+" 保存時にコンパイル
+autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
+
+"------------------------------------
+" jasmine.vim
+"------------------------------------
+" ファイルタイプを変更
+function! JasmineSetting()
+  au BufRead,BufNewFile *Helper.js,*Spec.js  set filetype=jasmine.javascript
+  au BufRead,BufNewFile *Helper.coffee,*Spec.coffee  set filetype=jasmine.coffee
+  au BufRead,BufNewFile,BufReadPre *Helper.coffee,*Spec.coffee  let b:quickrun_config = {'type' : 'coffee'}
+  call jasmine#load_snippets()
+  map <buffer> <leader>m :JasmineRedGreen<CR>
+  command! JasmineRedGreen :call jasmine#redgreen()
+  command! JasmineMake :call jasmine#make()
+endfunction
+au BufRead,BufNewFile,BufReadPre *.coffee,*.js call JasmineSetting()
+
+"------------------------------------
+" indent_guides
+"------------------------------------
+" インデントの深さに色を付ける
+let g:indent_guides_start_level=2
+let g:indent_guides_auto_colors=0
+let g:indent_guides_enable_on_vim_startup=0
+let g:indent_guides_color_change_percent=20
+let g:indent_guides_guide_size=1
+let g:indent_guides_space_guides=1
+
+hi IndentGuidesOdd  ctermbg=235
+hi IndentGuidesEven ctermbg=237
+au FileType coffee,ruby,javascript,python IndentGuidesEnable
+nmap <silent><Leader>ig <Plug>IndentGuidesToggle
+
+
+
+
+" http://qiita.com/items/4398a19c05ad4861af85
+au BufNewFile,BufRead Gemfile setl filetype=Gemfile
+au BufWritePost Gemfile call vimproc#system('rbenv ctags')
+
+

@@ -42,7 +42,7 @@ export LANG=ja_JP.UTF-8
 # if user is root
 case ${UID} in
 0)
-    LANG=C
+    export LANG=C
     ;;
 esac
 export MANPATH=/opt/local/share/man:$MANPATH
@@ -62,7 +62,6 @@ setopt auto_param_slash auto_remove_slash
 #setopt xtrace
 
 
-typeset -U path		# 配列の各要素値から重複するものを削除
 
 # Interactive operation...
 alias rm='rm -i' cp='cp -i' mv='mv -i'
@@ -377,4 +376,5 @@ export PATH=/usr/local/share/npm/bin:$PATH
 # http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command 
 export PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+typeset -U path		# 配列の各要素値から重複するものを削除
 

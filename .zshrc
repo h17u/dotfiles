@@ -38,7 +38,8 @@ set meta-flag on set input-meta on set output-meta on set convert-meta off # for
 export TERM=xterm-256color
 export PAGER=less
 export GREP_OPTIONS='--color=auto'
-export LANG=ja_JP.UTF-8
+#export LANG=ja_JP.UTF-8
+export LANG=C
 # if user is root
 case ${UID} in
 0)

@@ -50,6 +50,13 @@ NeoBundle 'https://github.com/teramako/jscomplete-vim'
 NeoBundle 'https://github.com/Shougo/neosnippet'
 "NeoBundle 'https://github.com/honza/snipmate-snippets'
 NeoBundle 'https://github.com/majutsushi/tagbar'
+NeoBundle 'https://github.com/mattn/zencoding-vim'
+NeoBundle 'https://github.com/tyru/open-browser.vim'
+NeoBundle 'https://github.com/tyru/open-browser-github.vim'
+NeoBundle 'https://github.com/tell-k/vim-browsereload-mac'
+NeoBundle 'https://github.com/vim-jp/vimdoc-ja'
+NeoBundle 'https://github.com/hail2u/vim-css3-syntax'
+
 
 
 filetype plugin indent on
@@ -72,6 +79,7 @@ set encoding=utf-8
 set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
 "set fileencodings=cp932,iso-2022-jp,utf-8,euc-jp
 let $LANG='C'
+set helplang=ja,en
 
 
 set laststatus=2
@@ -201,6 +209,58 @@ inoremap <C-l> <Right>
 nnoremap <C-n> gt
 nnoremap <C-p> gT
  
+" http://archiva.jp/web/tool/how_to_vim_2.html
+" https://github.com/sigwyg/Vim-Starter-kit/blob/master/.vimrc
+"水平方向の移動を簡単にしてます。nowrapな時に便利。
+nnoremap zl zL
+nnoremap zh zH
+"行移動を見た目上に行うようにしています。wrap指定している場合、見た目上は数行に改行されていても内部的には1行なので。
+noremap j gj
+noremap k gk
+"タブ移動です。tは遠いよね ==)
+"noremap gh gT
+"noremap gl gt
+"normalモードでもカーソル位置で改行できるようにしてます。
+"noremap <CR> i<CR><ESC>
+"ブラケット入力時にスムーズに編集できるように。最近びみょーかもと思い始めてますが。
+"inoremap {} {}<LEFT>
+"inoremap [] []<LEFT>
+"inoremap () ()<LEFT>
+"inoremap "" ""<LEFT>
+"inoremap '' ''<LEFT>
+"inoremap <> <><LEFT>
+"inoremap []5 [%  %]<LEFT><LEFT><LEFT>
+"inoremap {}5 {%  %}<LEFT><LEFT><LEFT>
+"検索結果に移動したとき、その位置を画面の中央にします。上端とかに移動しても気付きにくいので。
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+"検索時、「/」の入力をエスケープします。
+cnoremap  / getcmdtype() == '/' ? '\/' : '/'
+"ウィンドウ分割時にウィンドウサイズを調節する設定です。Shiftキー＋矢印キー。
+nnoremap <silent> <S-Left>  :5wincmd <<CR>
+nnoremap <silent> <S-Right> :5wincmd ><CR>
+nnoremap <silent> <S-Up>    :5wincmd -<CR>
+nnoremap <silent> <S-Down>  :5wincmd +<CR>
+"バッファの一覧・移動・削除です。QuickBuf使うまでもないときに。
+nnoremap bb :b#<CR>
+nnoremap bp :bprevious<CR>
+nnoremap bn :bnext<CR>
+nnoremap bd :bdelete<CR>
+"「最後に編集したテキスト」を選択するキーマップ。コピペ後などに重宝。「gv」と似て非なる使い勝手。
+nnoremap gc `[v`]
+vnoremap gc :<C-u>normal gc<CR>
+onoremap gc :<C-u>normal gc<CR>
+"表示中のバッファをVimスクリプトと見なして再読込。.vimrc変更後など。
+nnoremap <Space>r :<C-u>execute "source " expand("%:p")<CR>
+"vimrcとgvimrcを再読込。vimrc変更後など。
+nnoremap <Space>v :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
+
+
+
 "-------------------------------------------------
 " Function ユーザー定義関数
 "-------------------------------------------------
@@ -378,3 +438,44 @@ let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 let g:tagbar_type_javascript = {
     \ 'ctagsbin' : '/usr/local/bin/jsctags'
     \ }
+
+" https://github.com/mattn/zencoding-vim
+"{{{
+" codaのデフォルトと一緒にする
+imap <C-E> <C-Y>,
+let g:user_zen_leader_key = '<C-Y>'
+" 言語別に対応させる
+let g:user_zen_settings = {
+      \  'lang' : 'ja',
+      \  'html' : {
+      \    'filters' : 'html',
+      \    'indentation' : ' '
+      \  },
+      \  'css' : {
+      \    'filters' : 'fc',
+      \  },
+      \}
+"}}}
+
+
+" https://github.com/tyru/open-browser.vim
+" カーソル下のURLをブラウザで開く
+nmap <Leader>o <Plug>(openbrowser-open)
+vmap <Leader>o <Plug>(openbrowser-open)
+" ググる
+nnoremap <Leader>g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
+
+
+" https://github.com/tell-k/vim-browsereload-mac
+" リロード後に戻ってくるアプリ 変更してください
+let g:returnApp = "iTerm"
+nmap <Space>bc :ChromeReloadStart<CR>
+nmap <Space>bC :ChromeReloadStop<CR>
+nmap <Space>bf :FirefoxReloadStart<CR>
+nmap <Space>bF :FirefoxReloadStop<CR>
+nmap <Space>bs :SafariReloadStart<CR>
+nmap <Space>bS :SafariReloadStop<CR>
+nmap <Space>bo :OperaReloadStart<CR>
+nmap <Space>bO :OperaReloadStop<CR>
+nmap <Space>ba :AllBrowserReloadStart<CR>
+nmap <Space>bA :AllBrowserReloadStop<CR>

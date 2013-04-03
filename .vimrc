@@ -78,6 +78,21 @@ NeoBundleCheck
 "set runtimepath+=~/.vim/
 "runtime! userautoload/*.vim
 
+"""" http://d.hatena.ne.jp/thinca/20100205/1265307642
+"if filereadable(expand('~/.vimrc.local'))
+"	source ~/.vimrc.local
+"endif
+
+"""" http://stackoverflow.com/questions/10139972/vim-hasmacunix-or-hasmac-do-not-work
+"let os=substitute(system('uname'), '\n', '', '')
+"if os == 'Darwin' || os == 'Mac'
+"    set guifont=Inconsolata-dz:h12
+"    " more...
+"elseif os == 'Linux'
+"    set guifont=Inconsolata-dz\ Medium\ 10
+"    " more...
+"endif
+
 set encoding=utf-8
 "set encoding=shift_jis
 set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
@@ -101,7 +116,7 @@ set ruler           " show the cursor position all the time
 
 
 "set directory=
-#set number          " show line numbers
+"set number          " show line numbers
 set ignorecase      " ignore case when searching 
 set smartcase
 "set noignorecase   " don't ignore case
@@ -511,12 +526,6 @@ autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
 " taglistの設定 coffeeを追加
 " let g:tlist_coffee_settings = 'coffee;f:function;v:variable'
 
-" QuickRunのcoffee
-" let g:quickrun_config['coffee'] = {
-"      \'command' : 'coffee',
-"      \'exec' : ['%c -cbp %s']
-"      \}
-
 "------------------------------------
 " vim-coffee-script
 "------------------------------------
@@ -560,5 +569,15 @@ nmap <silent><Leader>ig <Plug>IndentGuidesToggle
 " http://qiita.com/items/4398a19c05ad4861af85
 au BufNewFile,BufRead Gemfile setl filetype=Gemfile
 au BufWritePost Gemfile call vimproc#system('rbenv ctags')
+
+
+" QuickRun
+let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
+let g:quickrun_config['coffee'] = {
+     \'command' : 'coffee',
+     \'exec' : ['%c -cbp %s']
+     \}
+
+
 
 

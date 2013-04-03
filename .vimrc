@@ -41,7 +41,7 @@ NeoBundle 'https://github.com/kana/vim-fakeclip'
 NeoBundle 'https://github.com/vim-scripts/mru.vim'
 NeoBundle 'https://github.com/Townk/vim-autoclose'
 NeoBundle 'https://github.com/vim-ruby/vim-ruby'
-NeoBundle 'https://github.com/msanders/snipmate.vim'
+"NeoBundle 'https://github.com/msanders/snipmate.vim'
 NeoBundle 'https://github.com/pangloss/vim-javascript'
 NeoBundle 'https://github.com/jelera/vim-javascript-syntax'
 NeoBundle 'https://github.com/jiangmiao/simple-javascript-indenter'
@@ -262,7 +262,7 @@ nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 "検索時、「/」の入力をエスケープします。
-cnoremap  / getcmdtype() == '/' ? '\/' : '/'
+"cnoremap  / getcmdtype() == '/' ? '\/' : '/'
 "ウィンドウ分割時にウィンドウサイズを調節する設定です。Shiftキー＋矢印キー。
 nnoremap <silent> <S-Left>  :5wincmd <<CR>
 nnoremap <silent> <S-Right> :5wincmd ><CR>
@@ -363,7 +363,7 @@ let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
 " https://github.com/vim-scripts/jQuery
-au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
+au BufRead,BufNewFile *.js,jquery.*.js set ft=javascript syntax=jquery
 
 
 
@@ -375,12 +375,44 @@ let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_min_keyword_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplcache_plugin_completion_length = {
+  \ 'buffer_complete'   : 2,
+  \ 'include_complete'  : 2,
+  \ 'syntax_complete'   : 2,
+  \ 'filename_complete' : 2,
+  \ 'keyword_complete'  : 2,
+  \ 'omni_complete'     : 1
+  \ }
 let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+  \ 'default'    : '',
+  \ 'erlang'     : $HOME . '/.vim/dict/erlang.dict',
+  \ 'objc'       : $HOME . '/.vim/dict/objc.dict',
+  \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
+  \ 'mxml'       : $HOME . '/.vim/dict/mxml.dict',
+  \ 'ruby'       : $HOME . '/.vim/dict/ruby.dict',
+  \ 'perl'       : $HOME . '/.vim/dict/perl.dict',
+  \ 'scheme'     : $HOME . '/.vim/dict/gauche.dict',
+  \ 'scala'      : $HOME . '/.vim/dict/scala.dict',
+  \ 'int-erl'    : $HOME . '/.vim/dict/erlang.dict',
+  \ 'int-irb'    : $HOME . '/.vim/dict/ruby.dict',
+  \ 'int-perlsh' : $HOME . '/.vim/dict/perl.dict'
+  \ }
+let g:neocomplcache_same_filetype_lists = {
+  \ 'c'          : 'ref-man,ref-erlang',
+  \ 'perl'       : 'ref-perldoc',
+  \ 'ruby'       : 'ref-refe',
+  \ 'erlang'     : 'ref-erlang',
+  \ 'objc'       : 'c',
+  \ 'tt2html'    : 'html,perl',
+  \ 'int-erl'    : 'erlang,ref-erlang',
+  \ 'int-perlsh' : 'perl,ref-perldoc',
+  \ 'int-irb'    : 'ruby,ref-refe'
+  \ }
+let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
+
+
 if !exists('g:neocomplcache_keyword_patterns')
     let g:neocomplcache_keyword_patterns = {}
 endif
@@ -420,19 +452,17 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript,coffee setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 " Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+"if !exists('g:neocomplcache_omni_patterns')
+"    let g:neocomplcache_omni_patterns = {}
+"endif
+"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+"let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 
 
 
@@ -579,5 +609,7 @@ let g:quickrun_config['coffee'] = {
      \}
 
 
+"vim-ref
+let g:ref_open = 'tabnew'
 
 

@@ -101,7 +101,7 @@ set ruler           " show the cursor position all the time
 
 
 "set directory=
-set number          " show line numbers
+#set number          " show line numbers
 set ignorecase      " ignore case when searching 
 set smartcase
 "set noignorecase   " don't ignore case
@@ -136,7 +136,11 @@ set wildmode=longest:full,list
 set nowrap         " don't wrap lines
 "set list	" タブ文字、行末など不可視文字を表示する  
 "set listchars=eol:$,tab:>\ ,extends:<	" listで表示される文字のフォーマットを指定する
-set clipboard=unnamed
+set clipboard=unnamed "share clipboard on Mac GUI app
+set splitbelow "新しいウィンドウを下に開く
+set splitright "新しいウィンドウを右に開く
+
+
 
 " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 " Show trailing whitepace and spaces before a tab:

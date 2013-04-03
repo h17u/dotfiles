@@ -212,6 +212,10 @@ function! Paste_on_off()
     return
 endfunc
 " }}}
+
+
+
+
 "-------------------------------------------------
 " Mappings キーマッピング
 "-------------------------------------------------
@@ -221,16 +225,16 @@ endfunc
 "-------------------------------------------------
  
 " insert mode での移動
-inoremap <C-e> <END>
-inoremap <C-a> <HOME>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
+"inoremap <C-e> <END>
+"inoremap <C-a> <HOME>
+"inoremap <C-j> <Down>
+"inoremap <C-k> <Up>
+"inoremap <C-h> <Left>
+"inoremap <C-l> <Right>
 
 " Tab
-nnoremap <C-n> gt
-nnoremap <C-p> gT
+"nnoremap <C-n> gt
+"nnoremap <C-p> gT
  
 " http://archiva.jp/web/tool/how_to_vim_2.html
 " https://github.com/sigwyg/Vim-Starter-kit/blob/master/.vimrc
@@ -264,10 +268,10 @@ nnoremap g# g#zz
 "検索時、「/」の入力をエスケープします。
 "cnoremap  / getcmdtype() == '/' ? '\/' : '/'
 "ウィンドウ分割時にウィンドウサイズを調節する設定です。Shiftキー＋矢印キー。
-nnoremap <silent> <S-Left>  :5wincmd <<CR>
-nnoremap <silent> <S-Right> :5wincmd ><CR>
-nnoremap <silent> <S-Up>    :5wincmd -<CR>
-nnoremap <silent> <S-Down>  :5wincmd +<CR>
+"nnoremap <silent> <S-Left>  :5wincmd <<CR>
+"nnoremap <silent> <S-Right> :5wincmd ><CR>
+"nnoremap <silent> <S-Up>    :5wincmd -<CR>
+"nnoremap <silent> <S-Down>  :5wincmd +<CR>
 "バッファの一覧・移動・削除です。QuickBuf使うまでもないときに。
 nnoremap bb :b#<CR>
 nnoremap bp :bprevious<CR>
@@ -296,11 +300,11 @@ set pastetoggle=<F10>
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 ".vimrc<e3><82><92>"nnoremap"で検索したときで、
 
-"" CTRL-hjklでウィンドウ移動
-nnoremap <C-j> :<C-w>j
-nnoremap <C-k> :<C-k>j
-nnoremap <C-l> :<C-l>j
-nnoremap <C-h> :<C-h>j
+" CTRL-hjklでウィンドウ移動
+"nnoremap <C-j> :<C-w>j
+"nnoremap <C-k> :<C-k>j
+"nnoremap <C-l> :<C-l>j
+"nnoremap <C-h> :<C-h>j
 
 """" http://code-life.net/?p=2704
 "Quick Escaping
@@ -354,7 +358,7 @@ let NERDShutUp = 1 "no alart undfined filetype
 let g:rails_level=3
 
 " https://github.com/jelera/vim-javascript-syntax
-"au FileType javascript call JavaScriptFold
+au FileType javascript call JavaScriptFold
 
 " https://github.com/jiangmiao/simple-javascript-indenter
 " この設定入れるとshiftwidthを1にしてインデントしてくれる
@@ -513,8 +517,8 @@ let g:user_zen_settings = {
 
 " https://github.com/tyru/open-browser.vim
 " カーソル下のURLをブラウザで開く
-nmap <Leader>o <Plug>(openbrowser-open)
-vmap <Leader>o <Plug>(openbrowser-open)
+nnoremap <Leader>o <Plug>(openbrowser-open)
+vnoremap <Leader>o <Plug>(openbrowser-open)
 " ググる
 nnoremap <Leader>g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 

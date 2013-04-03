@@ -354,7 +354,7 @@ let NERDShutUp = 1 "no alart undfined filetype
 let g:rails_level=3
 
 " https://github.com/jelera/vim-javascript-syntax
-au FileType javascript call JavaScriptFold
+"au FileType javascript call JavaScriptFold
 
 " https://github.com/jiangmiao/simple-javascript-indenter
 " この設定入れるとshiftwidthを1にしてインデントしてくれる
@@ -540,10 +540,10 @@ function! JasmineSetting()
   au BufRead,BufNewFile *Helper.js,*Spec.js  set filetype=jasmine.javascript
   au BufRead,BufNewFile *Helper.coffee,*Spec.coffee  set filetype=jasmine.coffee
   au BufRead,BufNewFile,BufReadPre *Helper.coffee,*Spec.coffee  let b:quickrun_config = {'type' : 'coffee'}
-  call jasmine#load_snippets()
-  map <buffer> <leader>m :JasmineRedGreen<CR>
-  command! JasmineRedGreen :call jasmine#redgreen()
-  command! JasmineMake :call jasmine#make()
+  "call jasmine#load_snippets()
+  "map <buffer> <leader>m :JasmineRedGreen<CR>
+  "command! JasmineRedGreen :call jasmine#redgreen()
+  "command! JasmineMake :call jasmine#make()
 endfunction
 au BufRead,BufNewFile,BufReadPre *.coffee,*.js call JasmineSetting()
 

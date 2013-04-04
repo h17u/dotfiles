@@ -61,6 +61,12 @@ NeoBundle 'https://github.com/kchmck/vim-coffee-script'
 NeoBundle 'https://github.com/claco/jasmine.vim'
 NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides'
 NeoBundle 'https://github.com/chazy/cscope_maps'
+NeoBundle 'https://github.com/mojako/ref-sources.vim'
+NeoBundle 'https://github.com/mustardamus/jqapi'
+NeoBundle 'https://github.com/tokuhirom/jsref'
+NeoBundle 'https://github.com/mattn/webapi-vim'
+NeoBundle 'https://github.com/mattn/gist-vim'
+NeoBundle 'https://github.com/vim-scripts/TwitVim'
 
 
 
@@ -153,8 +159,8 @@ set nowrap         " don't wrap lines
 "set list	" タブ文字、行末など不可視文字を表示する  
 "set listchars=eol:$,tab:>\ ,extends:<	" listで表示される文字のフォーマットを指定する
 set clipboard=unnamed "share clipboard on Mac GUI app
-set splitbelow "新しいウィンドウを下に開く
-set splitright "新しいウィンドウを右に開く
+"set splitbelow "新しいウィンドウを下に開く
+"set splitright "新しいウィンドウを右に開く
 
 
 
@@ -298,11 +304,6 @@ set pastetoggle=<F10>
 "-------------------------------------------------
 " Plugin settings
 "-------------------------------------------------
-
-""""http://vim.sourceforge.net/scripts/script.php?script_id=2204
-"let twitvim_login = "tommy_io:password"
-"let twitvim_login_b64 = "dG9tbXlfaW86bWkwazdhbW95bWlndTVNZQ=="
-"let twitvim_count = 50 
 
 """" https://powerline.readthedocs.org/en/latest/overview.html 
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
@@ -457,12 +458,12 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript,coffee setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript,coffee setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 " Enable heavy omni completion.
 "if !exists('g:neocomplcache_omni_patterns')
@@ -486,11 +487,18 @@ autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:syntastic_mode_map = { 'mode': 'active',
   \ 'active_filetypes': [], 
   \ 'passive_filetypes': ['html', 'javascript'] }
-let g:syntastic_auto_loc_list = 1 
+let g:syntastic_auto_loc_list = 2
 let g:syntastic_javascript_checker=['gjslint', 'jshint', 'jslint']
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
-
+let g:syntastic_check_on_open = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_echo_current_error = 1
+let g:syntastic_enable_highlighting = 1
+let g:syntastic_php_php_args = '-l'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 
 " https://github.com/majutsushi/tagbar
@@ -621,5 +629,88 @@ let g:quickrun_config['coffee'] = {
 
 "vim-ref
 let g:ref_open = 'tabnew'
+let g:ref_jquery_doc_path = $HOME . '/.vim/bundle/jqapi'
+let g:ref_javascript_doc_path = $HOME . '/.vim/bundle/jsref/htdocs'
+let g:ref_auto_resize = 1
+let g:ref_wikipedia_lang = ['ja', 'en']
+let g:ref_use_cache = 1
+
+
+
+" https://github.com/mattn/gist-vim
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+let g:github_user = 'h17u'
+
+
+""" twitvim
+let twitvim_count = 40
+nnoremap ,tp :<C-u>PosttoTwitter<CR>
+nnoremap ,tf :<C-u>FriendsTwitter<CR><C-w>j
+nnoremap ,tu :<C-u>UserTwitter<CR><C-w>j
+nnoremap ,tr :<C-u>RepliesTwitter<CR><C-w>j
+nnoremap ,tn :<C-u>NextTwitter<CR>
+
+autocmd FileType twitvim call s:twitvim_my_settings()
+function! s:twitvim_my_settings()
+  set nowrap
+endfunction
+
+
+
+
+"-------------------------------------------------
+" Filetype ユーザー定義関数
+"-------------------------------------------------
+set foldenable
+" set foldmethod=indent
+" set foldnestmax=2
+" set foldminlines=10
+" set fillchars=fold:\ ,vert:\|
+
+" " if you want enable syntax fold, use au FileType .. set foldmethod=syntax
+" set foldmethod=syntax
+" set foldlevelstart=1
+
+" let javaScript_fold=1         " JavaScript
+" let perl_fold=1               " Perl
+" let php_folding=1             " PHP
+" let r_syntax_folding=1        " R
+" let ruby_fold=1               " Ruby
+" let sh_fold_enabled=1         " sh
+" let vimsyn_folding='af'       " Vim script
+" let xml_syntax_folding=1      " XML
+
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+
+" as3
+autocmd FileType actionscript set omnifunc=actionscriptcomplete#CompleteAS
+autocmd FileType actionscript set dictionary+=$HOME/.vim/dict/actionscript.dict
+
+" javascript
+au FileType javascript,coffee set dictionary+=$HOME/.vim/dict/javascript.dict
+au FileType javascript,coffee set dictionary+=$HOME/.vim/dict/node.dict
+au FileType javascript,coffee set dictionary+=$HOME/.vim/dict/jQuery.dict
+
+" autocmd FileType javascript,less,c,ruby,eruby,perl,tex,sass,scss,coffee,html,xhtml :setlocal tabstop=2 shiftwidth=2 softtabstop=2 shiftwidth=2
+autocmd FileType actionscript setlocal noexpandtab
+
+au BufRead,BufNewFile */etc/nginx/* set ft=nginx
+au BufRead,BufNewFile *.json set ft=javascript
+
+" jade
+autocmd FileType jade set commentstring=//-\ %s
+autocmd FileType python set commentstring=#\ %s
+autocmd FileType nginx set commentstring=#\ %s
+
+" C/C++
+au FileType c,cpp set path+=/usr/local/include/**
+
 
 

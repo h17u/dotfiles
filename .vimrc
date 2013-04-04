@@ -164,6 +164,15 @@ set splitright "新しいウィンドウを右に開く
 
 :autocmd BufEnter * let b:did_ftplugin = 1
 
+" Send more characters for redraws
+set ttyfast
+
+" Enable mouse use in all modes
+set mouse=a
+
+" Set this to the name of your terminal that supports mouse codes.
+" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
+set ttymouse=xterm2
 
 
 """"http://vim.sourceforge.net/scripts/script.php?script_id=2204

@@ -175,52 +175,6 @@ set mouse=a
 set ttymouse=xterm2
 
 
-""""http://vim.sourceforge.net/scripts/script.php?script_id=2204
-"let twitvim_login = "tommy_io:password"
-"let twitvim_login_b64 = "dG9tbXlfaW86bWkwazdhbW95bWlndTVNZQ=="
-"let twitvim_count = 50 
-
-"""" https://powerline.readthedocs.org/en/latest/overview.html 
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-
-"""" vim-powerline
-let g:Powerline_symbols = 'fancy'
-set t_Co=256
-"""" https://github.com/altercation/vim-colors-solarized
-syntax enable
-set background=dark
-"set background=light
-let g:solarized_termcolors=256
-let g:solarized_termtrans=0
-let g:solarized_degrade=0
-let g:solarized_bold=1
-let g:solarized_underline=1
-let g:solarized_italic=1
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
-colorscheme solarized
-call togglebg#map("<F5>")
-"foldmethod=marker
-
-"-------------------------------------------------
-" ユーザー定義関数
-"-------------------------------------------------
- 
-" Paste Mode
-" {{{
-let paste_mode = 0 " 0 = normal, 1 = paste
- 
-function! Paste_on_off()
-    if g:paste_mode == 0
-        set paste
-        let g:paste_mode = 1
-    else
-        set nopaste
-        let g:paste_mode = 0
-    endif
-    return
-endfunc
-" }}}
 
 
 
@@ -295,16 +249,6 @@ onoremap gc :<C-u>normal gc<CR>
 "vimrcとgvimrcを再読込。vimrc変更後など。
 "nnoremap <Space>v :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
 
-
-
-"-------------------------------------------------
-" Function ユーザー定義関数
-"-------------------------------------------------
- 
-" Paste Mode <F10>
-nnoremap <silent> <F10> :call Paste_on_off()<CR>
-set pastetoggle=<F10>
-
 "Escの2回押しでハイライト消去
 nmap <ESC><ESC> :nohlsearch<CR><ESC>
 ".vimrc<e3><82><92>"nnoremap"で検索したときで、
@@ -326,9 +270,64 @@ inoremap jj <Esc>
 "nnoremap <leader>rv :source $MYVIMRC<CR>
 
 
+
+"-------------------------------------------------
+" Function ユーザー定義関数
+"-------------------------------------------------
+" Paste Mode
+" {{{
+let paste_mode = 0 " 0 = normal, 1 = paste
+ 
+function! Paste_on_off()
+    if g:paste_mode == 0
+        set paste
+        let g:paste_mode = 1
+    else
+        set nopaste
+        let g:paste_mode = 0
+    endif
+    return
+endfunc
+" }}}
+
+" Paste Mode <F10>
+nnoremap <silent> <F10> :call Paste_on_off()<CR>
+set pastetoggle=<F10>
+
+
+
+
 "-------------------------------------------------
 " Plugin settings
 "-------------------------------------------------
+
+""""http://vim.sourceforge.net/scripts/script.php?script_id=2204
+"let twitvim_login = "tommy_io:password"
+"let twitvim_login_b64 = "dG9tbXlfaW86bWkwazdhbW95bWlndTVNZQ=="
+"let twitvim_count = 50 
+
+"""" https://powerline.readthedocs.org/en/latest/overview.html 
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+
+"""" vim-powerline
+let g:Powerline_symbols = 'fancy'
+set t_Co=256
+"""" https://github.com/altercation/vim-colors-solarized
+syntax enable
+set background=dark
+"set background=light
+let g:solarized_termcolors=256
+let g:solarized_termtrans=0
+let g:solarized_degrade=0
+let g:solarized_bold=1
+let g:solarized_underline=1
+let g:solarized_italic=1
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+colorscheme solarized
+call togglebg#map("<F5>")
+"foldmethod=marker
+
 
 " * evervim {{{
 let g:evervim_devtoken='S=s1:U=f97c:E=14509054a1a:C=13db1541e1b:P=1cd:A=en-devtoken:V=2:H=4279c75fc904e7d3568c455c5f079c96'

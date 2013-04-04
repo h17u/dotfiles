@@ -60,6 +60,7 @@ NeoBundle 'https://github.com/AtsushiM/sass-compile.vim'
 NeoBundle 'https://github.com/kchmck/vim-coffee-script'
 NeoBundle 'https://github.com/claco/jasmine.vim'
 NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides'
+NeoBundle 'https://github.com/chazy/cscope_maps'
 
 
 
@@ -112,6 +113,7 @@ set ruler           " show the cursor position all the time
 "set visualbell t_vb=    " turn off error beep/flash
 "set novisualbell    " turn off visual bell
 "set nobackup        " do not keep a backup file
+set cursorline
 
 
 
@@ -143,10 +145,9 @@ set whichwrap=b,s,h,l,<,>,[,]   " move freely between files
 
 "set autowrite      " auto saves changes when quitting and swiching buffer
 "set expandtab      " tabs are converted to spaces, use only when required
-"set sm             " show matching braces, somewhat annoying...
 set showmatch       " show matching braces, somewhat annoying...
 set matchtime=5
-set wildmenu        " コマンドライン補完するときに補完候補を表示する
+"set wildmenu        " コマンドライン補完するときに補完候補を表示する
 set wildmode=longest:full,list
 set nowrap         " don't wrap lines
 "set list	" タブ文字、行末など不可視文字を表示する  
@@ -174,6 +175,8 @@ set mouse=a
 " Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
 set ttymouse=xterm2
 
+"set backspace=start,eol,indent
+set backspace=eol
 
 
 
@@ -181,10 +184,6 @@ set ttymouse=xterm2
 
 "-------------------------------------------------
 " Mappings キーマッピング
-"-------------------------------------------------
- 
-"-------------------------------------------------
-" Move 移動設定
 "-------------------------------------------------
  
 " insert mode での移動
@@ -268,7 +267,6 @@ inoremap jj <Esc>
  
 "Vimrcの反映
 "nnoremap <leader>rv :source $MYVIMRC<CR>
-
 
 
 "-------------------------------------------------

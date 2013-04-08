@@ -67,6 +67,7 @@ NeoBundle 'https://github.com/tokuhirom/jsref'
 NeoBundle 'https://github.com/mattn/webapi-vim'
 NeoBundle 'https://github.com/mattn/gist-vim'
 NeoBundle 'https://github.com/vim-scripts/TwitVim'
+NeoBundle 'https://github.com/msanders/cocoa.vim'
 
 
 

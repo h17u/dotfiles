@@ -8,11 +8,16 @@ function history-all { history -E 1 } # 全履歴の一覧を出力する
 
 
 # prompt
+#### http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Prompt-Expansion
 local pct=$'%0(?||%18(?||%{\e[31m%}))%#%{\e[m%}'
-export PROMPT=$'%{\e[$[32+RANDOM%5]m%}%U%B%m%b'"$pct%u "
+#export PROMPT=$'%{\e[$[32+RANDOM%5]m%}%U%B%m%b'"$pct%u "
+export PROMPT=$'%{\e[$[32+RANDOM%5]m%}%n@%m'"$pct "
+#export PROMPT="$pct "
 export RPROMPT='[%39<...<%~]' 
+#export RPROMPT='[%n@%m %39<...<%~]' 
 autoload colors
 colors
+#### http://news.mynavi.jp/column/zsh/002/
 #case ${UID} in
 #0)
 #    PROMPT="%B%{${fg[red]}%}%/#%{${reset_color}%}%b "

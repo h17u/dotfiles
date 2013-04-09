@@ -185,8 +185,11 @@ set ttymouse=xterm2
 "set backspace=start,eol,indent
 set backspace=eol
 
+set conceallevel=0
+highlight link HelpBar Normal
+highlight link HelpStar Normal
 
-
+set helpheight=999 " ヘルプを画面いっぱいに開く "
 
 
 "-------------------------------------------------
@@ -366,7 +369,7 @@ let NERDShutUp = 1 "no alart undfined filetype
 let g:rails_level=3
 
 " https://github.com/jelera/vim-javascript-syntax
-au FileType javascript call JavaScriptFold
+"au FileType javascript call JavaScriptFold
 
 " https://github.com/jiangmiao/simple-javascript-indenter
 " この設定入れるとshiftwidthを1にしてインデントしてくれる

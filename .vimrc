@@ -42,8 +42,8 @@ NeoBundle 'https://github.com/vim-scripts/mru.vim'
 NeoBundle 'https://github.com/Townk/vim-autoclose'
 NeoBundle 'https://github.com/vim-ruby/vim-ruby'
 "NeoBundle 'https://github.com/msanders/snipmate.vim'
-NeoBundle 'https://github.com/pangloss/vim-javascript'
-NeoBundle 'https://github.com/jelera/vim-javascript-syntax'
+"NeoBundle 'https://github.com/pangloss/vim-javascript'
+"NeoBundle 'https://github.com/jelera/vim-javascript-syntax'
 NeoBundle 'https://github.com/jiangmiao/simple-javascript-indenter'
 NeoBundle 'https://github.com/vim-scripts/jQuery'
 NeoBundle 'https://github.com/teramako/jscomplete-vim'
@@ -111,7 +111,8 @@ set helplang=ja,en
 
 set laststatus=2
 set tabstop=4       " numbers of spaces of tab character
-"set shiftwidth=4    " numbers of spaces to (auto)indent
+set shiftwidth=4    " numbers of spaces to (auto)indent
+set expandtab
 "set scrolloff=3     " keep 3 lines when scrolling
 set showcmd         " display incomplete commands
 set hlsearch        " highlight searches
@@ -372,9 +373,7 @@ let g:rails_level=3
 "au FileType javascript call JavaScriptFold
 
 " https://github.com/jiangmiao/simple-javascript-indenter
-" この設定入れるとshiftwidthを1にしてインデントしてくれる
 let g:SimpleJsIndenter_BriefMode = 1
-" この設定入れるとswitchのインデントがいくらかマシに
 let g:SimpleJsIndenter_CaseIndentLevel = -1
 
 " https://github.com/vim-scripts/jQuery
@@ -483,14 +482,16 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 
 " https://github.com/teramako/jscomplete-vim
-:let g:jscomplete_use = ['dom', 'moz']
+":let g:jscomplete_use = ['dom', 'moz']
+let g:jscomplete_use = ['dom', 'moz', 'es6th']
 
 
 
 " https://github.com/scrooloose/syntastic
 let g:syntastic_mode_map = { 'mode': 'active',
-  \ 'active_filetypes': [], 
-  \ 'passive_filetypes': ['html', 'javascript'] }
+  \ 'active_filetypes': ['javascript'], 
+  \ 'passive_filetypes': ['html']
+  \}
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_javascript_checker=['gjslint', 'jshint', 'jslint']
 let g:syntastic_python_checkers=['pylint']
@@ -506,7 +507,7 @@ set statusline+=%*
 
 
 " https://github.com/majutsushi/tagbar
-nmap <F8> :TagbarToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
 
 " https://github.com/majutsushi/tagbar
 let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
@@ -517,7 +518,7 @@ let g:tagbar_type_javascript = {
 " https://github.com/mattn/zencoding-vim
 "{{{
 " codaのデフォルトと一緒にする
-imap <C-E> <C-Y>,
+inoremap <C-E> <C-Y>,
 let g:user_zen_leader_key = '<C-Y>'
 " 言語別に対応させる
 let g:user_zen_settings = {
@@ -543,16 +544,16 @@ nnoremap <Leader>g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 
 " https://github.com/tell-k/vim-browsereload-mac
 let g:returnApp = "iTerm"
-nmap <Space>bc :ChromeReloadStart<CR>
-nmap <Space>bC :ChromeReloadStop<CR>
-nmap <Space>bf :FirefoxReloadStart<CR>
-nmap <Space>bF :FirefoxReloadStop<CR>
-nmap <Space>bs :SafariReloadStart<CR>
-nmap <Space>bS :SafariReloadStop<CR>
-nmap <Space>bo :OperaReloadStart<CR>
-nmap <Space>bO :OperaReloadStop<CR>
-nmap <Space>ba :AllBrowserReloadStart<CR>
-nmap <Space>bA :AllBrowserReloadStop<CR>
+nnoremap <Space>bc :ChromeReloadStart<CR>
+nnoremap <Space>bC :ChromeReloadStop<CR>
+nnoremap <Space>bf :FirefoxReloadStart<CR>
+nnoremap <Space>bF :FirefoxReloadStop<CR>
+nnoremap <Space>bs :SafariReloadStart<CR>
+nnoremap <Space>bS :SafariReloadStop<CR>
+nnoremap <Space>bo :OperaReloadStart<CR>
+nnoremap <Space>bO :OperaReloadStop<CR>
+nnoremap <Space>ba :AllBrowserReloadStart<CR>
+nnoremap <Space>bA :AllBrowserReloadStop<CR>
 
 
 " https://github.com/AtsushiM/sass-compile.vim
@@ -609,6 +610,7 @@ let g:indent_guides_enable_on_vim_startup=0
 let g:indent_guides_color_change_percent=20
 let g:indent_guides_guide_size=1
 let g:indent_guides_space_guides=1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 hi IndentGuidesOdd  ctermbg=235
 hi IndentGuidesEven ctermbg=237
@@ -659,6 +661,8 @@ autocmd FileType twitvim call s:twitvim_my_settings()
 function! s:twitvim_my_settings()
   set nowrap
 endfunction
+
+
 
 
 

@@ -30,11 +30,13 @@ tmux new-session -s "$session_name" -n $window_name -d
 # TODO
 # create window failed: index in use: 1
 cd ~
-for i in {1..6}; do
+for i in {1..9}; do
     tmux new-window -t "$session_name:$i" -n "$window_name$i" >/dev/null 2>&1
-    tmux split-window -h -t "$session_name:$i" -p 50
-    tmux select-pane -R -t "$session_name:$i"
-	#tmux send-keys -t "$session_name:$i" "man tmux" C-m
+    if [ $i -gt 5 ]; then
+        tmux split-window -h -t "$session_name:$i" -p 50
+        tmux select-pane -R -t "$session_name:$i"
+        #tmux send-keys -t "$session_name:$i" "man tmux" C-m
+    fi
 done
 
 # Set the default cwd for new windows (optional, otherwise defaults to session cwd)

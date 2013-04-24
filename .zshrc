@@ -134,8 +134,8 @@ fi
 
 
 # key bindings
-#bindkey -e #Emacs
-bindkey -v #VIM
+bindkey -e #Emacs
+#bindkey -v #VIM
 #bindkey -M emacs
 #bindkey -M vicmd
 #bindkey -M viins

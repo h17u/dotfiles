@@ -106,7 +106,8 @@ set encoding=utf-8
 set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
 "set fileencodings=cp932,iso-2022-jp,utf-8,euc-jp
 let $LANG='C'
-set helplang=ja,en
+"set helplang=ja,en
+set helplang=en,ja
 
 
 set laststatus=2
@@ -190,7 +191,7 @@ set conceallevel=0
 highlight link HelpBar Normal
 highlight link HelpStar Normal
 
-set helpheight=999 " ヘルプを画面いっぱいに開く "
+set helpheight=30
 
 
 "-------------------------------------------------
@@ -370,7 +371,7 @@ let NERDShutUp = 1 "no alart undfined filetype
 let g:rails_level=3
 
 " https://github.com/jelera/vim-javascript-syntax
-"au FileType javascript call JavaScriptFold
+au FileType javascript call JavaScriptFold
 
 " https://github.com/jiangmiao/simple-javascript-indenter
 let g:SimpleJsIndenter_BriefMode = 1
@@ -460,13 +461,6 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 
-" Enable omni completion.
-"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript,coffee setlocal omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 " Enable heavy omni completion.
 "if !exists('g:neocomplcache_omni_patterns')
@@ -482,7 +476,6 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 
 " https://github.com/teramako/jscomplete-vim
-":let g:jscomplete_use = ['dom', 'moz']
 let g:jscomplete_use = ['dom', 'moz', 'es6th']
 
 
@@ -494,6 +487,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
   \}
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_javascript_checker=['gjslint', 'jshint', 'jslint']
+let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 let g:syntastic_check_on_open = 1
@@ -501,6 +495,8 @@ let g:syntastic_enable_signs = 1
 let g:syntastic_echo_current_error = 1
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_php_php_args = '-l'
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*

@@ -272,8 +272,10 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 export PATH=$PATH:/opt/local/bin:/opt/local/sbin
 
 # Use vim installed from macport
-alias vi=/opt/local/bin/vim
 alias vim=/opt/local/bin/vim
+alias vi=/opt/local/bin/vim
+alias view=/opt/local/bin/vim
+alias vimdiff=/opt/local/bin/vim
 
 ### Added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH

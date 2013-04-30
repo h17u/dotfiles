@@ -156,14 +156,28 @@ set whichwrap=b,s,h,l,<,>,[,]   " move freely between files
 "set expandtab      " tabs are converted to spaces, use only when required
 set showmatch       " show matching braces, somewhat annoying...
 set matchtime=5
-"set wildmenu        " コマンドライン補完するときに補完候補を表示する
-set wildmode=longest:full,list
+
+set wildmode=longest:full,list:longest
+set wildmenu "turn on wild menu
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*DS_Store*
+set wildignore+=vendor/rails/**
+set wildignore+=vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/Library/**,*/.rbenv/**
+set wildignore+=*/.nx/**,*.app
+
 set nowrap         " don't wrap lines
 "set list	" タブ文字、行末など不可視文字を表示する  
 "set listchars=eol:$,tab:>\ ,extends:<	" listで表示される文字のフォーマットを指定する
 set clipboard=unnamed "share clipboard on Mac GUI app
 "set splitbelow "新しいウィンドウを下に開く
 "set splitright "新しいウィンドウを右に開く
+
+set magic
 
 
 
@@ -306,6 +320,9 @@ inoremap jj <Esc>
  
 "Vimrcの反映
 "nnoremap <leader>rv :source $MYVIMRC<CR>
+
+" Ctrl-s: Easier substitue
+vnoremap <C-s> :s/\%V//g<left><left><left>
 
 
 "-------------------------------------------------

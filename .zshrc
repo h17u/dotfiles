@@ -44,7 +44,11 @@ export TERM=xterm-256color
 export PAGER=less
 export GREP_OPTIONS='--color=auto'
 #export LANG=ja_JP.UTF-8
-export LANG=C
+#export LANG=C
+export LANG=en_US.UTF-8
+#export LC_CTYPE='utf-8'
+export LC_CTYPE=en_US.UTF-8
+unset LC_ALL
 # if user is root
 case ${UID} in
 0)
@@ -375,7 +379,7 @@ man() {
 # Node.js
 export PATH=/usr/local/share/npm/bin:$PATH
 
-# sutojump
+# autojump
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh ]]
 
 
@@ -392,3 +396,41 @@ esac
 export PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 #typeset -U path		# 配列の各要素値から重複するものを削除
+
+if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
+    source $HOME/.zsh/antigen/antigen.zsh
+
+    # Load the oh-my-zsh's library.
+    #antigen-lib
+    antigen-use oh-my-zsh
+
+    # Bundles from the default repo (robbyrussell's oh-my-zsh).
+    antigen bundle brew
+    antigen bundle bundler
+    #    antigen bundle cpanm
+    #    antigen bundle dircycle
+    #    antigen bundle encode64
+    antigen bundle gem
+    #    antigen bundle git
+    #    antigen bundle git-flow
+    #    antigen bundle github
+    antigen bundle heroku
+    antigen bundle npm
+    antigen bundle osx
+    antigen bundle perl
+    antigen bundle pip
+    antigen bundle python
+    antigen bundle rails3
+    antigen bundle rbenv
+    antigen bundle ruby
+    antigen bundle urltools
+    antigen bundle command-not-found
+    antigen bundle zsh-users/zsh-syntax-highlighting
+    #    antigen bundle zsh-users/zsh-completions
+
+    # Tell antigen that you're done.
+    antigen-apply
+fi
+
+# tmuxinator
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator

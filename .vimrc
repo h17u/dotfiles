@@ -68,6 +68,12 @@ NeoBundle 'https://github.com/mattn/webapi-vim'
 NeoBundle 'https://github.com/mattn/gist-vim'
 NeoBundle 'https://github.com/vim-scripts/TwitVim'
 NeoBundle 'https://github.com/msanders/cocoa.vim'
+NeoBundle 'https://github.com/terryma/vim-multiple-cursors'
+NeoBundle 'https://github.com/terryma/vim-expand-region'
+NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
+"NeoBundle 'https://github.com/kana/vim-textobj-line'
+"NeoBundle 'https://github.com/kana/vim-textobj-entire'
+NeoBundle 'https://github.com/osyo-manga/vim-anzu'
 
 
 
@@ -274,10 +280,10 @@ noremap k gk
 "inoremap []5 [%  %]<LEFT><LEFT><LEFT>
 "inoremap {}5 {%  %}<LEFT><LEFT><LEFT>
 "検索結果に移動したとき、その位置を画面の中央にします。上端とかに移動しても気付きにくいので。
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
+"nnoremap n nzz
+"nnoremap N Nzz
+"nnoremap * *zz
+"nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 "検索時、「/」の入力をエスケープします。
@@ -319,7 +325,7 @@ inoremap jj <Esc>
 "nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR>
  
 "Vimrcの反映
-"nnoremap <leader>rv :source $MYVIMRC<CR>
+"nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " Ctrl-s: Easier substitue
 vnoremap <C-s> :s/\%V//g<left><left><left>
@@ -703,8 +709,82 @@ function! s:twitvim_my_settings()
 endfunction
 
 
+""" https://github.com/terryma/vim-multiple-cursors
+let g:multi_cursor_use_default_mapping=0
+" Default mapping
+let g:multi_cursor_next_key='<C-n>'
+"let g:multi_cursor_prev_key='<C-p>'
+"let g:multi_cursor_skip_key='<C-x>'
+"let g:multi_cursor_quit_key='<Esc>'
+" Map start key separately from next key
+let g:multi_cursor_start_key='<F6>'
+
+let g:multi_cursor_exit_from_visual_mode=1
+let g:multi_cursor_exit_from_insert_mode=1
+" Default highlighting (see help :highlight and help :highlight-link)
+highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
+highlight link multiple_cursors_visual Visual
 
 
+""" https://github.com/terryma/vim-expand-region
+" Default settings.
+let g:expand_region_text_objects = {
+      \ 'iw'  :0,
+      \ 'iW'  :0,
+      \ 'i"'  :0,
+      \ 'i''' :0,
+      \ 'i]'  :1,
+      \ 'ib'  :1,
+      \ 'iB'  :1,
+      \ 'il'  :0,
+      \ 'ip'  :0,
+      \ 'ie'  :0,
+      \ }
+" Extend the global default
+call expand_region#custom_text_objects({
+      \ "\/\\n\\n\<CR>": 1,
+      \ 'a]' :1,
+      \ 'ab' :1,
+      \ 'aB' :1,
+      \ 'ii' :0,
+      \ 'ai' :0,
+      \ })
+" Use the following setting for ruby.
+let g:expand_region_text_objects_ruby = {
+      \ 'im' :0,
+      \ 'am' :0,
+      \ }
+" Use the global default + the following for ruby
+call expand_region#custom_text_objects('ruby', {
+      \ 'im' :0,
+      \ 'am' :0,
+      \ })
+let g:expand_region_use_select_mode = 1
+
+
+""" https://github.com/terryma/vim-smooth-scroll
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+""" https://github.com/osyo-manga/vim-anzu
+" n や N の代わりに使用します。
+"nmap n <Plug>(anzu-n)
+"nmap N <Plug>(anzu-N)
+"nmap * <Plug>(anzu-star)
+"nmap # <Plug>(anzu-sharp)
+
+" ステータス情報を statusline へと表示する
+"set statusline=%{anzu#search_status()}
+
+" こっちを使用すると
+" 移動後にステータス情報をコマンドラインへと出力を行います。
+" statusline を使用したくない場合はこっちを使用して下さい。
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
 
 
 "-------------------------------------------------

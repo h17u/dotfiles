@@ -274,6 +274,7 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 # 20120110 MacPort
 export PATH=$PATH:/opt/local/bin:/opt/local/sbin
+export PATH=/usr/local/bin:$PATH
 
 # Use vim installed from macport
 alias vim=/opt/local/bin/vim
@@ -378,6 +379,7 @@ man() {
 
 # Node.js
 export PATH=/usr/local/share/npm/bin:$PATH
+export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
 
 # autojump
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh ]]
@@ -434,3 +436,6 @@ fi
 
 # tmuxinator
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
+# Python
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH

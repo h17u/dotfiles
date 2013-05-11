@@ -273,14 +273,18 @@ export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 # 20120110 MacPort
-export PATH=$PATH:/opt/local/bin:/opt/local/sbin
+#export PATH=$PATH:/opt/local/bin:/opt/local/sbin
 export PATH=/usr/local/bin:$PATH
 
 # Use vim installed from macport
-alias vim=/opt/local/bin/vim
-alias vi=/opt/local/bin/vim
-alias view=/opt/local/bin/vim
-alias vimdiff=/opt/local/bin/vim
+#alias vim=/opt/local/bin/vim
+#alias vi=/opt/local/bin/vim
+#alias view=/opt/local/bin/vim
+#alias vimdiff=/opt/local/bin/vim
+alias vim=$(brew --prefix vim)/bin/vim
+alias vi=$(brew --prefix vim)/bin/vim
+alias view=$(brew --prefix vim)/bin/vim
+alias vimdiff=$(brew --prefix vim)/bin/vim
 
 ### Added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
@@ -390,7 +394,10 @@ case ${UID} in
 0)
     ;;
 *)
-    ~/bin/tmux_open_windows.sh 2>&1
+    # iTerm2
+    if [ $ITERM_SESSION_ID ]; then
+        ~/bin/tmux_open_windows.sh 2>&1
+    fi
 esac
 
 # Remove duplicate $PATH entries

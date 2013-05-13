@@ -416,6 +416,7 @@ nnoremap <silent> ,fmf : <C-u>FufMruFile<CR>
 
 " NEED Commenter
 let NERDShutUp = 1 "no alart undfined filetype
+nnoremap <F7> :NERDTree<CR>
 
 " rails.vim
 let g:rails_level=3
@@ -505,6 +506,7 @@ inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
+" <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
@@ -536,7 +538,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
   \ 'passive_filetypes': ['html']
   \}
 let g:syntastic_auto_loc_list = 2
-let g:syntastic_javascript_checker=['gjslint', 'jshint', 'jslint']
+let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
 let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
@@ -744,7 +746,6 @@ let g:expand_region_text_objects = {
 call expand_region#custom_text_objects({
       \ "\/\\n\\n\<CR>": 1,
       \ 'a]' :1,
-      \ 'ab' :1,
       \ 'aB' :1,
       \ 'ii' :0,
       \ 'ai' :0,

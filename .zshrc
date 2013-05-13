@@ -382,8 +382,11 @@ man() {
 }
 
 # Node.js
-export PATH=/usr/local/share/npm/bin:$PATH
-export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
+export PATH=$PATH:$(npm bin -g 2>/dev/null)
+export NODE_PATH=$NODE_PATH:$(npm prefix -g 2>/dev/null)/lib/node_modules
+# brew install node & npm at /usr/local/homebrew/Cellar/node/0.10.5/
+# npm install n at /usr/local/share/npm/lib/node_modules/n/
+# versionning node managed by n at /usr/local/n/
 
 # autojump
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh ]]
@@ -446,3 +449,13 @@ fi
 
 # Python
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+
+# http://qiita.com/items/81a9daf716d94b63f94f
+alias run-help >/dev/null 2>&1 && unalias run-help
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-openssl
+autoload -Uz run-help-p4
+autoload -Uz run-help-sudo
+autoload -Uz run-help-svk
+autoload -Uz run-help-svn

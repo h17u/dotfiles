@@ -35,8 +35,8 @@ NeoBundle 'git://github.com/tpope/vim-fugitive.git'
 NeoBundle 'https://github.com/scrooloose/nerdtree'
 NeoBundle 'https://github.com/scrooloose/nerdcommenter'
 NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
-NeoBundle 'https://bitbucket.org/ns9tks/vim-l9'
-NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
+"NeoBundle 'https://bitbucket.org/ns9tks/vim-l9'
+"NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
 NeoBundle 'https://github.com/kana/vim-fakeclip'
 NeoBundle 'https://github.com/vim-scripts/mru.vim'
 NeoBundle 'https://github.com/Townk/vim-autoclose'
@@ -74,6 +74,9 @@ NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
 "NeoBundle 'https://github.com/kana/vim-textobj-line'
 "NeoBundle 'https://github.com/kana/vim-textobj-entire'
 NeoBundle 'https://github.com/osyo-manga/vim-anzu'
+NeoBundle 'https://github.com/spolu/dwm.vim'
+NeoBundle 'https://github.com/kannokanno/unite-dwm'
+NeoBundle 'https://github.com/Shougo/vimfiler.vim'
 
 
 
@@ -410,10 +413,10 @@ let g:html_indent_style1 = "inc"
 let g:EasyMotion_leader_key = '<Leader>'
 
 " https://bitbucket.org/ns9tks/vim-fuzzyfinder
-let g:fuf_keyOpen = '<Tab>'
-let g:fuf_keyOpenTabpage = '<CR>'
-nnoremap <silent> ,ff : <C-u>FufFile **/<CR>
-nnoremap <silent> ,fmf : <C-u>FufMruFile<CR>
+"let g:fuf_keyOpen = '<Tab>'
+"let g:fuf_keyOpenTabpage = '<CR>'
+"nnoremap <silent> ,ff : <C-u>FufFile **/<CR>
+"nnoremap <silent> ,fmf : <C-u>FufMruFile<CR>
 
 " NEED Commenter
 let NERDShutUp = 1 "no alart undfined filetype
@@ -789,6 +792,55 @@ nmap n <Plug>(anzu-n-with-echo)
 nmap N <Plug>(anzu-N-with-echo)
 nmap * <Plug>(anzu-star-with-echo)
 nmap # <Plug>(anzu-sharp-with-echo)
+
+""" https://github.com/spolu/dwm.vim
+" dwm.vim 設定（全てデフォルト）
+nnoremap <c-j> <c-w>w
+nnoremap <c-k> <c-w>W
+nmap <m-r> <Plug>DWMRotateCounterclockwise
+nmap <m-t> <Plug>DWMRotateClockwise
+nmap <c-n> <Plug>DWMNew
+nmap <c-c> <Plug>DWMClose
+nmap <c-@> <Plug>DWMFocus
+nmap <c-Space> <Plug>DWMFocus
+nmap <c-l> <Plug>DWMGrowMaster
+nmap <c-h> <Plug>DWMShrinkMaster
+
+""" http://blog.remora.cx/2013/05/use-dwm-in-vim-2.html
+noremap zp :Unite buffer_tab file_mru<CR>
+noremap zn :UniteWithBufferDir -buffer-name=files file file/new<CR>
+noremap zd :Unite dwm<CR>
+ 
+autocmd FileType unite call s:unite_my_settings()
+ 
+function! s:unite_my_settings()
+    " 上下に分割して開く
+    nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+    inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+    " 左右に分割して開く
+    nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
+    inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
+    " タブで開く
+    nnoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
+    inoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
+    " vimfiler で開く
+    nnoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
+    inoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
+    " dwm.vim で開く
+    nnoremap <silent> <buffer> <expr> <C-N> unite#do_action('dwm_new')
+    inoremap <silent> <buffer> <expr> <C-N> unite#do_action('dwm_new')
+    " 終了
+    nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+    inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+endfunction
+ 
+" http://blog.remora.cx/2012/09/use-tabpage.html
+" keybind for tab
+nnoremap <S-Tab> gt
+nnoremap <Tab><Tab> gT
+for i in range(1, 9)
+    execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
+endfor
 
 
 "-------------------------------------------------

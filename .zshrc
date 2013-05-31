@@ -382,8 +382,9 @@ man() {
 }
 
 # Node.js
-export PATH=$PATH:$(npm bin -g 2>/dev/null)
-export NODE_PATH=$NODE_PATH:$(npm prefix -g 2>/dev/null)/lib/node_modules
+export PATH=$PATH:$(npm bin --global 2>/dev/null)
+export NODE_PATH=/usr/local/lib/node:~/.npm:$(npm prefix --global 2>/dev/null)/lib/node_modules
+#export NODE_PATH=$NODE_PATH:/usr/local/lib/jsctags
 # brew install node & npm at /usr/local/homebrew/Cellar/node/0.10.5/
 # npm install n at /usr/local/share/npm/lib/node_modules/n/
 # versionning node managed by n at /usr/local/n/
@@ -407,6 +408,7 @@ esac
 # http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command 
 export PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+export NODE_PATH=`echo -n $NODE_PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 #typeset -U path		# 配列の各要素値から重複するものを削除
 
 if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then

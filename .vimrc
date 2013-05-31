@@ -212,6 +212,7 @@ highlight link HelpBar Normal
 highlight link HelpStar Normal
 
 set helpheight=30
+set tags=tags
 
 " ステータスラインの表示
 " http://blog.ruedap.com/entry/20110712/vim_statusline_git_branch_name
@@ -416,7 +417,8 @@ nnoremap <silent> ,fmf : <C-u>FufMruFile<CR>
 
 " NEED Commenter
 let NERDShutUp = 1 "no alart undfined filetype
-nnoremap <F7> :NERDTree<CR>
+nnoremap <F7> :NERDTreeToggle<CR>
+
 
 " rails.vim
 let g:rails_level=3
@@ -538,7 +540,8 @@ let g:syntastic_mode_map = { 'mode': 'active',
   \ 'passive_filetypes': ['html']
   \}
 let g:syntastic_auto_loc_list = 2
-let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
+"let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
+let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
 let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
@@ -558,10 +561,10 @@ set statusline+=%*
 nnoremap <F8> :TagbarToggle<CR>
 
 " https://github.com/majutsushi/tagbar
-let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-let g:tagbar_type_javascript = {
-    \ 'ctagsbin' : '/usr/local/bin/jsctags'
-    \ }
+"let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+"let g:tagbar_type_javascript = {
+"    \ 'ctagsbin' : '/usr/local/share/npm/bin/jsctags'
+"    \ }
 
 " https://github.com/mattn/zencoding-vim
 "{{{
@@ -843,3 +846,9 @@ au FileType c,cpp set path+=/usr/local/include/**
 
 
 
+"""" http://labs.timedia.co.jp/2011/04/javascript-function-lambda-vim.html
+setlocal conceallevel=2
+syntax keyword javaScriptLambda function conceal cchar=λ
+highlight clear Conceal
+highlight link Conceal Identifier
+highlight link javaScriptLambda Identifier

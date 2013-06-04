@@ -26,20 +26,18 @@ NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
 NeoBundle 'git://github.com/Lokaltog/powerline.git' "Need Python interpriter
 "NeoBundle 'git://github.com/Lokaltog/vim-powerline.git'
-NeoBundle 'migemo', {'type' : 'nosync', 'base' : '~/.vim/bundle/manual'}
-NeoBundleLazy 'git://github.com/kakkyz81/evervim.git', {'command' : [ 'EvervimCreateNote', 'EvervimNotebookList', 'EvervimListTags', 'EvervimSearchByQuery' ] }
-"NeoBundleLazy 'git://github.com/tpope/vim-rails.git', {'autoload': {'filetypes': ['ruby']}}
-NeoBundleLazy 'git://github.com/tpope/vim-rails.git'
-NeoBundle 'git://github.com/tpope/vim-fugitive.git'
-"NeoBundleLazy 'git://github.com/tpope/vim-fugitive.git', {'command' : [ 'Gstatus' ] }
+"NeoBundle 'migemo', {'type' : 'nosync', 'base' : '~/.vim/bundle/manual'}
+"NeoBundleLazy 'git://github.com/kakkyz81/evervim.git', {'command' : [ 'EvervimCreateNote', 'EvervimNotebookList', 'EvervimListTags', 'EvervimSearchByQuery' ] }
+"NeoBundleLazy 'git://github.com/tpope/vim-rails.git'
+"NeoBundle 'git://github.com/tpope/vim-fugitive.git'
 NeoBundle 'https://github.com/scrooloose/nerdtree'
-NeoBundle 'https://github.com/scrooloose/nerdcommenter'
-NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
+"NeoBundle 'https://github.com/scrooloose/nerdcommenter'
+"NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
 "NeoBundle 'https://bitbucket.org/ns9tks/vim-l9'
 "NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
-NeoBundle 'https://github.com/kana/vim-fakeclip'
+"NeoBundle 'https://github.com/kana/vim-fakeclip'
 NeoBundle 'https://github.com/vim-scripts/mru.vim'
-NeoBundle 'https://github.com/Townk/vim-autoclose'
+"NeoBundle 'https://github.com/Townk/vim-autoclose'
 NeoBundle 'https://github.com/vim-ruby/vim-ruby'
 "NeoBundle 'https://github.com/msanders/snipmate.vim'
 "NeoBundle 'https://github.com/pangloss/vim-javascript'
@@ -51,23 +49,23 @@ NeoBundle 'https://github.com/Shougo/neosnippet'
 "NeoBundle 'https://github.com/honza/snipmate-snippets'
 NeoBundle 'https://github.com/majutsushi/tagbar'
 NeoBundle 'https://github.com/mattn/zencoding-vim'
-NeoBundle 'https://github.com/tyru/open-browser.vim'
-NeoBundle 'https://github.com/tyru/open-browser-github.vim'
-NeoBundle 'https://github.com/tell-k/vim-browsereload-mac'
+"NeoBundle 'https://github.com/tyru/open-browser.vim'
+"NeoBundle 'https://github.com/tyru/open-browser-github.vim'
+"NeoBundle 'https://github.com/tell-k/vim-browsereload-mac'
 NeoBundle 'https://github.com/vim-jp/vimdoc-ja'
 NeoBundle 'https://github.com/hail2u/vim-css3-syntax'
 NeoBundle 'https://github.com/AtsushiM/sass-compile.vim'
 NeoBundle 'https://github.com/kchmck/vim-coffee-script'
 NeoBundle 'https://github.com/claco/jasmine.vim'
 NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides'
-NeoBundle 'https://github.com/chazy/cscope_maps'
+"NeoBundle 'https://github.com/chazy/cscope_maps'
 NeoBundle 'https://github.com/mojako/ref-sources.vim'
 NeoBundle 'https://github.com/mustardamus/jqapi'
 NeoBundle 'https://github.com/tokuhirom/jsref'
 NeoBundle 'https://github.com/mattn/webapi-vim'
-NeoBundle 'https://github.com/mattn/gist-vim'
-NeoBundle 'https://github.com/vim-scripts/TwitVim'
-NeoBundle 'https://github.com/msanders/cocoa.vim'
+"NeoBundle 'https://github.com/mattn/gist-vim'
+"NeoBundle 'https://github.com/vim-scripts/TwitVim'
+"NeoBundle 'https://github.com/msanders/cocoa.vim'
 NeoBundle 'https://github.com/terryma/vim-multiple-cursors'
 NeoBundle 'https://github.com/terryma/vim-expand-region'
 NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
@@ -332,7 +330,7 @@ inoremap jj <Esc>
 "nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " Ctrl-s: Easier substitue
-vnoremap <C-s> :s/\%V//g<left><left><left>
+"vnoremap <C-s> :s/\%V//g<left><left><left>
 
 
 "-------------------------------------------------
@@ -419,7 +417,7 @@ let g:EasyMotion_leader_key = '<Leader>'
 "nnoremap <silent> ,fmf : <C-u>FufMruFile<CR>
 
 " NEED Commenter
-let NERDShutUp = 1 "no alart undfined filetype
+"let NERDShutUp = 1 "no alart undfined filetype
 nnoremap <F7> :NERDTreeToggle<CR>
 
 
@@ -565,9 +563,9 @@ nnoremap <F8> :TagbarToggle<CR>
 
 " https://github.com/majutsushi/tagbar
 "let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-"let g:tagbar_type_javascript = {
-"    \ 'ctagsbin' : '/usr/local/share/npm/bin/jsctags'
-"    \ }
+let g:tagbar_type_javascript = {
+    \ 'deffile' : '~/.ctags'
+    \ }
 
 " https://github.com/mattn/zencoding-vim
 "{{{
@@ -720,12 +718,12 @@ endfunction
 """ https://github.com/terryma/vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
 " Default mapping
-let g:multi_cursor_next_key='<C-n>'
+"let g:multi_cursor_next_key='<C-n>'
 "let g:multi_cursor_prev_key='<C-p>'
 "let g:multi_cursor_skip_key='<C-x>'
 "let g:multi_cursor_quit_key='<Esc>'
 " Map start key separately from next key
-let g:multi_cursor_start_key='<F6>'
+"let g:multi_cursor_start_key='<F6>'
 
 let g:multi_cursor_exit_from_visual_mode=1
 let g:multi_cursor_exit_from_insert_mode=1
@@ -841,6 +839,10 @@ nnoremap <Tab><Tab> gT
 for i in range(1, 9)
     execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
 endfor
+
+""" https://github.com/Shougo/vimfiler.vim
+let g:vimfiler_as_default_explorer = 1
+nnoremap <F6> :VimFilerExplorer<CR>
 
 
 "-------------------------------------------------

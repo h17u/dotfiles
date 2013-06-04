@@ -1,2 +1,0 @@
-# mySails
-### a Sails application

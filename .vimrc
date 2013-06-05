@@ -112,6 +112,7 @@ set encoding=utf-8
 "set encoding=shift_jis
 set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
 "set fileencodings=cp932,iso-2022-jp,utf-8,euc-jp
+"set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 let $LANG='C'
 "set helplang=ja,en
 set helplang=en,ja
@@ -564,8 +565,18 @@ nnoremap <F8> :TagbarToggle<CR>
 " https://github.com/majutsushi/tagbar
 "let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
 let g:tagbar_type_javascript = {
-    \ 'deffile' : '~/.ctags'
-    \ }
+    \ 'ctagstype' : 'JavaScript',
+    \ 'kinds'     : [
+        \ 'c:classes',
+        \ 'p:properties',
+        \ 'm:methods',
+        \ 'o:objects',
+        \ 'f:functions',
+        \ 'a:arrays',
+        \ 's:strings',
+        \ 'v:global variables'
+    \ ]
+\ }
 
 " https://github.com/mattn/zencoding-vim
 "{{{

@@ -567,14 +567,14 @@ nnoremap <F8> :TagbarToggle<CR>
 let g:tagbar_type_javascript = {
     \ 'ctagstype' : 'JavaScript',
     \ 'kinds'     : [
-        \ 'c:classes',
-        \ 'p:properties',
-        \ 'm:methods',
-        \ 'o:objects',
-        \ 'f:functions',
-        \ 'a:arrays',
-        \ 's:strings',
-        \ 'v:global variables'
+        \ 'c:class',
+        \ 'p:property',
+        \ 'm:method',
+        \ 'o:object',
+        \ 'f:function',
+        \ 'a:array',
+        \ 's:string',
+        \ 'v:variable'
     \ ]
 \ }
 

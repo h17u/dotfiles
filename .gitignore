@@ -13,4 +13,6 @@
 !/.gitignore_global
 !/.ssh
 !/bin
+!/.ctags
+
 

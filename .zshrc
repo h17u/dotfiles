@@ -388,6 +388,7 @@ export NODE_PATH=/usr/local/lib/node:~/.npm:$(npm prefix --global 2>/dev/null)/l
 # brew install node & npm at /usr/local/homebrew/Cellar/node/0.10.5/
 # npm install n at /usr/local/share/npm/lib/node_modules/n/
 # versionning node managed by n at /usr/local/n/
+# http://nodejs.org/api/modules.html#modules_loading_from_the_global_folders
 
 # autojump
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh ]]

@@ -36,8 +36,8 @@ NeoBundle 'https://github.com/scrooloose/nerdtree'
 "NeoBundle 'https://bitbucket.org/ns9tks/vim-l9'
 "NeoBundle 'https://bitbucket.org/ns9tks/vim-fuzzyfinder'
 "NeoBundle 'https://github.com/kana/vim-fakeclip'
-NeoBundle 'https://github.com/vim-scripts/mru.vim'
-"NeoBundle 'https://github.com/Townk/vim-autoclose'
+"NeoBundle 'https://github.com/vim-scripts/mru.vim'
+NeoBundle 'https://github.com/Townk/vim-autoclose'
 NeoBundle 'https://github.com/vim-ruby/vim-ruby'
 "NeoBundle 'https://github.com/msanders/snipmate.vim'
 "NeoBundle 'https://github.com/pangloss/vim-javascript'
@@ -54,7 +54,7 @@ NeoBundle 'https://github.com/mattn/zencoding-vim'
 "NeoBundle 'https://github.com/tell-k/vim-browsereload-mac'
 NeoBundle 'https://github.com/vim-jp/vimdoc-ja'
 NeoBundle 'https://github.com/hail2u/vim-css3-syntax'
-NeoBundle 'https://github.com/AtsushiM/sass-compile.vim'
+"NeoBundle 'https://github.com/AtsushiM/sass-compile.vim'
 NeoBundle 'https://github.com/kchmck/vim-coffee-script'
 NeoBundle 'https://github.com/claco/jasmine.vim'
 NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides'
@@ -62,7 +62,7 @@ NeoBundle 'https://github.com/nathanaelkane/vim-indent-guides'
 NeoBundle 'https://github.com/mojako/ref-sources.vim'
 NeoBundle 'https://github.com/mustardamus/jqapi'
 NeoBundle 'https://github.com/tokuhirom/jsref'
-NeoBundle 'https://github.com/mattn/webapi-vim'
+"NeoBundle 'https://github.com/mattn/webapi-vim'
 "NeoBundle 'https://github.com/mattn/gist-vim'
 "NeoBundle 'https://github.com/vim-scripts/TwitVim'
 "NeoBundle 'https://github.com/msanders/cocoa.vim'
@@ -75,6 +75,15 @@ NeoBundle 'https://github.com/osyo-manga/vim-anzu'
 NeoBundle 'https://github.com/spolu/dwm.vim'
 NeoBundle 'https://github.com/kannokanno/unite-dwm'
 NeoBundle 'https://github.com/Shougo/vimfiler.vim'
+NeoBundle 'https://github.com/tpope/vim-surround'
+"NeoBundle 'https://github.com/tpope/vim-speeddating'
+"NeoBundle 'https://github.com/tpope/vim-abolish'
+"NeoBundle 'https://github.com/tpope/vim-unimpaired'
+NeoBundle 'https://github.com/tpope/vim-commentary'
+NeoBundle 'https://github.com/tpope/vim-repeat'
+NeoBundle 'https://github.com/fuenor/qfixgrep.git'
+NeoBundle 'https://github.com/glidenote/memolist.vim'
+NeoBundle 'https://github.com/tsukkee/unite-tag'
 
 
 
@@ -181,7 +190,7 @@ set wildignore+=*/.nx/**,*.app
 set nowrap         " don't wrap lines
 "set list	" タブ文字、行末など不可視文字を表示する  
 "set listchars=eol:$,tab:>\ ,extends:<	" listで表示される文字のフォーマットを指定する
-set clipboard=unnamed "share clipboard on Mac GUI app
+set clipboard=unnamed,autoselect
 "set splitbelow "新しいウィンドウを下に開く
 "set splitright "新しいウィンドウを右に開く
 
@@ -598,37 +607,37 @@ let g:user_zen_settings = {
 
 
 " https://github.com/tyru/open-browser.vim
-" カーソル下のURLをブラウザで開く
-nnoremap <Leader>o <Plug>(openbrowser-open)
-vnoremap <Leader>o <Plug>(openbrowser-open)
-" ググる
-nnoremap <Leader>g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
+" " カーソル下のURLをブラウザで開く
+" nnoremap <Leader>o <Plug>(openbrowser-open)
+" vnoremap <Leader>o <Plug>(openbrowser-open)
+" " ググる
+" nnoremap <Leader>g :<C-u>OpenBrowserSearch<Space><C-r><C-w><Enter>
 
 
 " https://github.com/tell-k/vim-browsereload-mac
-let g:returnApp = "iTerm"
-nnoremap <Space>bc :ChromeReloadStart<CR>
-nnoremap <Space>bC :ChromeReloadStop<CR>
-nnoremap <Space>bf :FirefoxReloadStart<CR>
-nnoremap <Space>bF :FirefoxReloadStop<CR>
-nnoremap <Space>bs :SafariReloadStart<CR>
-nnoremap <Space>bS :SafariReloadStop<CR>
-nnoremap <Space>bo :OperaReloadStart<CR>
-nnoremap <Space>bO :OperaReloadStop<CR>
-nnoremap <Space>ba :AllBrowserReloadStart<CR>
-nnoremap <Space>bA :AllBrowserReloadStop<CR>
+" let g:returnApp = "iTerm"
+" nnoremap <Space>bc :ChromeReloadStart<CR>
+" nnoremap <Space>bC :ChromeReloadStop<CR>
+" nnoremap <Space>bf :FirefoxReloadStart<CR>
+" nnoremap <Space>bF :FirefoxReloadStop<CR>
+" nnoremap <Space>bs :SafariReloadStart<CR>
+" nnoremap <Space>bS :SafariReloadStop<CR>
+" nnoremap <Space>bo :OperaReloadStart<CR>
+" nnoremap <Space>bO :OperaReloadStop<CR>
+" nnoremap <Space>ba :AllBrowserReloadStart<CR>
+" nnoremap <Space>bA :AllBrowserReloadStop<CR>
 
 
 " https://github.com/AtsushiM/sass-compile.vim
 "{{{
-let g:sass_compile_auto = 1
-let g:sass_compile_cdloop = 5
-let g:sass_compile_cssdir = ['css', 'stylesheet']
-let g:sass_compile_file = ['scss', 'sass']
-let g:sass_started_dirs = []
+" let g:sass_compile_auto = 1
+" let g:sass_compile_cdloop = 5
+" let g:sass_compile_cssdir = ['css', 'stylesheet']
+" let g:sass_compile_file = ['scss', 'sass']
+" let g:sass_started_dirs = []
  
-autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
-au! BufWritePost * SassCompile
+" autocmd FileType less,sass  setlocal sw=2 sts=2 ts=2 et
+" au! BufWritePost * SassCompile
 "}}}
 
 
@@ -854,6 +863,13 @@ endfor
 """ https://github.com/Shougo/vimfiler.vim
 let g:vimfiler_as_default_explorer = 1
 nnoremap <F6> :VimFilerExplorer<CR>
+
+
+""" https://github.com/fuenor/qfixgrep.git
+let g:memolist_qfixgrep = 1
+map <Leader>ml  :MemoList<CR>
+map <Leader>mn  :MemoNew<CR>
+map <Leader>mg  :MemoGrep<CR>
 
 
 "-------------------------------------------------

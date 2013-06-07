@@ -335,12 +335,28 @@ inoremap jj <Esc>
 
 "どこでもVimrcの編集
 "nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR>
- 
+nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
+
 "Vimrcの反映
 "nnoremap <leader>sv :source $MYVIMRC<CR>
+" Load .gvimrc after .vimrc edited at GVim.
+nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
+nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
 
 " Ctrl-s: Easier substitue
 "vnoremap <C-s> :s/\%V//g<left><left><left>
+
+""" http://whileimautomaton.net/2008/08/vimworkshop3-kana-presentation
+" 検索パターン入力中は/で\/を入力
+" /そのものを入力するには<C-v>/とタイプ
+"cnoremap <expr> /
+"\ getcmdtype() == '/' ? '\/' : '/'
+"
+"cnoremap <expr> ?
+"\ getcmdtype() == '/' ? '\/' : '/'
+
+
 
 
 "-------------------------------------------------
@@ -933,3 +949,9 @@ syntax keyword javaScriptLambda function conceal cchar=λ
 highlight clear Conceal
 highlight link Conceal Identifier
 highlight link javaScriptLambda Identifier
+
+
+
+"""" TODO
+" <Leader> key is not effective?
+" commenter gc conflict to gc, gv

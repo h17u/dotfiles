@@ -274,7 +274,7 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
 # 20120110 MacPort
 #export PATH=$PATH:/opt/local/bin:/opt/local/sbin
-export PATH=/usr/local/bin:$PATH
+#export PATH=/usr/local/bin:$PATH
 
 # Use vim installed from macport
 #alias vim=/opt/local/bin/vim

@@ -227,31 +227,31 @@ set tags=tags
 
 " ステータスラインの表示
 " http://blog.ruedap.com/entry/20110712/vim_statusline_git_branch_name
-  set statusline=%<     " 行が長すぎるときに切り詰める位置
-  set statusline+=[%n]  " バッファ番号
-  set statusline+=%m    " %m 修正フラグ
-  set statusline+=%r    " %r 読み込み専用フラグ
-  set statusline+=%h    " %h ヘルプバッファフラグ
-  set statusline+=%w    " %w プレビューウィンドウフラグ
-  set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fencとffを表示
-  set statusline+=%y    " バッファ内のファイルのタイプ
-  set statusline+=\     " 空白スペース
-if winwidth(0) >= 130
-  set statusline+=%F    " バッファ内のファイルのフルパス
-else
-  set statusline+=%t    " ファイル名のみ
-endif
-  set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
-  set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
-  set statusline+=\ \   " 空白スペース2個
-  set statusline+=%1l   " 何行目にカーソルがあるか
-  set statusline+=/
-  set statusline+=%L    " バッファ内の総行数
-  set statusline+=,
-  set statusline+=%c    " 何列目にカーソルがあるか
-  set statusline+=%V    " 画面上の何列目にカーソルがあるか
-  set statusline+=\ \   " 空白スペース2個
-  set statusline+=%P    " ファイル内の何％の位置にあるか
+  " set statusline=%<     " 行が長すぎるときに切り詰める位置
+  " set statusline+=[%n]  " バッファ番号
+  " set statusline+=%m    " %m 修正フラグ
+  " set statusline+=%r    " %r 読み込み専用フラグ
+  " set statusline+=%h    " %h ヘルプバッファフラグ
+  " set statusline+=%w    " %w プレビューウィンドウフラグ
+  " set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fencとffを表示
+  " set statusline+=%y    " バッファ内のファイルのタイプ
+  " set statusline+=\     " 空白スペース
+" if winwidth(0) >= 130
+  " set statusline+=%F    " バッファ内のファイルのフルパス
+" else
+  " set statusline+=%t    " ファイル名のみ
+" endif
+  " set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
+  " set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
+  " set statusline+=\ \   " 空白スペース2個
+  " set statusline+=%1l   " 何行目にカーソルがあるか
+  " set statusline+=/
+  " set statusline+=%L    " バッファ内の総行数
+  " set statusline+=,
+  " set statusline+=%c    " 何列目にカーソルがあるか
+  " set statusline+=%V    " 画面上の何列目にカーソルがあるか
+  " set statusline+=\ \   " 空白スペース2個
+  " set statusline+=%P    " ファイル内の何％の位置にあるか
 
 "-------------------------------------------------
 " Mappings キーマッピング
@@ -356,6 +356,11 @@ nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
 "cnoremap <expr> ?
 "\ getcmdtype() == '/' ? '\/' : '/'
 
+""" tjump
+nnoremap <c-]> g<c-]>
+vnoremap <c-]> g<c-]>
+nnoremap g<c-]> <c-]>
+vnoremap g<c-]> <c-]>
 
 
 
@@ -941,6 +946,8 @@ autocmd FileType nginx set commentstring=#\ %s
 " C/C++
 au FileType c,cpp set path+=/usr/local/include/**
 
+" ctags
+:autocmd BufWritePost *.js call system('ctags -R')
 
 
 """" http://labs.timedia.co.jp/2011/04/javascript-function-lambda-vim.html

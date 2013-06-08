@@ -309,10 +309,10 @@ nnoremap g# g#zz
 "nnoremap <silent> <S-Up>    :5wincmd -<CR>
 "nnoremap <silent> <S-Down>  :5wincmd +<CR>
 "バッファの一覧・移動・削除です。QuickBuf使うまでもないときに。
-nnoremap bb :b#<CR>
-nnoremap bp :bprevious<CR>
-nnoremap bn :bnext<CR>
-nnoremap bd :bdelete<CR>
+" nnoremap bb :b#<CR>
+" nnoremap bp :bprevious<CR>
+" nnoremap bn :bnext<CR>
+" nnoremap bd :bdelete<CR>
 "「最後に編集したテキスト」を選択するキーマップ。コピペ後などに重宝。「gv」と似て非なる使い勝手。
 nnoremap gc `[v`]
 vnoremap gc :<C-u>normal gc<CR>
@@ -365,6 +365,22 @@ nnoremap <c-]> g<c-]>
 vnoremap <c-]> g<c-]>
 nnoremap g<c-]> <c-]>
 vnoremap g<c-]> <c-]>
+
+""" http://blog.soichiro.org/?p=66
+" ヴィジュアルモードで選択したテキストをnで検索する(レジスタv使用)
+vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
+" gfでカーソル下のファイル名を新しいタブで開く
+nnoremap gf :tabe <cfile><CR>
+vnoremap gf :tabe <cfile><CR>
+" ヤンク、切り取り時にレジスタ"の値をzにもコピーしておく(連続貼付可に使う)
+vnoremap <silent> y y:let @z=@"<CR>
+vnoremap <silent> d d:let @z=@"<CR>
+" ビジュアルモードで選択したテキストを消してレジスタzの内容を貼付ける(連続貼付可)
+vnoremap <silent> p x"zP
+" :makeや:grepをした際に自動的にquickfixが開くようにする
+autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd if len(getqflist()) != 0 | cw | endif
+" ファイルを開いたときに前回の編集箇所に移動
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 
 
 
@@ -432,18 +448,18 @@ call togglebg#map("<F5>")
 "foldmethod=marker
 
 
-" * evervim {{{
-let g:evervim_devtoken='S=s1:U=f97c:E=14509054a1a:C=13db1541e1b:P=1cd:A=en-devtoken:V=2:H=4279c75fc904e7d3568c455c5f079c96'
-nnoremap <silent> ,el :<C-u>EvervimNotebookList<CR>
-nnoremap <silent> ,eT :<C-u>EvervimListTags<CR>
-nnoremap <silent> ,en :<C-u>EvervimCreateNote<CR>
-nnoremap <silent> ,eb :<C-u>EvervimOpenBrowser<CR>
-nnoremap <silent> ,ec :<C-u>EvervimOpenClient<CR>
-nnoremap ,es :<C-u>EvervimSearchByQuery<SPACE>
-nnoremap <silent> ,et :<C-u>EvervimSearchByQuery<SPACE>tag:todo -tag:done -tag:someday<CR>
-nnoremap <silent> ,eta :<C-u>EvervimSearchByQuery<SPACE>tag:todo -tag:done<CR>
-let g:evervim_splitoption=''
-" ------------------------ }}}
+" " * evervim {{{
+" let g:evervim_devtoken='S=s1:U=f97c:E=14509054a1a:C=13db1541e1b:P=1cd:A=en-devtoken:V=2:H=4279c75fc904e7d3568c455c5f079c96'
+" nnoremap <silent> ,el :<C-u>EvervimNotebookList<CR>
+" nnoremap <silent> ,eT :<C-u>EvervimListTags<CR>
+" nnoremap <silent> ,en :<C-u>EvervimCreateNote<CR>
+" nnoremap <silent> ,eb :<C-u>EvervimOpenBrowser<CR>
+" nnoremap <silent> ,ec :<C-u>EvervimOpenClient<CR>
+" nnoremap ,es :<C-u>EvervimSearchByQuery<SPACE>
+" nnoremap <silent> ,et :<C-u>EvervimSearchByQuery<SPACE>tag:todo -tag:done -tag:someday<CR>
+" nnoremap <silent> ,eta :<C-u>EvervimSearchByQuery<SPACE>tag:todo -tag:done<CR>
+" let g:evervim_splitoption=''
+" " ------------------------ }}}
 
 
 " html indentation
@@ -758,17 +774,17 @@ let g:github_user = 'h17u'
 
 
 """ twitvim
-let twitvim_count = 40
-nnoremap ,tp :<C-u>PosttoTwitter<CR>
-nnoremap ,tf :<C-u>FriendsTwitter<CR><C-w>j
-nnoremap ,tu :<C-u>UserTwitter<CR><C-w>j
-nnoremap ,tr :<C-u>RepliesTwitter<CR><C-w>j
-nnoremap ,tn :<C-u>NextTwitter<CR>
+" let twitvim_count = 40
+" nnoremap ,tp :<C-u>PosttoTwitter<CR>
+" nnoremap ,tf :<C-u>FriendsTwitter<CR><C-w>j
+" nnoremap ,tu :<C-u>UserTwitter<CR><C-w>j
+" nnoremap ,tr :<C-u>RepliesTwitter<CR><C-w>j
+" nnoremap ,tn :<C-u>NextTwitter<CR>
 
-autocmd FileType twitvim call s:twitvim_my_settings()
-function! s:twitvim_my_settings()
-  set nowrap
-endfunction
+" autocmd FileType twitvim call s:twitvim_my_settings()
+" function! s:twitvim_my_settings()
+"   set nowrap
+" endfunction
 
 
 """ https://github.com/terryma/vim-multiple-cursors
@@ -831,13 +847,13 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 """ https://github.com/osyo-manga/vim-anzu
 " n や N の代わりに使用します。
-"nmap n <Plug>(anzu-n)
-"nmap N <Plug>(anzu-N)
-"nmap * <Plug>(anzu-star)
-"nmap # <Plug>(anzu-sharp)
+" nmap n <Plug>(anzu-n)
+" nmap N <Plug>(anzu-N)
+" nmap * <Plug>(anzu-star)
+" nmap # <Plug>(anzu-sharp)
 
 " ステータス情報を statusline へと表示する
-"set statusline=%{anzu#search_status()}
+" set statusline=%{anzu#search_status()}
 
 " こっちを使用すると
 " 移動後にステータス情報をコマンドラインへと出力を行います。

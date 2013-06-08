@@ -81,8 +81,8 @@ NeoBundle 'https://github.com/tpope/vim-surround'
 "NeoBundle 'https://github.com/tpope/vim-unimpaired'
 NeoBundle 'https://github.com/tpope/vim-commentary'
 NeoBundle 'https://github.com/tpope/vim-repeat'
-NeoBundle 'https://github.com/fuenor/qfixgrep.git'
-NeoBundle 'https://github.com/glidenote/memolist.vim'
+" NeoBundle 'https://github.com/fuenor/qfixgrep.git'
+" NeoBundle 'https://github.com/glidenote/memolist.vim'
 NeoBundle 'https://github.com/tsukkee/unite-tag'
 NeoBundle 'https://github.com/h1mesuke/unite-outline'
 NeoBundle 'https://github.com/kien/ctrlp.vim'
@@ -345,6 +345,7 @@ nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
 "Vimrcの反映
 "nnoremap <leader>sv :source $MYVIMRC<CR>
 " Load .gvimrc after .vimrc edited at GVim.
+nnoremap <silent> <Leader>sv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
 nnoremap <silent> <Space>sv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
 nnoremap <silent> <Space>sg :<C-u>source $MYGVIMRC<CR>
 
@@ -894,40 +895,68 @@ nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
 
 """ http://blog.remora.cx/2013/05/use-dwm-in-vim-2.html
-noremap zp :Unite buffer buffer_tab file_mru<CR>
-noremap zn :UniteWithBufferDir -buffer-name=files file file/new<CR>
-noremap zd :Unite dwm<CR>
+" noremap zp :Unite buffer buffer_tab file_mru<CR>
+" noremap zn :UniteWithBufferDir -buffer-name=files file file/new<CR>
+" noremap zd :Unite dwm<CR>
+"------------------------------------
+" unite.vim
+"------------------------------------
+""" http://blog.sanojimaru.com/post/18534401804/unite-vim
+" 入力モードで開始する(0:no, 1=yes)
+let g:unite_enable_start_insert=0
+" バッファ一覧
+noremap <C-U><C-U> :Unite dwm buffer tab bookmark jump jump_point history/yank<CR>
+" ファイル一覧
+noremap <C-U><C-F> :UniteWithBufferDir -buffer-name=files file file/new<CR>
+" 最近使ったファイルの一覧
+noremap <C-U><C-R> :Unite file_mru<CR>
+" レジスタ一覧
+"noremap <C-U><C-Y> :Unite -buffer-name=register register<CR>
+noremap <C-U><C-Y> :Unite -buffer-name=register register history/yank<CR>
+" ファイルとバッファ
+" noremap <C-U><C-U> :Unite buffer file_mru<CR>
+" Key mappings
+noremap <C-U><C-M> :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+" 全部
+noremap <C-U><C-A> :UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" ESCキーを2回押すと終了する
+" au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+" au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+" ファイル内検索
+nnoremap ? :<C-u>Unite -buffer-name=search line/fast -start-insert -vertical -winwidth=30 -no-quit<CR>
+""" https://github.com/h1mesuke/unite-outline
+" Outline
+nnoremap <C-U><C-O> :<C-u>Unite outline -vertical -winwidth=30 -no-quit<CR>
  
-autocmd FileType unite call s:unite_my_settings()
+" autocmd FileType unite call s:unite_my_settings()
+" function! s:unite_my_settings()
+"     " 上下に分割して開く
+"     nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+"     inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
+"     " 左右に分割して開く
+"     nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
+"     inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
+"     " タブで開く
+"     nnoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
+"     inoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
+"     " vimfiler で開く
+"     nnoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
+"     inoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
+"     " dwm.vim で開く
+"     nnoremap <silent> <buffer> <expr> <C-N> unite#do_action('dwm_new')
+"     inoremap <silent> <buffer> <expr> <C-N> unite#do_action('dwm_new')
+"     " 終了
+"     nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
+"     inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
+" endfunction
  
-function! s:unite_my_settings()
-    " 上下に分割して開く
-    nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-    inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-    " 左右に分割して開く
-    nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-    inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-    " タブで開く
-    nnoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
-    inoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
-    " vimfiler で開く
-    nnoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
-    inoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
-    " dwm.vim で開く
-    nnoremap <silent> <buffer> <expr> <C-N> unite#do_action('dwm_new')
-    inoremap <silent> <buffer> <expr> <C-N> unite#do_action('dwm_new')
-    " 終了
-    nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-    inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-endfunction
- 
-" http://blog.remora.cx/2012/09/use-tabpage.html
-" keybind for tab
-nnoremap <S-Tab> gt
-nnoremap <Tab><Tab> gT
-for i in range(1, 9)
-    execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
-endfor
+""" http://blog.remora.cx/2012/09/use-tabpage.html
+""" keybind for tab
+" nnoremap <S-Tab> gt
+" nnoremap <Tab><Tab> gT
+" for i in range(1, 9)
+"     execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
+" endfor
 
 """ https://github.com/Shougo/vimfiler.vim
 let g:vimfiler_as_default_explorer = 1
@@ -935,10 +964,10 @@ nnoremap <F6> :VimFilerExplorer<CR>
 
 
 """ https://github.com/fuenor/qfixgrep.git
-let g:memolist_qfixgrep = 1
-map <Leader>ml  :MemoList<CR>
-map <Leader>mn  :MemoNew<CR>
-map <Leader>mg  :MemoGrep<CR>
+" let g:memolist_qfixgrep = 1
+" map <Leader>ml  :MemoList<CR>
+" map <Leader>mn  :MemoNew<CR>
+" map <Leader>mg  :MemoGrep<CR>
 
 """ https://github.com/kien/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
@@ -950,8 +979,6 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
-""" https://github.com/h1mesuke/unite-outline
-nnoremap <silent> <Leader>o :<C-u>Unite -vertical -winwidth=30 -no-quit outline<CR>
 
 
 

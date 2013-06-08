@@ -98,7 +98,7 @@ noremap x :tabclose<CR>
 "<S-s>でBloglinesに登録(commandBookmarklet.js)
 "map S :Sub<CR>
 let g:plugin_loader_roots = "~/src/vimperator-plugins/ ~/.vimperator/load/"
-let g:plugin_loader_plugins = "copy,bitly,auto_source.js"
+let g:plugin_loader_plugins = "copy,bitly,auto_source"
 
 
 "+----------------------------------------------------------------------------------------+

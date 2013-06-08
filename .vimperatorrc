@@ -1,7 +1,7 @@
 "2.3.1 (created: 2010/04/07 18:56:53)
 
-set runtimepath=/Users/tommy/.vimperator
-source! /Users/tommy/.vimperatorrc.local
+set runtimepath=~/.vimperator
+source! ~/.vimperatorrc.local
 
 
 "+----------------------------------------------------------------------------------------+
@@ -36,7 +36,10 @@ set previouspattern=\bprev|previous\b,prev,^前(の)?ページ,\b前.*,\b←,^<$
 
 "ページ読み込み時にテキストボックスに自動でフォーカスされないようにする
 "set default search engine to google japan 
-set defsearch=google_ja
+"set defsearch=google_ja
+
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+set editor=vim
 
 
 "+----------------------------------------------------------------------------------------+
@@ -49,7 +52,11 @@ map k 5<C-y>
 
 "!でCSS無効
 "map ! :set invusermode<CR>
-map ,so :source ~/.vimperatorrc<CR>
+noremap <Space>sv :source ~/.vimperatorrc<CR>
+noremap x :tabclose<CR>
+"command -nargs=+ mysearch open site:twilog.org/h17u <args>
+:command -nargs=* google open google <args>
+command! svr source ~/.vimperatorrc
 
 "yで選択範囲をコピー
 "map y :echo 'Yank!'<CR>Y
@@ -90,6 +97,9 @@ map ,so :source ~/.vimperatorrc<CR>
 "map <C-C> :copy titleAndURL<CR>
 "<S-s>でBloglinesに登録(commandBookmarklet.js)
 "map S :Sub<CR>
+let g:plugin_loader_roots = "~/src/vimperator-plugins/ ~/.vimperator/load/"
+let g:plugin_loader_plugins = "copy,bitly,migemo_completion"
+
 
 "+----------------------------------------------------------------------------------------+
 " 未プラグイン化スクリプト

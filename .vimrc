@@ -1,4 +1,4 @@
-" pathogen.vim: manage your runtimepath
+"pathogen.vim: manage your runtimepath
 "https://github.com/tpope/vim-pathogen
 "call pathogen#runtimel_append_all_bundles()
 
@@ -84,6 +84,8 @@ NeoBundle 'https://github.com/tpope/vim-repeat'
 NeoBundle 'https://github.com/fuenor/qfixgrep.git'
 NeoBundle 'https://github.com/glidenote/memolist.vim'
 NeoBundle 'https://github.com/tsukkee/unite-tag'
+NeoBundle 'https://github.com/h1mesuke/unite-outline'
+NeoBundle 'https://github.com/kien/ctrlp.vim'
 
 
 
@@ -227,6 +229,7 @@ set tags=tags
 
 " ステータスラインの表示
 " http://blog.ruedap.com/entry/20110712/vim_statusline_git_branch_name
+set statusline&
   " set statusline=%<     " 行が長すぎるときに切り詰める位置
   " set statusline+=[%n]  " バッファ番号
   " set statusline+=%m    " %m 修正フラグ
@@ -335,14 +338,15 @@ inoremap jj <Esc>
 
 "どこでもVimrcの編集
 "nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<CR>
+nnoremap <silent> <Leader>ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
 
 "Vimrcの反映
 "nnoremap <leader>sv :source $MYVIMRC<CR>
 " Load .gvimrc after .vimrc edited at GVim.
-nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
-nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
+nnoremap <silent> <Space>sv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
+nnoremap <silent> <Space>sg :<C-u>source $MYGVIMRC<CR>
 
 " Ctrl-s: Easier substitue
 "vnoremap <C-s> :s/\%V//g<left><left><left>
@@ -387,6 +391,17 @@ endfunc
 nnoremap <silent> <F10> :call Paste_on_off()<CR>
 set pastetoggle=<F10>
 
+
+""" Alt key treats as meta key
+""" http://blog.remora.cx/2012/07/using-alt-as-meta-in-vim.html
+let c = 'a'
+while c <= 'z'
+    execute "set <M-" . c . ">=\e" . c
+    execute "imap \e" . c . " <M-" . c . ">"
+    execute "set <M-S-" . c . ">=\e" . toupper(c)
+    execute "imap \e" . toupper(c) . " <M-" . c . ">"
+    let c = nr2char(1+char2nr(c))
+endw
 
 
 
@@ -846,7 +861,7 @@ nmap <c-l> <Plug>DWMGrowMaster
 nmap <c-h> <Plug>DWMShrinkMaster
 
 """ http://blog.remora.cx/2013/05/use-dwm-in-vim-2.html
-noremap zp :Unite buffer_tab file_mru<CR>
+noremap zp :Unite buffer buffer_tab file_mru<CR>
 noremap zn :UniteWithBufferDir -buffer-name=files file file/new<CR>
 noremap zd :Unite dwm<CR>
  
@@ -891,6 +906,20 @@ let g:memolist_qfixgrep = 1
 map <Leader>ml  :MemoList<CR>
 map <Leader>mn  :MemoNew<CR>
 map <Leader>mg  :MemoGrep<CR>
+
+""" https://github.com/kien/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'cr'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+""" https://github.com/h1mesuke/unite-outline
+nnoremap <silent> <Leader>o :<C-u>Unite -vertical -winwidth=30 -no-quit outline<CR>
+
 
 
 "-------------------------------------------------

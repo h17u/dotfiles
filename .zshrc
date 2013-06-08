@@ -410,7 +410,7 @@ esac
 export PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export NODE_PATH=`echo -n $NODE_PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
-#typeset -U path		# 配列の各要素値から重複するものを削除
+#typeset -U path cdpath fpath manpath
 
 if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     source $HOME/.zsh/antigen/antigen.zsh

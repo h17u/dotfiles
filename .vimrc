@@ -394,14 +394,14 @@ set pastetoggle=<F10>
 
 """ Alt key treats as meta key
 """ http://blog.remora.cx/2012/07/using-alt-as-meta-in-vim.html
-let c = 'a'
-while c <= 'z'
-    execute "set <M-" . c . ">=\e" . c
-    execute "imap \e" . c . " <M-" . c . ">"
-    execute "set <M-S-" . c . ">=\e" . toupper(c)
-    execute "imap \e" . toupper(c) . " <M-" . c . ">"
-    let c = nr2char(1+char2nr(c))
-endw
+" let c = 'a'
+" while c <= 'z'
+"     execute "set <M-" . c . ">=\e" . c
+"     execute "imap \e" . c . " <M-" . c . ">"
+"     execute "set <M-S-" . c . ">=\e" . toupper(c)
+"     execute "imap \e" . toupper(c) . " <M-" . c . ">"
+"     let c = nr2char(1+char2nr(c))
+" endw
 
 
 

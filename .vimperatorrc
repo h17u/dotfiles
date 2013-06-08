@@ -52,11 +52,11 @@ map k 5<C-y>
 
 "!でCSS無効
 "map ! :set invusermode<CR>
-noremap <Space>sv :source ~/.vimperatorrc<CR>
+noremap <Leader>sv :source ~/.vimperatorrc<CR>
 noremap x :tabclose<CR>
 "command -nargs=+ mysearch open site:twilog.org/h17u <args>
-:command -nargs=* google open google <args>
-command! svr source ~/.vimperatorrc
+:command! -nargs=* google open google <args>
+"command! svr source ~/.vimperatorrc
 
 "yで選択範囲をコピー
 "map y :echo 'Yank!'<CR>Y
@@ -98,7 +98,7 @@ command! svr source ~/.vimperatorrc
 "<S-s>でBloglinesに登録(commandBookmarklet.js)
 "map S :Sub<CR>
 let g:plugin_loader_roots = "~/src/vimperator-plugins/ ~/.vimperator/load/"
-let g:plugin_loader_plugins = "copy,bitly,migemo_completion"
+let g:plugin_loader_plugins = "copy,bitly,auto_source.js"
 
 
 "+----------------------------------------------------------------------------------------+

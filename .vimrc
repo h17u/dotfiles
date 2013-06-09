@@ -577,9 +577,10 @@ let g:neocomplcache_source_rank = {
   \ 'jscomplete' : 500,
   \ }
 
+""" https://github.com/Shougo/neosnippet
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+imap <C-i>     <Plug>(neosnippet_expand_or_jump)
+smap <C-i>     <Plug>(neosnippet_expand_or_jump)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -961,6 +962,7 @@ vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 "     nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 "     inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 " endfunction
+
  
 """ http://blog.remora.cx/2012/09/use-tabpage.html
 """ keybind for tab

@@ -86,6 +86,8 @@ NeoBundle 'https://github.com/tpope/vim-repeat'
 NeoBundle 'https://github.com/tsukkee/unite-tag'
 NeoBundle 'https://github.com/h1mesuke/unite-outline'
 NeoBundle 'https://github.com/kien/ctrlp.vim'
+NeoBundle 'https://github.com/mileszs/ack.vim'
+NeoBundle 'https://github.com/rking/ag.vim'
 
 
 
@@ -902,8 +904,11 @@ nmap <c-h> <Plug>DWMShrinkMaster
 " unite.vim
 "------------------------------------
 """ http://blog.sanojimaru.com/post/18534401804/unite-vim
-" 入力モードで開始する(0:no, 1=yes)
 let g:unite_enable_start_insert=0
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+let g:unite_source_grep_recursive_opt = ''
+let g:unite_source_grep_max_candidates = 200
 " バッファ一覧
 noremap <C-U><C-U> :Unite dwm buffer tab bookmark jump jump_point history/yank<CR>
 " ファイル一覧
@@ -927,6 +932,8 @@ nnoremap ? :<C-u>Unite -buffer-name=search line/fast -start-insert -vertical -wi
 """ https://github.com/h1mesuke/unite-outline
 " Outline
 nnoremap <C-U><C-O> :<C-u>Unite outline -vertical -winwidth=30 -no-quit<CR>
+" grep by ag
+vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
  
 " autocmd FileType unite call s:unite_my_settings()
 " function! s:unite_my_settings()

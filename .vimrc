@@ -29,7 +29,7 @@ NeoBundle 'git://github.com/Lokaltog/powerline.git' "Need Python interpriter
 "NeoBundle 'migemo', {'type' : 'nosync', 'base' : '~/.vim/bundle/manual'}
 "NeoBundleLazy 'git://github.com/kakkyz81/evervim.git', {'command' : [ 'EvervimCreateNote', 'EvervimNotebookList', 'EvervimListTags', 'EvervimSearchByQuery' ] }
 "NeoBundleLazy 'git://github.com/tpope/vim-rails.git'
-"NeoBundle 'git://github.com/tpope/vim-fugitive.git'
+NeoBundle 'git://github.com/tpope/vim-fugitive.git'
 NeoBundle 'https://github.com/scrooloose/nerdtree'
 "NeoBundle 'https://github.com/scrooloose/nerdcommenter'
 "NeoBundle 'https://github.com/Lokaltog/vim-easymotion'
@@ -68,7 +68,7 @@ NeoBundle 'https://github.com/tokuhirom/jsref'
 "NeoBundle 'https://github.com/msanders/cocoa.vim'
 NeoBundle 'https://github.com/terryma/vim-multiple-cursors'
 NeoBundle 'https://github.com/terryma/vim-expand-region'
-NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
+"NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
 "NeoBundle 'https://github.com/kana/vim-textobj-line'
 "NeoBundle 'https://github.com/kana/vim-textobj-entire'
 NeoBundle 'https://github.com/osyo-manga/vim-anzu'
@@ -166,8 +166,6 @@ set whichwrap=b,s,h,l,<,>,[,]   " move freely between files
 "set autoindent     " always set autoindenting on
 "set smartindent        " smart indent
 
-"set statusline=%F%M%R%=code:%B%H%W "{フルパス},+,RO code:{文字コード},HLP,PRV
-
 "set cindent            " cindent
 "set noautoindent
 "set nosmartindent
@@ -231,32 +229,37 @@ set tags=tags
 
 " ステータスラインの表示
 " http://blog.ruedap.com/entry/20110712/vim_statusline_git_branch_name
-set statusline&
-  " set statusline=%<     " 行が長すぎるときに切り詰める位置
-  " set statusline+=[%n]  " バッファ番号
-  " set statusline+=%m    " %m 修正フラグ
-  " set statusline+=%r    " %r 読み込み専用フラグ
-  " set statusline+=%h    " %h ヘルプバッファフラグ
-  " set statusline+=%w    " %w プレビューウィンドウフラグ
-  " set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fencとffを表示
-  " set statusline+=%y    " バッファ内のファイルのタイプ
-  " set statusline+=\     " 空白スペース
-" if winwidth(0) >= 130
-  " set statusline+=%F    " バッファ内のファイルのフルパス
-" else
-  " set statusline+=%t    " ファイル名のみ
-" endif
-  " set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
-  " set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
-  " set statusline+=\ \   " 空白スペース2個
-  " set statusline+=%1l   " 何行目にカーソルがあるか
-  " set statusline+=/
-  " set statusline+=%L    " バッファ内の総行数
-  " set statusline+=,
-  " set statusline+=%c    " 何列目にカーソルがあるか
-  " set statusline+=%V    " 画面上の何列目にカーソルがあるか
-  " set statusline+=\ \   " 空白スペース2個
-  " set statusline+=%P    " ファイル内の何％の位置にあるか
+"set statusline&
+  set statusline=%<     " 行が長すぎるときに切り詰める位置
+  set statusline+=[%n]  " バッファ番号
+  set statusline+=%m    " %m 修正フラグ
+  set statusline+=%r    " %r 読み込み専用フラグ
+  set statusline+=%h    " %h ヘルプバッファフラグ
+  set statusline+=%w    " %w プレビューウィンドウフラグ
+  set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fileencode, fileformat
+  set statusline+=%y    " バッファ内のファイルのタイプ
+  set statusline+=\     " 空白スペース
+if winwidth(0) >= 130
+  set statusline+=%F    " バッファ内のファイルのフルパス
+else
+  set statusline+=%t    " ファイル名のみ
+endif
+  set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
+  set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
+  set statusline+=\ \   " 空白スペース2個
+  set statusline+=%l   " 何行目にカーソルがあるか
+  set statusline+=/
+  set statusline+=%L    " バッファ内の総行数
+  set statusline+=,
+  set statusline+=\ \   " 空白スペース2個
+  set statusline+=%c    " 何列目にカーソルがあるか
+"  set statusline+=%V    " 画面上の何列目にカーソルがあるか
+  set statusline+=\ \   " 空白スペース2個
+  set statusline+=%P    " ファイル内の何％の位置にあるか
+  set statusline+=\ \   " 空白スペース2個
+  set statusline+=0x%B  " 文字コード
+  set statusline+=\ \   " 空白スペース2個
+
 
 "-------------------------------------------------
 " Mappings キーマッピング
@@ -316,9 +319,10 @@ nnoremap g# g#zz
 " nnoremap bn :bnext<CR>
 " nnoremap bd :bdelete<CR>
 "「最後に編集したテキスト」を選択するキーマップ。コピペ後などに重宝。「gv」と似て非なる使い勝手。
-nnoremap gc `[v`]
-vnoremap gc :<C-u>normal gc<CR>
-onoremap gc :<C-u>normal gc<CR>
+nnoremap gb `[v`]
+" nnoremap gc `[v`]
+" vnoremap gc :<C-u>normal gc<CR>
+" onoremap gc :<C-u>normal gc<CR>
 "表示中のバッファをVimスクリプトと見なして再読込。.vimrc変更後など。
 "nnoremap <Space>r :<C-u>execute "source " expand("%:p")<CR>
 "vimrcとgvimrcを再読込。vimrc変更後など。
@@ -373,8 +377,8 @@ vnoremap g<c-]> <c-]>
 " ヴィジュアルモードで選択したテキストをnで検索する(レジスタv使用)
 vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
 " gfでカーソル下のファイル名を新しいタブで開く
-nnoremap gf :tabe <cfile><CR>
-vnoremap gf :tabe <cfile><CR>
+nnoremap gf :tabedit <cfile><CR>
+vnoremap gf :tabedit <cfile><CR>
 " ヤンク、切り取り時にレジスタ"の値をzにもコピーしておく(連続貼付可に使う)
 vnoremap <silent> y y:let @z=@"<CR>
 vnoremap <silent> d d:let @z=@"<CR>
@@ -446,11 +450,12 @@ endfunction"}}}
 "-------------------------------------------------
 
 """" https://powerline.readthedocs.org/en/latest/overview.html 
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+" set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 """" vim-powerline
 let g:Powerline_symbols = 'fancy'
 set t_Co=256
+
 """" https://github.com/altercation/vim-colors-solarized
 syntax enable
 set background=dark
@@ -628,7 +633,7 @@ let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
 let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_enable_signs = 1
 let g:syntastic_echo_current_error = 1
 let g:syntastic_enable_highlighting = 1
@@ -759,7 +764,7 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 hi IndentGuidesOdd  ctermbg=235
 hi IndentGuidesEven ctermbg=237
 au FileType coffee,ruby,javascript,python IndentGuidesEnable
-nmap <silent><Leader>ig <Plug>IndentGuidesToggle
+" nmap <silent><Leader>ig <Plug>IndentGuidesToggle
 
 
 
@@ -860,28 +865,28 @@ let g:expand_region_use_select_mode = 1
 
 
 """ https://github.com/terryma/vim-smooth-scroll
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 """ https://github.com/osyo-manga/vim-anzu
 " n や N の代わりに使用します。
-" nmap n <Plug>(anzu-n)
-" nmap N <Plug>(anzu-N)
-" nmap * <Plug>(anzu-star)
-" nmap # <Plug>(anzu-sharp)
+nmap n <Plug>(anzu-n)
+nmap N <Plug>(anzu-N)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
 
 " ステータス情報を statusline へと表示する
-" set statusline=%{anzu#search_status()}
+set statusline+=%{anzu#search_status()}
 
 " こっちを使用すると
 " 移動後にステータス情報をコマンドラインへと出力を行います。
 " statusline を使用したくない場合はこっちを使用して下さい。
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-nmap * <Plug>(anzu-star-with-echo)
-nmap # <Plug>(anzu-sharp-with-echo)
+" nmap n <Plug>(anzu-n-with-echo)
+" nmap N <Plug>(anzu-N-with-echo)
+" nmap * <Plug>(anzu-star-with-echo)
+" nmap # <Plug>(anzu-sharp-with-echo)
 
 """ https://github.com/spolu/dwm.vim
 " dwm.vim 設定（全てデフォルト）
@@ -959,11 +964,11 @@ vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
  
 """ http://blog.remora.cx/2012/09/use-tabpage.html
 """ keybind for tab
-" nnoremap <S-Tab> gt
-" nnoremap <Tab><Tab> gT
-" for i in range(1, 9)
-"     execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
-" endfor
+nnoremap <S-Tab> gt
+nnoremap <Tab><Tab> gT
+for i in range(1, 9)
+    execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
+endfor
 
 """ https://github.com/Shougo/vimfiler.vim
 let g:vimfiler_as_default_explorer = 1
@@ -979,7 +984,7 @@ nnoremap <F6> :VimFilerExplorer<CR>
 """ https://github.com/kien/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'cr'
+let g:ctrlp_working_path_mode = 'c'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',

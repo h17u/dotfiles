@@ -426,9 +426,9 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     #    antigen bundle dircycle
     #    antigen bundle encode64
     antigen bundle gem
-    #    antigen bundle git
+    antigen bundle git
     #    antigen bundle git-flow
-    #    antigen bundle github
+    antigen bundle github
     antigen bundle heroku
     antigen bundle npm
     antigen bundle osx

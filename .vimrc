@@ -48,7 +48,7 @@ NeoBundle 'https://github.com/teramako/jscomplete-vim'
 NeoBundle 'https://github.com/Shougo/neosnippet'
 "NeoBundle 'https://github.com/honza/snipmate-snippets'
 NeoBundle 'https://github.com/majutsushi/tagbar'
-NeoBundle 'https://github.com/mattn/zencoding-vim'
+"NeoBundle 'https://github.com/mattn/zencoding-vim'
 "NeoBundle 'https://github.com/tyru/open-browser.vim'
 "NeoBundle 'https://github.com/tyru/open-browser-github.vim'
 "NeoBundle 'https://github.com/tell-k/vim-browsereload-mac'
@@ -66,7 +66,7 @@ NeoBundle 'https://github.com/tokuhirom/jsref'
 "NeoBundle 'https://github.com/mattn/gist-vim'
 "NeoBundle 'https://github.com/vim-scripts/TwitVim'
 "NeoBundle 'https://github.com/msanders/cocoa.vim'
-NeoBundle 'https://github.com/terryma/vim-multiple-cursors'
+"NeoBundle 'https://github.com/terryma/vim-multiple-cursors'
 NeoBundle 'https://github.com/terryma/vim-expand-region'
 "NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
 "NeoBundle 'https://github.com/kana/vim-textobj-line'
@@ -88,6 +88,7 @@ NeoBundle 'https://github.com/h1mesuke/unite-outline'
 NeoBundle 'https://github.com/kien/ctrlp.vim'
 NeoBundle 'https://github.com/mileszs/ack.vim'
 NeoBundle 'https://github.com/rking/ag.vim'
+NeoBundle 'https://github.com/honza/vim-snippets/'
 
 
 
@@ -530,8 +531,8 @@ let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_min_keyword_length = 3
+let g:neocomplcache_min_syntax_length = 2
+let g:neocomplcache_min_keyword_length = 2
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_plugin_completion_length = {
   \ 'buffer_complete'   : 2,
@@ -566,8 +567,6 @@ let g:neocomplcache_same_filetype_lists = {
   \ 'int-perlsh' : 'perl,ref-perldoc',
   \ 'int-irb'    : 'ruby,ref-refe'
   \ }
-let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
-
 
 if !exists('g:neocomplcache_keyword_patterns')
     let g:neocomplcache_keyword_patterns = {}
@@ -579,17 +578,22 @@ let g:neocomplcache_source_rank = {
 
 """ https://github.com/Shougo/neosnippet
 " Plugin key-mappings.
-imap <C-i>     <Plug>(neosnippet_expand_or_jump)
-smap <C-i>     <Plug>(neosnippet_expand_or_jump)
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/snippets' + ',' + '~/.vim/bundle/vim-snippets/snippets'
+
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
@@ -814,20 +818,20 @@ let g:github_user = 'h17u'
 
 
 """ https://github.com/terryma/vim-multiple-cursors
-let g:multi_cursor_use_default_mapping=0
-" Default mapping
-"let g:multi_cursor_next_key='<C-n>'
-"let g:multi_cursor_prev_key='<C-p>'
-"let g:multi_cursor_skip_key='<C-x>'
-"let g:multi_cursor_quit_key='<Esc>'
-" Map start key separately from next key
-"let g:multi_cursor_start_key='<F6>'
+" let g:multi_cursor_use_default_mapping=0
+" " Default mapping
+" let g:multi_cursor_next_key='<C-n>'
+" let g:multi_cursor_prev_key='<C-p>'
+" let g:multi_cursor_skip_key='<C-x>'
+" let g:multi_cursor_quit_key='<Esc>'
+" " Map start key separately from next key
+" let g:multi_cursor_start_key='<F6>'
 
-let g:multi_cursor_exit_from_visual_mode=1
-let g:multi_cursor_exit_from_insert_mode=1
-" Default highlighting (see help :highlight and help :highlight-link)
-highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
-highlight link multiple_cursors_visual Visual
+" let g:multi_cursor_exit_from_visual_mode=1
+" let g:multi_cursor_exit_from_insert_mode=1
+" " Default highlighting (see help :highlight and help :highlight-link)
+" highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
+" highlight link multiple_cursors_visual Visual
 
 
 """ https://github.com/terryma/vim-expand-region

@@ -380,6 +380,7 @@ vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><C
 " gfでカーソル下のファイル名を新しいタブで開く
 nnoremap gf :tabedit <cfile><CR>
 vnoremap gf :tabedit <cfile><CR>
+nnoremap gF :call DWM_New_With_Filepath(expand('<cfile>'))<CR>
 " ヤンク、切り取り時にレジスタ"の値をzにもコピーしておく(連続貼付可に使う)
 vnoremap <silent> y y:let @z=@"<CR>
 vnoremap <silent> d d:let @z=@"<CR>
@@ -578,9 +579,9 @@ let g:neocomplcache_source_rank = {
 
 """ https://github.com/Shougo/neosnippet
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <C-K>     <Plug>(neosnippet_expand_or_jump)
+smap <C-K>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-K>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -593,6 +594,9 @@ endif
 
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/snippets' + ',' + '~/.vim/bundle/vim-snippets/snippets'
+" ~/.vim/bundle/neosnippet/autoload/neosnippet/snippets
+" ~/.vim/bundle/vim-snippets/snippets
+" ~/.vim/snippets
 
 
 " Recommended key-mappings.
@@ -894,18 +898,18 @@ set statusline+=%{anzu#search_status()}
 " nmap # <Plug>(anzu-sharp-with-echo)
 
 """ https://github.com/spolu/dwm.vim
-" dwm.vim 設定（全てデフォルト）
-let g:dwm_map_keys = -1
-nnoremap <c-j> <c-w>w
-nnoremap <c-k> <c-w>W
-nmap <m-r> <Plug>DWMRotateCounterclockwise
-nmap <m-t> <Plug>DWMRotateClockwise
-nmap <c-n> <Plug>DWMNew
-nmap <c-c> <Plug>DWMClose
-nmap <c-@> <Plug>DWMFocus
-nmap <c-Space> <Plug>DWMFocus
-nmap <c-l> <Plug>DWMGrowMaster
-nmap <c-h> <Plug>DWMShrinkMaster
+""" ~/.vim/bundle/dwm.vim/plugin/dwm.vim
+let g:dwm_map_keys = 1 " (1:default keybind)
+" nmap <C-n> <Plug>DWMNew
+" nmap <C-c> <Plug>DWMClose
+" nmap <C-@> <Plug>DWMFocus
+" nmap <C-Space> <Plug>DWMFocus
+" nnoremap <C-j> <c-w>w
+" nnoremap <C-k> <c-w>W
+" nmap <C-,> <Plug>DWMRotateCounterclockwise
+" nmap <C-.> <Plug>DWMRotateClockwise
+" nmap <C-l> <Plug>DWMGrowMaster
+" nmap <C-h> <Plug>DWMShrinkMaster
 
 """ http://blog.remora.cx/2013/05/use-dwm-in-vim-2.html
 " noremap zp :Unite buffer buffer_tab file_mru<CR>
@@ -971,11 +975,11 @@ vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
  
 """ http://blog.remora.cx/2012/09/use-tabpage.html
 """ keybind for tab
-nnoremap <S-Tab> gt
-nnoremap <Tab><Tab> gT
-for i in range(1, 9)
-    execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
-endfor
+" nnoremap <S-Tab> gt
+" nnoremap <Tab><Tab> gT
+" for i in range(1, 9)
+"     execute 'nnoremap <Tab>' . i . ' ' . i . 'gt'
+" endfor
 
 """ https://github.com/Shougo/vimfiler.vim
 let g:vimfiler_as_default_explorer = 1

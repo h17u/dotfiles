@@ -68,7 +68,7 @@ NeoBundle 'https://github.com/tokuhirom/jsref'
 "NeoBundle 'https://github.com/msanders/cocoa.vim'
 "NeoBundle 'https://github.com/terryma/vim-multiple-cursors'
 NeoBundle 'https://github.com/terryma/vim-expand-region'
-"NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
+NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
 "NeoBundle 'https://github.com/kana/vim-textobj-line'
 "NeoBundle 'https://github.com/kana/vim-textobj-entire'
 NeoBundle 'https://github.com/osyo-manga/vim-anzu'
@@ -671,20 +671,20 @@ let g:tagbar_type_javascript = {
 
 " https://github.com/mattn/zencoding-vim
 "{{{
-" codaのデフォルトと一緒にする
-inoremap <C-E> <C-Y>,
-let g:user_zen_leader_key = '<C-Y>'
-" 言語別に対応させる
-let g:user_zen_settings = {
-      \  'lang' : 'ja',
-      \  'html' : {
-      \    'filters' : 'html',
-      \    'indentation' : ' '
-      \  },
-      \  'css' : {
-      \    'filters' : 'fc',
-      \  },
-      \}
+" " codaのデフォルトと一緒にする
+" inoremap <C-E> <C-Y>,
+" let g:user_zen_leader_key = '<C-Y>'
+" " 言語別に対応させる
+" let g:user_zen_settings = {
+"       \  'lang' : 'ja',
+"       \  'html' : {
+"       \    'filters' : 'html',
+"       \    'indentation' : ' '
+"       \  },
+"       \  'css' : {
+"       \    'filters' : 'fc',
+"       \  },
+"       \}
 "}}}
 
 
@@ -870,10 +870,10 @@ let g:expand_region_use_select_mode = 1
 
 
 """ https://github.com/terryma/vim-smooth-scroll
-" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-" noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-" noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 """ https://github.com/osyo-manga/vim-anzu
 " n や N の代わりに使用します。
@@ -895,6 +895,7 @@ set statusline+=%{anzu#search_status()}
 
 """ https://github.com/spolu/dwm.vim
 " dwm.vim 設定（全てデフォルト）
+let g:dwm_map_keys = -1
 nnoremap <c-j> <c-w>w
 nnoremap <c-k> <c-w>W
 nmap <m-r> <Plug>DWMRotateCounterclockwise
@@ -914,34 +915,34 @@ nmap <c-h> <Plug>DWMShrinkMaster
 " unite.vim
 "------------------------------------
 """ http://blog.sanojimaru.com/post/18534401804/unite-vim
-let g:unite_enable_start_insert=0
+let g:unite_enable_start_insert=1
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '--nocolor --nogroup'
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates = 200
 " バッファ一覧
-noremap <C-U><C-U> :Unite dwm buffer tab bookmark jump jump_point history/yank<CR>
+noremap <C-Y><C-B> :Unite dwm buffer tab bookmark jump jump_point history/yank<CR>
 " ファイル一覧
-noremap <C-U><C-F> :UniteWithBufferDir -buffer-name=files file file/new<CR>
+noremap <C-Y><C-F> :UniteWithBufferDir -buffer-name=files file file/new<CR>
 " 最近使ったファイルの一覧
-noremap <C-U><C-R> :Unite file_mru<CR>
+noremap <C-Y><C-H> :Unite file_mru<CR>
 " レジスタ一覧
-"noremap <C-U><C-Y> :Unite -buffer-name=register register<CR>
-noremap <C-U><C-Y> :Unite -buffer-name=register register history/yank<CR>
+"noremap <C-Y><C-Y> :Unite -buffer-name=register register<CR>
+noremap <C-Y><C-Y> :Unite -buffer-name=register register history/yank<CR>
 " ファイルとバッファ
-" noremap <C-U><C-U> :Unite buffer file_mru<CR>
+" noremap <C-Y><C-U> :Unite buffer file_mru<CR>
 " Key mappings
-noremap <C-U><C-M> :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+noremap <C-Y><C-M> :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
 " 全部
-noremap <C-U><C-A> :UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+noremap <C-Y><C-A> :UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 " ESCキーを2回押すと終了する
 " au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 " au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 " ファイル内検索
-nnoremap ? :<C-u>Unite -buffer-name=search line/fast -start-insert -vertical -winwidth=30 -no-quit<CR>
+"nnoremap ? :<C-u>Unite -buffer-name=search line/fast -start-insert -vertical -winwidth=30 -no-quit<CR>
 """ https://github.com/h1mesuke/unite-outline
 " Outline
-nnoremap <C-U><C-O> :<C-u>Unite outline -vertical -winwidth=30 -no-quit<CR>
+nnoremap <C-Y><C-O> :<C-u>Unite outline -vertical -winwidth=30 -no-quit<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
  

@@ -15,13 +15,42 @@ endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'https://github.com/Shougo/neobundle.vim'
-NeoBundle 'https://github.com/Shougo/vimproc'
+" NeoBundle 'https://github.com/Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', '', 'default'
+call neobundle#config('vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ })
 
 "" My Bundles here:
 NeoBundle 'git://github.com/altercation/vim-colors-solarized.git'
-NeoBundle 'git://github.com/Shougo/unite.vim.git'
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-NeoBundle 'git://github.com/thinca/vim-ref.git'
+" NeoBundle 'git://github.com/Shougo/unite.vim.git'
+NeoBundle 'Shougo/unite.vim', '', 'default'
+call neobundle#config('unite.vim',{
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : [{ 'name' : 'Unite',
+      \                   'complete' : 'customlist,unite#complete_source'},
+      \                 'UniteWithCursorWord', 'UniteWithInput']
+      \ }})
+" NeoBundle 'git://github.com/Shougo/neocomplcache.git'
+NeoBundle 'Shougo/neocomplcache', '', 'default'
+call neobundle#config('neocomplcache', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : 'NeoComplCacheEnable',
+      \ }})
+" NeoBundle 'git://github.com/thinca/vim-ref.git'
+NeoBundleLazy 'thinca/vim-ref', { 'autoload' : {
+      \ 'commands' : 'Ref'
+      \ }}
+NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
+      \ 'unite_sources' : ['history/command', 'history/search']
+      \ }}
 NeoBundle 'git://github.com/scrooloose/syntastic.git'
 NeoBundle 'git://github.com/thinca/vim-quickrun.git'
 NeoBundle 'git://github.com/Lokaltog/powerline.git' "Need Python interpriter
@@ -38,14 +67,37 @@ NeoBundle 'https://github.com/scrooloose/nerdtree'
 "NeoBundle 'https://github.com/kana/vim-fakeclip'
 "NeoBundle 'https://github.com/vim-scripts/mru.vim'
 NeoBundle 'https://github.com/Townk/vim-autoclose'
-NeoBundle 'https://github.com/vim-ruby/vim-ruby'
+" NeoBundle 'https://github.com/vim-ruby/vim-ruby'
+NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
+      \ 'mappings' : '<Plug>(ref-keyword)',
+      \ 'filetypes' : 'ruby'
+      \ }}
 "NeoBundle 'https://github.com/msanders/snipmate.vim'
 "NeoBundle 'https://github.com/pangloss/vim-javascript'
 "NeoBundle 'https://github.com/jelera/vim-javascript-syntax'
 NeoBundle 'https://github.com/jiangmiao/simple-javascript-indenter'
 NeoBundle 'https://github.com/vim-scripts/jQuery'
-NeoBundle 'https://github.com/teramako/jscomplete-vim'
-NeoBundle 'https://github.com/Shougo/neosnippet'
+" NeoBundle 'https://github.com/teramako/jscomplete-vim'
+NeoBundleLazy 'teramako/jscomplete-vim', {
+      \ 'autoload' : {
+      \   'filetypes' : 'javascript'
+      \ }}
+" NeoBundle 'https://github.com/Shougo/neosnippet'
+NeoBundle 'Shougo/neocomplcache-rsense', '', 'default'
+call neobundle#config('neocomplcache-rsense', {
+      \ 'lazy' : 1,
+      \ 'depends' : 'Shougo/neocomplcache',
+      \ 'autoload' : { 'filetypes' : 'ruby' }
+      \ })
+
+NeoBundle 'Shougo/neosnippet', '', 'default'
+call neobundle#config('neosnippet', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'insert' : 1,
+      \   'filetypes' : 'snippet',
+      \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
+      \ }})
 "NeoBundle 'https://github.com/honza/snipmate-snippets'
 NeoBundle 'https://github.com/majutsushi/tagbar'
 "NeoBundle 'https://github.com/mattn/zencoding-vim'
@@ -65,6 +117,9 @@ NeoBundle 'https://github.com/tokuhirom/jsref'
 "NeoBundle 'https://github.com/mattn/webapi-vim'
 "NeoBundle 'https://github.com/mattn/gist-vim'
 "NeoBundle 'https://github.com/vim-scripts/TwitVim'
+NeoBundleLazy 'basyura/TweetVim', { 'depends' :
+      \ ['basyura/twibill.vim', 'tyru/open-browser.vim'],
+      \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
 "NeoBundle 'https://github.com/msanders/cocoa.vim'
 "NeoBundle 'https://github.com/terryma/vim-multiple-cursors'
 NeoBundle 'https://github.com/terryma/vim-expand-region'
@@ -74,23 +129,78 @@ NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
 NeoBundle 'https://github.com/osyo-manga/vim-anzu'
 NeoBundle 'https://github.com/spolu/dwm.vim'
 NeoBundle 'https://github.com/kannokanno/unite-dwm'
-NeoBundle 'https://github.com/Shougo/vimfiler.vim'
+" NeoBundle 'https://github.com/Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimfiler', '', 'default'
+call neobundle#config('vimfiler', {
+      \ 'lazy' : 1,
+      \ 'depends' : 'Shougo/unite.vim',
+      \ 'autoload' : {
+      \    'commands' : [
+      \                  { 'name' : 'VimFiler',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  { 'name' : 'VimFilerExplorer',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  { 'name' : 'Edit',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  { 'name' : 'Write',
+      \                    'complete' : 'customlist,vimfiler#complete' },
+      \                  'Read', 'Source'],
+      \    'mappings' : ['<Plug>(vimfiler_switch)'],
+      \    'explorer' : 1,
+      \ }
+      \ })
 NeoBundle 'https://github.com/tpope/vim-surround'
 "NeoBundle 'https://github.com/tpope/vim-speeddating'
 "NeoBundle 'https://github.com/tpope/vim-abolish'
 "NeoBundle 'https://github.com/tpope/vim-unimpaired'
 NeoBundle 'https://github.com/tpope/vim-commentary'
 NeoBundle 'https://github.com/tpope/vim-repeat'
-" NeoBundle 'https://github.com/fuenor/qfixgrep.git'
+NeoBundle 'https://github.com/fuenor/qfixgrep.git'
 " NeoBundle 'https://github.com/glidenote/memolist.vim'
-NeoBundle 'https://github.com/tsukkee/unite-tag'
-NeoBundle 'https://github.com/h1mesuke/unite-outline'
+" NeoBundle 'https://github.com/tsukkee/unite-tag'
+" NeoBundle 'https://github.com/h1mesuke/unite-outline'
+NeoBundle 'Shougo/unite-outline', '', 'default'
+call neobundle#config('unite-outline', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'unite_sources' : 'outline'},
+      \ })
 NeoBundle 'https://github.com/kien/ctrlp.vim'
 NeoBundle 'https://github.com/mileszs/ack.vim'
 NeoBundle 'https://github.com/rking/ag.vim'
 NeoBundle 'https://github.com/honza/vim-snippets/'
-NeoBundle 'https://github.com/tsukkee/unite-help'
-NeoBundle 'https://github.com/kana/vim-niceblock'
+" NeoBundle 'https://github.com/tsukkee/unite-help'
+NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
+      \ 'unite_sources' : 'help'
+      \ }}
+NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
+      \ 'unite_sources' : 'tag'
+      \ }}
+" NeoBundle 'https://github.com/kana/vim-niceblock'
+NeoBundleLazy 'kana/vim-niceblock', { 'autoload' : {
+      \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)']
+      \ }}
+NeoBundle 'Shougo/vimshell', '', 'default'
+call neobundle#config('vimshell', {
+      \ 'lazy' : 1,
+      \ 'autoload' : {
+      \   'commands' : [{ 'name' : 'VimShell',
+      \                   'complete' : 'customlist,vimshell#complete'},
+      \                 'VimShellExecute', 'VimShellInteractive',
+      \                 'VimShellTerminal', 'VimShellPop'],
+      \   'mappings' : ['<Plug>(vimshell_switch)']
+      \ }})
+NeoBundleLazy 'ujihisa/unite-font', {
+      \ 'gui' : 1,
+      \ 'autoload' : {
+      \  'unite_sources' : 'font'
+      \ }}
+NeoBundleLazy 'osyo-manga/unite-quickfix', { 'autoload' : {
+      \ 'unite_sources' : 'quickfix',
+      \ }}
+NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
+      \ 'unite_sources' : 'filetype',
+      \ }}
 
 
 
@@ -965,7 +1075,7 @@ let g:unite_source_grep_default_opts = '--nocolor --nogroup'
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates = 200
 " バッファ一覧
-noremap <C-Y><C-B> :Unite dwm buffer tab bookmark jump jump_point history/yank<CR>
+noremap <C-Y><C-B> :Unite buffer dwm tab bookmark jump jump_point history/yank<CR>
 " ファイル一覧
 noremap <C-Y><C-F> :UniteWithBufferDir -buffer-name=files file file/new<CR>
 " 最近使ったファイルの一覧
@@ -1127,4 +1237,7 @@ highlight link javaScriptLambda Identifier
 " ^vg_"*y と同じことが vil"*y や "*yil
 " 0v$h"*y と同じことが val"*y や "*yal
 
-
+""" grep
+" :Grep -r -i pattern filepath
+" :!grep [option] pattern filepath
+" **/*.vim

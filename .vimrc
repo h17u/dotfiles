@@ -69,8 +69,8 @@ NeoBundle 'https://github.com/tokuhirom/jsref'
 "NeoBundle 'https://github.com/terryma/vim-multiple-cursors'
 NeoBundle 'https://github.com/terryma/vim-expand-region'
 NeoBundle 'https://github.com/terryma/vim-smooth-scroll'
-"NeoBundle 'https://github.com/kana/vim-textobj-line'
-"NeoBundle 'https://github.com/kana/vim-textobj-entire'
+" NeoBundle 'https://github.com/kana/vim-textobj-line'
+" NeoBundle 'https://github.com/kana/vim-textobj-entire'
 NeoBundle 'https://github.com/osyo-manga/vim-anzu'
 NeoBundle 'https://github.com/spolu/dwm.vim'
 NeoBundle 'https://github.com/kannokanno/unite-dwm'
@@ -89,6 +89,8 @@ NeoBundle 'https://github.com/kien/ctrlp.vim'
 NeoBundle 'https://github.com/mileszs/ack.vim'
 NeoBundle 'https://github.com/rking/ag.vim'
 NeoBundle 'https://github.com/honza/vim-snippets/'
+NeoBundle 'https://github.com/tsukkee/unite-help'
+NeoBundle 'https://github.com/kana/vim-niceblock'
 
 
 
@@ -221,12 +223,16 @@ set ttymouse=xterm2
 "set backspace=start,eol,indent
 set backspace=eol
 
-set conceallevel=0
+" set conceallevel=0
 highlight link HelpBar Normal
 highlight link HelpStar Normal
 
 set helpheight=30
 set tags=tags
+:let &keywordprg=':help'
+":set keywordprg=man\ -s
+
+set grepprg=ag
 
 " ステータスラインの表示
 " http://blog.ruedap.com/entry/20110712/vim_statusline_git_branch_name
@@ -447,6 +453,32 @@ function! s:open_junk_file()
 endfunction"}}}
 
 
+""" http://labs.timedia.co.jp/2011/04/9-points-to-customize-automatic-indentation-in-vim.html
+" git-diff-aware version of gf commands.
+"nnoremap <expr> gf  <SID>do_git_diff_aware_gf('gf')
+nnoremap <expr> gF  <SID>do_git_diff_aware_gf('gF')
+nnoremap <expr> <C-w>f  <SID>do_git_diff_aware_gf('<C-w>f')
+nnoremap <expr> <C-w><C-f>  <SID>do_git_diff_aware_gf('<C-w><C-f>')
+nnoremap <expr> <C-w>F  <SID>do_git_diff_aware_gf('<C-w>F')
+nnoremap <expr> <C-w>gf  <SID>do_git_diff_aware_gf('<C-w>gf')
+nnoremap <expr> <C-w>gF  <SID>do_git_diff_aware_gf('<C-w>gF')
+
+function! s:do_git_diff_aware_gf(command)
+  let target_path = expand('<cfile>')
+  if target_path =~# '^[ab]/'  " with a peculiar prefix of git-diff(1)?
+    if filereadable(target_path) || isdirectory(target_path)
+      return a:command
+    else
+      " BUGS: Side effect - Cursor position is changed.
+      let [_, c] = searchpos('\f\+', 'cenW')
+      return c . '|' . 'v' . (len(target_path) - 2 - 1) . 'h' . a:command
+    endif
+  else
+    return a:command
+  endif
+endfunction
+
+
 
 
 "-------------------------------------------------
@@ -588,6 +620,12 @@ xmap <C-K>     <Plug>(neosnippet_expand_target)
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+""" https://gist.github.com/ujihisa/4024286
+imap <expr> <Bslash> (pumvisible() && neosnippet#expandable() % 2 == 1) ?
+      \ "\<Plug>(neosnippet_expand)" : '\'
+imap <C-\> <Plug>(neosnippet_jump)
+smap <C-\> <Plug>(neosnippet_jump)
+nmap <C-\> a<C-\>
 
 " For snippet_complete marker.
 if has('conceal')
@@ -921,7 +959,7 @@ let g:dwm_map_keys = 1 " (1:default keybind)
 " unite.vim
 "------------------------------------
 """ http://blog.sanojimaru.com/post/18534401804/unite-vim
-let g:unite_enable_start_insert=1
+let g:unite_enable_start_insert=0
 let g:unite_source_grep_command = 'ag'
 let g:unite_source_grep_default_opts = '--nocolor --nogroup'
 let g:unite_source_grep_recursive_opt = ''
@@ -931,7 +969,7 @@ noremap <C-Y><C-B> :Unite dwm buffer tab bookmark jump jump_point history/yank<C
 " ファイル一覧
 noremap <C-Y><C-F> :UniteWithBufferDir -buffer-name=files file file/new<CR>
 " 最近使ったファイルの一覧
-noremap <C-Y><C-H> :Unite file_mru<CR>
+noremap <C-Y><C-R> :Unite file_mru<CR>
 " レジスタ一覧
 "noremap <C-Y><C-Y> :Unite -buffer-name=register register<CR>
 noremap <C-Y><C-Y> :Unite -buffer-name=register register history/yank<CR>
@@ -939,6 +977,10 @@ noremap <C-Y><C-Y> :Unite -buffer-name=register register history/yank<CR>
 " noremap <C-Y><C-U> :Unite buffer file_mru<CR>
 " Key mappings
 noremap <C-Y><C-M> :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+" Snippets
+noremap <C-Y><C-S> :Unite snippets<CR>
+" Help
+noremap <C-Y><C-H> :Unite help<CR>
 " 全部
 noremap <C-Y><C-A> :UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 " ESCキーを2回押すと終了する
@@ -1076,3 +1118,13 @@ highlight link javaScriptLambda Identifier
 """" TODO
 " <Leader> key is not effective?
 " commenter gc conflict to gc, gv
+
+"""" Cheet
+" gg=G
+"
+" http://labs.timedia.co.jp/2012/01/vim-textobj-line.html
+" 改行コードを除いて、カーソル行を選択/処理
+" ^vg_"*y と同じことが vil"*y や "*yil
+" 0v$h"*y と同じことが val"*y や "*yal
+
+

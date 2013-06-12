@@ -201,6 +201,10 @@ NeoBundleLazy 'osyo-manga/unite-quickfix', { 'autoload' : {
 NeoBundleLazy 'osyo-manga/unite-filetype', { 'autoload' : {
       \ 'unite_sources' : 'filetype',
       \ }}
+NeoBundleLazy 'kannokanno/vimtest', { 'autoload' : {
+      \ 'commands' : 'VimTest'
+      \ }}
+NeoBundle 'scrooloose/nerdcommenter', '', 'default'
 
 
 
@@ -381,7 +385,17 @@ endif
 "-------------------------------------------------
 " Mappings キーマッピング
 "-------------------------------------------------
- 
+
+" Use ',' instead of '\'.
+" It is not mapped with respect well unless I set it before setting for plug in.
+" Use <Leader> in global plugin.
+let g:mapleader = ','
+" Use <LocalLeader> in filetype plugin.
+" let g:maplocalleader = 'm'
+" nnoremap ; :
+" nnoremap : ;
+
+
 " insert mode での移動
 "inoremap <C-e> <END>
 "inoremap <C-a> <HOME>
@@ -494,10 +508,10 @@ vnoremap g<c-]> <c-]>
 " ヴィジュアルモードで選択したテキストをnで検索する(レジスタv使用)
 vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
 " gfでカーソル下のファイル名を新しいタブで開く
-" nnoremap gf :tabedit <cfile><CR>
-" vnoremap gf :tabedit <cfile><CR>
-nnoremap gf :call DWM_Stack(1)<CR> :vert topleft new <cfile><CR>
-vnoremap gf :call DWM_Stack(1)<CR> :vert topleft new <cfile><CR>
+" nnoremap gF :tabedit <cfile><CR>
+" vnoremap gF :tabedit <cfile><CR>
+nnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
+vnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
 """ ~/.vim/bundle/dwm.vim/plugin/dwm.vim
 " ヤンク、切り取り時にレジスタ"の値をzにもコピーしておく(連続貼付可に使う)
 vnoremap <silent> y y:let @z=@"<CR>
@@ -1057,10 +1071,10 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 """ https://github.com/osyo-manga/vim-anzu
 " n や N の代わりに使用します。
-nmap n <Plug>(anzu-n)
-nmap N <Plug>(anzu-N)
-nmap * <Plug>(anzu-star)
-nmap # <Plug>(anzu-sharp)
+nmap n <Plug>(anzu-n)zz
+nmap N <Plug>(anzu-N)zz
+nmap * <Plug>(anzu-star)zz
+nmap # <Plug>(anzu-sharp)zz
 
 " ステータス情報を statusline へと表示する
 set statusline+=%{anzu#search_status()}
@@ -1117,6 +1131,8 @@ noremap <C-Y><C-M> :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
 noremap <C-Y><C-S> :Unite snippets<CR>
 " Help
 noremap <C-Y><C-H> :Unite help<CR>
+" Execute help by cursor keyword.
+nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 " 全部
 noremap <C-Y><C-A> :UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 " ESCキーを2回押すと終了する
@@ -1182,6 +1198,10 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
+""" https://github.com/scrooloose/nerdcommenter
+let NERDSpaceDelims = 1
+nmap <Leader>c <Plug>NERDCommenterToggle
+vmap <Leader>c <Plug>NERDCommenterToggle
 
 
 

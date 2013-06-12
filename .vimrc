@@ -1,6 +1,85 @@
-"pathogen.vim: manage your runtimepath
-"https://github.com/tpope/vim-pathogen
-"call pathogen#runtimel_append_all_bundles()
+" Initialize:"{{{
+"
+
+if !&compatible
+  " Enable no Vi compatible commands.
+  set nocompatible
+endif
+
+" Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
+
+if exists('&regexpengine')
+  " Use old regexp engine.
+  " set regexpengine=1
+endif
+
+let s:is_windows = has('win16') || has('win32') || has('win64')
+let s:is_cygwin = has('win32unix')
+let s:is_mac = !s:is_windows && !s:is_cygwin
+      \ && (has('mac') || has('macunix') || has('gui_macvim') ||
+      \   (!executable('xdg-open') &&
+      \     system('uname') =~? '^darwin'))
+
+" Use English interface.
+if s:is_windows
+  " For Windows.
+  language message en
+else
+  " For Linux.
+  language message C
+endif
+
+" Use ',' instead of '\'.
+" It is not mapped with respect well unless I set it before setting for plug in.
+" Use <Leader> in global plugin.
+let g:mapleader = ','
+" Use <LocalLeader> in filetype plugin.
+let g:maplocalleader = 'm'
+
+" Release keymappings for plug-in.
+nnoremap ;  <Nop>
+xnoremap ;  <Nop>
+nnoremap m  <Nop>
+xnoremap m  <Nop>
+nnoremap ,  <Nop>
+xnoremap ,  <Nop>
+
+if s:is_windows
+  " Exchange path separator.
+  set shellslash
+endif
+
+" In Windows/Linux, take in a difference of ".vim" and "$VIM/vimfiles".
+let $DOTVIM = expand('~/.vim')
+
+" Because a value is not set in $MYGVIMRC with the console, set it.
+if !exists($MYGVIMRC)
+  let $MYGVIMRC = expand('~/.gvimrc')
+endif
+
+" Anywhere SID.
+function! s:SID_PREFIX()
+  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
+
+function! s:set_default(var, val)
+  if !exists(a:var) || type({a:var}) != type(a:val)
+    silent! unlet {a:var}
+    let {a:var} = a:val
+  endif
+endfunction
+
+" Set augroup.
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
+if filereadable(expand('~/.secret_vimrc'))
+  execute 'source' expand('~/.secret_vimrc')
+endif
+
+let s:neobundle_dir = expand('~/.bundle')
 
 "-------------------------------------------------
 "" NeoBundle プラグイン管理
@@ -205,6 +284,7 @@ NeoBundleLazy 'kannokanno/vimtest', { 'autoload' : {
       \ 'commands' : 'VimTest'
       \ }}
 NeoBundle 'scrooloose/nerdcommenter', '', 'default'
+NeoBundle 'Shougo/context_filetype.vim', '', 'default'
 
 
 
@@ -386,17 +466,6 @@ endif
 "-------------------------------------------------
 " Mappings キーマッピング
 "-------------------------------------------------
-
-" Use ',' instead of '\'.
-" It is not mapped with respect well unless I set it before setting for plug in.
-" Use <Leader> in global plugin.
-let g:mapleader = ','
-" Use <LocalLeader> in filetype plugin.
-" let g:maplocalleader = 'm'
-" nnoremap ; :
-" nnoremap : ;
-
-
 " insert mode での移動
 "inoremap <C-e> <END>
 "inoremap <C-a> <HOME>
@@ -741,6 +810,7 @@ let g:neocomplcache_source_rank = {
 imap <C-K>     <Plug>(neosnippet_expand_or_jump)
 smap <C-K>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-K>     <Plug>(neosnippet_expand_target)
+xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -1126,8 +1196,13 @@ let g:dwm_map_keys = 1 " (1:default keybind)
 
 """" unite-example
 " The prefix key.
+" nnoremap    [unite]   <Nop>
+" nmap    f [unite]
 nnoremap    [unite]   <Nop>
-nmap    f [unite]
+xnoremap    [unite]   <Nop>
+nmap    ;u [unite]
+xmap    ;u [unite]
+
 
 nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir
             \ -buffer-name=files buffer file_mru bookmark file<CR>
@@ -1136,7 +1211,7 @@ nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
 nnoremap <silent> [unite]r  :<C-u>Unite
             \ -buffer-name=register register<CR>
 " nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-nnoremap <silent> [unite]o  :<C-u>Unite outline -vertical -winwidth=30 -no-quit<CR>
+nnoremap <silent> [unite]o  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
 nnoremap <silent> [unite]f
             \ :<C-u>Unite -buffer-name=resume resume<CR>
 nnoremap <silent> [unite]d
@@ -1182,43 +1257,43 @@ let g:unite_source_directory_mru_long_limit = 3000
 "let g:unite_prompt = '❫ '
 "let g:unite_prompt = '» '
 
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-    " Overwrite settings.
-
-    nmap <buffer> <ESC>      <Plug>(unite_exit)
-    imap <buffer> jj      <Plug>(unite_insert_leave)
-    "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-
-    imap <buffer><expr> j unite#smart_map('j', '')
-    imap <buffer> <TAB>   <Plug>(unite_select_next_line)
-    imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-    imap <buffer> '     <Plug>(unite_quick_match_default_action)
-    nmap <buffer> '     <Plug>(unite_quick_match_default_action)
-    imap <buffer><expr> x
-                \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
-    nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
-    nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-    imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-    imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-    nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-    nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
-    nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-    imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-    nnoremap <silent><buffer><expr> l
-                \ unite#smart_map('l', unite#do_action('default'))
-
-    let unite = unite#get_current_unite()
-    if unite.buffer_name =~# '^search'
-        nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-    else
-        nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-    endif
-
-    nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
-    nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-                \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-endfunction
+" autocmd FileType unite call s:unite_my_settings()
+" function! s:unite_my_settings()
+"     " Overwrite settings.
+" 
+"     nmap <buffer> <ESC>      <Plug>(unite_exit)
+"     imap <buffer> jj      <Plug>(unite_insert_leave)
+"     "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+" 
+"     imap <buffer><expr> j unite#smart_map('j', '')
+"     imap <buffer> <TAB>   <Plug>(unite_select_next_line)
+"     imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+"     imap <buffer> '     <Plug>(unite_quick_match_default_action)
+"     nmap <buffer> '     <Plug>(unite_quick_match_default_action)
+"     imap <buffer><expr> x
+"                 \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
+"     nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
+"     nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+"     imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+"     imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+"     nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+"     nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+"     nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+"     imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+"     nnoremap <silent><buffer><expr> l
+"                 \ unite#smart_map('l', unite#do_action('default'))
+" 
+"     let unite = unite#get_current_unite()
+"     if unite.buffer_name =~# '^search'
+"         nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+"     else
+"         nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+"     endif
+" 
+"     nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+"     nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
+"                 \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+" endfunction
 
 let g:unite_source_file_mru_limit = 200
 let g:unite_cursor_line_highlight = 'TabLineSel'
@@ -1227,28 +1302,338 @@ let g:unite_abbr_highlight = 'TabLine'
 " For optimize.
 let g:unite_source_file_mru_filename_format = ''
 
-" grep
-if executable('jvgrep')
+
+
+""""
+"""" ~/src/shougo-s-github/vim/.vimrc
+""""
+nnoremap [unite]u  q:unite<space>
+nnoremap <expr><silent> ;b  <sid>unite_build()
+function! s:unite_build()
+  return ":\<c-u>unite -buffer-name=build". tabpagenr() ." -no-quit build\<cr>"
+endfunction
+nnoremap <silent> ;o
+      \ :<c-u>unite outline -start-insert -resume<cr>
+nnoremap  [unite]f  :<c-u>unite source<cr>
+nnoremap <silent> ;t
+      \ :<c-u>unitewithcursorword -buffer-name=tag tag tag/include<cr>
+xnoremap <silent> ;r
+      \ d:<c-u>unite -buffer-name=register register history/yank<cr>
+nnoremap <silent> ;w
+      \ :<c-u>unitewithcursorword -buffer-name=register
+      \ buffer file_mru bookmark file<cr>
+nnoremap <silent> <c-k>
+      \ :<c-u>unite change jump<cr>
+nnoremap <silent> ;g
+      \ :<c-u>unite grep -buffer-name=search -auto-preview -no-quit -resume<cr>
+nnoremap <silent> ;r
+      \ :<c-u>unite -buffer-name=register register history/yank<cr>
+inoremap <silent><expr> <c-z>
+      \ unite#start_complete('register', { 'input': unite#get_cur_text() })
+
+" <C-t>: Tab pages
+nnoremap <silent><expr> <C-t>
+      \ ":\<C-u>Unite -select=".(tabpagenr()-1)." tab\<CR>"
+
+" <C-w>: Windows operation
+nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
+
+if s:is_windows
+  nnoremap <silent> [Window]s
+        \ :<C-u>Unite -buffer-name=files -no-split -multi-line
+        \ jump_point file_point buffer_tab
+        \ file_rec:! file file/new file_mru<CR>
+else
+  nnoremap <silent> [Window]s
+        \ :<C-u>Unite -buffer-name=files -no-split -multi-line
+        \ jump_point file_point buffer_tab
+        \ file_rec/async:! file file/new file_mru<CR>
+endif
+nnoremap <silent> [Window]w
+      \ :<C-u>Unite window<CR>
+nnoremap <silent> [Space]b
+      \ :<C-u>UniteBookmarkAdd<CR>
+
+" t: tags-and-searches 
+" The prefix key.
+nnoremap    [Tag]   <Nop>
+nmap    t [Tag]
+" Jump.
+" nnoremap [Tag]t  <C-]>
+nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "\<C-]>" :
+      \ ":\<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include\<CR>"
+nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
+      \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
+
+" Tab jump
+for n in range(1, 9)
+  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+endfor
+
+
+" Execute help.
+nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
+
+" Execute help by cursor keyword.
+nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
+
+" Search.
+nnoremap <silent> /
+      \ :<C-u>Unite -buffer-name=search -no-split -start-insert line<CR>
+nnoremap <expr> g/  <SID>smart_search_expr('g/',
+      \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
+nnoremap [Alt]/  g/
+nnoremap <silent> ?
+      \ :<C-u>Unite -buffer-name=search -auto-highlight -start-insert line:backward<CR>
+nnoremap <silent> *
+      \ :<C-u>UniteWithCursorWord -no-split -buffer-name=search line<CR>
+nnoremap [Alt]/       /
+nnoremap [Alt]?       ?
+cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
+      \ "\<ESC>:Unite -buffer-name=search -no-split line -input=".getcmdline()."\<CR>" : "\<C-g>"
+
+function! s:smart_search_expr(expr1, expr2)
+  return line('$') > 5000 ?  a:expr1 : a:expr2
+endfunction
+
+nnoremap <silent> n
+      \ :<C-u>UniteResume search -no-start-insert<CR>
+
+let g:unite_source_history_yank_enable = 1
+
+" For unite-alias.
+let g:unite_source_alias_aliases = {}
+let g:unite_source_alias_aliases.test = {
+      \ 'source' : 'file_rec',
+      \ 'args'   : '~/',
+      \ }
+let g:unite_source_alias_aliases.line_migemo = {
+      \ 'source' : 'line',
+      \ }
+let g:unite_source_alias_aliases.message = {
+      \ 'source' : 'output',
+      \ 'args'   : 'message',
+      \ }
+let g:unite_source_alias_aliases.mes = {
+      \ 'source' : 'output',
+      \ 'args'   : 'message',
+      \ }
+let g:unite_source_alias_aliases.scriptnames = {
+      \ 'source' : 'output',
+      \ 'args'   : 'scriptnames',
+      \ }
+
+" For unite-menu.
+let g:unite_source_menu_menus = {}
+
+let g:unite_source_menu_menus.enc = {
+      \     'description' : 'Open with a specific character code again.',
+      \ }
+let g:unite_source_menu_menus.enc.command_candidates = [
+      \       ['utf8', 'Utf8'],
+      \       ['iso2022jp', 'Iso2022jp'],
+      \       ['cp932', 'Cp932'],
+      \       ['euc', 'Euc'],
+      \       ['utf16', 'Utf16'],
+      \       ['utf16-be', 'Utf16be'],
+      \       ['jis', 'Jis'],
+      \       ['sjis', 'Sjis'],
+      \       ['unicode', 'Unicode'],
+      \     ]
+nnoremap <silent> ;e :<C-u>Unite menu:enc<CR>
+
+let g:unite_source_menu_menus.fenc = {
+      \     'description' : 'Change file fenc option.',
+      \ }
+let g:unite_source_menu_menus.fenc.command_candidates = [
+      \       ['utf8', 'WUtf8'],
+      \       ['iso2022jp', 'WIso2022jp'],
+      \       ['cp932', 'WCp932'],
+      \       ['euc', 'WEuc'],
+      \       ['utf16', 'WUtf16'],
+      \       ['utf16-be', 'WUtf16be'],
+      \       ['jis', 'WJis'],
+      \       ['sjis', 'WSjis'],
+      \       ['unicode', 'WUnicode'],
+      \     ]
+nnoremap <silent> ;f :<C-u>Unite menu:fenc<CR>
+
+let g:unite_source_menu_menus.ff = {
+      \     'description' : 'Change file format option.',
+      \ }
+let g:unite_source_menu_menus.ff.command_candidates = {
+      \       'unix'   : 'WUnix',
+      \       'dos'    : 'WDos',
+      \       'mac'    : 'WMac',
+      \     }
+nnoremap <silent> ;w :<C-u>Unite menu:ff<CR>
+
+let g:unite_source_menu_menus.unite = {
+      \     'description' : 'Start unite sources',
+      \ }
+let g:unite_source_menu_menus.unite.command_candidates = {
+      \       'history'    : 'Unite history/command',
+      \       'quickfix'   : 'Unite qflist -no-quit',
+      \       'resume'     : 'Unite -buffer-name=resume resume',
+      \       'directory'  : 'Unite -buffer-name=files '.
+      \             '-default-action=lcd directory_mru',
+      \       'mapping'    : 'Unite mapping',
+      \       'message'    : 'Unite output:message',
+      \       'scriptnames': 'Unite output:scriptnames',
+      \     }
+nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
+
+let bundle = neobundle#get('unite.vim')
+function! bundle.hooks.on_source(bundle)
+  autocmd MyAutoCmd FileType unite call s:unite_my_settings()
+
+  call unite#set_profile('action', 'context', {'start_insert' : 1})
+
+  " Set "-no-quit" automatically in grep unite source.
+  call unite#set_profile('source/grep', 'context', {'no_quit' : 1})
+
+  " migemo.
+  call unite#custom_source('line_migemo', 'matchers', 'matcher_migemo')
+
+  call unite#custom_source('file_rec', 'sorters', 'sorter_reverse')
+
+  " Custom filters.
+  call unite#custom_source(
+        \ 'buffer,file_rec/async,file_mru', 'matchers',
+        \ ['converter_tail', 'matcher_fuzzy'])
+  call unite#custom_source(
+        \ 'file_rec', 'matchers', ['matcher_fuzzy'])
+  call unite#custom_source(
+        \ 'file_rec/async,file_mru', 'converters',
+        \ ['converter_file_directory'])
+  call unite#filters#sorter_default#use(['sorter_rank'])
+  
+
+  function! s:unite_my_settings() 
+    " Directory partial match.
+    call unite#set_substitute_pattern('files', '^\.v/',
+          \ [expand('~/.vim/'), unite#util#substitute_path_separator($HOME)
+          \ . '/.bundle/*/'], 1000)
+    call unite#custom_alias('file', 'h', 'left')
+    call unite#custom_default_action('directory', 'narrow')
+    " call unite#custom_default_action('file', 'my_tabopen')
+
+    call unite#custom_default_action('versions/git/status', 'commit')
+
+    " call unite#custom_default_action('directory', 'cd')
+
+    " Custom actions.
+    let my_tabopen = {
+          \ 'description' : 'my tabopen items',
+          \ 'is_selectable' : 1,
+          \ }
+    function! my_tabopen.func(candidates) 
+      call unite#take_action('tabopen', a:candidates)
+
+      let dir = isdirectory(a:candidates[0].word) ?
+            \ a:candidates[0].word : fnamemodify(a:candidates[0].word, ':p:h')
+      execute g:unite_kind_openable_lcd_command '`=dir`'
+    endfunction
+    call unite#custom_action('file,buffer', 'tabopen', my_tabopen)
+    unlet my_tabopen
+    
+
+    " Overwrite settings.
+    imap <buffer>  <BS>      <Plug>(unite_delete_backward_path)
+    imap <buffer>  jj      <Plug>(unite_insert_leave)
+    imap <buffer><expr> j unite#smart_map('j', '')
+    imap <buffer> <TAB>   <Plug>(unite_select_next_line)
+    imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+    imap <buffer> '     <Plug>(unite_quick_match_default_action)
+    nmap <buffer> '     <Plug>(unite_quick_match_default_action)
+    imap <buffer><expr> x
+          \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
+    nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
+    nmap <buffer> cd     <Plug>(unite_quick_match_default_action)
+    nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+    imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+    imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+    nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+    nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+    " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+    " imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+    nmap <silent><buffer> <Tab>     :call <SID>NextWindow()<CR>
+    nnoremap <silent><buffer><expr> l
+          \ unite#smart_map('l', unite#do_action('default'))
+    nmap <buffer> <C-e>     <Plug>(unite_narrowing_input_history)
+
+    let unite = unite#get_current_unite()
+    if unite.buffer_name =~# '^search'
+      nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+    else
+      nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+    endif
+
+    nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+    nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
+          \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+  endfunction
+
+  " Variables.
+  let g:unite_enable_split_vertically = 0
+  let g:unite_winheight = 20
+  let g:unite_enable_start_insert = 0
+  let g:unite_enable_short_source_names = 1
+
+  let g:unite_cursor_line_highlight = 'TabLineSel'
+  " let g:unite_abbr_highlight = 'TabLine'
+  " let g:unite_source_file_mru_time_format = ''
+  let g:unite_source_file_mru_filename_format = ':~:.'
+  let g:unite_source_file_mru_limit = 300
+  " let g:unite_source_directory_mru_time_format = ''
+  let g:unite_source_directory_mru_limit = 300
+
+  if s:is_windows
+  else
+    " Like Textmate icons.
+    let g:unite_marked_icon = '✗'
+
+    " Prompt choices.
+    "let g:unite_prompt = '❫ '
+    let g:unite_prompt = '» '
+  endif
+
+  if executable('ag')
+    " Use ag in unite grep source.
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nocolor --nogroup --hidden'
+    let g:unite_source_grep_recursive_opt = ''
+  elseif executable('jvgrep')
     " For jvgrep.
     let g:unite_source_grep_command = 'jvgrep'
     let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
     let g:unite_source_grep_recursive_opt = '-R'
-endif
-if executable('ack-grep')
-    " let g:unite_source_grep_command = 'ack-grep'
-    " let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-    " let g:unite_source_grep_recursive_opt = ''
-endif
-""" http://blog.sanojimaru.com/post/18534401804/unite-vim
-if executable('ag')
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+  elseif executable('ack-grep')
+    " For ack.
+    let g:unite_source_grep_command = 'ack-grep'
+    let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
     let g:unite_source_grep_recursive_opt = ''
-    let g:unite_source_grep_max_candidates = 200
-endif
+  endif
+
+  " let g:unite_build_error_icon    = $DOTVIM . '/signs/err.'
+        " \ . (s:is_windows ? 'bmp' : 'png')
+  " let g:unite_build_warning_icon  = $DOTVIM . '/signs/warn.'
+        " \ . (s:is_windows ? 'bmp' : 'png')
+endfunction
+
+unlet bundle
 
 
-
+" s: Windows and buffers(High priority) 
+" The prefix key.
+nnoremap    [Window]   <Nop>
+nmap    s [Window]
+nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
+nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
+nnoremap <silent> [Window]c  :<C-u>call <sid>smart_close()<CR>
+nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
+nnoremap <silent> [Window]o  :<C-u>only<CR>
+nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
 
 
 

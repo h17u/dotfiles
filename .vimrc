@@ -285,6 +285,7 @@ NeoBundleLazy 'kannokanno/vimtest', { 'autoload' : {
       \ }}
 NeoBundle 'scrooloose/nerdcommenter', '', 'default'
 NeoBundle 'Shougo/context_filetype.vim', '', 'default'
+NeoBundleLazy 'tyru/vim-altercmd'
 
 
 
@@ -465,6 +466,7 @@ endif
 
 "-------------------------------------------------
 " Mappings キーマッピング
+" Key-mappings
 "-------------------------------------------------
 " insert mode での移動
 "inoremap <C-e> <END>
@@ -592,6 +594,368 @@ vnoremap <silent> p x"zP
 autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd if len(getqflist()) != 0 | cw | endif
 " ファイルを開いたときに前回の編集箇所に移動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+
+
+"---------------------------------------------------------------------------
+" Key-mappings: "{{{
+"
+
+" Use <C-Space>.
+map <C-Space>  <C-@>
+cmap <C-Space>  <C-@>
+
+" Visual mode keymappings: "{{{
+" <TAB>: indent.
+xnoremap <TAB>  >
+" <S-TAB>: unindent.
+xnoremap <S-TAB>  <
+
+" Indent
+nnoremap > >>
+nnoremap < <<
+xnoremap > >gv
+xnoremap < <gv
+
+xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
+"}}}
+
+" Insert mode keymappings: "{{{
+" <C-t>: insert tab.
+inoremap <C-t>  <C-v><TAB>
+" <C-d>: delete char.
+inoremap <C-d>  <Del>
+" <C-a>: move to head.
+inoremap <silent><C-a>  <C-o>^
+" Enable undo <C-w> and <C-u>.
+inoremap <C-w>  <C-g>u<C-w>
+inoremap <C-u>  <C-g>u<C-u>
+
+if has('gui_running')
+  inoremap <ESC> <ESC>
+endif
+
+" H, D: delete camlcasemotion.
+inoremap <expr>H           <SID>camelcase_delete(0)
+inoremap <expr>D           <SID>camelcase_delete(1)
+function! s:camelcase_delete(is_reverse)
+  let save_ve = &l:virtualedit
+  setlocal virtualedit=all
+  if a:is_reverse
+    let cur_text = getline('.')[virtcol('.')-1 : ]
+  else
+    let cur_text = getline('.')[: virtcol('.')-2]
+  endif
+  let &l:virtualedit = save_ve
+
+  let pattern = '\d\+\|\u\+\ze\%(\u\l\|\d\)\|' .
+        \'\u\l\+\|\%(\a\|\d\)\+\ze_\|\%(\k\@!\S\)\+' .
+        \'\|\%(_\@!\k\)\+\>\|[_]\|\s\+'
+
+  if a:is_reverse
+    let cur_cnt = len(matchstr(cur_text, '^\%('.pattern.'\)'))
+  else
+    let cur_cnt = len(matchstr(cur_text, '\%('.pattern.'\)$'))
+  endif
+
+  let del = a:is_reverse ? "\<Del>" : "\<BS>"
+
+  return (pumvisible() ?
+        \ neocomplcache#smart_close_popup() : '') . repeat(del, cur_cnt)
+endfunction
+"}}}
+
+" Command-line mode keymappings:"{{{
+" <C-a>, A: move to head.
+cnoremap <C-a>          <Home>
+" <C-b>: previous char.
+cnoremap <C-b>          <Left>
+" <C-d>: delete char.
+cnoremap <C-d>          <Del>
+" <C-e>, E: move to end.
+cnoremap <C-e>          <End>
+" <C-f>: next char.
+cnoremap <C-f>          <Right>
+" <C-n>: next history.
+cnoremap <C-n>          <Down>
+" <C-p>: previous history.
+cnoremap <C-p>          <Up>
+" <C-k>, K: delete to end.
+cnoremap <C-k> <C-\>e getcmdpos() == 1 ?
+      \ '' : getcmdline()[:getcmdpos()-2]<CR>
+" <C-y>: paste.
+cnoremap <C-y>          <C-r>*
+"}}}
+
+" Command line buffer."{{{
+nnoremap <SID>(command-line-enter) q:
+xnoremap <SID>(command-line-enter) q:
+nnoremap <SID>(command-line-norange) q:<C-u>
+
+nmap ;;  <SID>(command-line-enter)
+xmap ;;  <SID>(command-line-enter)
+
+autocmd MyAutoCmd CmdwinEnter * call s:init_cmdwin()
+autocmd MyAutoCmd CmdwinLeave * let g:neocomplcache_enable_auto_select = 1
+
+function! s:init_cmdwin()
+  NeoBundleSource vim-altercmd
+
+  let g:neocomplcache_enable_auto_select = 0
+  let b:neocomplcache_sources_list = ['vim_complete']
+
+  nnoremap <buffer><silent> q :<C-u>quit<CR>
+  nnoremap <buffer><silent> <TAB> :<C-u>quit<CR>
+  inoremap <buffer><expr><CR> neocomplcache#close_popup()."\<CR>"
+  inoremap <buffer><expr><C-h> col('.') == 1 ?
+        \ "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
+  inoremap <buffer><expr><BS> col('.') == 1 ?
+        \ "\<ESC>:quit\<CR>" : neocomplcache#cancel_popup()."\<C-h>"
+
+  " Completion.
+  inoremap <buffer><expr><TAB>  pumvisible() ?
+        \ "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : "\<C-x>\<C-u>\<C-p>"
+
+  startinsert!
+endfunction"}}}
+
+" [Space]: Other useful commands "{{{
+" Smart space mapping.
+" Notice: when starting other <Space> mappings in noremap, disappeared [Space].
+nmap  <Space>   [Space]
+xmap  <Space>   [Space]
+nnoremap  [Space]   <Nop>
+xnoremap  [Space]   <Nop>
+
+" Toggle relativenumber.
+nnoremap <silent> [Space].
+      \ :<C-u>call ToggleOption('relativenumber')<CR>
+nnoremap <silent> [Space]p
+      \ :<C-u>call ToggleOption('paste')<CR>:set mouse=<CR>
+" Toggle highlight.
+nnoremap <silent> [Space]/
+      \ :<C-u>call ToggleOption('hlsearch')<CR>
+" Toggle cursorline.
+nnoremap <silent> [Space]cl
+      \ :<C-u>call ToggleOption('cursorline')<CR>
+" Set autoread.
+nnoremap [Space]ar
+      \ :<C-u>setlocal autoread<CR>
+" Output encoding information.
+nnoremap <silent> [Space]en
+      \ :<C-u>setlocal encoding? termencoding? fenc? fencs?<CR>
+" Set spell check.
+nnoremap [Space]sp
+      \ :<C-u>call ToggleOption('spell')<CR>
+nnoremap [Space]w
+      \ :<C-u>call ToggleOption('wrap')<CR>
+" Echo syntax name.
+nnoremap [Space]sy
+      \ :<C-u>echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
+
+" Easily edit .vimrc and .gvimrc "{{{
+nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> [Space]eg  :<C-u>edit $MYGVIMRC<CR>
+" Load .gvimrc after .vimrc edited at GVim.
+nnoremap <silent> [Space]rv :<C-u>source $MYVIMRC \|
+      \ if has('gui_running') \|
+      \   source $MYGVIMRC \|
+      \ endif \| echo "source $MYVIMRC"<CR>
+nnoremap <silent> [Space]rg
+      \ :<C-u>source $MYGVIMRC \|
+      \ echo "source $MYGVIMRC"<CR>
+"}}}
+
+" Useful save mappings.
+nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
+
+" Change current directory.
+nnoremap <silent> [Space]cd :<C-u>call <SID>cd_buffer_dir()<CR>
+function! s:cd_buffer_dir() "{{{
+  let filetype = getbufvar(bufnr('%'), '&filetype')
+  if filetype ==# 'vimfiler'
+    let dir = getbufvar(bufnr('%'), 'vimfiler').current_dir
+  elseif filetype ==# 'vimshell'
+    let dir = getbufvar(bufnr('%'), 'vimshell').save_dir
+  else
+    let dir = isdirectory(bufname('%')) ? bufname('%') : fnamemodify(bufname('%'), ':p:h')
+  endif
+
+  cd `=dir`
+endfunction"}}}
+
+" Delete windows ^M codes.
+nnoremap <silent> [Space]<C-m> mmHmt:<C-u>%s/\r$//ge<CR>'tzt'm
+
+" Delete spaces before newline.
+nnoremap <silent> [Space]ss mmHmt:<C-u>%s/<Space>$//ge<CR>`tzt`m
+
+" Easily syntax change.
+nnoremap <silent> [Space]ft :<C-u>Unite -start-insert filetype<CR>
+
+" Exchange gj and gk to j and k. "{{{
+command! -nargs=? -bar -bang ToggleGJK call s:ToggleGJK()
+nnoremap <silent> [Space]gj :<C-u>ToggleGJK<CR>
+xnoremap <silent> [Space]gj :<C-u>ToggleGJK<CR>
+function! s:ToggleGJK()
+  if exists('b:enable_mapping_gjk') && b:enable_mapping_gjk
+    let b:enable_mapping_gjk = 0
+    noremap <buffer> j j
+    noremap <buffer> k k
+    noremap <buffer> gj gj
+    noremap <buffer> gk gk
+
+    xnoremap <buffer> j j
+    xnoremap <buffer> k k
+    xnoremap <buffer> gj gj
+    xnoremap <buffer> gk gk
+  else
+    let b:enable_mapping_gjk = 1
+    noremap <buffer> j gj
+    noremap <buffer> k gk
+    noremap <buffer> gj j
+    noremap <buffer> gk k
+
+    xnoremap <buffer> j gj
+    xnoremap <buffer> k gk
+    xnoremap <buffer> gj j
+    xnoremap <buffer> gk k
+  endif
+endfunction"}}}
+
+" Change tab width. "{{{
+nnoremap <silent> [Space]t2 :<C-u>setl shiftwidth=2 softtabstop=2<CR>
+nnoremap <silent> [Space]t4 :<C-u>setl shiftwidth=4 softtabstop=4<CR>
+nnoremap <silent> [Space]t8 :<C-u>setl shiftwidth=8 softtabstop=8<CR>
+"}}}
+"}}}
+
+" s: Windows and buffers(High priority) "{{{
+" The prefix key.
+nnoremap    [Window]   <Nop>
+nmap    s [Window]
+nnoremap <silent> [Window]p  :<C-u>call <SID>split_nicely()<CR>
+nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
+nnoremap <silent> [Window]c  :<C-u>call <sid>smart_close()<CR>
+nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
+nnoremap <silent> [Window]o  :<C-u>only<CR>
+nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
+
+" A .vimrc snippet that allows you to move around windows beyond tabs
+nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
+nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
+
+function! s:smart_close()
+  if winnr('$') != 1
+    close
+  endif
+endfunction
+
+function! s:NextWindow()
+  if winnr('$') == 1
+    silent! normal! ``z.
+  else
+    wincmd w
+  endif
+endfunction
+
+function! s:NextWindowOrTab()
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    call s:split_nicely()
+  elseif winnr() < winnr("$")
+    wincmd w
+  else
+    tabnext
+    1wincmd w
+  endif
+endfunction
+
+function! s:PreviousWindowOrTab()
+  if winnr() > 1
+    wincmd W
+  else
+    tabprevious
+    execute winnr("$") . "wincmd w"
+  endif
+endfunction
+
+nnoremap <silent> [Window]<Space>  :<C-u>call <SID>ToggleSplit()<CR>
+" If window isn't splited, split buffer.
+function! s:ToggleSplit()
+  let prev_name = winnr()
+  silent! wincmd w
+  if prev_name == winnr()
+    SplitNicely
+  else
+    call s:smart_close()
+  endif
+endfunction
+" Split nicely."{{{
+command! SplitNicely call s:split_nicely()
+function! s:split_nicely()
+  " Split nicely.
+  if winwidth(0) > 2 * &winwidth
+    vsplit
+  else
+    split
+  endif
+  wincmd p
+endfunction
+"}}}
+" Delete current buffer."{{{
+nnoremap <silent> [Window]d  :<C-u>call <SID>CustomBufferDelete(0)<CR>
+" Force delete current buffer.
+nnoremap <silent> [Window]D  :<C-u>call <SID>CustomBufferDelete(1)<CR>
+function! s:CustomBufferDelete(is_force)
+  let current = bufnr('%')
+
+  call unite#util#alternate_buffer()
+
+  if a:is_force
+    silent! execute 'bdelete! ' . current
+  else
+    silent! execute 'bdelete ' . current
+  endif
+endfunction
+"}}}
+
+" JunkFile
+" nnoremap <silent> [Window]e  :<C-u>JunkfileOpen<CR>
+nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
+      \ strftime('%Y-%m-%d.md'))
+"}}}
+
+" e: Change basic commands "{{{
+" The prefix key.
+nnoremap [Alt]   <Nop>
+xnoremap [Alt]   <Nop>
+nmap    e  [Alt]
+xmap    e  [Alt]
+
+nnoremap    [Alt]e   e
+xnoremap    [Alt]e   e
+
+" Indent paste.
+nnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
+xnoremap <silent> [Alt]p o<Esc>pm``[=`]``^
+nnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
+xnoremap <silent> [Alt]P O<Esc>Pm``[=`]``^
+" Insert blank line.
+nnoremap <silent> [Alt]o o<Space><BS><ESC>
+nnoremap <silent> [Alt]O O<Space><BS><ESC>
+" Yank to end line.
+nnoremap [Alt]y y$
+nnoremap Y y$
+nnoremap x "_x
+
+" Useless commands
+nnoremap [Alt];  ;
+nnoremap [Alt],  ,
+"}}}
+
+
+
+
 
 
 
@@ -1698,3 +2062,10 @@ highlight link javaScriptLambda Identifier
 """ jvgrep
 "  jvgrep 表[現示] **/*.txt
 "  :grep 表[現示] **/*.txt
+
+
+" TODO
+" folding
+
+
+" vim: foldmethod=marker

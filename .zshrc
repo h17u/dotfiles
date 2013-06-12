@@ -390,6 +390,12 @@ export NODE_PATH=/usr/local/lib/node:~/.npm:$(npm prefix --global 2>/dev/null)/l
 # versionning node managed by n at /usr/local/n/
 # http://nodejs.org/api/modules.html#modules_loading_from_the_global_folders
 
+
+# go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+
 # autojump
 [[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh ]]
 

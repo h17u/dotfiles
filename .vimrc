@@ -346,7 +346,8 @@ set tags=tags
 :let &keywordprg=':help'
 ":set keywordprg=man\ -s
 
-set grepprg=ag
+" set grepprg=ag
+set grepprg=jvgrep
 
 " ステータスラインの表示
 " http://blog.ruedap.com/entry/20110712/vim_statusline_git_branch_name
@@ -762,29 +763,30 @@ let g:neosnippet#snippets_directory='~/.vim/snippets' + ',' + '~/.vim/bundle/vim
 " ~/.vim/bundle/vim-snippets/snippets
 " ~/.vim/snippets
 
-" neosnippet.vim"{{{
+" neosnippet.vim
+"{{{
 """ https://github.com/Shougo/shougo-s-github/blob/master/vim/.vimrc
-let bundle = neobundle#get('neosnippet')
-function! bundle.hooks.on_source(bundle)
-  imap <silent>L     <Plug>(neosnippet_jump_or_expand)
-  smap <silent>L     <Plug>(neosnippet_jump_or_expand)
-  xmap <silent>L     <Plug>(neosnippet_start_unite_snippet_target)
-  imap <silent>K     <Plug>(neosnippet_expand_or_jump)
-  smap <silent>K     <Plug>(neosnippet_expand_or_jump)
-  imap <silent>G     <Plug>(neosnippet_expand)
-  imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
-  xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
-  xmap <silent>U     <Plug>(neosnippet_expand_target)
+" let bundle = neobundle#get('neosnippet')
+" function! bundle.hooks.on_source(bundle)
+  " imap <silent>L     <Plug>(neosnippet_jump_or_expand)
+  " smap <silent>L     <Plug>(neosnippet_jump_or_expand)
+  " xmap <silent>L     <Plug>(neosnippet_start_unite_snippet_target)
+  " imap <silent>K     <Plug>(neosnippet_expand_or_jump)
+  " smap <silent>K     <Plug>(neosnippet_expand_or_jump)
+  " imap <silent>G     <Plug>(neosnippet_expand)
+  " imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
+  " xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
+  " xmap <silent>U     <Plug>(neosnippet_expand_target)
 
-  let g:neosnippet#enable_snipmate_compatibility = 1
+  " let g:neosnippet#enable_snipmate_compatibility = 1
 
-  " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
-  " let g:neosnippet#snippets_directory = '~/.vim/snippets'
-endfunction
+  " " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
+  " " let g:neosnippet#snippets_directory = '~/.vim/snippets'
+" endfunction
 
-unlet bundle
+" unlet bundle
 
-nnoremap <silent> [Window]f              :<C-u>Unite neosnippet/user neosnippet/runtime<CR>
+" nnoremap <silent> [Window]f              :<C-u>Unite neosnippet/user neosnippet/runtime<CR>
 
 "}}}
 
@@ -1108,67 +1110,148 @@ let g:dwm_map_keys = 1 " (1:default keybind)
 "------------------------------------
 " unite.vim
 "------------------------------------
-""" http://blog.sanojimaru.com/post/18534401804/unite-vim
-let g:unite_enable_start_insert=0
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts = '--nocolor --nogroup'
-let g:unite_source_grep_recursive_opt = ''
-let g:unite_source_grep_max_candidates = 200
-" バッファ一覧
-noremap <C-Y><C-B> :Unite buffer dwm tab bookmark jump jump_point history/yank<CR>
-" ファイル一覧
-noremap <C-Y><C-F> :UniteWithBufferDir -buffer-name=files file file/new<CR>
-" 最近使ったファイルの一覧
-noremap <C-Y><C-R> :Unite file_mru<CR>
-" レジスタ一覧
-"noremap <C-Y><C-Y> :Unite -buffer-name=register register<CR>
-noremap <C-Y><C-Y> :Unite -buffer-name=register register history/yank<CR>
-" ファイルとバッファ
+" noremap <C-Y><C-B> :Unite buffer dwm tab bookmark jump jump_point history/yank<CR>
+" noremap <C-Y><C-F> :UniteWithBufferDir -buffer-name=files file file/new<CR>
+" noremap <C-Y><C-R> :Unite file_mru<CR>
+" noremap <C-Y><C-Y> :Unite -buffer-name=register register history/yank<CR>
 " noremap <C-Y><C-U> :Unite buffer file_mru<CR>
+" noremap <C-Y><C-M> :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+" noremap <C-Y><C-S> :Unite snippets<CR>
+" noremap <C-Y><C-H> :Unite help<CR>
+" nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
+" noremap <C-Y><C-A> :UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" nnoremap <C-Y><C-O> :<C-u>Unite outline -vertical -winwidth=30 -no-quit<CR>
+" vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+ 
+
+"""" unite-example
+" The prefix key.
+nnoremap    [unite]   <Nop>
+nmap    f [unite]
+
+nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir
+            \ -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
+            \ -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]r  :<C-u>Unite
+            \ -buffer-name=register register<CR>
+" nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
+nnoremap <silent> [unite]o  :<C-u>Unite outline -vertical -winwidth=30 -no-quit<CR>
+nnoremap <silent> [unite]f
+            \ :<C-u>Unite -buffer-name=resume resume<CR>
+nnoremap <silent> [unite]d
+            \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 " Key mappings
-noremap <C-Y><C-M> :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+" nnoremap <silent> [unite]ma
+"             \ :<C-u>Unite mapping<CR>
+nnoremap <silent> [unite]ma :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+nnoremap <silent> [unite]me
+            \ :<C-u>Unite output:message<CR>
+nnoremap  [unite]f  :<C-u>Unite source<CR>
+
+nnoremap <silent> [unite]s
+            \ :<C-u>Unite -buffer-name=files -no-split
+            \ jump_point file_point buffer_tab
+            \ file_rec:! file file/new file_mru<CR>
 " Snippets
-noremap <C-Y><C-S> :Unite snippets<CR>
+nnoremap <silent> [unite]s
+            \ :<C-u>Unite snippets<CR>
 " Help
-noremap <C-Y><C-H> :Unite help<CR>
-" Execute help by cursor keyword.
-nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
-" 全部
-noremap <C-Y><C-A> :UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-" ESCキーを2回押すと終了する
-" au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-" au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-" ファイル内検索
-"nnoremap ? :<C-u>Unite -buffer-name=search line/fast -start-insert -vertical -winwidth=30 -no-quit<CR>
-""" https://github.com/h1mesuke/unite-outline
-" Outline
-nnoremap <C-Y><C-O> :<C-u>Unite outline -vertical -winwidth=30 -no-quit<CR>
+nnoremap <silent> [unite]h
+            \ :<C-u>Unite help<CR>
+nnoremap <silent> [unite]k
+            \ :<C-u>UniteWithCursorWord help<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
- 
-" autocmd FileType unite call s:unite_my_settings()
-" function! s:unite_my_settings()
-"     " 上下に分割して開く
-"     nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-"     inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-"     " 左右に分割して開く
-"     nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-"     inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-"     " タブで開く
-"     nnoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
-"     inoremap <silent> <buffer> <expr> <C-T> unite#do_action('tabopen')
-"     " vimfiler で開く
-"     nnoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
-"     inoremap <silent> <buffer> <expr> <C-O> unite#do_action('vimfiler')
-"     " dwm.vim で開く
-"     nnoremap <silent> <buffer> <expr> <C-N> unite#do_action('dwm_new')
-"     inoremap <silent> <buffer> <expr> <C-N> unite#do_action('dwm_new')
-"     " 終了
-"     nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
-"     inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-" endfunction
 
- 
+
+" Start insert.
+"let g:unite_enable_start_insert = 1
+"let g:unite_enable_short_source_names = 1
+
+" To track long mru history.
+let g:unite_source_file_mru_long_limit = 3000
+let g:unite_source_directory_mru_long_limit = 3000
+
+" Like ctrlp.vim settings.
+"let g:unite_enable_start_insert = 1
+"let g:unite_winheight = 10
+"let g:unite_split_rule = 'botright'
+
+" Prompt choices.
+"let g:unite_prompt = '❫ '
+"let g:unite_prompt = '» '
+
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+    " Overwrite settings.
+
+    nmap <buffer> <ESC>      <Plug>(unite_exit)
+    imap <buffer> jj      <Plug>(unite_insert_leave)
+    "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+
+    imap <buffer><expr> j unite#smart_map('j', '')
+    imap <buffer> <TAB>   <Plug>(unite_select_next_line)
+    imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
+    imap <buffer> '     <Plug>(unite_quick_match_default_action)
+    nmap <buffer> '     <Plug>(unite_quick_match_default_action)
+    imap <buffer><expr> x
+                \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
+    nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
+    nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+    imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
+    imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+    nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
+    nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+    nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+    imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
+    nnoremap <silent><buffer><expr> l
+                \ unite#smart_map('l', unite#do_action('default'))
+
+    let unite = unite#get_current_unite()
+    if unite.buffer_name =~# '^search'
+        nnoremap <silent><buffer><expr> r     unite#do_action('replace')
+    else
+        nnoremap <silent><buffer><expr> r     unite#do_action('rename')
+    endif
+
+    nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
+    nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
+                \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
+endfunction
+
+let g:unite_source_file_mru_limit = 200
+let g:unite_cursor_line_highlight = 'TabLineSel'
+let g:unite_abbr_highlight = 'TabLine'
+
+" For optimize.
+let g:unite_source_file_mru_filename_format = ''
+
+" grep
+if executable('jvgrep')
+    " For jvgrep.
+    let g:unite_source_grep_command = 'jvgrep'
+    let g:unite_source_grep_default_opts = '--exclude ''\.(git|svn|hg|bzr)'''
+    let g:unite_source_grep_recursive_opt = '-R'
+endif
+if executable('ack-grep')
+    " let g:unite_source_grep_command = 'ack-grep'
+    " let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+    " let g:unite_source_grep_recursive_opt = ''
+endif
+""" http://blog.sanojimaru.com/post/18534401804/unite-vim
+if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nocolor --nogroup'
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_max_candidates = 200
+endif
+
+
+
+
+
+
 """ http://blog.remora.cx/2012/09/use-tabpage.html
 """ keybind for tab
 " nnoremap <S-Tab> gt
@@ -1193,10 +1276,10 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'c'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+            \ 'file': '\v\.(exe|so|dll)$',
+            \ 'link': 'some_bad_symbolic_links',
+            \ }
 
 """ https://github.com/scrooloose/nerdcommenter
 let NERDSpaceDelims = 1
@@ -1287,3 +1370,7 @@ highlight link javaScriptLambda Identifier
 " :Grep -r -i pattern filepath
 " :!grep [option] pattern filepath
 " **/*.vim
+
+""" jvgrep
+"  jvgrep 表[現示] **/*.txt
+"  :grep 表[現示] **/*.txt

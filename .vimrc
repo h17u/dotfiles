@@ -1240,96 +1240,34 @@ nnoremap <silent> [unite]k
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 
 
-" Start insert.
-"let g:unite_enable_start_insert = 1
-"let g:unite_enable_short_source_names = 1
-
-" To track long mru history.
-let g:unite_source_file_mru_long_limit = 3000
-let g:unite_source_directory_mru_long_limit = 3000
-
-" Like ctrlp.vim settings.
-"let g:unite_enable_start_insert = 1
-"let g:unite_winheight = 10
-"let g:unite_split_rule = 'botright'
-
-" Prompt choices.
-"let g:unite_prompt = '❫ '
-"let g:unite_prompt = '» '
-
-" autocmd FileType unite call s:unite_my_settings()
-" function! s:unite_my_settings()
-"     " Overwrite settings.
-" 
-"     nmap <buffer> <ESC>      <Plug>(unite_exit)
-"     imap <buffer> jj      <Plug>(unite_insert_leave)
-"     "imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-" 
-"     imap <buffer><expr> j unite#smart_map('j', '')
-"     imap <buffer> <TAB>   <Plug>(unite_select_next_line)
-"     imap <buffer> <C-w>     <Plug>(unite_delete_backward_path)
-"     imap <buffer> '     <Plug>(unite_quick_match_default_action)
-"     nmap <buffer> '     <Plug>(unite_quick_match_default_action)
-"     imap <buffer><expr> x
-"                 \ unite#smart_map('x', "\<Plug>(unite_quick_match_choose_action)")
-"     nmap <buffer> x     <Plug>(unite_quick_match_choose_action)
-"     nmap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-"     imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
-"     imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-"     nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-"     nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
-"     nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-"     imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-"     nnoremap <silent><buffer><expr> l
-"                 \ unite#smart_map('l', unite#do_action('default'))
-" 
-"     let unite = unite#get_current_unite()
-"     if unite.buffer_name =~# '^search'
-"         nnoremap <silent><buffer><expr> r     unite#do_action('replace')
-"     else
-"         nnoremap <silent><buffer><expr> r     unite#do_action('rename')
-"     endif
-" 
-"     nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
-"     nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
-"                 \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-" endfunction
-
-let g:unite_source_file_mru_limit = 200
-let g:unite_cursor_line_highlight = 'TabLineSel'
-let g:unite_abbr_highlight = 'TabLine'
-
-" For optimize.
-let g:unite_source_file_mru_filename_format = ''
-
 
 
 """"
 """" ~/src/shougo-s-github/vim/.vimrc
 """"
-nnoremap [unite]u  q:unite<space>
+" nnoremap [unite]u  q:unite<space>
 nnoremap <expr><silent> ;b  <sid>unite_build()
 function! s:unite_build()
-  return ":\<c-u>unite -buffer-name=build". tabpagenr() ." -no-quit build\<cr>"
+  return ":\<c-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<cr>"
 endfunction
 nnoremap <silent> ;o
-      \ :<c-u>unite outline -start-insert -resume<cr>
+      \ :<c-u>Unite outline -start-insert -resume<cr>
 nnoremap  [unite]f  :<c-u>unite source<cr>
 nnoremap <silent> ;t
-      \ :<c-u>unitewithcursorword -buffer-name=tag tag tag/include<cr>
+      \ :<c-u>UniteWithCursorWord -buffer-name=tag tag tag/include<cr>
 xnoremap <silent> ;r
-      \ d:<c-u>unite -buffer-name=register register history/yank<cr>
+      \ d:<c-u>Unite -buffer-name=register register history/yank<cr>
 nnoremap <silent> ;w
-      \ :<c-u>unitewithcursorword -buffer-name=register
+      \ :<c-u>UniteWithCursorWord -buffer-name=register
       \ buffer file_mru bookmark file<cr>
-nnoremap <silent> <c-k>
-      \ :<c-u>unite change jump<cr>
+" nnoremap <silent> <c-k>
+      " \ :<c-u>Unite change jump<cr>
 nnoremap <silent> ;g
-      \ :<c-u>unite grep -buffer-name=search -auto-preview -no-quit -resume<cr>
+      \ :<c-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<cr>
 nnoremap <silent> ;r
-      \ :<c-u>unite -buffer-name=register register history/yank<cr>
-inoremap <silent><expr> <c-z>
-      \ unite#start_complete('register', { 'input': unite#get_cur_text() })
+      \ :<c-u>Unite -buffer-name=register register history/yank<cr>
+" inoremap <silent><expr> <c-z>
+      " \ unite#start_complete('register', { 'input': unite#get_cur_text() })
 
 " <C-t>: Tab pages
 nnoremap <silent><expr> <C-t>
@@ -1481,7 +1419,8 @@ let g:unite_source_menu_menus.unite.command_candidates = {
       \       'message'    : 'Unite output:message',
       \       'scriptnames': 'Unite output:scriptnames',
       \     }
-nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
+" nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
+nnoremap <silent> [unite]u :<C-u>Unite menu:unite<CR>
 
 let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle)

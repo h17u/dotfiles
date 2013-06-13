@@ -524,8 +524,8 @@ NeoBundleLazy 'elzr/vim-json', {
       \ 'autoload' : {
       \   'filetypes' : 'json',
       \ }}
-NeoBundle 'spolu/dwm.vim', '', 'default'
-NeoBundle 'kannokanno/unite-dwm', '', 'default'
+" NeoBundle 'spolu/dwm.vim', '', 'default'
+" NeoBundle 'kannokanno/unite-dwm', '', 'default'
 NeoBundle 'altercation/vim-colors-solarized.git', '', 'default'
 NeoBundle 'tpope/vim-fugitive.git', '', 'default'
 NeoBundle 'scrooloose/nerdtree', '', 'default'
@@ -542,8 +542,6 @@ NeoBundle 'tokuhirom/jsref', '', 'default'
 NeoBundle 'terryma/vim-expand-region', '', 'default'
 " NeoBundle 'terryma/vim-smooth-scroll', '', 'default'
 " NeoBundle 'osyo-manga/vim-anzu', '', 'default'
-NeoBundle 'spolu/dwm.vim', '', 'default'
-NeoBundle 'kannokanno/unite-dwm', '', 'default'
 NeoBundle 'tpope/vim-surround', '', 'default'
 " NeoBundle 'tpope/vim-speeddating', '', 'default'
 " NeoBundle 'tpope/vim-abolish', '', 'default'
@@ -3472,8 +3470,10 @@ let g:quickrun_config['coffee'] = {
      \'command' : 'coffee',
      \'exec' : ['%c -cbp %s']
      \}
+"}}}
 
 
+"{{{
 "vim-ref
 let g:ref_open = 'tabnew'
 let g:ref_jquery_doc_path = $HOME . '/.vim/bundle/jqapi'
@@ -3481,14 +3481,16 @@ let g:ref_javascript_doc_path = $HOME . '/.vim/bundle/jsref/htdocs'
 let g:ref_auto_resize = 1
 let g:ref_wikipedia_lang = ['ja', 'en']
 let g:ref_use_cache = 1
+"}}}
 
 
-
+"{{{
 " https://github.com/mattn/gist-vim
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
 let g:github_user = 'h17u'
 "}}}
+
 
 """ https://github.com/terryma/vim-expand-region "{{{
 " Default settings.
@@ -3561,19 +3563,26 @@ vmap <Leader>c <Plug>NERDCommenterToggle
 "}}}
 
 
+" let bundle = neobundle#get('echodoc')
+" function! bundle.hooks.on_source(bundle)
+"   let g:echodoc_enable_at_startup = 1
+" endfunction
+" unlet bundle
+
+
 " https://github.com/spolu/dwm.vim "{{{
 """ ~/.vim/bundle/dwm.vim/plugin/dwm.vim
-let g:dwm_map_keys = 0 " (1:default keybind)
-nmap <C-S-n> <Plug>DWMNew
-nmap <C-S-c> <Plug>DWMClose
-" nmap <C-@> <Plug>DWMFocus
-nmap <C-S-Space> <Plug>DWMFocus
-nnoremap <C-S-j> <c-w>w
-nnoremap <C-S-k> <c-w>W
-" nmap <C-S-,> <Plug>DWMRotateCounterclockwise
-" nmap <C-S-.> <Plug>DWMRotateClockwise
-" nmap <C-S-l> <Plug>DWMGrowMaster
-" nmap <C-S-h> <Plug>DWMShrinkMaster
+" let g:dwm_map_keys = 0 " (1:default keybind)
+" nmap <C-S-n> <Plug>DWMNew
+" nmap <C-S-c> <Plug>DWMClose
+" " nmap <C-@> <Plug>DWMFocus
+" nmap <C-S-Space> <Plug>DWMFocus
+" nnoremap <C-S-j> <c-w>w
+" nnoremap <C-S-k> <c-w>W
+" " nmap <C-S-,> <Plug>DWMRotateCounterclockwise
+" " nmap <C-S-.> <Plug>DWMRotateClockwise
+" " nmap <C-S-l> <Plug>DWMGrowMaster
+" " nmap <C-S-h> <Plug>DWMShrinkMaster
 "}}}
 
 
@@ -3657,63 +3666,63 @@ endfunction
 
 "-------------------------------------------------
 " Setting "{{{
-set encoding=utf-8
-"set encoding=shift_jis
-set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
-"set fileencodings=cp932,iso-2022-jp,utf-8,euc-jp
-"set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
-let $LANG='C'
-"set helplang=ja,en
-set helplang=en,ja
-
-
-set laststatus=2
-set tabstop=4       " numbers of spaces of tab character
-set shiftwidth=4    " numbers of spaces to (auto)indent
-set expandtab
-"set scrolloff=3     " keep 3 lines when scrolling
-set showcmd         " display incomplete commands
-set hlsearch        " highlight searches
-set incsearch       " do incremental searching
-set ruler           " show the cursor position all the time
-"set visualbell t_vb=    " turn off error beep/flash
-"set novisualbell    " turn off visual bell
-"set nobackup        " do not keep a backup file
-set cursorline
-
-
-
-"set directory=
-"set number          " show line numbers
-set ignorecase      " ignore case when searching
-set smartcase
-"set noignorecase   " don't ignore case
-set nowrapscan
-set title           " show title in console title bar
-set ttyfast         " smoother changes
-"set ttyscroll=0        " turn off scrolling, didn't work well with PuTTY
-set modeline        " last lines in document sets vim mode
-set modelines=3     " number lines checked for modelines
-"set shortmess=atI   " Abbreviate messages
-"set nostartofline   " don't jump to first character when paging
-set whichwrap=b,s,h,l,<,>,[,]   " move freely between files
-"set viminfo='20,<50,s10,h
-
-"set autoindent     " always set autoindenting on
-"set smartindent        " smart indent
-
-"set cindent            " cindent
-"set noautoindent
-"set nosmartindent
-"set nocindent
-
-"set autowrite      " auto saves changes when quitting and swiching buffer
-"set expandtab      " tabs are converted to spaces, use only when required
-set showmatch       " show matching braces, somewhat annoying...
-set matchtime=5
+" set encoding=utf-8
+" "set encoding=shift_jis
+" set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
+" "set fileencodings=cp932,iso-2022-jp,utf-8,euc-jp
+" "set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+" let $LANG='C'
+" "set helplang=ja,en
+" set helplang=en,ja
+" 
+" 
+" set laststatus=2
+" set tabstop=4       " numbers of spaces of tab character
+" set shiftwidth=4    " numbers of spaces to (auto)indent
+" set expandtab
+" "set scrolloff=3     " keep 3 lines when scrolling
+" set showcmd         " display incomplete commands
+" set hlsearch        " highlight searches
+" set incsearch       " do incremental searching
+" set ruler           " show the cursor position all the time
+" "set visualbell t_vb=    " turn off error beep/flash
+" "set novisualbell    " turn off visual bell
+" "set nobackup        " do not keep a backup file
+" set cursorline
+" 
+" 
+" 
+" "set directory=
+" "set number          " show line numbers
+" set ignorecase      " ignore case when searching
+" set smartcase
+" "set noignorecase   " don't ignore case
+" set nowrapscan
+" set title           " show title in console title bar
+" set ttyfast         " smoother changes
+" "set ttyscroll=0        " turn off scrolling, didn't work well with PuTTY
+" set modeline        " last lines in document sets vim mode
+" set modelines=3     " number lines checked for modelines
+" "set shortmess=atI   " Abbreviate messages
+" "set nostartofline   " don't jump to first character when paging
+" set whichwrap=b,s,h,l,<,>,[,]   " move freely between files
+" "set viminfo='20,<50,s10,h
+" 
+" "set autoindent     " always set autoindenting on
+" "set smartindent        " smart indent
+" 
+" "set cindent            " cindent
+" "set noautoindent
+" "set nosmartindent
+" "set nocindent
+" 
+" "set autowrite      " auto saves changes when quitting and swiching buffer
+" "set expandtab      " tabs are converted to spaces, use only when required
+" set showmatch       " show matching braces, somewhat annoying...
+" set matchtime=5
 
 set wildmode=longest:full,list:longest
-set wildmenu "turn on wild menu
+set wildmenu "{{{
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 set wildignore+=*DS_Store*
 set wildignore+=vendor/rails/**
@@ -3724,15 +3733,13 @@ set wildignore+=tmp/**
 set wildignore+=*.png,*.jpg,*.gif
 set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/Library/**,*/.rbenv/**
 set wildignore+=*/.nx/**,*.app
-
+"}}}
 set nowrap         " don't wrap lines
 "set list	" タブ文字、行末など不可視文字を表示する
 "set listchars=eol:$,tab:>\ ,extends:<	" listで表示される文字のフォーマットを指定する
-set clipboard=unnamed,autoselect
+"set clipboard=unnamed,autoselect
 "set splitbelow "新しいウィンドウを下に開く
 "set splitright "新しいウィンドウを右に開く
-
-set magic
 
 
 
@@ -3741,27 +3748,8 @@ set magic
 :autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 
 
-:autocmd BufEnter * let b:did_ftplugin = 1
-
-" Send more characters for redraws
-set ttyfast
-
-" Enable mouse use in all modes
-set mouse=a
-
-" Set this to the name of your terminal that supports mouse codes.
-" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
-set ttymouse=xterm2
-
-"set backspace=start,eol,indent
-set backspace=eol
-
-" set conceallevel=0
-highlight link HelpBar Normal
-highlight link HelpStar Normal
 
 set helpheight=30
-set tags=tags
 :let &keywordprg=':help'
 ":set keywordprg=man\ -s
 
@@ -3814,93 +3802,6 @@ highlight link javaScriptLambda Identifier
 "-------------------------------------------------
 " Key-mappings "{{{
 "-------------------------------------------------
-" insert mode での移動
-"inoremap <C-e> <END>
-"inoremap <C-a> <HOME>
-"inoremap <C-j> <Down>
-"inoremap <C-k> <Up>
-"inoremap <C-h> <Left>
-"inoremap <C-l> <Right>
-
-" Tab
-"nnoremap <C-n> gt
-"nnoremap <C-p> gT
-
-" http://archiva.jp/web/tool/how_to_vim_2.html
-" https://github.com/sigwyg/Vim-Starter-kit/blob/master/.vimrc
-"水平方向の移動を簡単にしてます。nowrapな時に便利。
-"nnoremap zl zL
-"nnoremap zh zH
-"行移動を見た目上に行うようにしています。wrap指定している場合、見た目上は数行に改行されていても内部的には1行なので。
-"noremap j gj
-"noremap k gk
-"タブ移動です。tは遠いよね ==)
-"noremap gh gT
-"noremap gl gt
-"normalモードでもカーソル位置で改行できるようにしてます。
-"noremap <CR> i<CR><ESC>
-"ブラケット入力時にスムーズに編集できるように。最近びみょーかもと思い始めてますが。
-"inoremap {} {}<LEFT>
-"inoremap [] []<LEFT>
-"inoremap () ()<LEFT>
-"inoremap "" ""<LEFT>
-"inoremap '' ''<LEFT>
-"inoremap <> <><LEFT>
-"inoremap []5 [%  %]<LEFT><LEFT><LEFT>
-"inoremap {}5 {%  %}<LEFT><LEFT><LEFT>
-"検索結果に移動したとき、その位置を画面の中央にします。上端とかに移動しても気付きにくいので。
-"nnoremap n nzz
-"nnoremap N Nzz
-"nnoremap * *zz
-"nnoremap # #zz
-"nnoremap g* g*zz
-"nnoremap g# g#zz
-"検索時、「/」の入力をエスケープします。
-"cnoremap  / getcmdtype() == '/' ? '\/' : '/'
-"ウィンドウ分割時にウィンドウサイズを調節する設定です。Shiftキー＋矢印キー。
-"nnoremap <silent> <S-Left>  :5wincmd <<CR>
-"nnoremap <silent> <S-Right> :5wincmd ><CR>
-"nnoremap <silent> <S-Up>    :5wincmd -<CR>
-"nnoremap <silent> <S-Down>  :5wincmd +<CR>
-"バッファの一覧・移動・削除です。QuickBuf使うまでもないときに。
-" nnoremap bb :b#<CR>
-" nnoremap bp :bprevious<CR>
-" nnoremap bn :bnext<CR>
-" nnoremap bd :bdelete<CR>
-"「最後に編集したテキスト」を選択するキーマップ。コピペ後などに重宝。「gv」と似て非なる使い勝手。
-"nnoremap gb `[v`]
-" nnoremap gc `[v`]
-" vnoremap gc :<C-u>normal gc<CR>
-" onoremap gc :<C-u>normal gc<CR>
-"表示中のバッファをVimスクリプトと見なして再読込。.vimrc変更後など。
-"nnoremap <Space>r :<C-u>execute "source " expand("%:p")<CR>
-"vimrcとgvimrcを再読込。vimrc変更後など。
-"nnoremap <Space>v :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
-
-"Escの2回押しでハイライト消去
-"nmap <ESC><ESC> :nohlsearch<CR><ESC>
-".vimrc<e3><82><92>"nnoremap"で検索したときで、
-
-" CTRL-hjklでウィンドウ移動
-"nnoremap <C-j> :<C-w>j
-"nnoremap <C-k> :<C-k>j
-"nnoremap <C-l> :<C-l>j
-"nnoremap <C-h> :<C-h>j
-
-"""" http://code-life.net/?p=2704
-"Quick Escaping
-"inoremap jj <Esc>
-
-
-""" http://whileimautomaton.net/2008/08/vimworkshop3-kana-presentation
-" 検索パターン入力中は/で\/を入力
-" /そのものを入力するには<C-v>/とタイプ
-"cnoremap <expr> /
-"\ getcmdtype() == '/' ? '\/' : '/'
-"
-"cnoremap <expr> ?
-"\ getcmdtype() == '/' ? '\/' : '/'
-
 """ tjump
 nnoremap <c-]> g<c-]>
 vnoremap <c-]> g<c-]>

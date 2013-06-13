@@ -1450,10 +1450,10 @@ unlet bundle
 " vimshell.vim"{{{
 " Plugin key-mappings."{{{
 " <C-Space>: switch to vimshell.
-nmap <C-@>  <Plug>(vimshell_switch)
-nnoremap !  q:VimShellExecute<Space>
-nnoremap [Space]i  q:VimShellInteractive<Space>
-nnoremap [Space]t  q:VimShellTerminal<Space>
+" nmap <C-@>  <Plug>(vimshell_switch)
+" nnoremap !  q:VimShellExecute<Space>
+" nnoremap [Space]i  q:VimShellInteractive<Space>
+" nnoremap [Space]t  q:VimShellTerminal<Space>
 
 nnoremap <silent> [Space];  <C-u>:VimShellPop<CR>
 "}}}
@@ -3543,6 +3543,22 @@ let g:expand_region_use_select_mode = 1
 "  set statusline+=%{anzu#search_status()}
 "}}}
 
+" https://github.com/kien/ctrlp.vim "{{{
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" let g:ctrlp_working_path_mode = 'c'
+" let g:ctrlp_custom_ignore = {
+"             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"             \ 'file': '\v\.(exe|so|dll)$',
+"             \ 'link': 'some_bad_symbolic_links',
+"             \ }
+"}}}
+
+" https://github.com/scrooloose/nerdcommenter "{{{
+let NERDSpaceDelims = 1
+nmap <Leader>c <Plug>NERDCommenterToggle
+vmap <Leader>c <Plug>NERDCommenterToggle
+"}}}
 
 
 " https://github.com/spolu/dwm.vim "{{{
@@ -3784,6 +3800,15 @@ set grepprg=jvgrep
 "  set statusline+=0x%B  " 文字コード
 "  set statusline+=\ \   " 空白スペース2個
 "}}}
+"}}}
+
+
+"""" http://labs.timedia.co.jp/2011/04/javascript-function-lambda-vim.html "{{{
+setlocal conceallevel=2
+syntax keyword javaScriptLambda function conceal cchar=λ
+highlight clear Conceal
+highlight link Conceal Identifier
+highlight link javaScriptLambda Identifier
 "}}}
 
 "-------------------------------------------------

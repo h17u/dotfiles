@@ -1,5 +1,5 @@
 "---------------------------------------------------------------------------
-" Shougo's .vimrc
+" .vimrc
 "---------------------------------------------------------------------------
 " Initialize:"{{{
 "
@@ -155,6 +155,8 @@ call neobundle#config('neocomplcache', {
       \ 'autoload' : {
       \   'commands' : 'NeoComplCacheEnable',
       \ }})
+
+NeoBundle 'Shougo/neocomplete.vim', '', 'default'
 
 NeoBundle 'Shougo/neocomplcache-rsense', '', 'default'
 call neobundle#config('neocomplcache-rsense', {
@@ -522,9 +524,38 @@ NeoBundleLazy 'elzr/vim-json', {
       \ 'autoload' : {
       \   'filetypes' : 'json',
       \ }}
+NeoBundle 'spolu/dwm.vim', '', 'default'
+NeoBundle 'kannokanno/unite-dwm', '', 'default'
+NeoBundle 'altercation/vim-colors-solarized.git', '', 'default'
+NeoBundle 'tpope/vim-fugitive.git', '', 'default'
+NeoBundle 'scrooloose/nerdtree', '', 'default'
+NeoBundle 'scrooloose/nerdcommenter', '', 'default'
+NeoBundle 'scrooloose/syntastic.git', '', 'default'
+NeoBundle 'Townk/vim-autoclose', '', 'default'
+NeoBundle 'jiangmiao/simple-javascript-indenter', '', 'default'
+NeoBundle 'vim-scripts/jQuery', '', 'default'
+NeoBundle 'majutsushi/tagbar', '', 'default'
+NeoBundle 'hail2u/vim-css3-syntax', '', 'default'
+NeoBundle 'nathanaelkane/vim-indent-guides', '', 'default'
+NeoBundle 'mustardamus/jqapi', '', 'default'
+NeoBundle 'tokuhirom/jsref', '', 'default'
+NeoBundle 'terryma/vim-expand-region', '', 'default'
+" NeoBundle 'terryma/vim-smooth-scroll', '', 'default'
+" NeoBundle 'osyo-manga/vim-anzu', '', 'default'
+NeoBundle 'spolu/dwm.vim', '', 'default'
+NeoBundle 'kannokanno/unite-dwm', '', 'default'
+NeoBundle 'tpope/vim-surround', '', 'default'
+" NeoBundle 'tpope/vim-speeddating', '', 'default'
+" NeoBundle 'tpope/vim-abolish', '', 'default'
+" NeoBundle 'tpope/vim-unimpaired', '', 'default'
+" NeoBundle 'tpope/vim-commentary', '', 'default'
+NeoBundle 'tpope/vim-repeat', '', 'default'
+" NeoBundle 'mileszs/ack.vim', '', 'default'
+" NeoBundle 'rking/ag.vim', '', 'default'
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
+
 
 " Disable menu.vim
 if has('gui_running')
@@ -1165,13 +1196,13 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplete#min_keyword_length = 3
 
   " For auto select.
-  let g:neocomplete#enable_complete_select = 1
-  let g:neocomplete#enable_auto_select = 1
-  let g:neocomplete#enable_refresh_always = 0
-  if g:neocomplete#enable_complete_select
-    set completeopt-=noselect
-    set completeopt+=noinsert
-  endif
+"  let g:neocomplete#enable_complete_select = 1
+"  let g:neocomplete#enable_auto_select = 1
+"  let g:neocomplete#enable_refresh_always = 0
+"  if g:neocomplete#enable_complete_select
+"    set completeopt-=noselect
+"    set completeopt+=noinsert
+"  endif
 
   let g:neocomplete#enable_auto_delimiter = 1
   let g:neocomplete#disable_auto_select_buffer_name_pattern =
@@ -3024,7 +3055,6 @@ xmap <Leader>h <Plug>(operator-html-escape)
 
 " Easily macro.
 nnoremap @@ @a
-"}}}
 
 " Improved increment.
 nmap <C-a> <SID>(increment)
@@ -3363,7 +3393,6 @@ set helplang& helplang=en,ja
 
 " Default home directory.
 let t:cwd = getcwd()
-"}}}
 
 call neobundle#call_hook('on_source')
 
@@ -3374,5 +3403,506 @@ if !has('vim_starting')
 endif
 
 set secure
+
+"}}}
+
+"---------------------------------------------------------------------------
+" Others2:"{{{
+"
+
+" https://github.com/altercation/vim-colors-solarized "{{{
+syntax enable
+set background=dark
+" set background=light
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+let g:solarized_degrade=0
+let g:solarized_bold=1
+let g:solarized_underline=1
+let g:solarized_italic=1
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+colorscheme solarized
+" call togglebg#map("<F5>")
+"}}}
+
+" Function keymappings: "{{{
+nnoremap <F6> :VimFilerExplorer<CR>
+nnoremap <F7> :NERDTreeToggle<CR>
+nnoremap <F8> :TagBarToggle<CR>
+"}}}
+
+" https://github.com/majutsushi/tagbar "{{{
+"let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+let g:tagbar_type_javascript = {
+    \ 'ctagstype' : 'JavaScript',
+    \ 'kinds'     : [
+        \ 'c:class',
+        \ 'p:property',
+        \ 'm:method',
+        \ 'o:object',
+        \ 'f:function',
+        \ 'a:array',
+        \ 's:string',
+        \ 'v:variable'
+    \ ]
+\ }
+"}}}
+
+
+"{{{
+let g:indent_guides_start_level=2
+let g:indent_guides_auto_colors=0
+let g:indent_guides_enable_on_vim_startup=0
+let g:indent_guides_color_change_percent=20
+let g:indent_guides_guide_size=1
+let g:indent_guides_space_guides=1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+
+hi IndentGuidesOdd  ctermbg=235
+hi IndentGuidesEven ctermbg=237
+au FileType coffee,ruby,javascript,python IndentGuidesEnable
+"}}}
+
+
+"{{{
+" QuickRun
+let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
+let g:quickrun_config['coffee'] = {
+     \'command' : 'coffee',
+     \'exec' : ['%c -cbp %s']
+     \}
+
+
+"vim-ref
+let g:ref_open = 'tabnew'
+let g:ref_jquery_doc_path = $HOME . '/.vim/bundle/jqapi'
+let g:ref_javascript_doc_path = $HOME . '/.vim/bundle/jsref/htdocs'
+let g:ref_auto_resize = 1
+let g:ref_wikipedia_lang = ['ja', 'en']
+let g:ref_use_cache = 1
+
+
+
+" https://github.com/mattn/gist-vim
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+let g:github_user = 'h17u'
+"}}}
+
+""" https://github.com/terryma/vim-expand-region "{{{
+" Default settings.
+let g:expand_region_text_objects = {
+      \ 'iw'  :0,
+      \ 'iW'  :0,
+      \ 'i"'  :0,
+      \ 'i''' :0,
+      \ 'i]'  :1,
+      \ 'ib'  :1,
+      \ 'iB'  :1,
+      \ 'il'  :0,
+      \ 'ip'  :0,
+      \ 'ie'  :0,
+      \ }
+" Extend the global default
+call expand_region#custom_text_objects({
+      \ "\/\\n\\n\<CR>": 1,
+      \ 'a]' :1,
+      \ 'aB' :1,
+      \ 'ii' :0,
+      \ 'ai' :0,
+      \ })
+" Use the following setting for ruby.
+let g:expand_region_text_objects_ruby = {
+      \ 'im' :0,
+      \ 'am' :0,
+      \ }
+" Use the global default + the following for ruby
+call expand_region#custom_text_objects('ruby', {
+      \ 'im' :0,
+      \ 'am' :0,
+      \ })
+let g:expand_region_use_select_mode = 1
+"}}}
+
+" etc "{{{
+"  """ https://github.com/terryma/vim-smooth-scroll
+"  noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+"  noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+"  noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+"  noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+"
+"  """ https://github.com/osyo-manga/vim-anzu
+"  " n や N の代わりに使用します。
+"  nmap n <Plug>(anzu-n)zz
+"  nmap N <Plug>(anzu-N)zz
+"  nmap * <Plug>(anzu-star)zz
+"  nmap # <Plug>(anzu-sharp)zz
+"
+"  " ステータス情報を statusline へと表示する
+"  set statusline+=%{anzu#search_status()}
+"}}}
+
+
+
+" https://github.com/spolu/dwm.vim "{{{
+""" ~/.vim/bundle/dwm.vim/plugin/dwm.vim
+let g:dwm_map_keys = 0 " (1:default keybind)
+nmap <C-S-n> <Plug>DWMNew
+nmap <C-S-c> <Plug>DWMClose
+" nmap <C-@> <Plug>DWMFocus
+nmap <C-S-Space> <Plug>DWMFocus
+nnoremap <C-S-j> <c-w>w
+nnoremap <C-S-k> <c-w>W
+" nmap <C-S-,> <Plug>DWMRotateCounterclockwise
+" nmap <C-S-.> <Plug>DWMRotateClockwise
+" nmap <C-S-l> <Plug>DWMGrowMaster
+" nmap <C-S-h> <Plug>DWMShrinkMaster
+"}}}
+
+
+"-------------------------------------------------
+" Function "{{{
+"-------------------------------------------------
+" Paste Modenese "{{{
+let paste_mode = 0 " 0 = normal, 1 = paste
+
+function! Paste_on_off()
+    if g:paste_mode == 0
+        set paste
+        let g:paste_mode = 1
+    else
+        set nopaste
+        let g:paste_mode = 0
+    endif
+    return
+endfunction "}}}
+
+" Paste Mode <F10>
+nnoremap <silent> <F10> :call Paste_on_off()<CR>
+set pastetoggle=<F10>
+
+
+""" Alt key treats as meta key
+""" http://blog.remora.cx/2012/07/using-alt-as-meta-in-vim.html
+" let c = 'a'
+" while c <= 'z'
+"     execute "set <M-" . c . ">=\e" . c
+"     execute "imap \e" . c . " <M-" . c . ">"
+"     execute "set <M-S-" . c . ">=\e" . toupper(c)
+"     execute "imap \e" . toupper(c) . " <M-" . c . ">"
+"     let c = nr2char(1+char2nr(c))
+" endw
+
+
+""" http://vim-users.jp/2010/11/hack181/
+" Open junk file."{{{
+command! -nargs=0 JunkFile call s:open_junk_file()
+function! s:open_junk_file()
+  let l:junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
+  if !isdirectory(l:junk_dir)
+    call mkdir(l:junk_dir, 'p')
+  endif
+
+  let l:filename = input('Junk Code: ', l:junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
+  if l:filename != ''
+    execute 'edit ' . l:filename
+  endif
+endfunction"}}}
+
+
+""" http://labs.timedia.co.jp/2011/04/9-points-to-customize-automatic-indentation-in-vim.html
+" git-diff-aware version of gf commands.
+"nnoremap <expr> gf  <SID>do_git_diff_aware_gf('gf')
+nnoremap <expr> gF  <SID>do_git_diff_aware_gf('gF')
+nnoremap <expr> <C-w>f  <SID>do_git_diff_aware_gf('<C-w>f')
+nnoremap <expr> <C-w><C-f>  <SID>do_git_diff_aware_gf('<C-w><C-f>')
+nnoremap <expr> <C-w>F  <SID>do_git_diff_aware_gf('<C-w>F')
+nnoremap <expr> <C-w>gf  <SID>do_git_diff_aware_gf('<C-w>gf')
+nnoremap <expr> <C-w>gF  <SID>do_git_diff_aware_gf('<C-w>gF')
+
+function! s:do_git_diff_aware_gf(command)
+  let target_path = expand('<cfile>')
+  if target_path =~# '^[ab]/'  " with a peculiar prefix of git-diff(1)?
+    if filereadable(target_path) || isdirectory(target_path)
+      return a:command
+    else
+      " BUGS: Side effect - Cursor position is changed.
+      let [_, c] = searchpos('\f\+', 'cenW')
+      return c . '|' . 'v' . (len(target_path) - 2 - 1) . 'h' . a:command
+    endif
+  else
+    return a:command
+  endif
+endfunction
+
+" }}}
+
+
+"-------------------------------------------------
+" Setting "{{{
+set encoding=utf-8
+"set encoding=shift_jis
+set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
+"set fileencodings=cp932,iso-2022-jp,utf-8,euc-jp
+"set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+let $LANG='C'
+"set helplang=ja,en
+set helplang=en,ja
+
+
+set laststatus=2
+set tabstop=4       " numbers of spaces of tab character
+set shiftwidth=4    " numbers of spaces to (auto)indent
+set expandtab
+"set scrolloff=3     " keep 3 lines when scrolling
+set showcmd         " display incomplete commands
+set hlsearch        " highlight searches
+set incsearch       " do incremental searching
+set ruler           " show the cursor position all the time
+"set visualbell t_vb=    " turn off error beep/flash
+"set novisualbell    " turn off visual bell
+"set nobackup        " do not keep a backup file
+set cursorline
+
+
+
+"set directory=
+"set number          " show line numbers
+set ignorecase      " ignore case when searching
+set smartcase
+"set noignorecase   " don't ignore case
+set nowrapscan
+set title           " show title in console title bar
+set ttyfast         " smoother changes
+"set ttyscroll=0        " turn off scrolling, didn't work well with PuTTY
+set modeline        " last lines in document sets vim mode
+set modelines=3     " number lines checked for modelines
+"set shortmess=atI   " Abbreviate messages
+"set nostartofline   " don't jump to first character when paging
+set whichwrap=b,s,h,l,<,>,[,]   " move freely between files
+"set viminfo='20,<50,s10,h
+
+"set autoindent     " always set autoindenting on
+"set smartindent        " smart indent
+
+"set cindent            " cindent
+"set noautoindent
+"set nosmartindent
+"set nocindent
+
+"set autowrite      " auto saves changes when quitting and swiching buffer
+"set expandtab      " tabs are converted to spaces, use only when required
+set showmatch       " show matching braces, somewhat annoying...
+set matchtime=5
+
+set wildmode=longest:full,list:longest
+set wildmenu "turn on wild menu
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*DS_Store*
+set wildignore+=vendor/rails/**
+set wildignore+=vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/Library/**,*/.rbenv/**
+set wildignore+=*/.nx/**,*.app
+
+set nowrap         " don't wrap lines
+"set list	" タブ文字、行末など不可視文字を表示する
+"set listchars=eol:$,tab:>\ ,extends:<	" listで表示される文字のフォーマットを指定する
+set clipboard=unnamed,autoselect
+"set splitbelow "新しいウィンドウを下に開く
+"set splitright "新しいウィンドウを右に開く
+
+set magic
+
+
+
+" http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+" Show trailing whitepace and spaces before a tab:
+:autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+
+
+:autocmd BufEnter * let b:did_ftplugin = 1
+
+" Send more characters for redraws
+set ttyfast
+
+" Enable mouse use in all modes
+set mouse=a
+
+" Set this to the name of your terminal that supports mouse codes.
+" Must be one of: xterm, xterm2, netterm, dec, jsbterm, pterm
+set ttymouse=xterm2
+
+"set backspace=start,eol,indent
+set backspace=eol
+
+" set conceallevel=0
+highlight link HelpBar Normal
+highlight link HelpStar Normal
+
+set helpheight=30
+set tags=tags
+:let &keywordprg=':help'
+":set keywordprg=man\ -s
+
+" set grepprg=ag
+set grepprg=jvgrep
+
+" statusline "{{{
+" http://blog.ruedap.com/entry/20110712/vim_statusline_git_branch_name
+"  set statusline=%<     " 行が長すぎるときに切り詰める位置
+"  set statusline+=[%n]  " バッファ番号
+"  set statusline+=%m    " %m 修正フラグ
+"  set statusline+=%r    " %r 読み込み専用フラグ
+"  set statusline+=%h    " %h ヘルプバッファフラグ
+"  set statusline+=%w    " %w プレビューウィンドウフラグ
+"  set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fileencode, fileformat
+"  set statusline+=%y    " バッファ内のファイルのタイプ
+"  set statusline+=\     " 空白スペース
+"if winwidth(0) >= 130
+"  set statusline+=%F    " バッファ内のファイルのフルパス
+"else
+"  set statusline+=%t    " ファイル名のみ
+"endif
+"  set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
+"  set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
+"  set statusline+=\ \   " 空白スペース2個
+"  set statusline+=%l   " 何行目にカーソルがあるか
+"  set statusline+=/
+"  set statusline+=%L    " バッファ内の総行数
+"  set statusline+=,
+"  set statusline+=\ \   " 空白スペース2個
+"  set statusline+=%c    " 何列目にカーソルがあるか
+""  set statusline+=%V    " 画面上の何列目にカーソルがあるか
+"  set statusline+=\ \   " 空白スペース2個
+"  set statusline+=%P    " ファイル内の何％の位置にあるか
+"  set statusline+=\ \   " 空白スペース2個
+"  set statusline+=0x%B  " 文字コード
+"  set statusline+=\ \   " 空白スペース2個
+"}}}
+"}}}
+
+"-------------------------------------------------
+" Key-mappings "{{{
+"-------------------------------------------------
+" insert mode での移動
+"inoremap <C-e> <END>
+"inoremap <C-a> <HOME>
+"inoremap <C-j> <Down>
+"inoremap <C-k> <Up>
+"inoremap <C-h> <Left>
+"inoremap <C-l> <Right>
+
+" Tab
+"nnoremap <C-n> gt
+"nnoremap <C-p> gT
+
+" http://archiva.jp/web/tool/how_to_vim_2.html
+" https://github.com/sigwyg/Vim-Starter-kit/blob/master/.vimrc
+"水平方向の移動を簡単にしてます。nowrapな時に便利。
+"nnoremap zl zL
+"nnoremap zh zH
+"行移動を見た目上に行うようにしています。wrap指定している場合、見た目上は数行に改行されていても内部的には1行なので。
+"noremap j gj
+"noremap k gk
+"タブ移動です。tは遠いよね ==)
+"noremap gh gT
+"noremap gl gt
+"normalモードでもカーソル位置で改行できるようにしてます。
+"noremap <CR> i<CR><ESC>
+"ブラケット入力時にスムーズに編集できるように。最近びみょーかもと思い始めてますが。
+"inoremap {} {}<LEFT>
+"inoremap [] []<LEFT>
+"inoremap () ()<LEFT>
+"inoremap "" ""<LEFT>
+"inoremap '' ''<LEFT>
+"inoremap <> <><LEFT>
+"inoremap []5 [%  %]<LEFT><LEFT><LEFT>
+"inoremap {}5 {%  %}<LEFT><LEFT><LEFT>
+"検索結果に移動したとき、その位置を画面の中央にします。上端とかに移動しても気付きにくいので。
+"nnoremap n nzz
+"nnoremap N Nzz
+"nnoremap * *zz
+"nnoremap # #zz
+"nnoremap g* g*zz
+"nnoremap g# g#zz
+"検索時、「/」の入力をエスケープします。
+"cnoremap  / getcmdtype() == '/' ? '\/' : '/'
+"ウィンドウ分割時にウィンドウサイズを調節する設定です。Shiftキー＋矢印キー。
+"nnoremap <silent> <S-Left>  :5wincmd <<CR>
+"nnoremap <silent> <S-Right> :5wincmd ><CR>
+"nnoremap <silent> <S-Up>    :5wincmd -<CR>
+"nnoremap <silent> <S-Down>  :5wincmd +<CR>
+"バッファの一覧・移動・削除です。QuickBuf使うまでもないときに。
+" nnoremap bb :b#<CR>
+" nnoremap bp :bprevious<CR>
+" nnoremap bn :bnext<CR>
+" nnoremap bd :bdelete<CR>
+"「最後に編集したテキスト」を選択するキーマップ。コピペ後などに重宝。「gv」と似て非なる使い勝手。
+"nnoremap gb `[v`]
+" nnoremap gc `[v`]
+" vnoremap gc :<C-u>normal gc<CR>
+" onoremap gc :<C-u>normal gc<CR>
+"表示中のバッファをVimスクリプトと見なして再読込。.vimrc変更後など。
+"nnoremap <Space>r :<C-u>execute "source " expand("%:p")<CR>
+"vimrcとgvimrcを再読込。vimrc変更後など。
+"nnoremap <Space>v :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
+
+"Escの2回押しでハイライト消去
+"nmap <ESC><ESC> :nohlsearch<CR><ESC>
+".vimrc<e3><82><92>"nnoremap"で検索したときで、
+
+" CTRL-hjklでウィンドウ移動
+"nnoremap <C-j> :<C-w>j
+"nnoremap <C-k> :<C-k>j
+"nnoremap <C-l> :<C-l>j
+"nnoremap <C-h> :<C-h>j
+
+"""" http://code-life.net/?p=2704
+"Quick Escaping
+"inoremap jj <Esc>
+
+
+""" http://whileimautomaton.net/2008/08/vimworkshop3-kana-presentation
+" 検索パターン入力中は/で\/を入力
+" /そのものを入力するには<C-v>/とタイプ
+"cnoremap <expr> /
+"\ getcmdtype() == '/' ? '\/' : '/'
+"
+"cnoremap <expr> ?
+"\ getcmdtype() == '/' ? '\/' : '/'
+
+""" tjump
+nnoremap <c-]> g<c-]>
+vnoremap <c-]> g<c-]>
+nnoremap g<c-]> <c-]>
+vnoremap g<c-]> <c-]>
+
+""" http://blog.soichiro.org/?p=66
+" ヴィジュアルモードで選択したテキストをnで検索する(レジスタv使用)
+vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
+" gfでカーソル下のファイル名を新しいタブで開く
+" nnoremap gF :tabedit <cfile><CR>
+" vnoremap gF :tabedit <cfile><CR>
+nnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
+vnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
+""" ~/.vim/bundle/dwm.vim/plugin/dwm.vim
+" ヤンク、切り取り時にレジスタ"の値をzにもコピーしておく(連続貼付可に使う)
+vnoremap <silent> y y:let @z=@"<CR>
+vnoremap <silent> d d:let @z=@"<CR>
+" ビジュアルモードで選択したテキストを消してレジスタzの内容を貼付ける(連続貼付可)
+vnoremap <silent> p x"zP
+" :makeや:grepをした際に自動的にquickfixが開くようにする
+autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd if len(getqflist()) != 0 | cw | endif
+" ファイルを開いたときに前回の編集箇所に移動
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+" }}}
+
+
+
 
 " vim: foldmethod=marker

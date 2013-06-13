@@ -432,7 +432,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     #    antigen bundle dircycle
     #    antigen bundle encode64
     antigen bundle gem
-    antigen bundle git
+    #    antigen bundle git
     #    antigen bundle git-flow
     antigen bundle github
     antigen bundle heroku
@@ -468,3 +468,6 @@ autoload -Uz run-help-p4
 autoload -Uz run-help-sudo
 autoload -Uz run-help-svk
 autoload -Uz run-help-svn
+
+# http://qiita.com/items/12a4d42ee7a667f7934b
+fpath = (/usr/local/share/zsh-completions $fpath)

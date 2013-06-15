@@ -3056,7 +3056,7 @@ xmap <Leader>h <Plug>(operator-html-escape)
 " Easily macro.
 nnoremap @@ @a
 
-" Improved increment.
+" Improved increment. "{{{
 nmap <C-a> <SID>(increment)
 nmap <C-x> <SID>(decrement)
 nnoremap <silent> <SID>(increment)    :AddNumbers 1<CR>
@@ -3081,7 +3081,7 @@ function! s:add_numbers(num)
   if getline('.') !=# new_line
     call setline('.', new_line)
   endif
-endfunction
+endfunction "}}}
 
 " Syntax check.
 nnoremap <silent> [Window]y
@@ -3138,7 +3138,7 @@ function! s:highlight_with(args) range
   let b:highlight_count = c + 1
 endfunction"}}}
 
-" For git update in current directory.
+" For git update in current directory. "{{{
 command! GitPullAll call s:git_pull_all()
 function! s:git_pull_all()
   let current_dir = getcwd()
@@ -3166,7 +3166,7 @@ function! s:git_pull_all()
   echo 'Done!'
 
   lcd `=current_dir`
-endfunction
+endfunction "}}}
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3416,7 +3416,7 @@ set background=dark
 " set background=light
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
-let g:solarized_degrade=0
+let g:solarized_dgrade=0
 let g:solarized_bold=1
 let g:solarized_underline=1
 let g:solarized_italic=1
@@ -3621,18 +3621,18 @@ set pastetoggle=<F10>
 
 " Open junk file."{{{
 """ http://vim-users.jp/2010/11/hack181/
-command! -nargs=0 JunkFile call s:open_junk_file()
-function! s:open_junk_file()
-  let l:junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
-  if !isdirectory(l:junk_dir)
-    call mkdir(l:junk_dir, 'p')
-  endif
-
-  let l:filename = input('Junk Code: ', l:junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
-  if l:filename != ''
-    execute 'edit ' . l:filename
-  endif
-endfunction"}}}
+" command! -nargs=0 JunkFile call s:open_junk_file()
+" function! s:open_junk_file()
+"   let l:junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
+"   if !isdirectory(l:junk_dir)
+"     call mkdir(l:junk_dir, 'p')
+"   endif
+" 
+"   let l:filename = input('Junk Code: ', l:junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
+"   if l:filename != ''
+"     execute 'edit ' . l:filename
+"   endif
+" endfunction"}}}
 
 
 " git-diff-aware version of gf commands. "{{{
@@ -3687,7 +3687,7 @@ endfunction
 " "set visualbell t_vb=    " turn off error beep/flash
 " "set novisualbell    " turn off visual bell
 " "set nobackup        " do not keep a backup file
-" set cursorline
+set cursorline
 " 
 " 
 " 
@@ -3720,7 +3720,7 @@ endfunction
 " set showmatch       " show matching braces, somewhat annoying...
 " set matchtime=5
 
-set wildmode=longest:full,list:longest
+" set wildmode=longest:full,list:longest
 set wildmenu "{{{
 set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 set wildignore+=*DS_Store*

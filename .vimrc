@@ -542,7 +542,7 @@ NeoBundle 'tokuhirom/jsref', '', 'default'
 NeoBundle 'terryma/vim-expand-region', '', 'default'
 " NeoBundle 'terryma/vim-smooth-scroll', '', 'default'
 " NeoBundle 'osyo-manga/vim-anzu', '', 'default'
-NeoBundle 'tpope/vim-surround', '', 'default'
+" NeoBundle 'tpope/vim-surround', '', 'default'
 " NeoBundle 'tpope/vim-speeddating', '', 'default'
 " NeoBundle 'tpope/vim-abolish', '', 'default'
 " NeoBundle 'tpope/vim-unimpaired', '', 'default'
@@ -1388,7 +1388,7 @@ function! bundle.hooks.on_source(bundle)
         \ "\<Plug>(neocomplcache_start_unite_quick_match)" : '`'
 endfunction
 
-function! CompleteFiles(findstart, base)
+function! CompleteFiles(findstart, base) "{{{
   if a:findstart
     " Get cursor word.
     let cur_text = strpart(getline('.'), 0, col('.') - 1)
@@ -1409,7 +1409,7 @@ function! CompleteFiles(findstart, base)
   endfor
 
   return { 'words' : list, 'refresh' : 'always' }
-endfunction
+endfunction "}}}
 
 unlet bundle
 "}}}
@@ -1454,8 +1454,8 @@ unlet bundle
 " nnoremap !  q:VimShellExecute<Space>
 " nnoremap [Space]i  q:VimShellInteractive<Space>
 " nnoremap [Space]t  q:VimShellTerminal<Space>
-
-nnoremap <silent> [Space];  <C-u>:VimShellPop<CR>
+" 
+" nnoremap <silent> [Space];  <C-u>:VimShellPop<CR>
 "}}}
 
 let bundle = neobundle#get('vimshell')
@@ -1472,7 +1472,7 @@ function! bundle.hooks.on_source(bundle)
   let g:vimshell_force_overwrite_statusline = 1
 
   autocmd MyAutoCmd FileType vimshell call s:vimshell_settings()
-  function! s:vimshell_settings()
+  function! s:vimshell_settings() "{{{
     if s:is_windows
       " Display user name on Windows.
       "let g:vimshell_prompt = $USERNAME."% "
@@ -1533,7 +1533,7 @@ function! bundle.hooks.on_source(bundle)
     call vimshell#hook#add('preprompt', 'my_preprompt', s:vimshell_hooks.preprompt)
     call vimshell#hook#add('preexec', 'my_preexec', s:vimshell_hooks.preexec)
     " call vimshell#hook#set('preexec', [s:SID_PREFIX() . 'vimshell_hooks_preexec'])
-  endfunction
+  endfunction "}}}
 
   autocmd MyAutoCmd FileType int-* call s:interactive_settings()
   function! s:interactive_settings()
@@ -1541,7 +1541,7 @@ function! bundle.hooks.on_source(bundle)
   endfunction
 
   autocmd MyAutoCmd FileType term-* call s:terminal_settings()
-  function! s:terminal_settings()
+  function! s:terminal_settings() "{{{
     inoremap <silent><buffer><expr> <Plug>(vimshell_term_send_semicolon)
           \ vimshell#term_mappings#send_key(';')
     inoremap <silent><buffer><expr> j<Space>
@@ -1555,8 +1555,8 @@ function! bundle.hooks.on_source(bundle)
     " Escape key.
     iunmap <buffer> <ESC><ESC>
     imap <buffer> <ESC>         <Plug>(vimshell_term_send_escape)
-  endfunction
-  function! s:texe_sticky_func()
+  endfunction "}}}
+  function! s:texe_sticky_func() "{{{
     let sticky_table = {
           \',' : '<', '.' : '>', '/' : '?',
           \'1' : '!', '2' : '@', '3' : '#', '4' : '$', '5' : '%',
@@ -1586,7 +1586,7 @@ function! bundle.hooks.on_source(bundle)
     else
       return ''
     endif
-  endfunction
+  endfunction "}}}
 
   let s:vimshell_hooks = {}
   function! s:vimshell_hooks.chpwd(args, context)

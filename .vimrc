@@ -536,7 +536,7 @@ NeoBundle 'jiangmiao/simple-javascript-indenter', '', 'default'
 NeoBundle 'vim-scripts/jQuery', '', 'default'
 NeoBundle 'majutsushi/tagbar', '', 'default'
 NeoBundle 'hail2u/vim-css3-syntax', '', 'default'
-NeoBundle 'nathanaelkane/vim-indent-guides', '', 'default'
+" NeoBundle 'nathanaelkane/vim-indent-guides', '', 'default'
 NeoBundle 'mustardamus/jqapi', '', 'default'
 NeoBundle 'tokuhirom/jsref', '', 'default'
 NeoBundle 'terryma/vim-expand-region', '', 'default'
@@ -812,6 +812,8 @@ endif
 "set grepprg=internal
 " Use grep.
 set grepprg=grep\ -nH
+" set grepprg=ag
+" set grepprg=jvgrep
 
 " Exclude = from isfilename.
 set isfname-==
@@ -891,9 +893,9 @@ set laststatus=2
 " Height of command line.
 set cmdheight=2
 " Not show command on statusline.
-set noshowcmd
+" set noshowcmd
 " Not show mode.
-set noshowmode
+" set noshowmode
 " Show title.
 set title
 " Title length.
@@ -2468,7 +2470,7 @@ if has('gui_running')
   inoremap <ESC> <ESC>
 endif
 
-" H, D: delete camlcasemotion.
+" H, D: delete camlcasemotion. "{{{
 inoremap <expr>H           <SID>camelcase_delete(0)
 inoremap <expr>D           <SID>camelcase_delete(1)
 function! s:camelcase_delete(is_reverse)
@@ -2495,7 +2497,7 @@ function! s:camelcase_delete(is_reverse)
 
   return (pumvisible() ?
         \ neocomplcache#smart_close_popup() : '') . repeat(del, cur_cnt)
-endfunction
+endfunction "}}}
 "}}}
 
 " Command-line mode keymappings:"{{{
@@ -3448,23 +3450,22 @@ let g:tagbar_type_javascript = {
 "}}}
 
 
-"{{{
-let g:indent_guides_start_level=2
-let g:indent_guides_auto_colors=0
-let g:indent_guides_enable_on_vim_startup=0
-let g:indent_guides_color_change_percent=20
-let g:indent_guides_guide_size=1
-let g:indent_guides_space_guides=1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-
-hi IndentGuidesOdd  ctermbg=235
-hi IndentGuidesEven ctermbg=237
-au FileType coffee,ruby,javascript,python IndentGuidesEnable
+"indentquide "{{{
+" let g:indent_guides_start_level=2
+" let g:indent_guides_auto_colors=0
+" let g:indent_guides_enable_on_vim_startup=0
+" let g:indent_guides_color_change_percent=20
+" let g:indent_guides_guide_size=1
+" let g:indent_guides_space_guides=1
+" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+" 
+" hi IndentGuidesOdd  ctermbg=235
+" hi IndentGuidesEven ctermbg=237
+" au FileType coffee,ruby,javascript,python IndentGuidesEnable
 "}}}
 
 
-"{{{
-" QuickRun
+" QuickRun "{{{
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 let g:quickrun_config['coffee'] = {
      \'command' : 'coffee',
@@ -3473,8 +3474,7 @@ let g:quickrun_config['coffee'] = {
 "}}}
 
 
-"{{{
-"vim-ref
+"vim-ref "{{{
 let g:ref_open = 'tabnew'
 let g:ref_jquery_doc_path = $HOME . '/.vim/bundle/jqapi'
 let g:ref_javascript_doc_path = $HOME . '/.vim/bundle/jsref/htdocs'
@@ -3484,8 +3484,7 @@ let g:ref_use_cache = 1
 "}}}
 
 
-"{{{
-" https://github.com/mattn/gist-vim
+" https://github.com/mattn/gist-vim "{{{
 let g:gist_clip_command = 'pbcopy'
 let g:gist_detect_filetype = 1
 let g:github_user = 'h17u'
@@ -3558,17 +3557,16 @@ let g:expand_region_use_select_mode = 1
 
 " https://github.com/scrooloose/nerdcommenter "{{{
 let NERDSpaceDelims = 1
-nmap <Leader>c <Plug>NERDCommenterToggle
-vmap <Leader>c <Plug>NERDCommenterToggle
+" nmap <Leader>c <Plug>NERDCommenterToggle
+" vmap <Leader>c <Plug>NERDCommenterToggle
 "}}}
 
-
-" let bundle = neobundle#get('echodoc')
+" let bundle = neobundle#get('echodoc') "{{{
 " function! bundle.hooks.on_source(bundle)
 "   let g:echodoc_enable_at_startup = 1
 " endfunction
 " unlet bundle
-
+"}}}
 
 " https://github.com/spolu/dwm.vim "{{{
 """ ~/.vim/bundle/dwm.vim/plugin/dwm.vim
@@ -3608,7 +3606,7 @@ nnoremap <silent> <F10> :call Paste_on_off()<CR>
 set pastetoggle=<F10>
 
 
-""" Alt key treats as meta key
+""" Alt key treats as meta key "{{{
 """ http://blog.remora.cx/2012/07/using-alt-as-meta-in-vim.html
 " let c = 'a'
 " while c <= 'z'
@@ -3618,10 +3616,11 @@ set pastetoggle=<F10>
 "     execute "imap \e" . toupper(c) . " <M-" . c . ">"
 "     let c = nr2char(1+char2nr(c))
 " endw
+" }}}
 
 
-""" http://vim-users.jp/2010/11/hack181/
 " Open junk file."{{{
+""" http://vim-users.jp/2010/11/hack181/
 command! -nargs=0 JunkFile call s:open_junk_file()
 function! s:open_junk_file()
   let l:junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
@@ -3636,8 +3635,8 @@ function! s:open_junk_file()
 endfunction"}}}
 
 
+" git-diff-aware version of gf commands. "{{{
 """ http://labs.timedia.co.jp/2011/04/9-points-to-customize-automatic-indentation-in-vim.html
-" git-diff-aware version of gf commands.
 "nnoremap <expr> gf  <SID>do_git_diff_aware_gf('gf')
 nnoremap <expr> gF  <SID>do_git_diff_aware_gf('gF')
 nnoremap <expr> <C-w>f  <SID>do_git_diff_aware_gf('<C-w>f')
@@ -3660,9 +3659,9 @@ function! s:do_git_diff_aware_gf(command)
     return a:command
   endif
 endfunction
-
 " }}}
 
+" }}}
 
 "-------------------------------------------------
 " Setting "{{{
@@ -3745,16 +3744,14 @@ set nowrap         " don't wrap lines
 
 " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 " Show trailing whitepace and spaces before a tab:
-:autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+" :autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 
 
 
-set helpheight=30
-:let &keywordprg=':help'
-":set keywordprg=man\ -s
+" set helpheight=30
+" :let &keywordprg=':help'
+" :set keywordprg=man\ -s
 
-" set grepprg=ag
-set grepprg=jvgrep
 
 " statusline "{{{
 " http://blog.ruedap.com/entry/20110712/vim_statusline_git_branch_name
@@ -3792,11 +3789,11 @@ set grepprg=jvgrep
 
 
 """" http://labs.timedia.co.jp/2011/04/javascript-function-lambda-vim.html "{{{
-setlocal conceallevel=2
-syntax keyword javaScriptLambda function conceal cchar=λ
-highlight clear Conceal
-highlight link Conceal Identifier
-highlight link javaScriptLambda Identifier
+" setlocal conceallevel=2
+" syntax keyword javascriptlambda function conceal cchar=λ
+" highlight clear conceal
+" highlight link conceal identifier
+" highlight link javaScriptLambda Identifier
 "}}}
 
 "-------------------------------------------------

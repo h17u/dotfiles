@@ -529,7 +529,7 @@ NeoBundleLazy 'elzr/vim-json', {
 NeoBundle 'altercation/vim-colors-solarized.git', '', 'default'
 NeoBundle 'tpope/vim-fugitive.git', '', 'default'
 NeoBundle 'scrooloose/nerdtree', '', 'default'
-NeoBundle 'scrooloose/nerdcommenter', '', 'default'
+" NeoBundle 'scrooloose/nerdcommenter', '', 'default'
 NeoBundle 'scrooloose/syntastic.git', '', 'default'
 NeoBundle 'Townk/vim-autoclose', '', 'default'
 NeoBundle 'jiangmiao/simple-javascript-indenter', '', 'default'
@@ -1454,12 +1454,12 @@ unlet bundle
 " nnoremap !  q:VimShellExecute<Space>
 " nnoremap [Space]i  q:VimShellInteractive<Space>
 " nnoremap [Space]t  q:VimShellTerminal<Space>
-" 
+"
 " nnoremap <silent> [Space];  <C-u>:VimShellPop<CR>
 "}}}
 
 let bundle = neobundle#get('vimshell')
-function! bundle.hooks.on_source(bundle)
+function! bundle.hooks.on_source(bundle) "{{{
   " let g:vimshell_user_prompt = "3\ngetcwd()"
   let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
   " let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
@@ -1620,7 +1620,7 @@ function! bundle.hooks.on_source(bundle)
     " echomsg 'input'
     return a:input
   endfunction
-endfunction
+endfunction "}}}
 
 unlet bundle
 "}}}
@@ -1646,6 +1646,42 @@ nnoremap    [unite]   <Nop>
 xnoremap    [unite]   <Nop>
 nmap    ;u [unite]
 xmap    ;u [unite]
+
+nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir
+            \ -buffer-name=files buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
+            \ -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
+nnoremap <silent> [unite]r  :<C-u>Unite
+            \ -buffer-name=register register<CR>
+" nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
+nnoremap <silent> [unite]o  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
+nnoremap <silent> [unite]f
+            \ :<C-u>Unite -buffer-name=resume resume<CR>
+nnoremap <silent> [unite]d
+            \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+" Key mappings
+" nnoremap <silent> [unite]ma
+"             \ :<C-u>Unite mapping<CR>
+nnoremap <silent> [unite]ma :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+nnoremap <silent> [unite]me
+            \ :<C-u>Unite output:message<CR>
+nnoremap  [unite]f  :<C-u>Unite source<CR>
+
+nnoremap <silent> [unite]s
+            \ :<C-u>Unite -buffer-name=files -no-split
+            \ jump_point file_point buffer_tab
+            \ file_rec:! file file/new file_mru<CR>
+" Snippets
+nnoremap <silent> [unite]s
+            \ :<C-u>Unite snippets<CR>
+" Help
+nnoremap <silent> [unite]h
+            \ :<C-u>Unite help<CR>
+nnoremap <silent> [unite]k
+            \ :<C-u>UniteWithCursorWord help<CR>
+" grep by ag
+vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+
 
 nnoremap [unite]u  q:Unite<Space>
 " nnoremap <silent> :  :<C-u>Unite history/command command<CR>
@@ -1764,7 +1800,7 @@ let g:unite_source_alias_aliases.scriptnames = {
       \ 'args'   : 'scriptnames',
       \ }
 
-" For unite-menu.
+" For unite-menu."{{{
 let g:unite_source_menu_menus = {}
 
 let g:unite_source_menu_menus.enc = {
@@ -1823,9 +1859,9 @@ let g:unite_source_menu_menus.unite.command_candidates = {
       \       'scriptnames': 'Unite output:scriptnames',
       \     }
 nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
-
+"}}}
 let bundle = neobundle#get('unite.vim')
-function! bundle.hooks.on_source(bundle)
+function! bundle.hooks.on_source(bundle) "{{{
   autocmd MyAutoCmd FileType unite call s:unite_my_settings()
 
   call unite#set_profile('action', 'context', {'start_insert' : 1})
@@ -1960,7 +1996,7 @@ function! bundle.hooks.on_source(bundle)
         \ . (s:is_windows ? 'bmp' : 'png')
   let g:unite_build_warning_icon  = $DOTVIM . '/signs/warn.'
         \ . (s:is_windows ? 'bmp' : 'png')
-endfunction
+endfunction "}}}
 
 unlet bundle
 "}}}
@@ -2169,7 +2205,7 @@ imap <C-j>     <Plug>(eskk:toggle)
 let bundle = neobundle#get('eskk.vim')
 function! bundle.hooks.on_source(bundle)
   let g:eskk#large_dictionary = {
-        \   'path': expand('~/SKK-JISYO.L'),
+        \   'path': expand('~/.eskk/SKK-JISYO.L'),
         \   'sorted': 1,
         \   'encoding': 'euc-jp',
         \}
@@ -3556,7 +3592,7 @@ let g:expand_region_use_select_mode = 1
 "}}}
 
 " https://github.com/scrooloose/nerdcommenter "{{{
-let NERDSpaceDelims = 1
+" let NERDSpaceDelims = 1
 " nmap <Leader>c <Plug>NERDCommenterToggle
 " vmap <Leader>c <Plug>NERDCommenterToggle
 "}}}

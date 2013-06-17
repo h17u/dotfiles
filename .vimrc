@@ -524,8 +524,8 @@ NeoBundleLazy 'elzr/vim-json', {
       \ 'autoload' : {
       \   'filetypes' : 'json',
       \ }}
-" NeoBundle 'spolu/dwm.vim', '', 'default'
-" NeoBundle 'kannokanno/unite-dwm', '', 'default'
+NeoBundle 'spolu/dwm.vim', '', 'default'
+NeoBundle 'kannokanno/unite-dwm', '', 'default'
 NeoBundle 'altercation/vim-colors-solarized.git', '', 'default'
 NeoBundle 'tpope/vim-fugitive.git', '', 'default'
 NeoBundle 'scrooloose/nerdtree', '', 'default'
@@ -1644,8 +1644,8 @@ nnoremap <silent> [Space]gs :<C-u>UniteVersions status:!<CR>
 " The prefix key.
 nnoremap    [unite]   <Nop>
 xnoremap    [unite]   <Nop>
-nmap    ;u [unite]
-xmap    ;u [unite]
+nmap    ;i [unite]
+xmap    ;i [unite]
 
 nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir
             \ -buffer-name=files buffer file_mru bookmark file<CR>
@@ -1655,8 +1655,8 @@ nnoremap <silent> [unite]r  :<C-u>Unite
             \ -buffer-name=register register<CR>
 " nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
 nnoremap <silent> [unite]o  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
-nnoremap <silent> [unite]f
-            \ :<C-u>Unite -buffer-name=resume resume<CR>
+" nnoremap <silent> [unite]f
+"             \ :<C-u>Unite -buffer-name=resume resume<CR>
 nnoremap <silent> [unite]d
             \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 " Key mappings
@@ -1665,18 +1665,16 @@ nnoremap <silent> [unite]d
 nnoremap <silent> [unite]ma :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
 nnoremap <silent> [unite]me
             \ :<C-u>Unite output:message<CR>
-nnoremap  [unite]f  :<C-u>Unite source<CR>
-
 nnoremap <silent> [unite]s
             \ :<C-u>Unite -buffer-name=files -no-split
             \ jump_point file_point buffer_tab
             \ file_rec:! file file/new file_mru<CR>
 " Snippets
-nnoremap <silent> [unite]s
-            \ :<C-u>Unite snippets<CR>
+" nnoremap <silent> [unite]s
+"             \ :<C-u>Unite snippets<CR>
 " Help
 nnoremap <silent> [unite]h
-            \ :<C-u>Unite help<CR>
+            \ :<C-u>Unite -buffer-name=help help<CR>
 nnoremap <silent> [unite]k
             \ :<C-u>UniteWithCursorWord help<CR>
 " grep by ag
@@ -1699,8 +1697,8 @@ xnoremap <silent> ;r
 nnoremap <silent> ;w
       \ :<C-u>UniteWithCursorWord -buffer-name=register
       \ buffer file_mru bookmark file<CR>
-nnoremap <silent> <C-k>
-      \ :<C-u>Unite change jump<CR>
+" nnoremap <silent> <C-k>
+"       \ :<C-u>Unite change jump<CR>
 nnoremap <silent> ;g
       \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
 nnoremap <silent> ;r
@@ -1749,7 +1747,7 @@ endfor
 "}}}
 
 " Execute help.
-nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
+" nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 
 " Execute help by cursor keyword.
 nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
@@ -2968,7 +2966,7 @@ xnoremap <silent> gp o<ESC>p^
 xnoremap <silent> gP O<ESC>P^
 
 " Redraw.
-nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
+" nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
 
 " Folding."{{{
 " If press h on head, fold close.
@@ -3606,18 +3604,42 @@ let g:expand_region_use_select_mode = 1
 
 " https://github.com/spolu/dwm.vim "{{{
 """ ~/.vim/bundle/dwm.vim/plugin/dwm.vim
-" let g:dwm_map_keys = 0 " (1:default keybind)
-" nmap <C-S-n> <Plug>DWMNew
-" nmap <C-S-c> <Plug>DWMClose
-" " nmap <C-@> <Plug>DWMFocus
-" nmap <C-S-Space> <Plug>DWMFocus
-" nnoremap <C-S-j> <c-w>w
-" nnoremap <C-S-k> <c-w>W
-" " nmap <C-S-,> <Plug>DWMRotateCounterclockwise
-" " nmap <C-S-.> <Plug>DWMRotateClockwise
-" " nmap <C-S-l> <Plug>DWMGrowMaster
-" " nmap <C-S-h> <Plug>DWMShrinkMaster
+let g:dwm_map_keys = 0 " (1:default keybind)
+nmap <C-n> <Plug>DWMNew
+nmap <C-c> <Plug>DWMClose
+nmap <C-@> <Plug>DWMFocus
+nmap <C-Space> <Plug>DWMFocus
+nnoremap <C-j> <c-w>w
+nnoremap <C-k> <c-w>W
+" nmap <C-,> <Plug>DWMRotateCounterclockwise
+" nmap <C-.> <Plug>DWMRotateClockwise
+nmap <C-l> <Plug>DWMGrowMaster
+nmap <C-h> <Plug>DWMShrinkMaster
 "}}}
+
+" https://github.com/scrooloose/syntastic "{{{
+let g:syntastic_mode_map = { 'mode': 'active',
+  \ 'active_filetypes': ['javascript'],
+  \ 'passive_filetypes': ['html']
+  \}
+let g:syntastic_auto_loc_list = 2
+"let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
+let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
+let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
+let g:syntastic_python_checkers=['pylint']
+let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+let g:syntastic_check_on_open = 0
+let g:syntastic_enable_signs = 1
+let g:syntastic_echo_current_error = 1
+let g:syntastic_enable_highlighting = 1
+let g:syntastic_php_php_args = '-l'
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+"}}}
+
 
 
 "-------------------------------------------------
@@ -3849,7 +3871,6 @@ vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><C
 " vnoremap gF :tabedit <cfile><CR>
 nnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
 vnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
-""" ~/.vim/bundle/dwm.vim/plugin/dwm.vim
 " ヤンク、切り取り時にレジスタ"の値をzにもコピーしておく(連続貼付可に使う)
 vnoremap <silent> y y:let @z=@"<CR>
 vnoremap <silent> d d:let @z=@"<CR>

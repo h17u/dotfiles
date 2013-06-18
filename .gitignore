@@ -14,4 +14,4 @@
 !/.ssh
 !/bin
 !/.ctags
-
+!/.vim

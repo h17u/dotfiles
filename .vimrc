@@ -1071,23 +1071,23 @@ augroup MyAutoCmd
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
   " Enable omni completion.
-  " autocmd FileType ada setlocal omnifunc=adacomplete#Complete
-  " autocmd FileType c setlocal omnifunc=ccomplete#Complete
+  autocmd FileType ada setlocal omnifunc=adacomplete#Complete
+  autocmd FileType c setlocal omnifunc=ccomplete#Complete
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  "autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  " autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
+  autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   if has('python3')
     autocmd FileType python setlocal omnifunc=python3complete#Complete
   else
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   endif
-  "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-  "autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
+  autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
   autocmd FileType python setlocal foldmethod=indent
-  " autocmd FileType vim setlocal foldmethod=syntax
+  autocmd FileType vim setlocal foldmethod=syntax
 
   " Update filetype.
   autocmd BufWritePost *
@@ -1222,6 +1222,14 @@ function! bundle.hooks.on_source(bundle)
 
   " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
   let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
+  let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+  let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+  let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+  " For perlomni.vim setting.
+  " https://github.com/c9s/perlomni.vim
+  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
   " Define keyword pattern.
   if !exists('g:neocomplete#keyword_patterns')
@@ -3718,6 +3726,9 @@ function! s:do_git_diff_aware_gf(command)
   endif
 endfunction
 " }}}
+
+" http://vim-users.jp/2009/05/hack17/
+command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 
 " }}}
 

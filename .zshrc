@@ -252,6 +252,18 @@ function google() {
   w3m http://www.google.com/$opt
 }
 
+function alc() {
+  local str opt
+  if [ $# != 0 ]; then
+    for i in $*; do
+      str="$str+$i"
+    done
+    str=`echo $str | sed 's/^\+//'`
+    opt='search?ref=crx'
+    opt="${opt}&q=${str}"
+  fi
+  w3m http://eow.alc.co.jp/$opt
+}
 
 # function cdup() {
 # echo
@@ -356,9 +368,10 @@ export PATH=$PATH:~/bin
 # http://d.hatena.ne.jp/kitokitoki/20111128/p2
 # http://ref.layer8.sh/ja/entry/show/id/2691
 if [ "$PS1" ]; then
-	#PATH=/usr/local/opt/coreutils/libexec/gnubin:$PATH
-	export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
-	export MANPATH=/usr/local/opt/coreutils/libexec/gnuman:$MANPATH
+        export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
+        export PATH=$(brew --prefix gnu-sed)/libexec/gnubin:$PATH
+        export MANPATH=$(brew --prefix coreutils)/libexec/gnuman:$MANPATH
+        export MANPATH=$(brew --prefix gnu-sed)/libexec/gnuman:$MANPATH
 fi
 
 
@@ -447,7 +460,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle urltools
     antigen bundle command-not-found
     antigen bundle zsh-users/zsh-syntax-highlighting
-    #    antigen bundle zsh-users/zsh-completions
+    antigen bundle zsh-users/zsh-completions
 
     # Tell antigen that you're done.
     antigen-apply
@@ -470,4 +483,12 @@ autoload -Uz run-help-svk
 autoload -Uz run-help-svn
 
 # http://qiita.com/items/12a4d42ee7a667f7934b
-fpath = (/usr/local/share/zsh-completions $fpath)
+#fpath = (/usr/local/share/zsh-completions $fpath)
+# fpath = (
+#         #zsh-completions
+#         /usr/local/share/zsh-completions(N-/)
+
+#         #homebrew
+#         /usr/local/share/zsh/functions(N-/)
+#         )
+# export fpath

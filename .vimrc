@@ -1172,6 +1172,7 @@ autocmd MyAutoCmd VimEnter * highlight ModeMsg guifg=bg guibg=bg
 "}}}
 
 "---------------------------------------------------------------------------
+
 " Plugin:"{{{
 "
 
@@ -1655,6 +1656,44 @@ xnoremap    [unite]   <Nop>
 nmap    ;i [unite]
 xmap    ;i [unite]
 
+
+nnoremap <Leader>ufi
+      \ :<C-u>Unite -buffer-name=files -no-split
+      \ file file/new file_mru
+      \ bookmark
+      \ file_rec/async:! <CR>
+nnoremap <Leader>ubu
+      \ :<C-u>Unite -buffer-name=files -no-split
+      \ buffer
+      \ buffer_tab
+      \ tab
+      \ dwm <CR>
+nnoremap <Leader>uso
+      \ :<C-u>Unite -buffer-name=files -no-split
+      \ source<CR>
+nnoremap <Leader>uo  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
+nnoremap <Leader>uma :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+nnoremap <Leader>ume
+            \ :<C-u>Unite output:message<CR>
+nnoremap <Leader>udi
+            \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+nnoremap <Leader>uta
+      \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+xnoremap <Leader>ure
+      \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
+nnoremap <Leader>ure
+      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
+nnoremap <Leader>ugr
+      \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
+nnoremap <Leader>uhl
+            \ :<C-u>Unite -buffer-name=help help<CR>
+nnoremap <Leader>uk
+            \ :<C-u>UniteWithCursorWord help<CR>
+" grep by ag
+vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+
+
+
 nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir
             \ -buffer-name=files buffer file_mru bookmark file<CR>
 nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
@@ -1719,7 +1758,7 @@ nnoremap <silent><expr> <C-t>
       \ ":\<C-u>Unite -select=".(tabpagenr()-1)." tab\<CR>"
 
 " <C-w>: Windows operation
-nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
+" nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
 
 if s:is_windows
   nnoremap <silent> [Window]s
@@ -1823,7 +1862,7 @@ let g:unite_source_menu_menus.enc.command_candidates = [
       \       ['sjis', 'Sjis'],
       \       ['unicode', 'Unicode'],
       \     ]
-nnoremap <silent> ;e :<C-u>Unite menu:enc<CR>
+nnoremap <silent> [unite];e :<C-u>Unite menu:enc<CR>
 
 let g:unite_source_menu_menus.fenc = {
       \     'description' : 'Change file fenc option.',
@@ -1839,7 +1878,7 @@ let g:unite_source_menu_menus.fenc.command_candidates = [
       \       ['sjis', 'WSjis'],
       \       ['unicode', 'WUnicode'],
       \     ]
-nnoremap <silent> ;f :<C-u>Unite menu:fenc<CR>
+nnoremap <silent> [unite];f :<C-u>Unite menu:fenc<CR>
 
 let g:unite_source_menu_menus.ff = {
       \     'description' : 'Change file format option.',
@@ -1849,7 +1888,7 @@ let g:unite_source_menu_menus.ff.command_candidates = {
       \       'dos'    : 'WDos',
       \       'mac'    : 'WMac',
       \     }
-nnoremap <silent> ;w :<C-u>Unite menu:ff<CR>
+nnoremap <silent> [unite];w :<C-u>Unite menu:ff<CR>
 
 let g:unite_source_menu_menus.unite = {
       \     'description' : 'Start unite sources',
@@ -1864,7 +1903,7 @@ let g:unite_source_menu_menus.unite.command_candidates = {
       \       'message'    : 'Unite output:message',
       \       'scriptnames': 'Unite output:scriptnames',
       \     }
-nnoremap <silent> ;u :<C-u>Unite menu:unite -resume<CR>
+nnoremap <silent> [unite];u :<C-u>Unite menu:unite -resume<CR>
 "}}}
 let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle) "{{{
@@ -3469,9 +3508,9 @@ colorscheme solarized
 "}}}
 
 " Function keymappings: "{{{
-nnoremap <F6> :VimFilerExplorer<CR>
-nnoremap <F7> :NERDTreeToggle<CR>
-nnoremap <F8> :TagBarToggle<CR>
+nnoremap <silent> <F6> :VimFilerExplorer<CR>
+nnoremap <silent> <F7> :NERDTreeToggle<CR>
+nnoremap <silent> <F8> :TagbarToggle<CR>
 "}}}
 
 " https://github.com/majutsushi/tagbar "{{{

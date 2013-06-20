@@ -84,7 +84,7 @@ alias pd='pushd' po='popd'
 
 # Misc :)
 #export LESS=MrXEd
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case'
+export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
 #alias less='less -r'                          # raw control characters
 alias whence='type -a'                        # where, of a sort
 alias grep='grep --color'                     # show differences in colour
@@ -493,3 +493,5 @@ autoload -Uz run-help-svn
 #         /usr/local/share/zsh/functions(N-/)
 #         )
 # export fpath
+
+# vim:set et ts=4 sts=2 sw=2 tw=0 fdm=marker:

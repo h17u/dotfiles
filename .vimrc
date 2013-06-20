@@ -3982,4 +3982,4 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 
 
 
-" vim: foldmethod=marker
+" vim:set et ts=4 sts=2 sw=2 tw=0 fdm=marker:

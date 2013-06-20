@@ -296,7 +296,9 @@ NeoBundleLazy 'kana/vim-operator-replace', {
       \ }}
 NeoBundleLazy 'kana/vim-textobj-user'
 " NeoBundleLazy 'kana/vim-wwwsearch'
-NeoBundleLazy 'kien/ctrlp.vim'
+NeoBundleLazy 'kien/ctrlp.vim', { 'autoload' : {
+      \ 'commands' : 'CtrlP'
+      \ }}
 NeoBundleLazy 'Shougo/foldCC',
       \  { 'autoload' : { 'filetypes' : 'vim' }}
 NeoBundleLazy 'mattn/wwwrenderer-vim'
@@ -1007,8 +1009,8 @@ set splitright
 " Set minimal width for current window.
 set winwidth=30
 " Set minimal height for current window.
-" set winheight=20
-set winheight=1
+set winheight=20
+" set winheight=1
 " Set maximam maximam command line window.
 set cmdwinheight=5
 " No equal window size.
@@ -1172,7 +1174,6 @@ autocmd MyAutoCmd VimEnter * highlight ModeMsg guifg=bg guibg=bg
 "}}}
 
 "---------------------------------------------------------------------------
-
 " Plugin:"{{{
 "
 
@@ -1672,7 +1673,7 @@ nnoremap <Leader>uso
       \ :<C-u>Unite -buffer-name=files -no-split
       \ source<CR>
 nnoremap <Leader>uo  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
-nnoremap <Leader>uma :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+nnoremap <Leader>uma :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
 nnoremap <Leader>ume
             \ :<C-u>Unite output:message<CR>
 nnoremap <Leader>udi
@@ -3501,8 +3502,10 @@ let g:solarized_dgrade=0
 let g:solarized_bold=1
 let g:solarized_underline=1
 let g:solarized_italic=1
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
+" let g:solarized_contrast="high"
+" let g:solarized_visibility="high"
+let g:solarized_contrast='normal'
+let g:solarized_visibility='normal'
 colorscheme solarized
 " call togglebg#map("<F5>")
 "}}}
@@ -3626,14 +3629,58 @@ let g:expand_region_use_select_mode = 1
 "}}}
 
 " https://github.com/kien/ctrlp.vim "{{{
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_working_path_mode = 'c'
-" let g:ctrlp_custom_ignore = {
-"             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"             \ 'file': '\v\.(exe|so|dll)$',
-"             \ 'link': 'some_bad_symbolic_links',
-"             \ }
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'c'
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+      \ 'file': '\v\.(exe|so|dll)$',
+      \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+      \ }
+let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
+let g:ctrlp_max_files = 10000
+let g:ctrlp_max_depth = 40
+" let g:ctrlp_user_command =
+"     \ 'find %s -type f | grep -v -P "\.jpg$|/tmp/"'          " MacOSX/Linux
+let g:ctrlp_open_new_file = 'v'
+let g:ctrlp_lazy_update = 1
+let g:ctrlp_use_migemo = 1
+let g:ctrlp_prompt_mappings = {
+      \ 'PrtBS()':              ['<bs>', '<c-]>'],
+      \ 'PrtDelete()':          ['<del>'],
+      \ 'PrtDeleteWord()':      ['<c-w>'],
+      \ 'PrtClear()':           ['<c-u>'],
+      \ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
+      \ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
+      \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+      \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+      \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+      \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
+      \ 'PrtHistory(-1)':       ['<c-n>'],
+      \ 'PrtHistory(1)':        ['<c-p>'],
+      \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
+      \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+      \ 'AcceptSelection("t")': ['<c-t>'],
+      \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+      \ 'ToggleFocus()':        ['<s-tab>'],
+      \ 'ToggleRegex()':        ['<c-r>'],
+      \ 'ToggleByFname()':      ['<c-d>'],
+      \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
+      \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
+      \ 'PrtExpandDir()':       ['<tab>'],
+      \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
+      \ 'PrtInsert()':          ['<c-\>'],
+      \ 'PrtCurStart()':        ['<c-a>'],
+      \ 'PrtCurEnd()':          ['<c-e>'],
+      \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
+      \ 'PrtCurRight()':        ['<c-l>', '<right>'],
+      \ 'PrtClearCache()':      ['<F5>'],
+      \ 'PrtDeleteEnt()':       ['<F7>'],
+      \ 'CreateNewFile()':      ['<c-y>'],
+      \ 'MarkToOpen()':         ['<c-z>'],
+      \ 'OpenMulti()':          ['<c-o>'],
+      \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
+      \ }
 "}}}
 
 " https://github.com/scrooloose/nerdcommenter "{{{

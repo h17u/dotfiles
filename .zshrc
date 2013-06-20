@@ -297,6 +297,7 @@ alias vim=$(brew --prefix vim)/bin/vim
 alias vi=$(brew --prefix vim)/bin/vim
 alias view=$(brew --prefix vim)/bin/vim
 alias vimdiff=$(brew --prefix vim)/bin/vim
+alias diff=$(brew --prefix colordiff)/bin/colordiff
 
 ### Added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH

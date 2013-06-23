@@ -338,6 +338,13 @@ NeoBundleLazy 'thinca/vim-scouter', { 'autoload' : {
 NeoBundleLazy 'thinca/vim-ref', { 'autoload' : {
       \ 'commands' : 'Ref'
       \ }}
+NeoBundleLazy 'mojako/ref-sources.vim', { 'autoload' : {
+      \ 'commands' : 'Ref'
+      \ }}
+NeoBundleLazy 'soh335/vim-ref-jquery', { 'autoload' : {
+      \ 'commands' : 'Ref'
+      \ }}
+" NeoBundle 'soh335/vim-ref-jquery'
 NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
       \ 'unite_sources' : ['history/command', 'history/search']
       \ }}
@@ -2124,7 +2131,7 @@ let g:changelog_username = "Shougo "
 "}}}
 
 " quickrun.vim"{{{
-nmap <silent> <Leader>r <Plug>(quickrun)
+nmap <silent> <Leader>ru <Plug>(quickrun)
 "}}}
 
 " python.vim
@@ -2134,29 +2141,72 @@ let python_highlight_all = 1
 let bundle = neobundle#get('vim-ref')
 function! bundle.hooks.on_source(bundle)
   let g:ref_use_vimproc = 1
-  if s:is_windows
-    let g:ref_refe_encoding = 'cp932'
-  else
-    let g:ref_refe_encoding = 'euc-jp'
-  endif
+  " if s:is_windows
+  "   let g:ref_refe_encoding = 'cp932'
+  " else
+  "   let g:ref_refe_encoding = 'euc-jp'
+  " endif
+  "
+  " " ref-lynx.
+  " if s:is_windows
+  "   let lynx = 'C:/lynx/lynx.exe'
+  "   let cfg  = 'C:/lynx/lynx.cfg'
+  "   let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
+  "   let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
+  " endif
+  "
+  " let g:ref_lynx_use_cache = 1
+  " let g:ref_lynx_start_linenumber = 0 " Skip.
+  " let g:ref_lynx_hide_url_number = 0
 
-  " ref-lynx.
-  if s:is_windows
-    let lynx = 'C:/lynx/lynx.exe'
-    let cfg  = 'C:/lynx/lynx.cfg'
-    let g:ref_lynx_cmd = s:lynx.' -cfg='.s:cfg.' -dump -nonumbers %s'
-    let g:ref_alc_cmd = s:lynx.' -cfg='.s:cfg.' -dump %s'
-  endif
+  " let g:ref_open = 'tabnew'
+  let g:ref_open = 'vsplit'
+  let g:ref_jquery_path = $HOME . '/.vim_ref_source/jqapi/docs'
+  " let g:ref_jquery_cmd = 'w3m -dump %s'
+  let g:ref_javascript_path = $HOME . '/src/jsref/htdocs'
+  " let g:ref_javascript_cmd = 'w3m -dump %s'
+  let g:ref_auto_resize = 1
+  let g:ref_wikipedia_lang = ['ja', 'en']
+  let g:ref_use_cache = 1
+  let g:ref_phpmanual_path = $HOME . '/.vim_ref_source/php-chunked-xhtml'
+  " let g:ref_phpmanual_cmd = 'w3m -dump %s'
 
-  let g:ref_lynx_use_cache = 1
-  let g:ref_lynx_start_linenumber = 0 " Skip.
-  let g:ref_lynx_hide_url_number = 0
+  "webdictサイトの設定
+  let g:ref_source_webdict_sites = {
+        \   'je': {
+        \     'url': 'http://dictionary.infoseek.ne.jp/jeword/%s',
+        \   },
+        \   'ej': {
+        \     'url': 'http://dictionary.infoseek.ne.jp/ejword/%s',
+        \   },
+        \   'wiki': {
+        \     'url': 'http://ja.wikipedia.org/wiki/%s',
+        \   },
+        \ }
+
+  "デフォルトサイト
+  let g:ref_source_webdict_sites.default = 'ej'
+
+  "出力に対するフィルタ。最初の数行を削除
+  function! g:ref_source_webdict_sites.je.filter(output)
+    return join(split(a:output, "\n")[15 :], "\n")
+  endfunction
+  function! g:ref_source_webdict_sites.ej.filter(output)
+    return join(split(a:output, "\n")[15 :], "\n")
+  endfunction
+  function! g:ref_source_webdict_sites.wiki.filter(output)
+    return join(split(a:output, "\n")[17 :], "\n")
+  endfunction
+
 
   autocmd MyAutoCmd FileType ref call s:ref_my_settings()
   function! s:ref_my_settings() "{{{
     " Overwrite settings.
     nmap <buffer> [Tag]t  <Plug>(ref-keyword)
     nmap <buffer> [Tag]p  <Plug>(ref-back)
+
+    nmap <Leader>rj :<C-u>Ref webdict je<Space>
+    nmap <Leader>re :<C-u>Ref webdict ej<Space>
   endfunction"}}}
 endfunction
 
@@ -3558,14 +3608,6 @@ let g:quickrun_config['coffee'] = {
 "}}}
 
 
-"vim-ref "{{{
-let g:ref_open = 'tabnew'
-let g:ref_jquery_doc_path = $HOME . '/.vim/bundle/jqapi'
-let g:ref_javascript_doc_path = $HOME . '/.vim/bundle/jsref/htdocs'
-let g:ref_auto_resize = 1
-let g:ref_wikipedia_lang = ['ja', 'en']
-let g:ref_use_cache = 1
-"}}}
 
 
 " https://github.com/mattn/gist-vim "{{{

@@ -5,7 +5,18 @@
 	user = h17u
 	token = 72fc839ae18a45af11f66adf0fc2127f
 [color]
-	ui = auto
+	ui = true
 [alias]
 [core]
 	#excludesfile = /Users/tommy/.gitignore_global
+[alias]
+	stash-unapply = !git stash show -p | git apply -R
+[core]
+	autocrlf = input
+	excludesfile = /Users/tommy/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

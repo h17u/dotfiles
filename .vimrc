@@ -1671,7 +1671,7 @@ xmap    ;i [unite]
 
 
 nnoremap <Leader>ufi
-      \ :<C-u>Unite -buffer-name=files -no-split
+      \ :<C-u>Unite -buffer-name=files -no-split -default-action=dwm_new
       \ file file/new file_mru
       \ bookmark
       \ file_rec/async:! <CR>
@@ -1706,6 +1706,32 @@ nnoremap <Leader>urr
       \ :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+
+" https://github.com/mopp/vimrc/blob/master/.vimrc
+nnoremap <silent> fre :<C-u>UniteResume<CR>
+nnoremap <silent> fb  :<C-u>Unite -buffer-name=Buffers buffer:!<CR>
+nnoremap <silent> fk  :<C-u>Unite -buffer-name=Bookmark bookmark -default-action=vimfiler<CR>
+nnoremap <silent> fs  :<C-u>Unite -buffer-name=Files file file_mru<CR>
+nnoremap <silent> fd  :<C-u>Unite -buffer-name=Directory -default-action=tabopen directory directory_mru<CR>
+nnoremap <silent> ff  :<C-u>Unite -buffer-name=Sources source<CR>
+nnoremap <silent> fg  :<C-u>Unite -buffer-name=ag grep -keep-focus -no-quit<CR>
+nnoremap <silent> fhc :<C-u>Unite -buffer-name=History history/command<CR>
+nnoremap <silent> fhy :<C-u>Unite -buffer-name=History history/yank<CR>
+nnoremap <silent> fhs :<C-u>Unite -buffer-name=History history/search<CR>
+nnoremap <silent> fhl :<C-u>Unite -buffer-name=Help help<CR>
+nnoremap <silent> fma :<C-u>Unite -buffer-name=Mappings mapping<CR>
+nnoremap <silent> fme :<C-u>Unite -buffer-name=Messages output:message<CR>
+nnoremap <silent> fo  :<C-u>Unite -buffer-name=Outlines outline<CR>
+nnoremap <silent> fl  :<C-u>Unite -buffer-name=Line line -no-quit<CR>
+nnoremap <silent> fr  :<C-u>Unite -buffer-name=Registers register<CR>
+nnoremap <silent> fta :<C-u>Unite -buffer-name=Tags tag tag/file<CR>
+nnoremap <silent> ft  :<C-u>Unite -buffer-name=Twitter tweetvim<CR>
+nnoremap <silent> fq  :<C-u>Unite -buffer-name=QuickFix qf -no-quit -auto-resize -direction=botright<CR>
+nnoremap <silent> fup :<C-u>Unite -buffer-name=NeobundleUpdateLog -log neobundle/update -direction=botright<CR>
+nnoremap <silent> fed :<C-u>Unite -buffer-name=english english_dictionary<CR>
+nnoremap <silent> fex :<C-u>Unite -buffer-name=example english_example<CR>
+nnoremap <silent> fet :<C-u>Unite -buffer-name=thesaurus english_thesaurus<CR>
+nnoremap <silent> fa  :<C-u>Unite -buffer-name=Reanimate Reanimate<CR>
 
 
 "bak "{{{
@@ -2278,6 +2304,22 @@ function! bundle.hooks.on_source(bundle)
   let g:vimfiler_quick_look_command =
         \ s:is_windows ? 'maComfort.exe -ql' :
         \ s:is_mac ? 'qlmanage -p' : 'gloobus-preview'
+
+  " Open all git managed files in current directory "{{{
+  let s:git_repo_action = { 'description' : 'all file in the git repository' }
+  function! s:git_repo_action.func(candidate)
+    if(system('git rev-parse --is-inside-work-tree') ==# "true\n" )
+      execute 'args'
+            \ join( filter(split(system('git ls-files `git rev-parse --show-cdup`'), '\n')
+            \ , 'empty(v:val) || isdirectory(v:val) || filereadable(v:val)') )
+    else
+      echoerr 'Not a git repository!'
+    endif
+  endfunction "}}}
+
+
+  call unite#custom_action('file', 'git_repo_files', s:git_repo_action)
+  unlet s:git_repo_action
 
   autocmd MyAutoCmd FileType vimfiler call s:vimfiler_my_settings()
   function! s:vimfiler_my_settings() "{{{
@@ -3576,21 +3618,25 @@ set secure
 "
 
 " https://github.com/altercation/vim-colors-solarized "{{{
-syntax enable
-set background=dark
-" set background=light
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-let g:solarized_dgrade=0
-let g:solarized_bold=1
-let g:solarized_underline=1
-let g:solarized_italic=1
-" let g:solarized_contrast="high"
-" let g:solarized_visibility="high"
-let g:solarized_contrast='normal'
-let g:solarized_visibility='normal'
-colorscheme solarized
-" call togglebg#map("<F5>")
+let bundle = neobundle#get('vim-colors-solarized')
+function! bundle.hooks.on_source(bundle)
+  syntax enable
+  set background=dark
+  " set background=light
+  let g:solarized_termcolors=256
+  let g:solarized_termtrans=1
+  let g:solarized_dgrade=0
+  let g:solarized_bold=1
+  let g:solarized_underline=1
+  let g:solarized_italic=1
+  " let g:solarized_contrast="high"
+  " let g:solarized_visibility="high"
+  let g:solarized_contrast='normal'
+  let g:solarized_visibility='normal'
+  colorscheme solarized
+  " call togglebg#map("<F5>")
+endfunction
+unlet bundle
 "}}}
 
 " Function keymappings: "{{{
@@ -3600,10 +3646,21 @@ nnoremap <silent> <F8> :TagbarToggle<CR>
 "}}}
 
 " https://github.com/majutsushi/tagbar "{{{
-"let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-let g:tagbar_type_javascript = {
-    \ 'ctagstype' : 'JavaScript',
-    \ 'kinds'     : [
+let bundle = neobundle#get('tagbar')
+function! bundle.hooks.on_source(bundle)
+  let g:tagbar_width = 35
+  let g:tagbar_autoshowtag = 1
+  let g:tagbar_autofocus = 1
+  let g:tagbar_sort = 0
+  let g:tagbar_compact = 1
+  highlight TagbarScope ctermfg=5
+  highlight TagbarType cterm=bold ctermfg=55
+  highlight TagbarHighlight cterm=bold,underline ctermfg=1
+  highlight TagbarSignature ctermfg=70
+  "let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+  let g:tagbar_type_javascript = {
+        \ 'ctagstype' : 'JavaScript',
+        \ 'kinds'     : [
         \ 'c:class',
         \ 'p:property',
         \ 'm:method',
@@ -3612,23 +3669,29 @@ let g:tagbar_type_javascript = {
         \ 'a:array',
         \ 's:string',
         \ 'v:variable'
-    \ ]
-\ }
+        \ ]
+        \ }
+endfunction
+unlet bundle
 "}}}
 
 
-"indentquide "{{{
-" let g:indent_guides_start_level=2
-" let g:indent_guides_auto_colors=0
-" let g:indent_guides_enable_on_vim_startup=0
-" let g:indent_guides_color_change_percent=20
-" let g:indent_guides_guide_size=1
-" let g:indent_guides_space_guides=1
-" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-" 
-" hi IndentGuidesOdd  ctermbg=235
-" hi IndentGuidesEven ctermbg=237
-" au FileType coffee,ruby,javascript,python IndentGuidesEnable
+"https://github.com/nathanaelkane/vim-indent-guides "{{{
+" let bundle = neobundle#get('vim-indent-guides')
+" function! bundle.hooks.on_source(bundle)
+"   let g:indent_guides_start_level=2
+"   let g:indent_guides_auto_colors=0
+"   let g:indent_guides_enable_on_vim_startup=0
+"   let g:indent_guides_color_change_percent=20
+"   let g:indent_guides_guide_size=1
+"   let g:indent_guides_space_guides=1
+"   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+"
+"   hi IndentGuidesOdd  ctermbg=235
+"   hi IndentGuidesEven ctermbg=237
+"   au FileType coffee,ruby,javascript,python IndentGuidesEnable
+" endfunction
+" unlet bundle
 "}}}
 
 
@@ -3757,12 +3820,6 @@ let g:ctrlp_prompt_mappings = {
 " vmap <Leader>c <Plug>NERDCommenterToggle
 "}}}
 
-" let bundle = neobundle#get('echodoc') "{{{
-" function! bundle.hooks.on_source(bundle)
-"   let g:echodoc_enable_at_startup = 1
-" endfunction
-" unlet bundle
-"}}}
 
 " https://github.com/spolu/dwm.vim "{{{
 """ ~/.vim/bundle/dwm.vim/plugin/dwm.vim
@@ -3847,7 +3904,7 @@ set pastetoggle=<F10>
 "   if !isdirectory(l:junk_dir)
 "     call mkdir(l:junk_dir, 'p')
 "   endif
-" 
+"
 "   let l:filename = input('Junk Code: ', l:junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
 "   if l:filename != ''
 "     execute 'edit ' . l:filename
@@ -3896,8 +3953,8 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 " let $LANG='C'
 " "set helplang=ja,en
 " set helplang=en,ja
-" 
-" 
+"
+"
 " set laststatus=2
 " set tabstop=4       " numbers of spaces of tab character
 " set shiftwidth=4    " numbers of spaces to (auto)indent
@@ -3911,9 +3968,9 @@ command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
 " "set novisualbell    " turn off visual bell
 " "set nobackup        " do not keep a backup file
 set cursorline
-" 
-" 
-" 
+"
+"
+"
 " "set directory=
 " "set number          " show line numbers
 " set ignorecase      " ignore case when searching
@@ -3929,15 +3986,15 @@ set cursorline
 " "set nostartofline   " don't jump to first character when paging
 " set whichwrap=b,s,h,l,<,>,[,]   " move freely between files
 " "set viminfo='20,<50,s10,h
-" 
+"
 " "set autoindent     " always set autoindenting on
 " "set smartindent        " smart indent
-" 
+"
 " "set cindent            " cindent
 " "set noautoindent
 " "set nosmartindent
 " "set nocindent
-" 
+"
 " "set autowrite      " auto saves changes when quitting and swiching buffer
 " "set expandtab      " tabs are converted to spaces, use only when required
 " set showmatch       " show matching braces, somewhat annoying...

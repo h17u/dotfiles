@@ -1699,7 +1699,7 @@ xmap    ;i [unite]
 
 
 nnoremap <Leader>fi
-      \ :<C-u>Unite -buffer-name=files default-action=dwm_new
+      \ :<C-u>Unite -buffer-name=files
       \ file file/new file_mru
       \ bookmark
       \ file_rec/async:! <CR>

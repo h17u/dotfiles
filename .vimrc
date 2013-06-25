@@ -225,15 +225,15 @@ call neobundle#config('vimproc', {
       \ })
 
 " NeoBundle 'Shougo/vimshell', '', 'default'
-call neobundle#config('vimshell', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'commands' : [{ 'name' : 'VimShell',
-      \                   'complete' : 'customlist,vimshell#complete'},
-      \                 'VimShellExecute', 'VimShellInteractive',
-      \                 'VimShellTerminal', 'VimShellPop'],
-      \   'mappings' : ['<Plug>(vimshell_switch)']
-      \ }})
+" call neobundle#config('vimshell', {
+"       \ 'lazy' : 1,
+"       \ 'autoload' : {
+"       \   'commands' : [{ 'name' : 'VimShell',
+"       \                   'complete' : 'customlist,vimshell#complete'},
+"       \                 'VimShellExecute', 'VimShellInteractive',
+"       \                 'VimShellTerminal', 'VimShellPop'],
+"       \   'mappings' : ['<Plug>(vimshell_switch)']
+"       \ }})
 NeoBundleLazy 'yomi322/vim-gitcomplete', { 'autoload' : {
       \ 'filetype' : 'vimshell'
       \ }}
@@ -540,7 +540,7 @@ NeoBundleLazy 'elzr/vim-json', {
       \   'filetypes' : 'json',
       \ }}
 NeoBundle 'spolu/dwm.vim', '', 'default'
-NeoBundleLazy 'kannokanno/unite-dwm', { 'autoload' : {
+NeoBundle 'kannokanno/unite-dwm', { 'autoload' : {
       \ 'commands' : 'Unite'
       \ }}
 NeoBundle 'altercation/vim-colors-solarized', '', 'default'
@@ -1698,41 +1698,41 @@ nmap    ;i [unite]
 xmap    ;i [unite]
 
 
-nnoremap <Leader>ufi
+nnoremap <Leader>fi
       \ :<C-u>Unite -buffer-name=files default-action=dwm_new
       \ file file/new file_mru
       \ bookmark
       \ file_rec/async:! <CR>
-nnoremap <Leader>ubu
+nnoremap <Leader>fb
       \ :<C-u>Unite -buffer-name=files
       \ buffer
       \ buffer_tab
       \ tab
       \ dwm<CR>
-nnoremap <Leader>uso
+nnoremap <Leader>fso
       \ :<C-u>Unite -buffer-name=files -no-split
       \ source<CR>
-nnoremap <Leader>uo  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
-nnoremap <Leader>uma :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
-nnoremap <Leader>ume
+nnoremap <Leader>fo  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
+nnoremap <Leader>fma :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+nnoremap <Leader>fme
       \ :<C-u>Unite output:message<CR>
-nnoremap <Leader>udi
+nnoremap <Leader>fdi
       \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-nnoremap <Leader>uta
+nnoremap <Leader>fta
       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-xnoremap <Leader>uy
+xnoremap <Leader>fy
       \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <Leader>uy
+nnoremap <Leader>fy
       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <Leader>ugr
+nnoremap <Leader>fgr
       \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
-nnoremap <Leader>uh
+nnoremap <Leader>fh
       \ :<C-u>Unite -buffer-name=help help<CR>
-nnoremap <Leader>uk
+nnoremap <Leader>fk
       \ :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
-nnoremap <Leader>urr
+nnoremap <Leader>frr
       \ :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
-nnoremap <Leader>uri
+nnoremap <Leader>fri
       \ :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>

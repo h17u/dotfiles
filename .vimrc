@@ -1507,7 +1507,7 @@ unlet bundle
 "
 " nnoremap <silent> [Space];  <C-u>:VimShellPop<CR>
 "}}}
-
+"
 " let bundle = neobundle#get('vimshell')
 " function! bundle.hooks.on_source(bundle) "{{{
 "   " let g:vimshell_user_prompt = "3\ngetcwd()"
@@ -1673,7 +1673,7 @@ unlet bundle
 " endfunction "}}}
 "
 " unlet bundle
-" "}}}
+"}}}
 
 " netrw.vim"{{{
 " let g:netrw_list_hide= '*.swp'

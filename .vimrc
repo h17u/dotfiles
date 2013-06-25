@@ -448,6 +448,7 @@ NeoBundleLazy 'deton/jasegment.vim', { 'autoload' : {
       \               ['x', '<Plug>JaSegmentMoveVB'],
       \ ],
       \ }}
+NeoBundleLazy 'wesleyche/SrcExpl', { 'autoload' : { 'commands' : ['SrcExplToggle', 'SrcExpl', 'SrcExplClose'] } }
 
 " From vim.org
 NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
@@ -535,11 +536,11 @@ NeoBundleLazy 'elzr/vim-json', {
       \ }}
 NeoBundle 'spolu/dwm.vim', '', 'default'
 NeoBundle 'kannokanno/unite-dwm', '', 'default'
-NeoBundle 'altercation/vim-colors-solarized.git', '', 'default'
-NeoBundle 'tpope/vim-fugitive.git', '', 'default'
+NeoBundle 'altercation/vim-colors-solarized', '', 'default'
+NeoBundle 'tpope/vim-fugitive', '', 'default'
 NeoBundle 'scrooloose/nerdtree', '', 'default'
 " NeoBundle 'scrooloose/nerdcommenter', '', 'default'
-NeoBundle 'scrooloose/syntastic.git', '', 'default'
+NeoBundle 'scrooloose/syntastic', '', 'default'
 NeoBundle 'Townk/vim-autoclose', '', 'default'
 NeoBundle 'jiangmiao/simple-javascript-indenter', '', 'default'
 NeoBundle 'vim-scripts/jQuery', '', 'default'
@@ -3645,6 +3646,31 @@ nnoremap <silent> <F7> :NERDTreeToggle<CR>
 nnoremap <silent> <F8> :TagbarToggle<CR>
 "}}}
 
+" Like A IDE :) "{{{
+function! s:likeIDE()
+    cd %:p:h
+    VimFilerExplorer -simple
+    wincmd l
+    TagbarToggle
+    wincmd h
+    SrcExplToggle
+endfunction
+nnoremap <silent> <Leader>id :call <SID>likeIDE()<CR>
+"}}}
+
+"https://github.com/wesleyche/SrcExpl "{{{
+let bundle = neobundle#get('SrcExpl')
+function! bundle.hooks.on_source(bundle)
+nnoremap <silent> <Leader>sc :SrcExplToggle<CR>
+let g:SrcExpl_RefreshTime = 1
+let g:SrcExpl_UpdateTags = 1
+let g:SrcExpl_WinHeight = 10
+let g:SrcExpl_pluginList = ["__Tag_List__", "NERD_tree_1", "Source_Explorer", "*unite*", "*vimfiler* - explorer", "__Tagbar__" ]
+endfunction
+unlet bundle
+" }}}
+
+
 " https://github.com/majutsushi/tagbar "{{{
 let bundle = neobundle#get('tagbar')
 function! bundle.hooks.on_source(bundle)
@@ -3823,40 +3849,48 @@ let g:ctrlp_prompt_mappings = {
 
 " https://github.com/spolu/dwm.vim "{{{
 """ ~/.vim/bundle/dwm.vim/plugin/dwm.vim
-let g:dwm_map_keys = 0 " (1:default keybind)
-nmap <C-n> <Plug>DWMNew
-nmap <C-c> <Plug>DWMClose
-nmap <C-@> <Plug>DWMFocus
-nmap <C-Space> <Plug>DWMFocus
-nnoremap <C-j> <c-w>w
-nnoremap <C-k> <c-w>W
-" nmap <C-,> <Plug>DWMRotateCounterclockwise
-" nmap <C-.> <Plug>DWMRotateClockwise
-nmap <C-l> <Plug>DWMGrowMaster
-nmap <C-h> <Plug>DWMShrinkMaster
+let bundle = neobundle#get('dwm.vim')
+function! bundle.hooks.on_source(bundle)
+  let g:dwm_map_keys = 0 " (1:default keybind)
+  nmap <C-n> <Plug>DWMNew
+  nmap <C-c> <Plug>DWMClose
+  nmap <C-@> <Plug>DWMFocus
+  nmap <C-Space> <Plug>DWMFocus
+  nnoremap <C-j> <c-w>w
+  nnoremap <C-k> <c-w>W
+  " nmap <C-,> <Plug>DWMRotateCounterclockwise
+  " nmap <C-.> <Plug>DWMRotateClockwise
+  nmap <C-l> <Plug>DWMGrowMaster
+  nmap <C-h> <Plug>DWMShrinkMaster
+endfunction
+unlet bundle
 "}}}
 
-" https://github.com/scrooloose/syntastic "{{{
-let g:syntastic_mode_map = { 'mode': 'active',
-  \ 'active_filetypes': ['javascript'],
-  \ 'passive_filetypes': ['html']
-  \}
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
-" let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
-let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
-let g:syntastic_python_checkers=['pylint']
-let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
-let g:syntastic_check_on_open = 0
-let g:syntastic_enable_signs = 1
-let g:syntastic_echo_current_error = 1
-let g:syntastic_enable_highlighting = 1
-let g:syntastic_php_php_args = '-l'
-let g:syntastic_error_symbol='✗'
-let g:syntastic_warning_symbol='⚠'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" https://github.com/scrooloose/syntastic.git "{{{
+let bundle = neobundle#get('syntastic')
+function! bundle.hooks.on_source(bundle)
+  let g:syntastic_mode_map = { 'mode': 'active',
+        \ 'active_filetypes': ['javascript'],
+        \ 'passive_filetypes': ['html']
+        \}
+  let g:syntastic_auto_loc_list = 2
+  let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
+  " let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
+  let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
+  let g:syntastic_python_checkers=['pylint']
+  let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+  let g:syntastic_check_on_open = 0
+  let g:syntastic_enable_signs = 1
+  let g:syntastic_echo_current_error = 1
+  let g:syntastic_enable_highlighting = 1
+  let g:syntastic_php_php_args = '-l'
+  let g:syntastic_error_symbol='✗'
+  let g:syntastic_warning_symbol='⚠'
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+endfunction
+unlet bundle
 "}}}
 
 
@@ -3878,9 +3912,9 @@ function! Paste_on_off()
     return
 endfunction "}}}
 
-" Paste Mode <F10>
-nnoremap <silent> <F10> :call Paste_on_off()<CR>
-set pastetoggle=<F10>
+" Paste Mode <F12>
+nnoremap <silent> <F12> :call Paste_on_off()<CR>
+set pastetoggle=<F12>
 
 
 """ Alt key treats as meta key "{{{

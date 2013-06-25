@@ -338,16 +338,16 @@ NeoBundleLazy 'thinca/vim-quickrun', { 'autoload' : {
 NeoBundleLazy 'thinca/vim-scouter', { 'autoload' : {
       \ 'commands' : 'Scouter'
       \ }}
-NeoBundleLazy 'thinca/vim-ref', { 'autoload' : {
+NeoBundle 'thinca/vim-ref', { 'autoload' : {
       \ 'commands' : ['Ref', 'Unite']
       \ }}
-NeoBundleLazy 'mojako/ref-sources.vim', { 'autoload' : {
+NeoBundle 'mojako/ref-sources.vim', { 'autoload' : {
       \ 'commands' : ['Ref', 'Unite']
       \ }}
-NeoBundleLazy 'soh335/vim-ref-jquery', { 'autoload' : {
+NeoBundle 'soh335/vim-ref-jquery', { 'autoload' : {
       \ 'commands' : ['Ref', 'Unite']
       \ }}
-NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
+NeoBundle 'thinca/vim-unite-history', { 'autoload' : {
       \ 'unite_sources' : ['history/command', 'history/search']
       \ }}
 NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
@@ -565,13 +565,13 @@ NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : {
       \ 'commands' : 'TagbarToggle'
       \ }}
 " NeoBundle 'nathanaelkane/vim-indent-guides', '', 'default'
-NeoBundleLazy 'mustardamus/jqapi', { 'autoload' : {
+NeoBundle 'mustardamus/jqapi', { 'autoload' : {
       \ 'commands' : ['Ref', 'Unite']
       \ }}
-NeoBundleLazy 'tokuhirom/jsref', { 'autoload' : {
+NeoBundle 'tokuhirom/jsref', { 'autoload' : {
       \ 'commands' : ['Ref', 'Unite']
       \ }}
-NeoBundleLazy 'taka84u9/vim-ref-ri', { 'autoload' : {
+NeoBundle 'taka84u9/vim-ref-ri', { 'autoload' : {
       \ 'commands' : ['Ref', 'Unite']
       \ }}
 " NeoBundle 'terryma/vim-expand-region', '', 'default'
@@ -1708,7 +1708,6 @@ nnoremap <Leader>fma  :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
 nnoremap <Leader>fme  :<C-u>Unite output:message<CR>
 nnoremap <Leader>fdi  :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <Leader>fta  :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-xnoremap <Leader>fy  d:<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <Leader>fy   :<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <Leader>fgr  :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
 nnoremap <Leader>fh   :<C-u>Unite -buffer-name=help help<CR>

@@ -313,13 +313,13 @@ NeoBundleLazy 'add20/vim-conque', { 'autoload' : {
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
       \ 'commands' : 'GundoToggle'
       \ }}
-NeoBundleLazy 'thinca/vim-fontzoom', {
-      \ 'gui' : 1,
-      \ 'autoload' : {
-      \  'mappings' : [
-      \   ['n', '<Plug>(fontzoom-larger)'],
-      \   ['n', '<Plug>(fontzoom-smaller)']]
-      \ }}
+" NeoBundleLazy 'thinca/vim-fontzoom', {
+"       \ 'gui' : 1,
+"       \ 'autoload' : {
+"       \  'mappings' : [
+"       \   ['n', '<Plug>(fontzoom-larger)'],
+"       \   ['n', '<Plug>(fontzoom-smaller)']]
+"       \ }}
 NeoBundleLazy 'ujihisa/unite-font', {
       \ 'gui' : 1,
       \ 'autoload' : {
@@ -455,9 +455,6 @@ NeoBundleLazy 'wesleyche/SrcExpl', { 'autoload' : { 'commands' : ['SrcExplToggle
 " From vim.org
 NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
 NeoBundleLazy 'thinca/vim-guicolorscheme', { 'terminal' : 1 }
-NeoBundleLazy 'repeat.vim', { 'autoload' : {
-      \ 'mappings' : '.',
-      \ }}
 NeoBundleLazy 'autodate.vim', { 'autoload' : {
       \ 'filetypes' : 'vim',
       \ }}
@@ -568,7 +565,10 @@ NeoBundleLazy 'mustardamus/jqapi', { 'autoload' : {
 NeoBundleLazy 'tokuhirom/jsref', { 'autoload' : {
       \ 'commands' : ['Ref', 'Unite']
       \ }}
-NeoBundle 'terryma/vim-expand-region', '', 'default'
+NeoBundleLazy 'taka84u9/vim-ref-ri', { 'autoload' : {
+      \ 'commands' : ['Ref', 'Unite']
+      \ }}
+" NeoBundle 'terryma/vim-expand-region', '', 'default'
 " NeoBundle 'terryma/vim-smooth-scroll', '', 'default'
 " NeoBundle 'osyo-manga/vim-anzu', '', 'default'
 " NeoBundle 'tpope/vim-surround', '', 'default'
@@ -576,7 +576,9 @@ NeoBundle 'terryma/vim-expand-region', '', 'default'
 " NeoBundle 'tpope/vim-abolish', '', 'default'
 " NeoBundle 'tpope/vim-unimpaired', '', 'default'
 " NeoBundle 'tpope/vim-commentary', '', 'default'
-NeoBundle 'tpope/vim-repeat', '', 'default'
+NeoBundleLazy 'tpope/vim-repeat', { 'autoload' : {
+      \ 'mappings' : '.',
+      \ }}
 " NeoBundle 'mileszs/ack.vim', '', 'default'
 " NeoBundle 'rking/ag.vim', '', 'default'
 
@@ -1668,10 +1670,10 @@ unlet bundle
 "}}}
 
 " netrw.vim"{{{
-let g:netrw_list_hide= '*.swp'
-nnoremap <silent> <BS> :<C-u>Explore<CR>
-" Change default directory.
-set browsedir=current
+" let g:netrw_list_hide= '*.swp'
+" nnoremap <silent> <BS> :<C-u>Explore<CR>
+" " Change default directory.
+" set browsedir=current
 "}}}
 
 " vinarise.vim"{{{
@@ -1691,16 +1693,16 @@ xmap    ;i [unite]
 
 
 nnoremap <Leader>ufi
-      \ :<C-u>Unite -buffer-name=files -no-split -default-action=dwm_new
+      \ :<C-u>Unite -buffer-name=files default-action=dwm_new
       \ file file/new file_mru
       \ bookmark
       \ file_rec/async:! <CR>
 nnoremap <Leader>ubu
-      \ :<C-u>Unite -buffer-name=files -no-split
+      \ :<C-u>Unite -buffer-name=files
       \ buffer
       \ buffer_tab
       \ tab
-      \ dwm <CR>
+      \ dwm<CR>
 nnoremap <Leader>uso
       \ :<C-u>Unite -buffer-name=files -no-split
       \ source<CR>
@@ -1724,6 +1726,8 @@ nnoremap <Leader>uk
       \ :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
 nnoremap <Leader>urr
       \ :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
+nnoremap <Leader>uri
+      \ :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 
@@ -2552,10 +2556,10 @@ let g:ConqueTerm_EscKey = '<Esc>'
 let g:ConqueTerm_PyVersion = 3
 "}}}
 
-" fontzoom.vim"{{{
-nmap + <Plug>(fontzoom-larger)
-nmap _ <Plug>(fontzoom-smaller)
-"}}}
+" " fontzoom.vim"{{{
+" nmap + <Plug>(fontzoom-larger)
+" nmap _ <Plug>(fontzoom-smaller)
+" "}}}
 
 " Gundo.vim
 nnoremap U      :<C-u>GundoToggle<CR>
@@ -2578,10 +2582,10 @@ nmap R <Plug>(operator-replace)
 xmap R <Plug>(operator-replace)
 xmap p <Plug>(operator-replace)
 
-" Taglist.
-let Tlist_Show_One_File = 1
-let Tlist_Use_Right_Window = 1
-let Tlist_Exit_OnlyWindow = 1
+" Taglist."{{{
+" let Tlist_Show_One_File = 1
+" let Tlist_Use_Right_Window = 1
+" let Tlist_Exit_OnlyWindow = 1"}}}
 
 " restart.vim {{{
 let g:restart_save_window_values = 0
@@ -3752,40 +3756,35 @@ let g:github_user = 'h17u'
 
 
 """ https://github.com/terryma/vim-expand-region "{{{
-vnoremap K <Plug>(expand_region_expand)
-vnoremap J <Plug>(expand_region_shrink)
-" Default settings.
-let g:expand_region_text_objects = {
-      \ 'iw'  :0,
-      \ 'iW'  :0,
-      \ 'i"'  :0,
-      \ 'i''' :0,
-      \ 'i]'  :1,
-      \ 'ib'  :1,
-      \ 'iB'  :1,
-      \ 'il'  :0,
-      \ 'ip'  :0,
-      \ 'ie'  :0,
-      \ }
-" Extend the global default
-call expand_region#custom_text_objects({
-      \ "\/\\n\\n\<CR>": 1,
-      \ 'a]' :1,
-      \ 'aB' :1,
-      \ 'ii' :0,
-      \ 'ai' :0,
-      \ })
-" Use the following setting for ruby.
-let g:expand_region_text_objects_ruby = {
-      \ 'im' :0,
-      \ 'am' :0,
-      \ }
-" Use the global default + the following for ruby
-call expand_region#custom_text_objects('ruby', {
-      \ 'im' :0,
-      \ 'am' :0,
-      \ })
-let g:expand_region_use_select_mode = 1
+" let g:expand_region_text_objects = {
+"       \ 'iw'  :0,
+"       \ 'iW'  :0,
+"       \ 'i"'  :0,
+"       \ 'i''' :0,
+"       \ 'i]'  :1,
+"       \ 'ib'  :1,
+"       \ 'iB'  :1,
+"       \ 'il'  :0,
+"       \ 'ip'  :0,
+"       \ 'ie'  :0,
+"       \ }
+" call expand_region#custom_text_objects({
+"       \ "\/\\n\\n\<CR>": 1,
+"       \ 'a]' :1,
+"       \ 'aB' :1,
+"       \ 'ii' :0,
+"       \ 'ai' :0,
+"       \ })
+" let g:expand_region_text_objects_ruby = {
+"       \ 'im' :0,
+"       \ 'am' :0,
+"       \ }
+" call expand_region#custom_text_objects('ruby', {
+"       \ 'im' :0,
+"       \ 'am' :0,
+"       \ })
+" vnoremap + <Plug>(expand_region_expand)
+" vnoremap _ <Plug>(expand_region_shrink)
 "}}}
 
 " etc "{{{

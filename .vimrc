@@ -275,7 +275,10 @@ call neobundle#config('unite-outline', {
       \   'unite_sources' : 'outline'},
       \ })
 
-NeoBundleLazy 'hail2u/vim-css3-syntax'
+NeoBundleLazy 'hail2u/vim-css3-syntax', {
+      \ 'autoload' : {
+      \   'filetype' : 'css'
+      \ }}
 NeoBundleLazy 'kana/vim-smartchr', { 'autoload' : {
       \ 'insert' : 1,
       \ }}
@@ -344,7 +347,6 @@ NeoBundleLazy 'mojako/ref-sources.vim', { 'autoload' : {
 NeoBundleLazy 'soh335/vim-ref-jquery', { 'autoload' : {
       \ 'commands' : ['Ref', 'Unite']
       \ }}
-" NeoBundle 'soh335/vim-ref-jquery'
 NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
       \ 'unite_sources' : ['history/command', 'history/search']
       \ }}
@@ -535,20 +537,37 @@ NeoBundleLazy 'elzr/vim-json', {
       \   'filetypes' : 'json',
       \ }}
 NeoBundle 'spolu/dwm.vim', '', 'default'
-NeoBundle 'kannokanno/unite-dwm', '', 'default'
+NeoBundleLazy 'kannokanno/unite-dwm', { 'autoload' : {
+      \ 'commands' : 'Unite'
+      \ }}
 NeoBundle 'altercation/vim-colors-solarized', '', 'default'
 NeoBundle 'tpope/vim-fugitive', '', 'default'
-NeoBundle 'scrooloose/nerdtree', '', 'default'
+NeoBundleLazy 'scrooloose/nerdtree', { 'autoload' : {
+      \ 'commands' : 'TagbarToggle'
+      \ }}
 " NeoBundle 'scrooloose/nerdcommenter', '', 'default'
-NeoBundle 'scrooloose/syntastic', '', 'default'
+NeoBundleLazy 'scrooloose/syntastic', { 'autoload' : {
+      \ 'filetypes' : ['javascript',
+      \ 'json',
+      \ 'ruby',
+      \ 'perl'],
+      \ 'commands' : 'SyntasticCheck'
+      \ }}
 NeoBundle 'Townk/vim-autoclose', '', 'default'
-NeoBundle 'jiangmiao/simple-javascript-indenter', '', 'default'
-NeoBundle 'vim-scripts/jQuery', '', 'default'
-NeoBundle 'majutsushi/tagbar', '', 'default'
-NeoBundle 'hail2u/vim-css3-syntax', '', 'default'
+NeoBundleLazy 'vim-scripts/jQuery', { 'autoload' : {
+      \ 'filetypes' : ['javascript',
+      \ 'json']
+      \ }}
+NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : {
+      \ 'commands' : 'TagbarToggle'
+      \ }}
 " NeoBundle 'nathanaelkane/vim-indent-guides', '', 'default'
-NeoBundle 'mustardamus/jqapi', '', 'default'
-NeoBundle 'tokuhirom/jsref', '', 'default'
+NeoBundleLazy 'mustardamus/jqapi', { 'autoload' : {
+      \ 'commands' : ['Ref', 'Unite']
+      \ }}
+NeoBundleLazy 'tokuhirom/jsref', { 'autoload' : {
+      \ 'commands' : ['Ref', 'Unite']
+      \ }}
 NeoBundle 'terryma/vim-expand-region', '', 'default'
 " NeoBundle 'terryma/vim-smooth-scroll', '', 'default'
 " NeoBundle 'osyo-manga/vim-anzu', '', 'default'
@@ -3733,6 +3752,8 @@ let g:github_user = 'h17u'
 
 
 """ https://github.com/terryma/vim-expand-region "{{{
+vnoremap K <Plug>(expand_region_expand)
+vnoremap J <Plug>(expand_region_shrink)
 " Default settings.
 let g:expand_region_text_objects = {
       \ 'iw'  :0,

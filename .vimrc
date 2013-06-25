@@ -3648,12 +3648,12 @@ nnoremap <silent> <F8> :TagbarToggle<CR>
 
 " Like A IDE :) "{{{
 function! s:likeIDE()
-    cd %:p:h
-    VimFilerExplorer -simple
-    wincmd l
-    TagbarToggle
-    wincmd h
-    SrcExplToggle
+  cd %:p:h
+  VimFilerExplorer -simple
+  wincmd l
+  TagbarToggle
+  wincmd h
+  SrcExplToggle
 endfunction
 nnoremap <silent> <Leader>id :call <SID>likeIDE()<CR>
 "}}}
@@ -3661,11 +3661,11 @@ nnoremap <silent> <Leader>id :call <SID>likeIDE()<CR>
 "https://github.com/wesleyche/SrcExpl "{{{
 let bundle = neobundle#get('SrcExpl')
 function! bundle.hooks.on_source(bundle)
-nnoremap <silent> <Leader>sc :SrcExplToggle<CR>
-let g:SrcExpl_RefreshTime = 1
-let g:SrcExpl_UpdateTags = 1
-let g:SrcExpl_WinHeight = 10
-let g:SrcExpl_pluginList = ["__Tag_List__", "NERD_tree_1", "Source_Explorer", "*unite*", "*vimfiler* - explorer", "__Tagbar__" ]
+  nnoremap <silent> <Leader>sc :SrcExplToggle<CR>
+  let g:SrcExpl_RefreshTime = 1
+  let g:SrcExpl_UpdateTags = 1
+  let g:SrcExpl_WinHeight = 10
+  let g:SrcExpl_pluginList = ["__Tag_List__", "NERD_tree_1", "Source_Explorer", "*unite*", "*vimfiler* - explorer", "__Tagbar__" ]
 endfunction
 unlet bundle
 " }}}
@@ -3902,14 +3902,14 @@ unlet bundle
 let paste_mode = 0 " 0 = normal, 1 = paste
 
 function! Paste_on_off()
-    if g:paste_mode == 0
-        set paste
-        let g:paste_mode = 1
-    else
-        set nopaste
-        let g:paste_mode = 0
-    endif
-    return
+  if g:paste_mode == 0
+    set paste
+    let g:paste_mode = 1
+  else
+    set nopaste
+    let g:paste_mode = 0
+  endif
+  return
 endfunction "}}}
 
 " Paste Mode <F12>

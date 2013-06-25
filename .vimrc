@@ -1698,70 +1698,51 @@ nmap    ;i [unite]
 xmap    ;i [unite]
 
 
-nnoremap <Leader>fi
-      \ :<C-u>Unite -buffer-name=files
-      \ file file/new file_mru
-      \ bookmark
-      \ file_rec/async:! <CR>
-nnoremap <Leader>fb
-      \ :<C-u>Unite -buffer-name=files
-      \ buffer
-      \ buffer_tab
-      \ tab
-      \ dwm<CR>
-nnoremap <Leader>fso
-      \ :<C-u>Unite -buffer-name=files -no-split
-      \ source<CR>
-nnoremap <Leader>fo  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
-nnoremap <Leader>fma :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
-nnoremap <Leader>fme
-      \ :<C-u>Unite output:message<CR>
-nnoremap <Leader>fdi
-      \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-nnoremap <Leader>fta
-      \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-xnoremap <Leader>fy
-      \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <Leader>fy
-      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <Leader>fgr
-      \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
-nnoremap <Leader>fh
-      \ :<C-u>Unite -buffer-name=help help<CR>
-nnoremap <Leader>fk
-      \ :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
-nnoremap <Leader>frr
-      \ :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
-nnoremap <Leader>fri
-      \ :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
+nnoremap <Leader>fre  :<C-u>UniteResume<CR>
+nnoremap <Leader>ff   :<C-u>Unite -buffer-name=files file file/new file_rec/async:! <CR>
+nnoremap <Leader>fmr  :<C-u>Unite -buffer-name=files file_mru bookmark<CR>
+nnoremap <Leader>fb   :<C-u>Unite -buffer-name=files buffer buffer_tab tab dwm<CR>
+nnoremap <Leader>fso  :<C-u>Unite -buffer-name=files source<CR>
+nnoremap <Leader>fo   :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
+nnoremap <Leader>fma  :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+nnoremap <Leader>fme  :<C-u>Unite output:message<CR>
+nnoremap <Leader>fdi  :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+nnoremap <Leader>fta  :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+xnoremap <Leader>fy  d:<C-u>Unite -buffer-name=register register history/yank<CR>
+nnoremap <Leader>fy   :<C-u>Unite -buffer-name=register register history/yank<CR>
+nnoremap <Leader>fgr  :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
+nnoremap <Leader>fh   :<C-u>Unite -buffer-name=help help<CR>
+nnoremap <Leader>fk   :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
+nnoremap <Leader>frr  :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
+nnoremap <Leader>fri  :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 
 " https://github.com/mopp/vimrc/blob/master/.vimrc
-nnoremap <silent> fre :<C-u>UniteResume<CR>
-nnoremap <silent> fb  :<C-u>Unite -buffer-name=Buffers buffer:!<CR>
-nnoremap <silent> fk  :<C-u>Unite -buffer-name=Bookmark bookmark -default-action=vimfiler<CR>
-nnoremap <silent> fs  :<C-u>Unite -buffer-name=Files file file_mru<CR>
-nnoremap <silent> fd  :<C-u>Unite -buffer-name=Directory -default-action=tabopen directory directory_mru<CR>
-nnoremap <silent> ff  :<C-u>Unite -buffer-name=Sources source<CR>
-nnoremap <silent> fg  :<C-u>Unite -buffer-name=ag grep -keep-focus -no-quit<CR>
-nnoremap <silent> fhc :<C-u>Unite -buffer-name=History history/command<CR>
-nnoremap <silent> fhy :<C-u>Unite -buffer-name=History history/yank<CR>
-nnoremap <silent> fhs :<C-u>Unite -buffer-name=History history/search<CR>
-nnoremap <silent> fhl :<C-u>Unite -buffer-name=Help help<CR>
-nnoremap <silent> fma :<C-u>Unite -buffer-name=Mappings mapping<CR>
-nnoremap <silent> fme :<C-u>Unite -buffer-name=Messages output:message<CR>
-nnoremap <silent> fo  :<C-u>Unite -buffer-name=Outlines outline<CR>
-nnoremap <silent> fl  :<C-u>Unite -buffer-name=Line line -no-quit<CR>
-nnoremap <silent> fr  :<C-u>Unite -buffer-name=Registers register<CR>
-nnoremap <silent> fta :<C-u>Unite -buffer-name=Tags tag tag/file<CR>
-nnoremap <silent> ft  :<C-u>Unite -buffer-name=Twitter tweetvim<CR>
-nnoremap <silent> fq  :<C-u>Unite -buffer-name=QuickFix qf -no-quit -auto-resize -direction=botright<CR>
-nnoremap <silent> fup :<C-u>Unite -buffer-name=NeobundleUpdateLog -log neobundle/update -direction=botright<CR>
-nnoremap <silent> fed :<C-u>Unite -buffer-name=english english_dictionary<CR>
-nnoremap <silent> fex :<C-u>Unite -buffer-name=example english_example<CR>
-nnoremap <silent> fet :<C-u>Unite -buffer-name=thesaurus english_thesaurus<CR>
-nnoremap <silent> fa  :<C-u>Unite -buffer-name=Reanimate Reanimate<CR>
+" nnoremap <silent> fre :<C-u>UniteResume<CR>
+" nnoremap <silent> fb  :<C-u>Unite -buffer-name=Buffers buffer:!<CR>
+" nnoremap <silent> fk  :<C-u>Unite -buffer-name=Bookmark bookmark -default-action=vimfiler<CR>
+" nnoremap <silent> fs  :<C-u>Unite -buffer-name=Files file file_mru<CR>
+" nnoremap <silent> fd  :<C-u>Unite -buffer-name=Directory -default-action=tabopen directory directory_mru<CR>
+" nnoremap <silent> ff  :<C-u>Unite -buffer-name=Sources source<CR>
+" nnoremap <silent> fg  :<C-u>Unite -buffer-name=ag grep -keep-focus -no-quit<CR>
+" nnoremap <silent> fhc :<C-u>Unite -buffer-name=History history/command<CR>
+" nnoremap <silent> fhy :<C-u>Unite -buffer-name=History history/yank<CR>
+" nnoremap <silent> fhs :<C-u>Unite -buffer-name=History history/search<CR>
+" nnoremap <silent> fhl :<C-u>Unite -buffer-name=Help help<CR>
+" nnoremap <silent> fma :<C-u>Unite -buffer-name=Mappings mapping<CR>
+" nnoremap <silent> fme :<C-u>Unite -buffer-name=Messages output:message<CR>
+" nnoremap <silent> fo  :<C-u>Unite -buffer-name=Outlines outline<CR>
+" nnoremap <silent> fl  :<C-u>Unite -buffer-name=Line line -no-quit<CR>
+" nnoremap <silent> fr  :<C-u>Unite -buffer-name=Registers register<CR>
+" nnoremap <silent> fta :<C-u>Unite -buffer-name=Tags tag tag/file<CR>
+" nnoremap <silent> ft  :<C-u>Unite -buffer-name=Twitter tweetvim<CR>
+" nnoremap <silent> fq  :<C-u>Unite -buffer-name=QuickFix qf -no-quit -auto-resize -direction=botright<CR>
+" nnoremap <silent> fup :<C-u>Unite -buffer-name=NeobundleUpdateLog -log neobundle/update -direction=botright<CR>
+" nnoremap <silent> fed :<C-u>Unite -buffer-name=english english_dictionary<CR>
+" nnoremap <silent> fex :<C-u>Unite -buffer-name=example english_example<CR>
+" nnoremap <silent> fet :<C-u>Unite -buffer-name=thesaurus english_thesaurus<CR>
+" nnoremap <silent> fa  :<C-u>Unite -buffer-name=Reanimate Reanimate<CR>
 
 
 "bak "{{{

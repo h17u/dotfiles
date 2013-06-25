@@ -297,7 +297,7 @@ NeoBundleLazy 'kana/vim-operator-replace', {
 NeoBundleLazy 'kana/vim-textobj-user'
 " NeoBundleLazy 'kana/vim-wwwsearch'
 NeoBundleLazy 'kien/ctrlp.vim', { 'autoload' : {
-      \ 'commands' : 'CtrlP'
+      \ 'commands' : ['CtrlP', 'Unite']
       \ }}
 NeoBundleLazy 'Shougo/foldCC',
       \  { 'autoload' : { 'filetypes' : 'vim' }}
@@ -336,13 +336,13 @@ NeoBundleLazy 'thinca/vim-scouter', { 'autoload' : {
       \ 'commands' : 'Scouter'
       \ }}
 NeoBundleLazy 'thinca/vim-ref', { 'autoload' : {
-      \ 'commands' : 'Ref'
+      \ 'commands' : ['Ref', 'Unite']
       \ }}
 NeoBundleLazy 'mojako/ref-sources.vim', { 'autoload' : {
-      \ 'commands' : 'Ref'
+      \ 'commands' : ['Ref', 'Unite']
       \ }}
 NeoBundleLazy 'soh335/vim-ref-jquery', { 'autoload' : {
-      \ 'commands' : 'Ref'
+      \ 'commands' : ['Ref', 'Unite']
       \ }}
 " NeoBundle 'soh335/vim-ref-jquery'
 NeoBundleLazy 'thinca/vim-unite-history', { 'autoload' : {
@@ -519,12 +519,12 @@ NeoBundleLazy 'itchyny/thumbnail.vim', {
       \ 'autoload' : {
       \   'commands' : 'Thumbnail'
       \ }}
-NeoBundleLazy 'mopp/unite-battle_editors.git', {
-      \ 'autoload' : {
-      \   'unite_sources' : 'battle_editors'
-      \ },
-      \ 'depends' : 'mattn/webapi-vim',
-      \}
+" NeoBundleLazy 'mopp/unite-battle_editors.git', {
+"       \ 'autoload' : {
+"       \   'unite_sources' : 'battle_editors'
+"       \ },
+"       \ 'depends' : 'mattn/webapi-vim',
+"       \}
 NeoBundleLazy 'xolox/vim-lua-ftplugin', {
       \ 'autoload' : {
       \   'filetypes' : 'lua',
@@ -802,10 +802,12 @@ set infercase
 " Enable folding.
 set foldenable
 " set foldmethod=expr
+" set foldmethod=indent
 set foldmethod=marker
 " Show folding level.
 set foldcolumn=3
 set fillchars=vert:\|
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set commentstring=%s
 
 if exists('*FoldCCtext')
@@ -1047,7 +1049,10 @@ if v:version >= 703
 endif
 
 " View setting.
-set viewdir=~/.vim/view viewoptions-=options viewoptions+=slash,unix
+set viewdir=~/.vim/view
+set viewoptions-=options
+set viewoptions+=slash,unix
+set viewoptions+=cursor,folds
 "}}}
 
 "---------------------------------------------------------------------------
@@ -1682,105 +1687,108 @@ nnoremap <Leader>uso
 nnoremap <Leader>uo  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
 nnoremap <Leader>uma :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
 nnoremap <Leader>ume
-            \ :<C-u>Unite output:message<CR>
+      \ :<C-u>Unite output:message<CR>
 nnoremap <Leader>udi
-            \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+      \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap <Leader>uta
       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-xnoremap <Leader>ure
+xnoremap <Leader>uy
       \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <Leader>ure
+nnoremap <Leader>uy
       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
 nnoremap <Leader>ugr
       \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
-nnoremap <Leader>uhl
-            \ :<C-u>Unite -buffer-name=help help<CR>
+nnoremap <Leader>uh
+      \ :<C-u>Unite -buffer-name=help help<CR>
 nnoremap <Leader>uk
-            \ :<C-u>UniteWithCursorWord help<CR>
+      \ :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
+nnoremap <Leader>urr
+      \ :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 
 
-
-nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir
-            \ -buffer-name=files buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
-            \ -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
-nnoremap <silent> [unite]r  :<C-u>Unite
-            \ -buffer-name=register register<CR>
-" nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-nnoremap <silent> [unite]o  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
-" nnoremap <silent> [unite]f
-"             \ :<C-u>Unite -buffer-name=resume resume<CR>
-nnoremap <silent> [unite]d
-            \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-" Key mappings
-" nnoremap <silent> [unite]ma
-"             \ :<C-u>Unite mapping<CR>
-nnoremap <silent> [unite]ma :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
-nnoremap <silent> [unite]me
-            \ :<C-u>Unite output:message<CR>
-nnoremap <silent> [unite]s
-            \ :<C-u>Unite -buffer-name=files -no-split
-            \ jump_point file_point buffer_tab
-            \ file_rec:! file file/new file_mru<CR>
-" Snippets
+"bak "{{{
+" nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir
+"             \ -buffer-name=files buffer file_mru bookmark file<CR>
+" nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
+"             \ -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
+" nnoremap <silent> [unite]r  :<C-u>Unite
+"             \ -buffer-name=register register<CR>
+" " nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
+" nnoremap <silent> [unite]o  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
+" " nnoremap <silent> [unite]f
+" "             \ :<C-u>Unite -buffer-name=resume resume<CR>
+" nnoremap <silent> [unite]d
+"             \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+" " Key mappings
+" " nnoremap <silent> [unite]ma
+" "             \ :<C-u>Unite mapping<CR>
+" nnoremap <silent> [unite]ma :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+" nnoremap <silent> [unite]me
+"             \ :<C-u>Unite output:message<CR>
 " nnoremap <silent> [unite]s
-"             \ :<C-u>Unite snippets<CR>
-" Help
-nnoremap <silent> [unite]h
-            \ :<C-u>Unite -buffer-name=help help<CR>
-nnoremap <silent> [unite]k
-            \ :<C-u>UniteWithCursorWord help<CR>
-" grep by ag
-vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
-
-
-nnoremap [unite]u  q:Unite<Space>
-" nnoremap <silent> :  :<C-u>Unite history/command command<CR>
-nnoremap <expr><silent> ;b  <SID>unite_build()
-function! s:unite_build()
-  return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
-endfunction
-nnoremap <silent> ;o
-      \ :<C-u>Unite outline -start-insert -resume<CR>
-nnoremap  [unite]f  :<C-u>Unite source<CR>
-nnoremap <silent> ;t
-      \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-xnoremap <silent> ;r
-      \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <silent> ;w
-      \ :<C-u>UniteWithCursorWord -buffer-name=register
-      \ buffer file_mru bookmark file<CR>
-" nnoremap <silent> <C-k>
-"       \ :<C-u>Unite change jump<CR>
-nnoremap <silent> ;g
-      \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
-nnoremap <silent> ;r
-      \ :<C-u>Unite -buffer-name=register register history/yank<CR>
-inoremap <silent><expr> <C-z>
-      \ unite#start_complete('register', { 'input': unite#get_cur_text() })
-
-" <C-t>: Tab pages
-nnoremap <silent><expr> <C-t>
-      \ ":\<C-u>Unite -select=".(tabpagenr()-1)." tab\<CR>"
-
-" <C-w>: Windows operation
-" nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
-
-if s:is_windows
-  nnoremap <silent> [Window]s
-        \ :<C-u>Unite -buffer-name=files -no-split -multi-line
-        \ jump_point file_point buffer_tab
-        \ file_rec:! file file/new file_mru<CR>
-else
-  nnoremap <silent> [Window]s
-        \ :<C-u>Unite -buffer-name=files -no-split -multi-line
-        \ jump_point file_point buffer_tab
-        \ file_rec/async:! file file/new file_mru<CR>
-endif
-nnoremap <silent> [Window]w
-      \ :<C-u>Unite window<CR>
+"             \ :<C-u>Unite -buffer-name=files -no-split
+"             \ jump_point file_point buffer_tab
+"             \ file_rec:! file file/new file_mru<CR>
+" " Snippets
+" " nnoremap <silent> [unite]s
+" "             \ :<C-u>Unite snippets<CR>
+" " Help
+" nnoremap <silent> [unite]h
+"             \ :<C-u>Unite -buffer-name=help help<CR>
+" nnoremap <silent> [unite]k
+"             \ :<C-u>UniteWithCursorWord help<CR>
+" " grep by ag
+" vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+"
+"
+" nnoremap [unite]u  q:Unite<Space>
+" " nnoremap <silent> :  :<C-u>Unite history/command command<CR>
+" nnoremap <expr><silent> ;b  <SID>unite_build()
+" function! s:unite_build()
+"   return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
+" endfunction
+" nnoremap <silent> ;o
+"       \ :<C-u>Unite outline -start-insert -resume<CR>
+" nnoremap  [unite]f  :<C-u>Unite source<CR>
+" nnoremap <silent> ;t
+"       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+" xnoremap <silent> ;r
+"       \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
+" nnoremap <silent> ;w
+"       \ :<C-u>UniteWithCursorWord -buffer-name=register
+"       \ buffer file_mru bookmark file<CR>
+" " nnoremap <silent> <C-k>
+" "       \ :<C-u>Unite change jump<CR>
+" nnoremap <silent> ;g
+"       \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
+" nnoremap <silent> ;r
+"       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
+" inoremap <silent><expr> <C-z>
+"       \ unite#start_complete('register', { 'input': unite#get_cur_text() })
+"
+" " <C-t>: Tab pages
+" nnoremap <silent><expr> <C-t>
+"       \ ":\<C-u>Unite -select=".(tabpagenr()-1)." tab\<CR>"
+"
+" " <C-w>: Windows operation
+" " nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
+"
+" if s:is_windows
+"   nnoremap <silent> [Window]s
+"         \ :<C-u>Unite -buffer-name=files -no-split -multi-line
+"         \ jump_point file_point buffer_tab
+"         \ file_rec:! file file/new file_mru<CR>
+" else
+"   nnoremap <silent> [Window]s
+"         \ :<C-u>Unite -buffer-name=files -no-split -multi-line
+"         \ jump_point file_point buffer_tab
+"         \ file_rec/async:! file file/new file_mru<CR>
+" endif
+" nnoremap <silent> [Window]w
+"       \ :<C-u>Unite window<CR>
+"}}}
 nnoremap <silent> [Space]b
       \ :<C-u>UniteBookmarkAdd<CR>
 
@@ -1805,7 +1813,7 @@ endfor
 " nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
 
 " Execute help by cursor keyword.
-nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
+" nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
 nnoremap <silent> /
@@ -2132,6 +2140,11 @@ let g:changelog_username = "Shougo "
 
 " quickrun.vim"{{{
 nmap <silent> <Leader>ru <Plug>(quickrun)
+let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
+let g:quickrun_config['coffee'] = {
+     \'command' : 'coffee',
+     \'exec' : ['%c -cbp %s']
+     \}
 "}}}
 
 " python.vim
@@ -2182,10 +2195,13 @@ function! bundle.hooks.on_source(bundle)
         \   'wiki': {
         \     'url': 'http://ja.wikipedia.org/wiki/%s',
         \   },
+        \   'alc': {
+        \     'url': 'http://eow.alc.co.jp/search?q=%s',
+        \   },
         \ }
 
   "デフォルトサイト
-  let g:ref_source_webdict_sites.default = 'ej'
+  let g:ref_source_webdict_sites.default = 'alc'
 
   "出力に対するフィルタ。最初の数行を削除
   function! g:ref_source_webdict_sites.je.filter(output)
@@ -2207,6 +2223,7 @@ function! bundle.hooks.on_source(bundle)
 
     nmap <Leader>rj :<C-u>Ref webdict je<Space>
     nmap <Leader>re :<C-u>Ref webdict ej<Space>
+    nmap <Leader>ra :<C-u>Ref webdict alc<Space>
   endfunction"}}}
 endfunction
 
@@ -3497,10 +3514,26 @@ else
     endif
   endif
   "}}}
+  if has('mac') "{{{
+    " Mac の辞書.appで開く from http://qiita.com/items/6928282c5c843aad81d4
+    " 引数に渡したワードを検索
+    command! -nargs=1 MacDict      call system('open '.shellescape('dict://'.<q-args>))
+    " カーソル下のワードを検索
+    command! -nargs=0 MacDictCWord call system('open '.shellescape('dict://'.shellescape(expand('<cword>'))))
+    " 辞書.app を閉じる
+    command! -nargs=0 MacDictClose call system("osascript -e 'tell application \"Dictionary\" to quit'")
+    " 辞書にフォーカスを当てる
+    command! -nargs=0 MacDictFocus call system("osascript -e 'tell application \"Dictionary\" to activate'")
+    " キーマッピング
+    nnoremap <silent> <Leader>do :<C-u>MacDictCWord<CR>
+    vnoremap <silent> <Leader>do :<C-u>MacDict<Space><C-r>*<CR>
+    nnoremap <silent> <Leader>dc :<C-u>MacDictClose<CR>
+    nnoremap <silent> <Leader>df :<C-u>MacDictFocus<CR>
+  endif "}}}
 endif
 
 " Using the mouse on a terminal.
-if has('mouse')
+if has('mouse') "{{{
   set mouse=a
   if has('mouse_sgr')
     set ttymouse=sgr
@@ -3510,7 +3543,7 @@ if has('mouse')
   else
     set ttymouse=xterm2
   endif
-endif
+endif "}}}
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3599,13 +3632,6 @@ let g:tagbar_type_javascript = {
 "}}}
 
 
-" QuickRun "{{{
-let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
-let g:quickrun_config['coffee'] = {
-     \'command' : 'coffee',
-     \'exec' : ['%c -cbp %s']
-     \}
-"}}}
 
 
 
@@ -3759,8 +3785,8 @@ let g:syntastic_mode_map = { 'mode': 'active',
   \ 'passive_filetypes': ['html']
   \}
 let g:syntastic_auto_loc_list = 2
-"let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
-let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
+let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
+" let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
 let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
@@ -4020,6 +4046,10 @@ autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd if len(getqflist())
 " ファイルを開いたときに前回の編集箇所に移動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 " }}}
+
+
+" TODO
+" :help quickref
 
 
 

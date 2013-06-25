@@ -4148,6 +4148,12 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 " TODO
 " :help quickref
 
+" remove vimshell, for gui
+" sort neobundle
+" neobundlelazy to neobundle
+" remove comment out
+" think about sticky shift key
+" vim-fugitive
 
 
 

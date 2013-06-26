@@ -69,6 +69,7 @@ setopt complete_aliases
 setopt multibyte print_eight_bit
 setopt auto_menu
 setopt auto_param_slash auto_remove_slash
+setopt magic_equal_subst multios brace_ccl interactive_comments globdots
 #setopt xtrace
 
 
@@ -112,10 +113,13 @@ alias -g ....='../../..'
 
 #########
 # http://wiki.archlinux.org/index.php/Zsh
-autoload -U compinit && compinit
+# fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+autoload -Uz compinit && compinit
+# autoload -Uz bashcompinit && bashcompinit
+# source /usr/local/etc/bash_completion.d
 #autoload -Uz vcs_info
-#autoload -U promptinit && promptinit
-#autoload predict-on && predict-on
+#autoload -Uz promptinit && promptinit
+#autoload -Uz predict-on && predict-on
 
 #zstyle ':completion:*' menu select
 zstyle ':completion:*:default' menu select=1
@@ -273,7 +277,14 @@ function alc() {
 # zle -N cdup
 # bindkey '\^' cdup
 
-
+# C-x, C-pでコマンドをクリップボードにコピーする
+# http://d.hatena.ne.jp/hiboma/20120315/1331821642
+function pbcopy-buffer() {
+  print -rn $BUFFER | pbcopy
+  zle -M "pbcopy: ${BUFFER}"
+}
+zle -N pbcopy-buffer
+bindkey '^x^p' pbcopy-buffer
 
 
 # 20111202

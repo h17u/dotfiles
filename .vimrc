@@ -2555,13 +2555,25 @@ nnoremap U      :<C-u>GundoToggle<CR>
 nnoremap <silent> [unite]w :<C-u>Unite tweetvim<CR>
 autocmd MyAutoCmd FileType tweetvim call s:tweetvim_my_settings()
 function! s:tweetvim_my_settings() "{{{
-  " Open say buffer.
+  let g:tweetvim_tweet_per_page = 300
+  let g:tweetvim_cache_size = 10
+  let g:tweetvim_display_source = 1
+  let g:tweetvim_display_time = 1
+  let g:tweetvim_open_buffer_cmd = 'edit!'
+  let g:tweetvim_open_say_cmd = 'botright split'
+  let g:tweetvim_display_separator = 0
+  let g:tweetvim_empty_separator = 0
+  let g:tweetvim_footer = ''
+  let g:tweetvim_display_icon = 1
+  let g:tweetvim_say_insert_account = 0
+  let g:tweetvim_async_post = 1
+  let g:tweetvim_expand_t_co = 1
+  let g:tweetvim_display_username = 1
   nnoremap <silent><buffer> o :TweetVimSay<CR>
   nnoremap <silent><buffer> q :close<CR>
   nmap <silent><buffer> j <Plug>(accelerated_jk_gj)
 endfunction"}}}
 
-let g:tweetvim_display_separator = 0
 
 " Operator-replace.
 nmap R <Plug>(operator-replace)

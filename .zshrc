@@ -113,9 +113,16 @@ alias -g ....='../../..'
 
 #########
 # http://wiki.archlinux.org/index.php/Zsh
-# fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+# http://qiita.com/items/12a4d42ee7a667f7934b
+# fpath=(/usr/local/share/zsh-completions $fpath)
+fpath=(
+  /usr/local/share/zsh-completions
+  # ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-completions.git/src
+  $fpath
+)
 autoload -Uz compinit && compinit
-# autoload -Uz bashcompinit && bashcompinit
+autoload -Uz bashcompinit && bashcompinit
+# source /usr/local/etc/bash_completion.d/tig-completion.bash 
 # source /usr/local/etc/bash_completion.d
 #autoload -Uz vcs_info
 #autoload -Uz promptinit && promptinit
@@ -166,6 +173,21 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 
+
+# bind UP and DOWN arrow keys
+for keycode in '[' 'O'; do
+  bindkey "^[${keycode}A" history-substring-search-up
+  bindkey "^[${keycode}B" history-substring-search-down
+done
+unset keycode
+
+# bind P and N for EMACS mode
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+
+# bind k and j for VI mode
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 
 
@@ -472,6 +494,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle urltools
     antigen bundle command-not-found
     antigen bundle zsh-users/zsh-syntax-highlighting
+    antigen bundle zsh-users/zsh-history-substring-search
     antigen bundle zsh-users/zsh-completions
 
     # Tell antigen that you're done.
@@ -494,15 +517,21 @@ autoload -Uz run-help-sudo
 autoload -Uz run-help-svk
 autoload -Uz run-help-svn
 
-# http://qiita.com/items/12a4d42ee7a667f7934b
-#fpath = (/usr/local/share/zsh-completions $fpath)
-# fpath = (
-#         #zsh-completions
-#         /usr/local/share/zsh-completions(N-/)
 
-#         #homebrew
-#         /usr/local/share/zsh/functions(N-/)
-#         )
-# export fpath
+# http://yonchu.hatenablog.com/entry/20120415/1334506855
+#   typeset
+#    -U 重複パスを登録しない
+#    -x exportも同時に行う
+#    -T 環境変数へ紐付け
+#
+#   path=xxxx(N-/)
+#     (N-/): 存在しないディレクトリは登録しない
+#     パス(...): ...という条件にマッチするパスのみ残す
+#        N: NULL_GLOBオプションを設定。
+#           globがマッチしなかったり存在しないパスを無視する
+#        -: シンボリックリンク先のパスを評価
+#        /: ディレクトリのみ残す
+#        .: 通常のファイルのみ残す
+
 
 # vim:set et ts=4 sts=2 sw=2 tw=0 fdm=marker:

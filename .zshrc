@@ -69,7 +69,8 @@ setopt complete_aliases
 setopt multibyte print_eight_bit
 setopt auto_menu
 setopt auto_param_slash auto_remove_slash
-setopt magic_equal_subst multios brace_ccl interactive_comments globdots
+setopt magic_equal_subst multios brace_ccl interactive_comments
+#setopt globdots
 #setopt xtrace
 
 
@@ -96,6 +97,7 @@ alias ls='gls --color=auto'
 #alias l='gls -lAFh --color=auto'
 #alias ll='gls -lAFh --color=auto | less'
 alias ll='ls -l' la='ls -al'
+alias git=hub
 
 # Global alias
 alias -g TELLME="&& say succeeded || say failed"

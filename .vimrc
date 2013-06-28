@@ -382,9 +382,6 @@ NeoBundleLazy 'tyru/caw.vim', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']
       \ }}
-NeoBundleLazy 'tyru/eskk.vim', { 'autoload' : {
-      \ 'mappings' : [['i', '<Plug>(eskk:toggle)']],
-      \ }}
 NeoBundleLazy 'tyru/open-browser.vim', { 'autoload' : {
       \ 'mappings' : '<Plug>(open-browser-wwwsearch)',
       \ }}
@@ -394,7 +391,6 @@ NeoBundleLazy 'tyru/restart.vim', {
       \ 'autoload' : {
       \  'commands' : 'Restart'
       \ }}
-" NeoBundle 'tyru/skk.vim'
 NeoBundleLazy 'tyru/vim-altercmd'
 NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
       \ 'gui' : 1,
@@ -2369,74 +2365,6 @@ function! bundle.hooks.on_source(bundle)
     " nmap <buffer> m <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_move_file)
     " nmap <buffer> d <Plug>(vimfiler_mark_current_line)<Plug>(vimfiler_delete_file)
   endfunction"}}}
-endfunction
-
-unlet bundle
-"}}}
-
-" eskk.vim"{{{
-imap <C-j>     <Plug>(eskk:toggle)
-
-let bundle = neobundle#get('eskk.vim')
-function! bundle.hooks.on_source(bundle)
-  let g:eskk#large_dictionary = {
-        \   'path': expand('~/.eskk/SKK-JISYO.L'),
-        \   'sorted': 1,
-        \   'encoding': 'euc-jp',
-        \}
-  " Disable skk.vim
-  let g:plugin_skk_disable = 1
-
-  let g:eskk#disable = 0
-
-  let g:eskk#debug = 0
-
-  " Don't keep state.
-  let g:eskk#keep_state = 0
-
-  let g:eskk#show_annotation = 1
-  let g:eskk#rom_input_style = 'msime'
-  let g:eskk#egg_like_newline = 1
-  let g:eskk#egg_like_newline_completion = 1
-
-  " Disable mapping.
-  "let g:eskk#map_normal_keys = 0
-
-  " Toggle debug.
-  nnoremap <silent> [Space]ed  :<C-u>call ToggleVariable('g:eskk#debug')<CR>
-
-  autocmd MyAutoCmd User eskk-initialize-post
-        \ EskkMap -remap jj <Plug>(eskk:disable)<Esc>
-
-  "let g:eskk#dictionary = {
-  "\   'path': expand('~/.skk-eskk-jisyo'),
-  "\   'sorted': 0,
-  "\   'encoding': 'utf-8',
-  "\}
-  " Use /bin/sh -c "VTE_CJK_WIDTH=1 gnome-terminal --disable-factory"
-  " instead of this settings.
-  "if &encoding == 'utf-8' && !has('gui_running')
-  " GNOME Terminal only.
-
-  " Use <> instead of ▽.
-  "let g:eskk#marker_henkan = '<>'
-  " Use >> instead of ▼.
-  "let g:eskk#marker_henkan_select = '>>'
-  "endif
-
-  " Define table.
-  autocmd MyAutoCmd User eskk-initialize-pre call s:eskk_initial_pre()
-  function! s:eskk_initial_pre() "{{{
-    let t = eskk#table#new('rom_to_hira*', 'rom_to_hira')
-    call t.add_map('z ', '　')
-    call t.add_map('~', '〜')
-    call t.add_map('zc', '©')
-    call t.add_map('zr', '®')
-    call t.add_map('z9', '（')
-    call t.add_map('z0', '）')
-    call eskk#register_mode_table('hira', t)
-    unlet t
-  endfunction "}}}
 endfunction
 
 unlet bundle

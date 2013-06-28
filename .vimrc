@@ -1700,29 +1700,30 @@ nnoremap <silent> [Space]gs :<C-u>UniteVersions status:!<CR>
 " The prefix key.
 nnoremap    [unite]   <Nop>
 xnoremap    [unite]   <Nop>
-nmap    ;i [unite]
-xmap    ;i [unite]
+nmap    ;f [unite]
+xmap    ;f [unite]
 
 
-nnoremap <Leader>fre  :<C-u>UniteResume<CR>
-nnoremap <Leader>ff   :<C-u>Unite -buffer-name=files file file/new file_rec/async:! <CR>
-nnoremap <Leader>fmr  :<C-u>Unite -buffer-name=files file_mru bookmark<CR>
-nnoremap <Leader>fb   :<C-u>Unite -buffer-name=files buffer buffer_tab tab dwm<CR>
-nnoremap <Leader>fso  :<C-u>Unite -buffer-name=files source<CR>
-nnoremap <Leader>fo   :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
-nnoremap <Leader>fma  :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
-nnoremap <Leader>fme  :<C-u>Unite output:message<CR>
-nnoremap <Leader>fdi  :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-nnoremap <Leader>fta  :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-nnoremap <Leader>fy   :<C-u>Unite -buffer-name=register register history/yank<CR>
-nnoremap <Leader>fgr  :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
-nnoremap <Leader>fh   :<C-u>Unite -buffer-name=help help<CR>
-nnoremap <Leader>fk   :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
-nnoremap <Leader>frr  :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
-nnoremap <Leader>fri  :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
+nnoremap [unite]re  :<C-u>UniteResume<CR>
+nnoremap [unite]f   :<C-u>Unite -buffer-name=files file file/new file_rec/async:! <CR>
+nnoremap [unite]mr  :<C-u>Unite -buffer-name=files file_mru bookmark<CR>
+nnoremap [unite]b   :<C-u>Unite -buffer-name=files buffer buffer_tab tab dwm<CR>
+nnoremap [unite]so  :<C-u>Unite -buffer-name=files source<CR>
+nnoremap [unite]o   :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
+nnoremap [unite]ma  :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
+nnoremap [unite]me  :<C-u>Unite output:message<CR>
+nnoremap [unite]di  :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+nnoremap [unite]ta  :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
+nnoremap [unite]y   :<C-u>Unite -buffer-name=register register history/yank<CR>
+nnoremap [unite]gr  :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
+nnoremap [unite]h   :<C-u>Unite -buffer-name=help help<CR>
+nnoremap [unite]k   :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
+nnoremap [unite]rr  :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
+nnoremap [unite]ri  :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 
+"bak "{{{
 " https://github.com/mopp/vimrc/blob/master/.vimrc
 " nnoremap <silent> fre :<C-u>UniteResume<CR>
 " nnoremap <silent> fb  :<C-u>Unite -buffer-name=Buffers buffer:!<CR>
@@ -1748,9 +1749,6 @@ vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 " nnoremap <silent> fex :<C-u>Unite -buffer-name=example english_example<CR>
 " nnoremap <silent> fet :<C-u>Unite -buffer-name=thesaurus english_thesaurus<CR>
 " nnoremap <silent> fa  :<C-u>Unite -buffer-name=Reanimate Reanimate<CR>
-
-
-"bak "{{{
 " nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir
 "             \ -buffer-name=files buffer file_mru bookmark file<CR>
 " nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
@@ -1881,7 +1879,7 @@ nnoremap <silent> n
 
 let g:unite_source_history_yank_enable = 1
 
-" For unite-alias.
+" For unite-alias. "{{{
 let g:unite_source_alias_aliases = {}
 let g:unite_source_alias_aliases.test = {
       \ 'source' : 'file_rec',
@@ -1902,7 +1900,7 @@ let g:unite_source_alias_aliases.scriptnames = {
       \ 'source' : 'output',
       \ 'args'   : 'scriptnames',
       \ }
-
+"}}}
 " For unite-menu."{{{
 let g:unite_source_menu_menus = {}
 
@@ -1997,6 +1995,7 @@ function! bundle.hooks.on_source(bundle) "{{{
     call unite#custom_alias('file', 'h', 'left')
     call unite#custom_default_action('directory', 'narrow')
     " call unite#custom_default_action('file', 'my_tabopen')
+    call unite#custom_default_action('file', 'dwm_new')
 
     call unite#custom_default_action('versions/git/status', 'commit')
 
@@ -2052,7 +2051,7 @@ function! bundle.hooks.on_source(bundle) "{{{
     nnoremap <silent><buffer><expr> cd     unite#do_action('lcd')
     nnoremap <buffer><expr> S      unite#mappings#set_current_filters(
           \ empty(unite#mappings#get_current_filters()) ? ['sorter_reverse'] : [])
-  endfunction"}}}
+  endfunction "}}}
 
   " Variables.
   let g:unite_enable_split_vertically = 0

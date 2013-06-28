@@ -3877,7 +3877,7 @@ let g:github_user = 'h17u'
 
 
 " https://github.com/spolu/dwm.vim "{{{
-""" ~/.vim/bundle/dwm.vim/plugin/dwm.vim
+""" ~/.bundle/dwm.vim/plugin/dwm.vim
 let bundle = neobundle#get('dwm.vim')
 function! bundle.hooks.on_source(bundle)
   let g:dwm_map_keys = 0 " (1:default keybind)

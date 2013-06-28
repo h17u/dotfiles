@@ -440,6 +440,10 @@ export NODE_PATH=/usr/local/lib/node:~/.npm:$(npm prefix --global 2>/dev/null)/l
 # http://nodejs.org/api/modules.html#modules_loading_from_the_global_folders
 
 
+# Python
+export PATH=$(brew --prefix)/share/python:$PATH
+export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
+
 # go
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
@@ -505,9 +509,6 @@ fi
 
 # tmuxinator
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-
-# Python
-export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 # http://qiita.com/items/81a9daf716d94b63f94f
 alias run-help >/dev/null 2>&1 && unalias run-help

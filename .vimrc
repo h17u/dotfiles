@@ -1146,6 +1146,11 @@ augroup MyAutoCmd
   autocmd BufEnter,BufNewFile * if bufname('%') != '' && &filetype == ''
         \ | setlocal ft=hybrid | endif
 
+  " Mercurial unified tests
+  autocmd BufNewFile,BufRead *.t set filetype=hgtest
+  let hgtest_fold=1
+  autocmd Syntax hgtest setlocal foldlevel=1
+
   " Improved include pattern.
   autocmd FileType html
         \ setlocal includeexpr=substitute(v:fname,'^\\/','','') |

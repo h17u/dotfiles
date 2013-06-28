@@ -479,6 +479,14 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     #antigen-lib
     antigen-use oh-my-zsh
 
+    # antigen theme robbyrussell
+    # antigen theme muse
+    # antigen theme arrow
+    antigen theme crunch #time, ruby, git, and dir in left
+    # antigen theme kardan # simple left column
+    # antigen theme macovsky # only left column
+    # antigen theme pygmalion
+
     # Bundles from the default repo (robbyrussell's oh-my-zsh).
     antigen bundle brew
     antigen bundle bundler

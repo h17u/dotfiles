@@ -135,9 +135,13 @@ NeoBundle 'anyakichi/vim-surround', {
       \     ['n', '<Plug>Ysurround'], ['n', '<Plug>YSurround']
       \ ]}}
 NeoBundleLazy 'basyura/TweetVim', { 'depends' :
-      \ ['basyura/twibill.vim', 'tyru/open-browser.vim'],
+      \ [ 'basyura/twibill.vim',
+      \ 'tyru/open-browser.vim',
+      \ 'basyura/bitly.vim',
+      \ 'mattn/webapi-vim' ],
       \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
       " \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
+
 " NeoBundleLazy 'c9s/perlomni.vim'
 " NeoBundleLazy 'choplin/unite-vim_hacks'
 " NeoBundleLazy 'liquidz/vimfiler-sendto'
@@ -2569,6 +2573,7 @@ function! s:tweetvim_my_settings() "{{{
   let g:tweetvim_async_post = 1
   let g:tweetvim_expand_t_co = 1
   let g:tweetvim_display_username = 1
+  inoremap <silent><buffer> <C-x><C-d> <ESC>:TweetVimBitly<CR>
   nnoremap <silent><buffer> o :TweetVimSay<CR>
   nnoremap <silent><buffer> q :close<CR>
   nmap <silent><buffer> j <Plug>(accelerated_jk_gj)

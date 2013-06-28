@@ -61,7 +61,7 @@ export MANPATH=/usr/local/share/man:$MANPATH
 # Set shell options
 setopt auto_cd auto_name_dirs auto_pushd pushd_ignore_dups
 setopt extended_history hist_ignore_dups hist_ignore_space hist_save_nodups
-setopt share_history inc_append_history hist_no_store hist_verify
+setopt share_history inc_append_history hist_no_store hist_verify hist_reduce_blanks
 setopt prompt_subst correct list_packed nolistbeep
 setopt list_types no_beep always_last_prompt
 setopt cdable_vars sh_word_split auto_param_keys
@@ -536,6 +536,6 @@ autoload -Uz run-help-svn
 #        -: シンボリックリンク先のパスを評価
 #        /: ディレクトリのみ残す
 #        .: 通常のファイルのみ残す
-
+#
 
 # vim:set et ts=4 sts=2 sw=2 tw=0 fdm=marker:

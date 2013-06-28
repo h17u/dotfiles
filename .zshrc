@@ -63,13 +63,14 @@ setopt auto_cd auto_name_dirs auto_pushd pushd_ignore_dups
 setopt extended_history hist_ignore_dups hist_ignore_space hist_save_nodups
 setopt share_history inc_append_history hist_no_store hist_verify
 setopt prompt_subst correct list_packed nolistbeep
-setopt extended_glob list_types no_beep always_last_prompt
+setopt list_types no_beep always_last_prompt
 setopt cdable_vars sh_word_split auto_param_keys
 setopt complete_aliases
 setopt multibyte print_eight_bit
 setopt auto_menu
 setopt auto_param_slash auto_remove_slash
 setopt magic_equal_subst multios brace_ccl interactive_comments
+# setopt extended_glob
 #setopt globdots
 #setopt xtrace
 

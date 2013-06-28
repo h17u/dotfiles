@@ -854,8 +854,9 @@ endif
 " Use vimgrep.
 "set grepprg=internal
 " Use grep.
-set grepprg=grep\ -nH
-" set grepprg=ag
+" set grepprg=grep\ -nH
+" set grepprg=git\ grep\ -n
+set grepprg=ag
 " set grepprg=jvgrep
 
 " Exclude = from isfilename.

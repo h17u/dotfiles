@@ -6,6 +6,7 @@
 #Git below:
 !/.zshrc
 !/.vimrc
+!/.secret_vimrc
 !/.vimperatorrc
 !/.tmux.conf
 !/.gitconfig

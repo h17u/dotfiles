@@ -126,7 +126,7 @@ fpath=(
 )
 autoload -Uz compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
-# source /usr/local/etc/bash_completion.d/tig-completion.bash 
+source /usr/local/etc/bash_completion.d/tig-completion.bash
 # source /usr/local/etc/bash_completion.d
 #autoload -Uz vcs_info
 #autoload -Uz promptinit && promptinit
@@ -424,6 +424,7 @@ man() {
 # Node.js
 export PATH=$PATH:$(npm bin --global 2>/dev/null)
 export NODE_PATH=/usr/local/lib/node:~/.npm:$(npm prefix --global 2>/dev/null)/lib/node_modules
+eval "$(npm completion 2>/dev/null)"
 #export NODE_PATH=$NODE_PATH:/usr/local/lib/jsctags
 # brew install node & npm at /usr/local/homebrew/Cellar/node/0.10.5/
 # npm install n at /usr/local/share/npm/lib/node_modules/n/
@@ -485,7 +486,6 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     #    antigen bundle git-flow
     antigen bundle github
     antigen bundle heroku
-    antigen bundle npm
     antigen bundle osx
     antigen bundle perl
     antigen bundle pip

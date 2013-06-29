@@ -1845,11 +1845,6 @@ nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "\<C-]>" :
       \ ":\<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include\<CR>"
 nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
       \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
-
-" Tab jump
-for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
-endfor
 "}}}
 
 " Execute help.
@@ -2596,9 +2591,9 @@ cmap <C-Space>  <C-@>
 
 " Visual mode keymappings: "{{{
 " <TAB>: indent.
-xnoremap <TAB>  >
+" xnoremap <TAB>  >
 " <S-TAB>: unindent.
-xnoremap <S-TAB>  <
+" xnoremap <S-TAB>  <
 
 " Indent
 nnoremap > >>
@@ -2606,7 +2601,7 @@ nnoremap < <<
 xnoremap > >gv
 xnoremap < <gv
 
-xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
+" xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
 "}}}
 
 " Insert mode keymappings: "{{{
@@ -2830,9 +2825,22 @@ nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
 
-" A .vimrc snippet that allows you to move around windows beyond tabs
-nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
-nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
+" tab navigation like firefox
+nnoremap <S-tab> :tabprevious<CR>
+nnoremap <tab>   :tabnext<CR>
+" nnoremap <C-S-tab> :tabprevious<CR>
+" nnoremap <C-tab>   :tabnext<CR>
+" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+" inoremap <C-tab>   <Esc>:tabnext<CR>i
+
+" Tab jump
+for n in range(1, 9)
+  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+endfor
+
+" A .vimrc snippet that allows you to move around windows beyond tabs "{{{
+" nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>
+" nnoremap <silent> <S-Tab> :call <SID>PreviousWindowOrTab()<CR>
 
 function! s:smart_close()
   if winnr('$') != 1
@@ -2867,9 +2875,9 @@ function! s:PreviousWindowOrTab()
     execute winnr("$") . "wincmd w"
   endif
 endfunction
-
+"}}}
 nnoremap <silent> [Window]<Space>  :<C-u>call <SID>ToggleSplit()<CR>
-" If window isn't splited, split buffer.
+" If window isn't splited, split buffer. "{{{
 function! s:ToggleSplit()
   let prev_name = winnr()
   silent! wincmd w
@@ -2879,6 +2887,7 @@ function! s:ToggleSplit()
     call s:smart_close()
   endif
 endfunction
+"}}}
 " Split nicely."{{{
 command! SplitNicely call s:split_nicely()
 function! s:split_nicely()

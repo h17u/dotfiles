@@ -546,7 +546,7 @@ NeoBundle 'kannokanno/unite-dwm', { 'autoload' : {
 NeoBundle 'altercation/vim-colors-solarized', '', 'default'
 NeoBundle 'tpope/vim-fugitive', '', 'default'
 NeoBundleLazy 'scrooloose/nerdtree', { 'autoload' : {
-      \ 'commands' : 'TagbarToggle'
+      \ 'commands' : 'NERDTreeToggle'
       \ }}
 " NeoBundle 'scrooloose/nerdcommenter', '', 'default'
 NeoBundleLazy 'scrooloose/syntastic', { 'autoload' : {
@@ -1845,6 +1845,13 @@ nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "\<C-]>" :
       \ ":\<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include\<CR>"
 nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
       \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
+
+" Tag junp support from http://kokukuma.blogspot.jp/2012/11/vim-ctrlt.html "{{{
+autocmd BufWinLeave * call AddTagstack()
+set tags+=~/.vim_foraddtagstack
+function! AddTagstack()
+    execute "tag tag_for_add_tagstack"
+endfunction "}}}
 
 " Tab jump
 for n in range(1, 9)
@@ -4111,3 +4118,4 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 
 
 " vim:set et ts=4 sts=2 sw=2 tw=0 fdm=marker:
+" vim:fen:fdm=marker:fmr={{{,}}}:fdl=0:fdc=1:ts=2:sw=2:sts=2

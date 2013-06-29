@@ -1082,6 +1082,9 @@ set viewdir=~/.vim/view
 set viewoptions-=options
 set viewoptions+=slash,unix
 set viewoptions+=cursor,folds
+
+" Diff
+set diffopt=filler,icase,iwhite
 "}}}
 
 "---------------------------------------------------------------------------

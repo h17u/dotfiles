@@ -32,5 +32,6 @@
 	diff = 
 [diff]
 	tool = vimdiff
+	external = git_diff_wrapper
 [difftool]
 	prompt = false

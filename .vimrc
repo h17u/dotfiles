@@ -980,7 +980,7 @@ function! s:my_tabline()  "{{{
   let s .= '%#TabLineFill#%T%=%#TabLine#'
   return s
 endfunction "}}}
-let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+" let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 set showtabline=2
 
 " Set statusline.

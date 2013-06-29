@@ -440,10 +440,6 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 
-# autojump
-[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh ]]
-
-
 # Create and attach tmux session
 case ${UID} in
 0)
@@ -478,6 +474,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen theme pygmalion
 
     # Bundles from the default repo (robbyrussell's oh-my-zsh).
+    antigen bundle autojump
     antigen bundle brew
     antigen bundle bundler
     #    antigen bundle cpanm

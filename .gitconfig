@@ -35,3 +35,5 @@
 	external = git_diff_wrapper
 [difftool]
 	prompt = false
+[rebase]
+	autosquash = true

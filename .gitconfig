@@ -8,15 +8,29 @@
 	ui = true
 [alias]
 [core]
-	#excludesfile = /Users/tommy/.gitignore_global
+	excludesfile = /Users/tommy/.gitignore_global
 [alias]
 	stash-unapply = !git stash show -p | git apply -R
+	hist = log --pretty=format:\"%h %C(yellow)%ad%C(reset) | %s%C(red)%d%C(reset) %C(blue)[%an]%C(reset)\" --graph --date=iso
 [core]
 	autocrlf = input
 	excludesfile = /Users/tommy/.gitignore_global
+	pager = less
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[mergetool "gvimdiff3"]
+	cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[mergetool "vimdiff3"]
+	cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+[merge]
+	tool = vimdiff3
+[pager]
+	diff = 
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false

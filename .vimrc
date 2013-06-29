@@ -988,6 +988,7 @@ let &statusline="%{winnr('$')>1?'['.winnr().'/'.winnr('$')"
       \ . ".(winnr('#')==winnr()?'#':'').']':''}\ "
       \ . "%{(&previewwindow?'[preview] ':'').expand('%:t:.')}"
       \ . "%{".s:SID_PREFIX()."get_twitter_len()}"
+      \ . "%{fugitive#statusline()}"
       \ . "\ %=%m%y%{'['.(&fenc!=''?&fenc:&enc).','.&ff.']'}"
       \ . "%{printf(' %5d/%d',line('.'),line('$'))}"
 

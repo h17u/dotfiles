@@ -1846,13 +1846,6 @@ nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "\<C-]>" :
 nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
       \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
 
-" Tag junp support from http://kokukuma.blogspot.jp/2012/11/vim-ctrlt.html "{{{
-autocmd BufWinLeave * call AddTagstack()
-set tags+=~/.vim_foraddtagstack
-function! AddTagstack()
-    execute "tag tag_for_add_tagstack"
-endfunction "}}}
-
 " Tab jump
 for n in range(1, 9)
   execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'

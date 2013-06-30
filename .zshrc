@@ -409,22 +409,23 @@ fi
 # Colored man pages
 # https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
 export MANPAGER='less -R'
-man() {
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-		LESS_TERMCAP_md=$(printf "\e[1;31m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;32m") \
-		man "$@"
-}
+# man() {                                     
+# 	env \                                      
+# 		LESS_TERMCAP_mb=$(printf "\e[1;31m") \    
+# 		LESS_TERMCAP_md=$(printf "\e[1;31m") \    
+# 		LESS_TERMCAP_me=$(printf "\e[0m") \       
+# 		LESS_TERMCAP_se=$(printf "\e[0m") \       
+# 		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \ 
+# 		LESS_TERMCAP_ue=$(printf "\e[0m") \       
+# 		LESS_TERMCAP_us=$(printf "\e[1;32m") \    
+# 		man "$@"                                  
+# }                                           
 
 # Node.js
 export PATH=$PATH:$(npm bin --global 2>/dev/null)
 export NODE_PATH=/usr/local/lib/node:~/.npm:$(npm prefix --global 2>/dev/null)/lib/node_modules
 eval "$(npm completion 2>/dev/null)"
+# eval "$(bower completion 2>/dev/null)"
 #export NODE_PATH=$NODE_PATH:/usr/local/lib/jsctags
 # brew install node & npm at /usr/local/homebrew/Cellar/node/0.10.5/
 # npm install n at /usr/local/share/npm/lib/node_modules/n/
@@ -469,34 +470,148 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen theme robbyrussell
     # antigen theme muse
     # antigen theme arrow
-    antigen theme crunch #time, ruby, git, and dir in left
+    antigen theme crunch #time, rvm, git, and dir in left
     # antigen theme kardan # simple left column
     # antigen theme macovsky # only left column
     # antigen theme pygmalion
 
     # Bundles from the default repo (robbyrussell's oh-my-zsh).
+    # antigen bundle ant
+    # antigen bundle apache2-macports
+    # antigen bundle archlinux
+    # antigen bundle autoenv
     antigen bundle autojump
+    # antigen bundle battery
+    antigen bundle bower
     antigen bundle brew
     antigen bundle bundler
-    #    antigen bundle cpanm
-    #    antigen bundle dircycle
-    #    antigen bundle encode64
+    # antigen bundle bwana
+    # antigen bundle cabal
+    # antigen bundle cake
+    # antigen bundle capistrano
+    # antigen bundle celery
+    # antigen bundle cloudapp
+    antigen bundle coffee
+    # antigen bundle colemak
+    antigen bundle colored-man
+    # antigen bundle colorize
+    # antigen bundle command-not-found
+    # antigen bundle compleat
+    # antigen bundle composer
+    # antigen bundle copydir
+    # antigen bundle copyfile
+    # antigen bundle cp
+    antigen bundle cpanm
+    # antigen bundle debian
+    # antigen bundle dircycle
+    # antigen bundle dirpersist
+    # antigen bundle django
+    # antigen bundle emoji-clock
+    # antigen bundle encode64
+    antigen bundle extract
+    # antigen bundle fabric
+    # antigen bundle fasd
+    # antigen bundle fbterm
+    # antigen bundle forklift
+    # antigen bundle gas
     antigen bundle gem
-    #    antigen bundle git
-    #    antigen bundle git-flow
-    antigen bundle github
+    # antigen bundle git
+    # antigen bundle git-extras
+    # antigen bundle git-flow
+    # antigen bundle git-flow-avh
+    # antigen bundle git-hubflow
+    # antigen bundle git-remote-branch
+    # antigen bundle gitfast
+    # antigen bundle github
+    # antigen bundle gnu-utils
+    # antigen bundle go
+    antigen bundle golang
+    # antigen bundle gpg-agent
+    # antigen bundle gradle
+    # antigen bundle grails
     antigen bundle heroku
-    antigen bundle osx
-    antigen bundle perl
+    # antigen bundle history
+    antigen bundle history-substring-search
+    # antigen bundle jake-node
+    # antigen bundle jira
+    # antigen bundle jruby
+    # antigen bundle kate
+    # antigen bundle knife
+    # antigen bundle laravel
+    # antigen bundle last-working-dir
+    # antigen bundle lein
+    # antigen bundle lighthouse
+    # antigen bundle lol
+    # antigen bundle macports
+    antigen bundle mercurial
+    # antigen bundle mvn
+    # antigen bundle mysql-macports
+    # antigen bundle nanoc
+    # antigen bundle node
+    # antigen bundle npm
+    # antigen bundle nyan
+    # antigen bundle osx
+    antigen bundle pass
+    # antigen bundle per-directory-history
+    # antigen bundle perl
+    # antigen bundle phing
     antigen bundle pip
-    antigen bundle python
-    antigen bundle rails3
+    # antigen bundle pj
+    # antigen bundle postgres
+    # antigen bundle pow
+    # antigen bundle powder
+    # antigen bundle powify
+    # antigen bundle profiles
+    # antigen bundle python
+    # antigen bundle rails
+    # antigen bundle rails3
+    # antigen bundle rails4
+    # antigen bundle rake
+    # antigen bundle rand-quote
     antigen bundle rbenv
-    antigen bundle ruby
+    # antigen bundle rbfu
+    # antigen bundle rebar
+    # antigen bundle redis-cli
+    # antigen bundle repo
+    # antigen bundle rsync
+    # antigen bundle ruby
+    # antigen bundle rvm
+    # antigen bundle safe-paste
+    # antigen bundle sbt
+    # antigen bundle scala
+    # antigen bundle screen
+    # antigen bundle sprunge
+    # antigen bundle ssh-agent
+    # antigen bundle sublime
+    # antigen bundle supervisor
+    # antigen bundle suse
+    antigen bundle svn
+    # antigen bundle symfony
+    # antigen bundle symfony2
+    # antigen bundle systemd
+    # antigen bundle taskwarrior
+    # antigen bundle terminalapp
+    # antigen bundle terminitor
+    # antigen bundle textmate
+    antigen bundle themes
+    # antigen bundle thor
+    # antigen bundle tmux
+    antigen bundle tmuxinator
+    # antigen bundle torrent
     antigen bundle urltools
-    antigen bundle command-not-found
+    antigen bundle vagrant
+    # antigen bundle vi-mode
+    # antigen bundle virtualenv
+    # antigen bundle virtualenvwrapper
+    # antigen bundle vundle
+    # antigen bundle wakeonlan
+    antigen bundle web-search
+    # antigen bundle yum
+    # antigen bundle zeus
+
+    # Bundles othoer repo
     antigen bundle zsh-users/zsh-syntax-highlighting
-    antigen bundle zsh-users/zsh-history-substring-search
+    # antigen bundle zsh-users/zsh-history-substring-search
     antigen bundle zsh-users/zsh-completions
 
     # Tell antigen that you're done.

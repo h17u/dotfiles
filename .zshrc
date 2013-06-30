@@ -361,7 +361,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle grails
     antigen bundle heroku
     # antigen bundle history
-    antigen bundle history-substring-search
+    # antigen bundle history-substring-search
     # antigen bundle jake-node
     # antigen bundle jira
     # antigen bundle jruby
@@ -442,7 +442,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
 
     # Bundles othoer repo
     antigen bundle zsh-users/zsh-syntax-highlighting
-    # antigen bundle zsh-users/zsh-history-substring-search
+    antigen bundle zsh-users/zsh-history-substring-search
     antigen bundle zsh-users/zsh-completions src
 
     # Tell antigen that you're done.

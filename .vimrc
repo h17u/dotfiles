@@ -2341,6 +2341,8 @@ function! bundle.hooks.on_source(bundle)
     call vimfiler#set_execute_file('txt', 'vim')
 
     " Overwrite settings.
+    nnoremap <silent><buffer><C-j> <c-w>w
+    nnoremap <silent><buffer><C-k> <c-w>W
     nnoremap <silent><buffer> J
           \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
     " Call sendto.

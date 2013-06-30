@@ -1727,112 +1727,6 @@ nnoremap [unite]ri  :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 
-"bak "{{{
-" https://github.com/mopp/vimrc/blob/master/.vimrc
-" nnoremap <silent> fre :<C-u>UniteResume<CR>
-" nnoremap <silent> fb  :<C-u>Unite -buffer-name=Buffers buffer:!<CR>
-" nnoremap <silent> fk  :<C-u>Unite -buffer-name=Bookmark bookmark -default-action=vimfiler<CR>
-" nnoremap <silent> fs  :<C-u>Unite -buffer-name=Files file file_mru<CR>
-" nnoremap <silent> fd  :<C-u>Unite -buffer-name=Directory -default-action=tabopen directory directory_mru<CR>
-" nnoremap <silent> ff  :<C-u>Unite -buffer-name=Sources source<CR>
-" nnoremap <silent> fg  :<C-u>Unite -buffer-name=ag grep -keep-focus -no-quit<CR>
-" nnoremap <silent> fhc :<C-u>Unite -buffer-name=History history/command<CR>
-" nnoremap <silent> fhy :<C-u>Unite -buffer-name=History history/yank<CR>
-" nnoremap <silent> fhs :<C-u>Unite -buffer-name=History history/search<CR>
-" nnoremap <silent> fhl :<C-u>Unite -buffer-name=Help help<CR>
-" nnoremap <silent> fma :<C-u>Unite -buffer-name=Mappings mapping<CR>
-" nnoremap <silent> fme :<C-u>Unite -buffer-name=Messages output:message<CR>
-" nnoremap <silent> fo  :<C-u>Unite -buffer-name=Outlines outline<CR>
-" nnoremap <silent> fl  :<C-u>Unite -buffer-name=Line line -no-quit<CR>
-" nnoremap <silent> fr  :<C-u>Unite -buffer-name=Registers register<CR>
-" nnoremap <silent> fta :<C-u>Unite -buffer-name=Tags tag tag/file<CR>
-" nnoremap <silent> ft  :<C-u>Unite -buffer-name=Twitter tweetvim<CR>
-" nnoremap <silent> fq  :<C-u>Unite -buffer-name=QuickFix qf -no-quit -auto-resize -direction=botright<CR>
-" nnoremap <silent> fup :<C-u>Unite -buffer-name=NeobundleUpdateLog -log neobundle/update -direction=botright<CR>
-" nnoremap <silent> fed :<C-u>Unite -buffer-name=english english_dictionary<CR>
-" nnoremap <silent> fex :<C-u>Unite -buffer-name=example english_example<CR>
-" nnoremap <silent> fet :<C-u>Unite -buffer-name=thesaurus english_thesaurus<CR>
-" nnoremap <silent> fa  :<C-u>Unite -buffer-name=Reanimate Reanimate<CR>
-" nnoremap <silent> [unite]c  :<C-u>UniteWithCurrentDir
-"             \ -buffer-name=files buffer file_mru bookmark file<CR>
-" nnoremap <silent> [unite]b  :<C-u>UniteWithBufferDir
-"             \ -buffer-name=files -prompt=%\  buffer file_mru bookmark file<CR>
-" nnoremap <silent> [unite]r  :<C-u>Unite
-"             \ -buffer-name=register register<CR>
-" " nnoremap <silent> [unite]o  :<C-u>Unite outline<CR>
-" nnoremap <silent> [unite]o  :<C-u>Unite outline -vertical -winwidth=30 -no-quit -resume<CR>
-" " nnoremap <silent> [unite]f
-" "             \ :<C-u>Unite -buffer-name=resume resume<CR>
-" nnoremap <silent> [unite]d
-"             \ :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
-" " Key mappings
-" " nnoremap <silent> [unite]ma
-" "             \ :<C-u>Unite mapping<CR>
-" nnoremap <silent> [unite]ma :Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
-" nnoremap <silent> [unite]me
-"             \ :<C-u>Unite output:message<CR>
-" nnoremap <silent> [unite]s
-"             \ :<C-u>Unite -buffer-name=files -no-split
-"             \ jump_point file_point buffer_tab
-"             \ file_rec:! file file/new file_mru<CR>
-" " Snippets
-" " nnoremap <silent> [unite]s
-" "             \ :<C-u>Unite snippets<CR>
-" " Help
-" nnoremap <silent> [unite]h
-"             \ :<C-u>Unite -buffer-name=help help<CR>
-" nnoremap <silent> [unite]k
-"             \ :<C-u>UniteWithCursorWord help<CR>
-" " grep by ag
-" vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
-"
-"
-" nnoremap [unite]u  q:Unite<Space>
-" " nnoremap <silent> :  :<C-u>Unite history/command command<CR>
-" nnoremap <expr><silent> ;b  <SID>unite_build()
-" function! s:unite_build()
-"   return ":\<C-u>Unite -buffer-name=build". tabpagenr() ." -no-quit build\<CR>"
-" endfunction
-" nnoremap <silent> ;o
-"       \ :<C-u>Unite outline -start-insert -resume<CR>
-" nnoremap  [unite]f  :<C-u>Unite source<CR>
-" nnoremap <silent> ;t
-"       \ :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-" xnoremap <silent> ;r
-"       \ d:<C-u>Unite -buffer-name=register register history/yank<CR>
-" nnoremap <silent> ;w
-"       \ :<C-u>UniteWithCursorWord -buffer-name=register
-"       \ buffer file_mru bookmark file<CR>
-" " nnoremap <silent> <C-k>
-" "       \ :<C-u>Unite change jump<CR>
-" nnoremap <silent> ;g
-"       \ :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
-" nnoremap <silent> ;r
-"       \ :<C-u>Unite -buffer-name=register register history/yank<CR>
-" inoremap <silent><expr> <C-z>
-"       \ unite#start_complete('register', { 'input': unite#get_cur_text() })
-"
-" " <C-t>: Tab pages
-" nnoremap <silent><expr> <C-t>
-"       \ ":\<C-u>Unite -select=".(tabpagenr()-1)." tab\<CR>"
-"
-" " <C-w>: Windows operation
-" " nnoremap <silent> <C-w>       :<C-u>Unite window<CR>
-"
-" if s:is_windows
-"   nnoremap <silent> [Window]s
-"         \ :<C-u>Unite -buffer-name=files -no-split -multi-line
-"         \ jump_point file_point buffer_tab
-"         \ file_rec:! file file/new file_mru<CR>
-" else
-"   nnoremap <silent> [Window]s
-"         \ :<C-u>Unite -buffer-name=files -no-split -multi-line
-"         \ jump_point file_point buffer_tab
-"         \ file_rec/async:! file file/new file_mru<CR>
-" endif
-" nnoremap <silent> [Window]w
-"       \ :<C-u>Unite window<CR>
-"}}}
 nnoremap <silent> [Space]b
       \ :<C-u>UniteBookmarkAdd<CR>
 
@@ -1847,12 +1741,6 @@ nnoremap <silent><expr> [Tag]t  &filetype == 'help' ?  "\<C-]>" :
 nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
       \ ":\<C-u>pop\<CR>" : ":\<C-u>Unite jump\<CR>"
 "}}}
-
-" Execute help.
-" nnoremap <silent> <C-h>  :<C-u>Unite -buffer-name=help help<CR>
-
-" Execute help by cursor keyword.
-" nnoremap <silent> g<C-h>  :<C-u>UniteWithCursorWord help<CR>
 
 " Search.
 nnoremap <silent> /

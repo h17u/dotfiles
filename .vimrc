@@ -4,6 +4,7 @@
 " Initialize:"{{{
 "
 
+" Before neobundle#rc "{{{
 if !&compatible
   " Enable no Vi compatible commands.
   set nocompatible
@@ -123,6 +124,7 @@ let g:neobundle#default_options = {
       \ }
 
 call neobundle#rc(s:neobundle_dir)
+"}}}
 
 " neobundle.vim"{{{
 NeoBundleFetch 'Shougo/neobundle.vim', '', 'default'
@@ -140,7 +142,6 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
       \ 'basyura/bitly.vim',
       \ 'mattn/webapi-vim' ],
       \ 'autoload' : { 'commands' : 'TweetVimHomeTimeline' }}
-      " \ ['basyura/twibill.vim', 'tyru/open-browser.vim', 'yomi322/neco-tweetvim'] }
 
 " NeoBundleLazy 'c9s/perlomni.vim'
 " NeoBundleLazy 'choplin/unite-vim_hacks'
@@ -302,10 +303,6 @@ NeoBundleLazy 'kana/vim-operator-replace', {
       \     ['nx', '<Plug>(operator-replace)']]
       \ }}
 NeoBundleLazy 'kana/vim-textobj-user'
-" NeoBundleLazy 'kana/vim-wwwsearch'
-" NeoBundleLazy 'kien/ctrlp.vim', { 'autoload' : {
-"       \ 'commands' : ['CtrlP', 'Unite']
-"       \ }}
 NeoBundleLazy 'Shougo/foldCC',
       \  { 'autoload' : { 'filetypes' : 'vim' }}
 NeoBundleLazy 'mattn/wwwrenderer-vim'
@@ -317,18 +314,6 @@ NeoBundleLazy 'add20/vim-conque', { 'autoload' : {
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
       \ 'commands' : 'GundoToggle'
       \ }}
-" NeoBundleLazy 'thinca/vim-fontzoom', {
-"       \ 'gui' : 1,
-"       \ 'autoload' : {
-"       \  'mappings' : [
-"       \   ['n', '<Plug>(fontzoom-larger)'],
-"       \   ['n', '<Plug>(fontzoom-smaller)']]
-"       \ }}
-NeoBundleLazy 'ujihisa/unite-font', {
-      \ 'gui' : 1,
-      \ 'autoload' : {
-      \  'unite_sources' : 'font'
-      \ }}
 NeoBundleLazy 'thinca/vim-prettyprint', { 'autoload' : {
       \ 'commands' : 'PP'
       \ }}
@@ -338,9 +323,6 @@ NeoBundleLazy 'thinca/vim-qfreplace', { 'autoload' : {
 NeoBundleLazy 'thinca/vim-quickrun', { 'autoload' : {
       \ 'mappings' : [
       \   ['nxo', '<Plug>(quickrun)']],
-      \ }}
-NeoBundleLazy 'thinca/vim-scouter', { 'autoload' : {
-      \ 'commands' : 'Scouter'
       \ }}
 NeoBundle 'thinca/vim-ref', { 'autoload' : {
       \ 'commands' : ['Ref', 'Unite']
@@ -358,7 +340,6 @@ NeoBundleLazy 'vim-ruby/vim-ruby', { 'autoload' : {
       \ 'mappings' : '<Plug>(ref-keyword)',
       \ 'filetypes' : 'ruby'
       \ }}
-
 NeoBundleLazy 'tsukkee/lingr-vim', { 'autoload' : {
       \ 'commands' : 'LingrLaunch'
       \ }}
@@ -371,7 +352,6 @@ NeoBundleLazy 'basyura/J6uil.vim.git', {
       \ },
       \ 'depends' : 'mattn/webapi-vim',
       \ }
-
 NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
       \ 'unite_sources' : 'help'
       \ }}
@@ -386,18 +366,7 @@ NeoBundleLazy 'tyru/open-browser.vim', { 'autoload' : {
       \ 'mappings' : '<Plug>(open-browser-wwwsearch)',
       \ }}
 NeoBundleLazy 'tyru/operator-html-escape.vim'
-NeoBundleLazy 'tyru/restart.vim', {
-      \ 'gui' : 1,
-      \ 'autoload' : {
-      \  'commands' : 'Restart'
-      \ }}
 NeoBundleLazy 'tyru/vim-altercmd'
-NeoBundleLazy 'tyru/winmove.vim', { 'autoload' : {
-      \ 'gui' : 1,
-      \ 'mappings' : [
-      \   ['n', '<Plug>(winmove-up)'], ['n', '<Plug>(winmove-down)'],
-      \   ['n', '<Plug>(winmove-left)'] , ['n', '<Plug>(winmove-right)']],
-      \ }}
 NeoBundleLazy 'ujihisa/neco-ghc', { 'autoload' : {
       \ 'filetypes' : 'haskell'
       \ }}
@@ -409,17 +378,12 @@ NeoBundleLazy 'ujihisa/unite-locate', { 'autoload' : {
       \ 'unite_sources' : 'locate',
       \ }}
 NeoBundle 'vim-jp/vimdoc-ja.git'
-" NeoBundleLazy 'vim-scripts/netrw.vim', { 'autoload' : {
-      " \ 'commands' : 'Explore',
-      " \ }}
-" NeoBundleLazy 'Markdown'
 NeoBundleLazy 'yuratomo/w3m.vim', { 'autoload' : {
       \ 'commands' : 'W3m',
       \ }}
 NeoBundleLazy 'pasela/unite-webcolorname', { 'autoload' : {
       \ 'unite_sources' : 'webcolorname',
       \ }}
-" NeoBundle 'hrsh7th/vim-unite-vcs'
 NeoBundleLazy 'osyo-manga/unite-quickfix', { 'autoload' : {
       \ 'unite_sources' : 'quickfix',
       \ }}
@@ -440,7 +404,6 @@ NeoBundleLazy 'rhysd/accelerated-jk', { 'autoload' : {
       \ 'mappings' : ['<Plug>(accelerated_jk_gj)',
       \               '<Plug>(accelerated_jk_gk)'],
       \ }}
-" NeoBundle 'gmarik/vundle'
 NeoBundleLazy 'vim-jp/autofmt', { 'autoload' : {
       \ 'mappings' : [['x', 'gq']],
       \ }}
@@ -525,12 +488,6 @@ NeoBundleLazy 'itchyny/thumbnail.vim', {
       \ 'autoload' : {
       \   'commands' : 'Thumbnail'
       \ }}
-" NeoBundleLazy 'mopp/unite-battle_editors.git', {
-"       \ 'autoload' : {
-"       \   'unite_sources' : 'battle_editors'
-"       \ },
-"       \ 'depends' : 'mattn/webapi-vim',
-"       \}
 NeoBundleLazy 'xolox/vim-lua-ftplugin', {
       \ 'autoload' : {
       \   'filetypes' : 'lua',
@@ -585,8 +542,6 @@ NeoBundle 'taka84u9/vim-ref-ri', { 'autoload' : {
 NeoBundleLazy 'tpope/vim-repeat', { 'autoload' : {
       \ 'mappings' : '.',
       \ }}
-" NeoBundle 'mileszs/ack.vim', '', 'default'
-" NeoBundle 'rking/ag.vim', '', 'default'
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
@@ -1685,12 +1640,6 @@ unlet bundle
 " unlet bundle
 "}}}
 
-" netrw.vim"{{{
-" let g:netrw_list_hide= '*.swp'
-" nnoremap <silent> <BS> :<C-u>Explore<CR>
-" " Change default directory.
-" set browsedir=current
-"}}}
 
 " vinarise.vim"{{{
 let g:vinarise_enable_auto_detect = 1
@@ -2370,11 +2319,6 @@ let g:ConqueTerm_EscKey = '<Esc>'
 let g:ConqueTerm_PyVersion = 3
 "}}}
 
-" " fontzoom.vim"{{{
-" nmap + <Plug>(fontzoom-larger)
-" nmap _ <Plug>(fontzoom-smaller)
-" "}}}
-
 " Gundo.vim
 nnoremap U      :<C-u>GundoToggle<CR>
 
@@ -2413,11 +2357,6 @@ xmap p <Plug>(operator-replace)
 " let Tlist_Show_One_File = 1
 " let Tlist_Use_Right_Window = 1
 " let Tlist_Exit_OnlyWindow = 1"}}}
-
-" restart.vim {{{
-let g:restart_save_window_values = 0
-nnoremap <silent> [Space]re  :<C-u>Restart<CR>
-"}}}
 
 if neobundle#is_installed('accelerated-jk')
   " accelerated-jk
@@ -4001,15 +3940,7 @@ autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "norm
 " }}}
 
 
-" TODO
-" :help quickref
 
-" remove vimshell, for gui
-" sort neobundle
-" neobundlelazy to neobundle
-" remove comment out
-" think about sticky shift key
-" vim-fugitive
 
 
 

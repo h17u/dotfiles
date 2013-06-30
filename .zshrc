@@ -17,31 +17,13 @@ export RPROMPT='[%39<...<%~]'
 #export RPROMPT='[%n@%m %39<...<%~]' 
 autoload colors
 colors
-#### http://news.mynavi.jp/column/zsh/002/
-#case ${UID} in
-#0)
-#    PROMPT="%B%{${fg[red]}%}%/#%{${reset_color}%}%b "
-#    PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
-#    SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
-#    RPROMPT='[%39<...<%~]' 
-#    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-#        PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
-#    ;;
-#*)
-#    PROMPT="%{${fg[red]}%}%/%%%{${reset_color}%} "
-#    PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
-#    SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-#    RPROMPT='[%39<...<%~]' 
-#    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-#        PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
-#    ;;
-#esac
 
 export BROWSER=w3m
 export EDITOR=vim
 set meta-flag on set input-meta on set output-meta on set convert-meta off # for japanese
 export TERM=xterm-256color
 export PAGER=less
+export MANPAGER='less -R'
 export GREP_OPTIONS='--color=auto'
 #export LANG=ja_JP.UTF-8
 #export LANG=C
@@ -88,15 +70,11 @@ alias pd='pushd' po='popd'
 # Misc :)
 #export LESS=MrXEd
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
-#alias less='less -r'                          # raw control characters
 alias whence='type -a'                        # where, of a sort
 alias grep='grep --color'                     # show differences in colour
 
 # Some shortcuts for different directory listings
 alias ls='gls --color=auto'
-#alias ls='ls -G'
-#alias l='gls -lAFh --color=auto'
-#alias ll='gls -lAFh --color=auto | less'
 alias ll='ls -l' la='ls -al'
 alias diff=$(brew --prefix colordiff)/bin/colordiff
 alias git=hub
@@ -196,28 +174,6 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 
 
-# http://www.gentei.org/~yuuji/support/zsh/files/zshrc
-
-
-# http://gihyo.jp/dev/serial/01/zsh-book/0003
-# nprom () {
-#     setopt prompt_subst
-#     local rbase=$'%{\e[33m%}[%~]%{\e[m%}' lf=$'\n'
-#     local pct=$'%0(?||%18(?||%{\e[31m%}))%#%{\e[m%}'
-#     RPROMPT="%9(~||$rbase)"
-#     case "$USER" in
-#       yatex)	PROMPT=$'%{\e[33m%}%U%m{%n}%%%{\e[m%}%u ' ;;
-#       java)	PROMPT=$'%{\e[36m%}%U%m{%n}%%%{\e[m%}%u ' ;;
-#       *)
-#     local pbase=$'%{\e[$[32+RANDOM%5]m%}%U%B%m{%n}%b'"$pct%u "
-#     PROMPT="%9(~|$rbase$lf|)$pbase"
-#     ;;
-#     esac
-#     [[ "$TERM" = "screen" ]] && RPROMPT="[%U%~%u]"
-# }
-# nprom
-
-
 # pip zsh completion start
 function _pip_completion {
   local words cword
@@ -231,41 +187,6 @@ compctl -K _pip_completion pip
 # pip zsh completion end
 
 
-# http://www.shell-fu.org/lister.php?id=375
-# Handy Extract Program
-function extract () {
-	if [ -f $1 ] ; then
-		case $1 in
-			*.tar.bz2)	tar xvjf $1 ;;
-			*.tar.gz)	tar xvzf $1 ;;
-			*.bz2)		bunzip2 $1 ;;
-			*.rar)		unrar x $1 ;;
-			*.gz)		gunzip $1 ;;
-			*.tar)		tar xvf $1 ;;
-			*.tbz2)		tar xvjf $1 ;;
-			*.tgz)		tar xvzf $1　;;
-			*.zip)		unzip $1 ;;
-			*.Z)		uncompress $1 ;;
-			*.7z)		7z x $1 ;;
-			*)			echo "'$1' cannot be extracted via >extract<" ;;
-		esac
-	else
-		echo "'$1' is not a valid file"
-	fi
-}
-
-
-# http://d.hatena.ne.jp/mollifier/20100317/p1
-#if which pbcopy >/dev/null 2>&1 ; then 
-#    # Mac  
-#    alias -g C='| pbcopy'
-#elif which xsel >/dev/null 2>&1 ; then 
-#    # Linux
-#    alias -g C='| xsel --input --clipboard'
-#elif which putclip >/dev/null 2>&1 ; then 
-#    # Cygwin 
-#    alias -g C='| putclip'
-#fi
 
 
 # http://memo.officebrook.net/20090205.html
@@ -295,14 +216,6 @@ function alc() {
   w3m http://eow.alc.co.jp/$opt
 }
 
-# function cdup() {
-# echo
-# cd ..
-# zle reset-prompt
-# }
-# zle -N cdup
-# bindkey '\^' cdup
-
 # C-x, C-pでコマンドをクリップボードにコピーする
 # http://d.hatena.ne.jp/hiboma/20120315/1331821642
 function pbcopy-buffer() {
@@ -321,10 +234,6 @@ export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
 export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
-# 20120110 MacPort
-#export PATH=$PATH:/opt/local/bin:/opt/local/sbin
-#export PATH=/usr/local/bin:$PATH
-
 ### Added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
 
@@ -334,66 +243,14 @@ export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
 
 
-#screen
-#function ssh_screen(){
-# eval server=?${$#}
-# screen -t $server ssh "$@"
-#}
-#if [ x$TERM = xscreen ]; then
-#  alias ssh=ssh_screen
-#fi
-
 # added for my local bin directory
 #export PATH=$PATH:$EC2_HOME/bin
 export PATH=$PATH:~/bin
 
 
-# tmux自動起動
-# http://d.hatena.ne.jp/tyru/20100828/run_tmux_or_screen_at_shell_startup
-# http://qiita.com/items/bd319bdaffb403d5e605
-#is_screen_running() {
-#    # tscreen also uses this varariable.
-#    [ ! -z "$WINDOW" ]
-#}
-#is_tmux_runnning() {
-#    [ ! -z "$TMUX" ]
-#}
-#is_screen_or_tmux_running() {
-#    is_screen_running || is_tmux_runnning
-#}
-#shell_has_started_interactively() {
-#    [ ! -z "$PS1" ]
-#}
-#resolve_alias() {
-#    cmd="$1"
-#    while \
-#        whence "$cmd" >/dev/null 2>/dev/null \
-#        && [ "$(whence "$cmd")" != "$cmd" ]
-#    do
-#        cmd=$(whence "$cmd")
-#    done
-#    echo "$cmd"
-#}
-#if ! is_screen_or_tmux_running && shell_has_started_interactively; then
-#    #for cmd in tmux tscreen screen; do
-#    for cmd in tmux tscreen screen; do
-#        if whence $cmd >/dev/null 2>/dev/null; then
-#            $(resolve_alias "$cmd")
-#            break
-#        fi
-#    done
-#fi
-
-# for tmux
-#zsh ~/bin/tmux.sh
 
 
 # for gnu coreutils alias
-#if [ "$PS1" ] && [ -f '/usr/local/Cellar/coreutils/8.12/aliases' ]; then
-#        . /usr/local/Cellar/coreutils/8.12/aliases
-#fi
-# http://d.hatena.ne.jp/kitokitoki/20111128/p2
-# http://ref.layer8.sh/ja/entry/show/id/2691
 if [ "$PS1" ]; then
         export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
         export PATH=$(brew --prefix gnu-sed)/libexec/gnubin:$PATH
@@ -401,25 +258,6 @@ if [ "$PS1" ]; then
         export MANPATH=$(brew --prefix gnu-sed)/libexec/gnuman:$MANPATH
 fi
 
-
-
-# https://powerline.readthedocs.org/en/latest/overview.html
-#. ~/.vim/bundle/powerline/powerline/bindings/zsh/powerline.zsh
-
-# Colored man pages
-# https://wiki.archlinux.org/index.php/Man_Page#Colored_man_pages
-export MANPAGER='less -R'
-# man() {                                     
-# 	env \                                      
-# 		LESS_TERMCAP_mb=$(printf "\e[1;31m") \    
-# 		LESS_TERMCAP_md=$(printf "\e[1;31m") \    
-# 		LESS_TERMCAP_me=$(printf "\e[0m") \       
-# 		LESS_TERMCAP_se=$(printf "\e[0m") \       
-# 		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \ 
-# 		LESS_TERMCAP_ue=$(printf "\e[0m") \       
-# 		LESS_TERMCAP_us=$(printf "\e[1;32m") \    
-# 		man "$@"                                  
-# }                                           
 
 # Node.js
 export PATH=$PATH:$(npm bin --global 2>/dev/null)
@@ -482,7 +320,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle autoenv
     antigen bundle autojump
     # antigen bundle battery
-    antigen bundle bower
+    # antigen bundle bower
     antigen bundle brew
     antigen bundle bundler
     # antigen bundle bwana

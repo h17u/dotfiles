@@ -93,19 +93,10 @@ alias -g ...='../..'
 alias -g ....='../../..'
 
 
-#########
-# http://wiki.archlinux.org/index.php/Zsh
-# http://qiita.com/items/12a4d42ee7a667f7934b
-# fpath=(/usr/local/share/zsh-completions $fpath)
-fpath=(
-  /usr/local/share/zsh-completions
-  # ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-completions.git/src
-  $fpath
-)
+# Completion
 autoload -Uz compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
 source /usr/local/etc/bash_completion.d/tig-completion.bash
-# source /usr/local/etc/bash_completion.d
 #autoload -Uz vcs_info
 #autoload -Uz promptinit && promptinit
 #autoload -Uz predict-on && predict-on
@@ -452,7 +443,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # Bundles othoer repo
     antigen bundle zsh-users/zsh-syntax-highlighting
     # antigen bundle zsh-users/zsh-history-substring-search
-    antigen bundle zsh-users/zsh-completions
+    antigen bundle zsh-users/zsh-completions src
 
     # Tell antigen that you're done.
     antigen-apply
@@ -474,4 +465,5 @@ autoload -Uz run-help-svn
 
 
 
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
 # vim:set et ts=4 sts=2 sw=2 tw=0 fdm=marker:

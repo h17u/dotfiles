@@ -174,7 +174,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 
 
-# pip zsh completion start
+# pip zsh completion start #{{{
 function _pip_completion {
   local words cword
   read -Ac words
@@ -184,13 +184,13 @@ function _pip_completion {
              PIP_AUTO_COMPLETE=1 $words[1] ) )
 }
 compctl -K _pip_completion pip
-# pip zsh completion end
+# pip zsh completion end #}}}
 
 
 
 
 # http://memo.officebrook.net/20090205.html
-function google() {
+function google() { #{{{
   local str opt
   if [ $# != 0 ]; then
     for i in $*; do
@@ -201,9 +201,9 @@ function google() {
     opt="${opt}&q=${str}"
   fi
   w3m http://www.google.com/$opt
-}
+} #}}}
 
-function alc() {
+function alc() { #{{{
   local str opt
   if [ $# != 0 ]; then
     for i in $*; do
@@ -214,7 +214,7 @@ function alc() {
     opt="${opt}&q=${str}"
   fi
   w3m http://eow.alc.co.jp/$opt
-}
+} #}}}
 
 # C-x, C-pでコマンドをクリップボードにコピーする
 # http://d.hatena.ne.jp/hiboma/20120315/1331821642
@@ -280,7 +280,7 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 
-# Create and attach tmux session
+# Create and attach tmux session #{{{
 case ${UID} in
 0)
     ;;
@@ -289,7 +289,7 @@ case ${UID} in
     if [ $ITERM_SESSION_ID ]; then
         ~/bin/tmux_open_windows.sh 2>&1
     fi
-esac
+esac #}}}
 
 # Remove duplicate $PATH entries
 # http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command 
@@ -298,6 +298,7 @@ export MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s"
 export NODE_PATH=`echo -n $NODE_PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 #typeset -U path cdpath fpath manpath
 
+# antigen #{{{
 if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     source $HOME/.zsh/antigen/antigen.zsh
 
@@ -313,7 +314,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen theme macovsky # only left column
     # antigen theme pygmalion
 
-    # Bundles from the default repo (robbyrussell's oh-my-zsh).
+    # Bundles from the default repo (robbyrussell's oh-my-zsh). #{{{
     # antigen bundle ant
     # antigen bundle apache2-macports
     # antigen bundle archlinux
@@ -446,6 +447,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle web-search
     # antigen bundle yum
     # antigen bundle zeus
+    #}}}
 
     # Bundles othoer repo
     antigen bundle zsh-users/zsh-syntax-highlighting
@@ -455,6 +457,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # Tell antigen that you're done.
     antigen-apply
 fi
+#}}}
 
 # tmuxinator
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator

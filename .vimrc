@@ -1743,8 +1743,10 @@ nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
 "}}}
 
 " Search.
+" nnoremap <silent> /
+"       \ :<C-u>Unite -buffer-name=search -no-split -start-insert line<CR>
 nnoremap <silent> /
-      \ :<C-u>Unite -buffer-name=search -no-split -start-insert line<CR>
+      \ :<C-u>Unite -buffer-name=search -auto-highlight -start-insert line:forward<CR>
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
 nnoremap [Alt]/  g/

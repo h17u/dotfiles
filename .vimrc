@@ -2827,10 +2827,11 @@ nnoremap <silent> [Window]c  :<C-u>call <sid>smart_close()<CR>
 nnoremap <silent> -  :<C-u>call <SID>smart_close()<CR>
 nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
+nnoremap <silent> [Window]t  :<C-u>tabnew<CR>
 
 " tab navigation like firefox
-nnoremap <S-tab> :tabprevious<CR>
-nnoremap <tab>   :tabnext<CR>
+nnoremap <silent><S-tab> :<c-u>tabprevious<CR>
+nnoremap <silent><tab>   :<c-u>tabnext<CR>
 " nnoremap <C-S-tab> :tabprevious<CR>
 " nnoremap <C-tab>   :tabnext<CR>
 " inoremap <C-S-tab> <Esc>:tabprevious<CR>i

@@ -1925,7 +1925,7 @@ function! bundle.hooks.on_source(bundle) "{{{
     nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
     " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
     " imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
-    nmap <silent><buffer> <Tab>     :call <SID>NextWindow()<CR>
+    " nmap <silent><buffer> <Tab>     :call <SID>NextWindow()<CR>
     nnoremap <silent><buffer><expr> l
           \ unite#smart_map('l', unite#do_action('default'))
     nmap <buffer> <C-e>     <Plug>(unite_narrowing_input_history)

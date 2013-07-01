@@ -548,6 +548,9 @@ NeoBundleLazy 'gist:deris/5548058', {
       \ 'autoload' : {
       \   'commands' : ['GitLogViewer']
       \ }}
+NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
+      \ 'commands' : 'Gitv'
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
@@ -2415,7 +2418,7 @@ nnoremap <silent> ! :Switch<cr>
 xmap I  <Plug>(niceblock-I)
 xmap A  <Plug>(niceblock-A)
 
-" for Fugitive {{{
+" Fugitive {{{
 nnoremap <Space>gd :<C-u>Gdiff<Enter>
 nnoremap <Space>gs :<C-u>Gstatus<Enter>
 nnoremap <Space>gl :<C-u>Glog<Enter>
@@ -2423,7 +2426,44 @@ nnoremap <Space>ga :<C-u>Gwrite<Enter>
 nnoremap <Space>gc :<C-u>Gcommit<Enter>
 nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
 nnoremap <Space>gb :<C-u>Gblame<Enter>
+nnoremap <Space>gv :<C-u>Gitv --all<Enter>
+nnoremap <Space>gV :<C-u>Gitv! --all<Enter>
 " }}}
+
+" Gitv {{{
+" http://cohama.hateblo.jp/entry/20120417/1334679297
+" http://cohama.hateblo.jp/entry/20130517/1368806202
+let bundle = neobundle#get('gitv')
+function! bundle.hooks.on_source(bundle)
+  cabbrev git Git
+  let g:Gitv_CommitStep = 200
+  let g:Gitv_DoNotMapCtrlKey = 1
+
+  function! s:gitv_get_current_hash()
+    return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+  endfunction
+
+  autocmd MyAutoCmd FileType git setlocal nofoldenable foldlevel=0
+  autocmd MyAutoCmd FileType git setlocal foldtext=fugitive#foldtext()
+
+  function! s:toggle_git_folding()
+    if &filetype ==# 'git'
+      setlocal foldenable!
+    endif
+  endfunction
+
+  autocmd MyAutoCmd FileType gitv call s:my_gitv_settings()
+  function! s:my_gitv_settings()
+    setlocal iskeyword+=/,-,.
+    nnoremap <silent><buffer> C :<C-u>Git checkout <C-r><C-w><CR>
+    nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+    nnoremap <buffer> <Space>R :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
+    nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
+    nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
+    nnoremap <silent><buffer> t :<C-u>windo call <SID>toggle_git_folding()<CR>1<C-w>w
+  endfunction
+
+endfunction "}}}
 
 
 "}}}

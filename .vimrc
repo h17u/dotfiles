@@ -551,9 +551,9 @@ NeoBundleLazy 'gist:deris/5548058', {
 NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
       \ 'commands' : 'Gitv'
       \ }}
-NeoBundleLazy 'othree/eregex.vim', { 'autoload' : {
-      \ 'insert' : 1,
-      \ }}
+" NeoBundleLazy 'othree/eregex.vim', { 'autoload' : {
+"       \ 'insert' : 1,
+"       \ }}
 NeoBundleLazy 'glidenote/memolist.vim', { 'autoload' : {
       \ 'insert' : 1,
       \ 'commands' : ['MemoNew', 'MemoList', 'MemoGrep']

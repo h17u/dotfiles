@@ -2931,9 +2931,6 @@ nnoremap <silent> gP O<ESC>P^
 xnoremap <silent> gp o<ESC>p^
 xnoremap <silent> gP O<ESC>P^
 
-" Redraw.
-" nnoremap <silent> <C-l>    :<C-u>redraw!<CR>
-
 " Folding."{{{
 " If press h on head, fold close.
 nnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zc' : 'h'

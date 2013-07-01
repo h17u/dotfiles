@@ -308,9 +308,6 @@ NeoBundleLazy 'Shougo/foldCC',
 NeoBundleLazy 'mattn/wwwrenderer-vim'
 NeoBundleLazy 'mattn/webapi-vim'
 " NeoBundle 'basyura/webapi-vim'
-NeoBundleLazy 'add20/vim-conque', { 'autoload' : {
-      \ 'commands' : 'ConqueTerm'
-      \ }}
 NeoBundleLazy 'sjl/gundo.vim', { 'autoload' : {
       \ 'commands' : 'GundoToggle'
       \ }}
@@ -2312,11 +2309,6 @@ endfunction
 " autodate.vim"{{{
 let autodate_format = '%d %3m %Y'
 let autodate_keyword_pre = 'Last \%(Change\|Modified\):'
-"}}}
-
-" Conque.vim"{{{
-let g:ConqueTerm_EscKey = '<Esc>'
-let g:ConqueTerm_PyVersion = 3
 "}}}
 
 " Gundo.vim

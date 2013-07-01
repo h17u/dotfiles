@@ -554,6 +554,10 @@ NeoBundleLazy 'gregsexton/gitv', { 'autoload' : {
 NeoBundleLazy 'othree/eregex.vim', { 'autoload' : {
       \ 'insert' : 1,
       \ }}
+NeoBundleLazy 'glidenote/memolist.vim', { 'autoload' : {
+      \ 'insert' : 1,
+      \ 'commands' : ['MemoNew', 'MemoList', 'MemoGrep']
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
@@ -2468,6 +2472,21 @@ function! bundle.hooks.on_source(bundle)
 
 endfunction "}}}
 
+" Memolist {{{
+let bundle = neobundle#get('memolist.vim')
+function! bundle.hooks.on_source(bundle)
+  let g:memolist_path = $HOME . '/.vim_memo'
+  let g:memolist_memo_suffix = "txt"
+  let g:memolist_memo_date = "%Y-%m-%d %H:%M"
+  let g:memolist_prompt_tags = 1
+  let g:memolist_prompt_categories = 1
+  let g:memolist_qfixgrep = 1
+  let g:memolist_vimfiler = 1
+  let g:memolist_filename_prefix_none = 1
+  nnoremap <Space>mn  :MemoNew<CR>
+  nnoremap <Space>ml  :MemoList<CR>
+  nnoremap <Space>mg  :MemoGrep<CR>
+endfunction "}}}
 
 "}}}
 

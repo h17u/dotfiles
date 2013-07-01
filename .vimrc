@@ -115,6 +115,9 @@ if has('vim_starting') "{{{
     call neobundle#local(fnamemodify(
           \ findfile('vimrc_local.vim', '.;'), ':h'), { 'resettable' : 0 })
   endif
+
+  "set vimball home directory
+  let g:vimball_home = $HOME . '/.vim'
 endif
 "}}}
 
@@ -1102,6 +1105,8 @@ augroup MyAutoCmd
   autocmd BufNewFile,BufRead *.t set filetype=hgtest
   let hgtest_fold=1
   autocmd Syntax hgtest setlocal foldlevel=1
+
+  autocmd BufRead,BufNewFile .vimperatorrc  setfiletype Vimperator|setlocal commentstring=\ \"%s
 
   " Improved include pattern.
   autocmd FileType html

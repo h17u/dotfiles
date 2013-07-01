@@ -542,6 +542,12 @@ NeoBundle 'taka84u9/vim-ref-ri', { 'autoload' : {
 NeoBundleLazy 'tpope/vim-repeat', { 'autoload' : {
       \ 'mappings' : '.',
       \ }}
+NeoBundleLazy 'gist:deris/5548058', {
+      \ 'name': 'GitLogViewer',
+      \ 'script_type': 'plugin',
+      \ 'autoload' : {
+      \   'commands' : ['GitLogViewer']
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
 "}}}

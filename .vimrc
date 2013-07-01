@@ -2956,7 +2956,6 @@ noremap [Space]rr zR
 noremap [Space]f zf
 noremap [Space]d zd
 noremap [Space]u :<C-u>Unite outline:foldings<CR>
-noremap [Space]gg :<C-u>echo FoldCCnavi()<CR>
 "}}}
 
 " Substitute.

@@ -163,23 +163,6 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 
-
-
-# pip zsh completion start #{{{
-function _pip_completion {
-  local words cword
-  read -Ac words
-  read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \ 
-             COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] ) )
-}
-compctl -K _pip_completion pip
-# pip zsh completion end #}}}
-
-
-
-
 # http://memo.officebrook.net/20090205.html
 function google() { #{{{
   local str opt
@@ -209,12 +192,13 @@ function alc() { #{{{
 
 # C-x, C-pでコマンドをクリップボードにコピーする
 # http://d.hatena.ne.jp/hiboma/20120315/1331821642
-function pbcopy-buffer() {
+function pbcopy-buffer() { #{{{
   print -rn $BUFFER | pbcopy
   zle -M "pbcopy: ${BUFFER}"
 }
 zle -N pbcopy-buffer
 bindkey '^x^p' pbcopy-buffer
+#}}}
 
 
 # 20111202
@@ -294,16 +278,26 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     source $HOME/.zsh/antigen/antigen.zsh
 
     # Load the oh-my-zsh's library.
-    #antigen-lib
-    antigen-use oh-my-zsh
+    antigen use oh-my-zsh
 
+    # Load theme #{{{
     # antigen theme robbyrussell
     # antigen theme muse
     # antigen theme arrow
-    antigen theme crunch #time, rvm, git, and dir in left
+    # antigen theme cloud # short dir, git,and time in right
+    # antigen theme crunch #time, rvm, git, and dir in right
+    # antigen theme edvardm # short dir,git, and ruby in right
+    # antigen theme essembeh # host, dir, git, no right
+    # antigen theme example # basic, no right
+    # antigen theme fishy # host, short dir, and git in right
+    # antigen theme fletcherm #user, dir, git, and time in right
+    # antigen theme gallifrey #host, dir, git, and result in right
+    # antigen theme nicoulaj # git/hg in right
+    antigen theme terminalparty #simple left
     # antigen theme kardan # simple left column
     # antigen theme macovsky # only left column
     # antigen theme pygmalion
+    #}}}
 
     # Bundles from the default repo (robbyrussell's oh-my-zsh). #{{{
     # antigen bundle ant
@@ -313,8 +307,8 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle autojump
     # antigen bundle battery
     # antigen bundle bower
-    antigen bundle brew
-    antigen bundle bundler
+    # antigen bundle brew
+    # antigen bundle bundler
     # antigen bundle bwana
     # antigen bundle cabal
     # antigen bundle cake
@@ -344,7 +338,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle fbterm
     # antigen bundle forklift
     # antigen bundle gas
-    antigen bundle gem
+    # antigen bundle gem
     # antigen bundle git
     # antigen bundle git-extras
     # antigen bundle git-flow
@@ -359,7 +353,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle gpg-agent
     # antigen bundle gradle
     # antigen bundle grails
-    antigen bundle heroku
+    # antigen bundle heroku
     # antigen bundle history
     # antigen bundle history-substring-search
     # antigen bundle jake-node
@@ -373,7 +367,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle lighthouse
     # antigen bundle lol
     # antigen bundle macports
-    antigen bundle mercurial
+    # antigen bundle mercurial
     # antigen bundle mvn
     # antigen bundle mysql-macports
     # antigen bundle nanoc
@@ -385,7 +379,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle per-directory-history
     # antigen bundle perl
     # antigen bundle phing
-    antigen bundle pip
+    # antigen bundle pip
     # antigen bundle pj
     # antigen bundle postgres
     # antigen bundle pow
@@ -415,7 +409,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle sublime
     # antigen bundle supervisor
     # antigen bundle suse
-    antigen bundle svn
+    # antigen bundle svn
     # antigen bundle symfony
     # antigen bundle symfony2
     # antigen bundle systemd
@@ -426,7 +420,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle themes
     # antigen bundle thor
     # antigen bundle tmux
-    antigen bundle tmuxinator
+    # antigen bundle tmuxinator
     # antigen bundle torrent
     antigen bundle urltools
     antigen bundle vagrant
@@ -446,7 +440,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle zsh-users/zsh-completions src
 
     # Tell antigen that you're done.
-    antigen-apply
+    antigen apply
 fi
 #}}}
 

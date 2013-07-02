@@ -1490,7 +1490,7 @@ unlet bundle
 " nnoremap [Space]t  q:VimShellTerminal<Space>
 "
 " nnoremap <silent> [Space];  <C-u>:VimShellPop<CR>
-"}}}
+" "}}}
 "
 " let bundle = neobundle#get('vimshell')
 " function! bundle.hooks.on_source(bundle) "{{{
@@ -1543,8 +1543,8 @@ unlet bundle
 "     imap <buffer><C-h>  <Plug>(vimshell_another_delete_backward_char)
 "     imap <buffer><C-k>  <Plug>(vimshell_zsh_complete)
 "
-"     nnoremap <silent><buffer> <C-j>
-"           \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
+"     " nnoremap <silent><buffer> <C-j>
+"     "       \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 "
 "     call vimshell#altercmd#define('u', 'cdup')
 "     call vimshell#altercmd#define('g', 'git')
@@ -1623,7 +1623,7 @@ unlet bundle
 "   endfunction "}}}
 "
 "   let s:vimshell_hooks = {}
-"   function! s:vimshell_hooks.chpwd(args, context)
+"   function! s:vimshell_hooks.chpwd(args, context) "{{{
 "     if len(split(glob('*'), '\n')) < 100
 "       call vimshell#execute('ls')
 "     else
@@ -1653,12 +1653,11 @@ unlet bundle
 "   function! s:vimshell_hooks.input(input, context)
 "     " echomsg 'input'
 "     return a:input
-"   endfunction
+"   endfunction "}}}
 " endfunction "}}}
 "
 " unlet bundle
 "}}}
-
 
 " vinarise.vim"{{{
 let g:vinarise_enable_auto_detect = 1
@@ -1671,6 +1670,8 @@ function! bundle.hooks.on_source(bundle)
   nnoremap <silent> [Space]gS :<C-u>UniteVersions status:!<CR>
   nnoremap <silent> [Space]gL :<C-u>UniteVersions log:%<CR>
 endfunction
+
+unlet bundle
 "}}}
 
 " unite.vim"{{{
@@ -2476,7 +2477,10 @@ function! bundle.hooks.on_source(bundle)
     nnoremap <silent><buffer> t :<C-u>windo call <SID>toggle_git_folding()<CR>1<C-w>w
   endfunction
 
-endfunction "}}}
+endfunction
+
+unlet bundle
+"}}}
 
 " Memolist {{{
 let bundle = neobundle#get('memolist.vim')
@@ -2492,7 +2496,10 @@ function! bundle.hooks.on_source(bundle)
   nnoremap <Space>mn  :MemoNew<CR>
   nnoremap <Space>ml  :MemoList<CR>
   nnoremap <Space>mg  :MemoGrep<CR>
-endfunction "}}}
+endfunction
+
+unlet bundle
+"}}}
 
 "}}}
 

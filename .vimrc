@@ -3522,17 +3522,17 @@ let g:github_user = 'h17u'
 """ ~/.bundle/dwm.vim/plugin/dwm.vim
 let bundle = neobundle#get('dwm.vim')
 function! bundle.hooks.on_source(bundle)
-  let g:dwm_map_keys = 0 " (1:default keybind)
+  let g:dwm_map_keys = 0
   nmap <C-n> <Plug>DWMNew
   nmap <C-c> <Plug>DWMClose
   nmap <C-@> <Plug>DWMFocus
   nmap <C-Space> <Plug>DWMFocus
-  nnoremap <C-j> <c-w>w
-  nnoremap <C-k> <c-w>W
-  " nmap <C-,> <Plug>DWMRotateCounterclockwise
-  " nmap <C-.> <Plug>DWMRotateClockwise
-  nmap <C-l> <Plug>DWMGrowMaster
-  nmap <C-h> <Plug>DWMShrinkMaster
+  " nnoremap <C-j> <c-w>w
+  " nnoremap <C-k> <c-w>W
+  " " nmap <C-,> <Plug>DWMRotateCounterclockwise
+  " " nmap <C-.> <Plug>DWMRotateClockwise
+  " nmap <C-l> <Plug>DWMGrowMaster
+  " nmap <C-h> <Plug>DWMShrinkMaster
 endfunction
 unlet bundle
 "}}}

@@ -1636,7 +1636,7 @@ function! bundle.hooks.on_source(bundle) "{{{
 
   function! s:unite_my_settings() "{{{
     " Directory partial match.
-    call unite#set_substitute_pattern('files', '^\.v/',
+    call unite#custom#substitute('files', '^\.v/',
           \ [expand('~/.vim/'), unite#util#substitute_path_separator($HOME)
           \ . '/.bundle/*/'], 1000)
     call unite#custom_alias('file', 'h', 'left')

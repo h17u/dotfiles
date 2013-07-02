@@ -272,6 +272,7 @@ NeoBundle 'hrsh7th/vim-versions', '', 'default'
 call neobundle#config('vim-versions', {
       \ 'lazy' : 1,
       \ 'autoload' : {
+      \   'insert' : 1,
       \   'commands' : 'UniteVersions'},
       \ })
 
@@ -1664,7 +1665,12 @@ let g:vinarise_enable_auto_detect = 1
 "}}}
 
 " vim-versions{{{
-nnoremap <silent> [Space]gs :<C-u>UniteVersions status:!<CR>
+let bundle = neobundle#get('vim-versions')
+function! bundle.hooks.on_source(bundle)
+  let g:versions#debug = 0
+  nnoremap <silent> [Space]gS :<C-u>UniteVersions status:!<CR>
+  nnoremap <silent> [Space]gL :<C-u>UniteVersions log:%<CR>
+endfunction
 "}}}
 
 " unite.vim"{{{
@@ -2426,15 +2432,15 @@ xmap I  <Plug>(niceblock-I)
 xmap A  <Plug>(niceblock-A)
 
 " Fugitive {{{
-nnoremap <Space>gd :<C-u>Gdiff<Enter>
-nnoremap <Space>gs :<C-u>Gstatus<Enter>
-nnoremap <Space>gl :<C-u>Glog<Enter>
-nnoremap <Space>ga :<C-u>Gwrite<Enter>
-nnoremap <Space>gc :<C-u>Gcommit<Enter>
-nnoremap <Space>gC :<C-u>Git commit --amend<Enter>
-nnoremap <Space>gb :<C-u>Gblame<Enter>
-nnoremap <Space>gv :<C-u>Gitv --all<Enter>
-nnoremap <Space>gV :<C-u>Gitv! --all<Enter>
+nnoremap [Space]gd :<C-u>Gdiff<Enter>
+nnoremap [Space]gs :<C-u>Gstatus<Enter>
+nnoremap [Space]gl :<C-u>Glog<Enter>
+nnoremap [Space]ga :<C-u>Gwrite<Enter>
+nnoremap [Space]gc :<C-u>Gcommit<Enter>
+nnoremap [Space]gC :<C-u>Git commit --amend<Enter>
+nnoremap [Space]gb :<C-u>Gblame<Enter>
+nnoremap [Space]gv :<C-u>Gitv --all<Enter>
+nnoremap [Space]gV :<C-u>Gitv! --all<Enter>
 " }}}
 
 " Gitv {{{
@@ -2463,10 +2469,10 @@ function! bundle.hooks.on_source(bundle)
   function! s:my_gitv_settings()
     setlocal iskeyword+=/,-,.
     nnoremap <silent><buffer> C :<C-u>Git checkout <C-r><C-w><CR>
-    nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
-    nnoremap <buffer> <Space>R :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
-    nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
-    nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
+    nnoremap <buffer> [Space]rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+    nnoremap <buffer> [Space]R :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
+    nnoremap <buffer> [Space]h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
+    nnoremap <buffer> [Space]rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
     nnoremap <silent><buffer> t :<C-u>windo call <SID>toggle_git_folding()<CR>1<C-w>w
   endfunction
 
@@ -3023,7 +3029,7 @@ noremap [Space]i zMzv
 noremap [Space]rr zR
 noremap [Space]f zf
 noremap [Space]d zd
-noremap [Space]u :<C-u>Unite outline:foldings<CR>
+" noremap [Space]u :<C-u>Unite outline:foldings<CR>
 "}}}
 
 " Substitute.

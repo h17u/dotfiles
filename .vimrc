@@ -1989,8 +1989,6 @@ function! bundle.hooks.on_source(bundle)
     call vimfiler#set_execute_file('txt', 'vim')
 
     " Overwrite settings.
-    nnoremap <silent><buffer><C-j> <c-w>w
-    nnoremap <silent><buffer><C-k> <c-w>W
     nnoremap <silent><buffer> J
           \ <C-u>:Unite -buffer-name=files -default-action=lcd directory_mru<CR>
     " Call sendto.
@@ -2313,17 +2311,11 @@ let g:github_user = 'h17u'
 " spolu/dwm.vim "{{{
 let bundle = neobundle#get('dwm.vim')
 function! bundle.hooks.on_source(bundle)
-  let g:dwm_map_keys = 0 " (1:default keybind)
+  let g:dwm_map_keys = 0
   nmap <C-n> <Plug>DWMNew
   nmap <C-c> <Plug>DWMClose
   nmap <C-@> <Plug>DWMFocus
   nmap <C-Space> <Plug>DWMFocus
-  nnoremap <C-j> <c-w>w
-  nnoremap <C-k> <c-w>W
-  " nmap <C-,> <Plug>DWMRotateCounterclockwise
-  " nmap <C-.> <Plug>DWMRotateClockwise
-  nmap <C-l> <Plug>DWMGrowMaster
-  nmap <C-h> <Plug>DWMShrinkMaster
 endfunction
 unlet bundle
 "}}}

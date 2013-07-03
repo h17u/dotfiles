@@ -545,6 +545,12 @@ NeoBundleLazy 'glidenote/memolist.vim', { 'autoload' : {
       \ 'insert' : 1,
       \ 'commands' : ['MemoNew', 'MemoList', 'MemoGrep']
       \ }}
+NeoBundle 'kmnk/vim-unite-giti', { 'autoload' : {
+      \ 'unite_sources' : ['giti']
+      \ }}
+NeoBundle 'kmnk/vim-unite-svn', { 'autoload' : {
+      \ 'unite_sources' : ['svn']
+      \ }}
 
 NeoBundleLocal ~/.vim/bundle
 "}}}
@@ -1467,6 +1473,7 @@ nnoremap    [unite]   <Nop>
 xnoremap    [unite]   <Nop>
 nmap    ;f [unite]
 xmap    ;f [unite]
+cabbrev unite Unite
 
 
 nnoremap [unite]re  :<C-u>UniteResume<CR>
@@ -1485,6 +1492,7 @@ nnoremap [unite]h   :<C-u>Unite -buffer-name=help help<CR>
 nnoremap [unite]k   :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
 nnoremap [unite]rr  :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
 nnoremap [unite]ri  :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
+nnoremap [unite]gi  :<C-u>Unite -buffer-name=git giti<CR>
 " grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 

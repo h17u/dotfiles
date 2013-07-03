@@ -1500,11 +1500,8 @@ nnoremap [unite]k   :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
 nnoremap [unite]rr  :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
 nnoremap [unite]ri  :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
 nnoremap [unite]gi  :<C-u>Unite -buffer-name=git giti<CR>
-" grep by ag
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
-
-nnoremap <silent> [Space]b
-      \ :<C-u>UniteBookmarkAdd<CR>
+nnoremap <silent> [Space]b :<C-u>UniteBookmarkAdd<CR>
 
 " t: tags-and-searches "{{{
 " The prefix key.
@@ -1525,7 +1522,7 @@ nnoremap <silent> /
       \ :<C-u>Unite -buffer-name=search -auto-highlight -start-insert line:forward<CR>
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
-nnoremap [Alt]/  g/
+" nnoremap [Alt]/  g/
 nnoremap <silent> ?
       \ :<C-u>Unite -buffer-name=search -auto-highlight -start-insert line:backward<CR>
 nnoremap <silent> *
@@ -1539,8 +1536,7 @@ function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
 
-nnoremap <silent> n
-      \ :<C-u>UniteResume search -no-start-insert<CR>
+nnoremap <silent> n  :<C-u>UniteResume search -no-start-insert<CR>
 
 let g:unite_source_history_yank_enable = 1
 
@@ -1661,10 +1657,8 @@ function! bundle.hooks.on_source(bundle) "{{{
     call unite#custom_default_action('directory', 'narrow')
     " call unite#custom_default_action('file', 'my_tabopen')
     call unite#custom_default_action('file', 'dwm_new')
-
     call unite#custom_default_action('versions/git/status', 'commit')
-
-    " call unite#custom_default_action('directory', 'cd')
+    call unite#custom_default_action('directory', 'cd')
 
     " Custom actions."{{{
     let my_tabopen = {

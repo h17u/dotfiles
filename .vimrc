@@ -1422,19 +1422,26 @@ unlet bundle
 " neosnippet.vim"{{{
 let bundle = neobundle#get('neosnippet')
 function! bundle.hooks.on_source(bundle)
-  imap <silent>L     <Plug>(neosnippet_jump_or_expand)
-  smap <silent>L     <Plug>(neosnippet_jump_or_expand)
-  xmap <silent>L     <Plug>(neosnippet_start_unite_snippet_target)
-  imap <silent>K     <Plug>(neosnippet_expand_or_jump)
-  smap <silent>K     <Plug>(neosnippet_expand_or_jump)
-  imap <silent>G     <Plug>(neosnippet_expand)
-  imap <silent>S     <Plug>(neosnippet_start_unite_snippet)
-  xmap <silent>o     <Plug>(neosnippet_register_oneshot_snippet)
-  xmap <silent>U     <Plug>(neosnippet_expand_target)
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+  xmap <C-l>     <Plug>(neosnippet_start_unite_snippet_target)
+
+  " SuperTab like snippets behavior.
+  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+        \ "\<Plug>(neosnippet_expand_or_jump)"
+        \: pumvisible() ? "\<C-n>" : "\<TAB>"
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+        \ "\<Plug>(neosnippet_expand_or_jump)"
+        \: "\<TAB>"
+
+  " For snippet_complete marker.
+  if has('conceal')
+    set conceallevel=2 concealcursor=i
+  endif
 
   let g:neosnippet#enable_snipmate_compatibility = 1
 
-  " let g:snippets_dir = '~/.vim/snippets/,~/.vim/bundle/snipmate/snippets/'
   let g:neosnippet#snippets_directory = '~/.vim/snippets'
 endfunction
 

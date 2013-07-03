@@ -2126,49 +2126,54 @@ let autodate_keyword_pre = 'Last \%(Change\|Modified\):'
 " Gundo.vim
 nnoremap U      :<C-u>GundoToggle<CR>
 
-" TweetVim
-" Start TweetVim.
+" TweetVim "{{{
 nnoremap <silent> [unite]w :<C-u>Unite tweetvim<CR>
-autocmd MyAutoCmd FileType tweetvim call s:tweetvim_my_settings()
-function! s:tweetvim_my_settings() "{{{
-  let g:tweetvim_tweet_per_page = 300
-  let g:tweetvim_cache_size = 10
-  let g:tweetvim_display_source = 1
-  let g:tweetvim_display_time = 1
-  let g:tweetvim_open_buffer_cmd = 'edit!'
-  let g:tweetvim_open_say_cmd = 'botright split'
-  let g:tweetvim_display_separator = 0
-  let g:tweetvim_empty_separator = 0
-  let g:tweetvim_footer = ''
-  let g:tweetvim_display_icon = 1
-  let g:tweetvim_say_insert_account = 0
-  let g:tweetvim_async_post = 1
-  let g:tweetvim_expand_t_co = 1
-  let g:tweetvim_display_username = 1
-  inoremap <silent><buffer> <C-x><C-d> <ESC>:TweetVimBitly<CR>
-  nnoremap <silent><buffer> o :TweetVimSay<CR>
-  nnoremap <silent><buffer> q :close<CR>
-  nmap <silent><buffer> j <Plug>(accelerated_jk_gj)
-endfunction"}}}
+let bundle = neobundle#get('TweetVim')
+function! bundle.hooks.on_source(bundle)
+  autocmd MyAutoCmd FileType tweetvim call s:tweetvim_my_settings()
+  function! s:tweetvim_my_settings()
+    let g:tweetvim_tweet_per_page = 300
+    let g:tweetvim_cache_size = 10
+    let g:tweetvim_display_source = 1
+    let g:tweetvim_display_time = 1
+    let g:tweetvim_open_buffer_cmd = 'edit!'
+    let g:tweetvim_open_say_cmd = 'botright split'
+    let g:tweetvim_display_separator = 0
+    let g:tweetvim_empty_separator = 0
+    let g:tweetvim_footer = ''
+    let g:tweetvim_display_icon = 1
+    let g:tweetvim_say_insert_account = 0
+    let g:tweetvim_async_post = 1
+    let g:tweetvim_expand_t_co = 1
+    let g:tweetvim_display_username = 1
+    inoremap <silent><buffer> <C-x><C-d> <ESC>:TweetVimBitly<CR>
+    nnoremap <silent><buffer> o :TweetVimSay<CR>
+    nnoremap <silent><buffer> q :close<CR>
+    nmap <silent><buffer> j <Plug>(accelerated_jk_gj)
+  endfunction
+endfunction
+unlet bundle
+"}}}
 
-
-" Operator-replace.
+" Operator-replace. "{{{
 nmap R <Plug>(operator-replace)
 xmap R <Plug>(operator-replace)
 xmap p <Plug>(operator-replace)
+"}}}
 
 " Taglist."{{{
 " let Tlist_Show_One_File = 1
 " let Tlist_Use_Right_Window = 1
 " let Tlist_Exit_OnlyWindow = 1"}}}
 
+" accelerated-jk "{{{
 if neobundle#is_installed('accelerated-jk')
-  " accelerated-jk
   nmap <silent>j <Plug>(accelerated_jk_gj)
   nmap gj j
   nmap <silent>k <Plug>(accelerated_jk_gk)
   nmap gk k
 endif
+"}}}
 
 " tabpagecd
 autocmd MyAutoCmd TabEnter * NeoBundleSource vim-tabpagecd
@@ -2211,10 +2216,144 @@ let g:variable_style_switch_definitions = [
 nnoremap <silent> ! :Switch<cr>
 "}}}
 
-" vim-niceblock
+" vim-niceblock "{{{
 " Improved visual selection.
 xmap I  <Plug>(niceblock-I)
 xmap A  <Plug>(niceblock-A)
+"}}}
+
+" vim-colors-solarized "{{{
+let bundle = neobundle#get('vim-colors-solarized')
+function! bundle.hooks.on_source(bundle)
+  syntax enable
+  set background=dark
+  " set background=light
+  let g:solarized_termcolors=256
+  let g:solarized_termtrans=1
+  let g:solarized_dgrade=0
+  let g:solarized_bold=1
+  let g:solarized_underline=1
+  let g:solarized_italic=1
+  " let g:solarized_contrast="high"
+  " let g:solarized_visibility="high"
+  let g:solarized_contrast='normal'
+  let g:solarized_visibility='normal'
+  colorscheme solarized
+  " call togglebg#map("<F5>")
+endfunction
+unlet bundle
+"}}}
+
+" Function keymappings: "{{{
+nnoremap <silent> <F6> :VimFilerExplorer<CR>
+nnoremap <silent> <F7> :NERDTreeToggle<CR>
+nnoremap <silent> <F8> :TagbarToggle<CR>
+"}}}
+
+" Like A IDE :) "{{{
+function! s:likeIDE()
+  cd %:p:h
+  VimFilerExplorer -simple
+  wincmd l
+  TagbarToggle
+  wincmd h
+  SrcExplToggle
+endfunction
+nnoremap <silent> <Leader>id :call <SID>likeIDE()<CR>
+"}}}
+
+" wesleyche/SrcExpl "{{{
+let bundle = neobundle#get('SrcExpl')
+function! bundle.hooks.on_source(bundle)
+  nnoremap <silent> <Leader>sc :SrcExplToggle<CR>
+  let g:SrcExpl_RefreshTime = 1
+  let g:SrcExpl_UpdateTags = 1
+  let g:SrcExpl_WinHeight = 10
+  let g:SrcExpl_pluginList = ["__Tag_List__", "NERD_tree_1", "Source_Explorer", "*unite*", "*vimfiler* - explorer", "__Tagbar__" ]
+endfunction
+unlet bundle
+" }}}
+
+" majutsushi/tagbar "{{{
+let bundle = neobundle#get('tagbar')
+function! bundle.hooks.on_source(bundle)
+  let g:tagbar_width = 35
+  let g:tagbar_autoshowtag = 1
+  let g:tagbar_autofocus = 1
+  let g:tagbar_sort = 0
+  let g:tagbar_compact = 1
+  highlight TagbarScope ctermfg=5
+  highlight TagbarType cterm=bold ctermfg=55
+  highlight TagbarHighlight cterm=bold,underline ctermfg=1
+  highlight TagbarSignature ctermfg=70
+  "let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+  let g:tagbar_type_javascript = {
+        \ 'ctagstype' : 'JavaScript',
+        \ 'kinds'     : [
+        \ 'c:class',
+        \ 'p:property',
+        \ 'm:method',
+        \ 'o:object',
+        \ 'f:function',
+        \ 'a:array',
+        \ 's:string',
+        \ 'v:variable'
+        \ ]
+        \ }
+endfunction
+unlet bundle
+"}}}
+
+" mattn/gist-vim "{{{
+let g:gist_clip_command = 'pbcopy'
+let g:gist_detect_filetype = 1
+let g:github_user = 'h17u'
+"}}}
+
+" spolu/dwm.vim "{{{
+let bundle = neobundle#get('dwm.vim')
+function! bundle.hooks.on_source(bundle)
+  let g:dwm_map_keys = 0 " (1:default keybind)
+  nmap <C-n> <Plug>DWMNew
+  nmap <C-c> <Plug>DWMClose
+  nmap <C-@> <Plug>DWMFocus
+  nmap <C-Space> <Plug>DWMFocus
+  nnoremap <C-j> <c-w>w
+  nnoremap <C-k> <c-w>W
+  " nmap <C-,> <Plug>DWMRotateCounterclockwise
+  " nmap <C-.> <Plug>DWMRotateClockwise
+  nmap <C-l> <Plug>DWMGrowMaster
+  nmap <C-h> <Plug>DWMShrinkMaster
+endfunction
+unlet bundle
+"}}}
+
+" scrooloose/syntastic.git "{{{
+let bundle = neobundle#get('syntastic')
+function! bundle.hooks.on_source(bundle)
+  let g:syntastic_mode_map = { 'mode': 'active',
+        \ 'active_filetypes': ['javascript'],
+        \ 'passive_filetypes': ['html']
+        \}
+  let g:syntastic_auto_loc_list = 2
+  let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
+  " let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
+  let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
+  let g:syntastic_python_checkers=['pylint']
+  let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+  let g:syntastic_check_on_open = 0
+  let g:syntastic_enable_signs = 1
+  let g:syntastic_echo_current_error = 1
+  let g:syntastic_enable_highlighting = 1
+  let g:syntastic_php_php_args = '-l'
+  let g:syntastic_error_symbol='✗'
+  let g:syntastic_warning_symbol='⚠'
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+endfunction
+unlet bundle
+"}}}
 
 " Fugitive {{{
 nnoremap [Space]gd :<C-u>Gdiff<Enter>
@@ -3292,278 +3431,6 @@ set secure
 " Others2:"{{{
 "
 
-" https://github.com/altercation/vim-colors-solarized "{{{
-let bundle = neobundle#get('vim-colors-solarized')
-function! bundle.hooks.on_source(bundle)
-  syntax enable
-  set background=dark
-  " set background=light
-  let g:solarized_termcolors=256
-  let g:solarized_termtrans=1
-  let g:solarized_dgrade=0
-  let g:solarized_bold=1
-  let g:solarized_underline=1
-  let g:solarized_italic=1
-  " let g:solarized_contrast="high"
-  " let g:solarized_visibility="high"
-  let g:solarized_contrast='normal'
-  let g:solarized_visibility='normal'
-  colorscheme solarized
-  " call togglebg#map("<F5>")
-endfunction
-unlet bundle
-"}}}
-
-" Function keymappings: "{{{
-nnoremap <silent> <F6> :VimFilerExplorer<CR>
-nnoremap <silent> <F7> :NERDTreeToggle<CR>
-nnoremap <silent> <F8> :TagbarToggle<CR>
-"}}}
-
-" Like A IDE :) "{{{
-function! s:likeIDE()
-  cd %:p:h
-  VimFilerExplorer -simple
-  wincmd l
-  TagbarToggle
-  wincmd h
-  SrcExplToggle
-endfunction
-nnoremap <silent> <Leader>id :call <SID>likeIDE()<CR>
-"}}}
-
-"https://github.com/wesleyche/SrcExpl "{{{
-let bundle = neobundle#get('SrcExpl')
-function! bundle.hooks.on_source(bundle)
-  nnoremap <silent> <Leader>sc :SrcExplToggle<CR>
-  let g:SrcExpl_RefreshTime = 1
-  let g:SrcExpl_UpdateTags = 1
-  let g:SrcExpl_WinHeight = 10
-  let g:SrcExpl_pluginList = ["__Tag_List__", "NERD_tree_1", "Source_Explorer", "*unite*", "*vimfiler* - explorer", "__Tagbar__" ]
-endfunction
-unlet bundle
-" }}}
-
-
-" https://github.com/majutsushi/tagbar "{{{
-let bundle = neobundle#get('tagbar')
-function! bundle.hooks.on_source(bundle)
-  let g:tagbar_width = 35
-  let g:tagbar_autoshowtag = 1
-  let g:tagbar_autofocus = 1
-  let g:tagbar_sort = 0
-  let g:tagbar_compact = 1
-  highlight TagbarScope ctermfg=5
-  highlight TagbarType cterm=bold ctermfg=55
-  highlight TagbarHighlight cterm=bold,underline ctermfg=1
-  highlight TagbarSignature ctermfg=70
-  "let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-  let g:tagbar_type_javascript = {
-        \ 'ctagstype' : 'JavaScript',
-        \ 'kinds'     : [
-        \ 'c:class',
-        \ 'p:property',
-        \ 'm:method',
-        \ 'o:object',
-        \ 'f:function',
-        \ 'a:array',
-        \ 's:string',
-        \ 'v:variable'
-        \ ]
-        \ }
-endfunction
-unlet bundle
-"}}}
-
-
-"https://github.com/nathanaelkane/vim-indent-guides "{{{
-" let bundle = neobundle#get('vim-indent-guides')
-" function! bundle.hooks.on_source(bundle)
-"   let g:indent_guides_start_level=2
-"   let g:indent_guides_auto_colors=0
-"   let g:indent_guides_enable_on_vim_startup=0
-"   let g:indent_guides_color_change_percent=20
-"   let g:indent_guides_guide_size=1
-"   let g:indent_guides_space_guides=1
-"   let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-"
-"   hi IndentGuidesOdd  ctermbg=235
-"   hi IndentGuidesEven ctermbg=237
-"   au FileType coffee,ruby,javascript,python IndentGuidesEnable
-" endfunction
-" unlet bundle
-"}}}
-
-
-
-
-
-
-" https://github.com/mattn/gist-vim "{{{
-let g:gist_clip_command = 'pbcopy'
-let g:gist_detect_filetype = 1
-let g:github_user = 'h17u'
-"}}}
-
-
-""" https://github.com/terryma/vim-expand-region "{{{
-" let g:expand_region_text_objects = {
-"       \ 'iw'  :0,
-"       \ 'iW'  :0,
-"       \ 'i"'  :0,
-"       \ 'i''' :0,
-"       \ 'i]'  :1,
-"       \ 'ib'  :1,
-"       \ 'iB'  :1,
-"       \ 'il'  :0,
-"       \ 'ip'  :0,
-"       \ 'ie'  :0,
-"       \ }
-" call expand_region#custom_text_objects({
-"       \ "\/\\n\\n\<CR>": 1,
-"       \ 'a]' :1,
-"       \ 'aB' :1,
-"       \ 'ii' :0,
-"       \ 'ai' :0,
-"       \ })
-" let g:expand_region_text_objects_ruby = {
-"       \ 'im' :0,
-"       \ 'am' :0,
-"       \ }
-" call expand_region#custom_text_objects('ruby', {
-"       \ 'im' :0,
-"       \ 'am' :0,
-"       \ })
-" vnoremap + <Plug>(expand_region_expand)
-" vnoremap _ <Plug>(expand_region_shrink)
-"}}}
-
-" etc "{{{
-"  """ https://github.com/terryma/vim-smooth-scroll
-"  noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-"  noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-"  noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-"  noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-"
-"  """ https://github.com/osyo-manga/vim-anzu
-"  " n や N の代わりに使用します。
-"  nmap n <Plug>(anzu-n)zz
-"  nmap N <Plug>(anzu-N)zz
-"  nmap * <Plug>(anzu-star)zz
-"  nmap # <Plug>(anzu-sharp)zz
-"
-"  " ステータス情報を statusline へと表示する
-"  set statusline+=%{anzu#search_status()}
-"}}}
-
-" https://github.com/kien/ctrlp.vim "{{{
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" let g:ctrlp_working_path_mode = 'c'
-" let g:ctrlp_custom_ignore = {
-"       \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"       \ 'file': '\v\.(exe|so|dll)$',
-"       \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-"       \ }
-" let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
-" let g:ctrlp_max_files = 10000
-" let g:ctrlp_max_depth = 40
-" " let g:ctrlp_user_command =
-" "     \ 'find %s -type f | grep -v -P "\.jpg$|/tmp/"'          " MacOSX/Linux
-" let g:ctrlp_open_new_file = 'v'
-" let g:ctrlp_lazy_update = 1
-" let g:ctrlp_use_migemo = 1
-" let g:ctrlp_prompt_mappings = {
-"       \ 'PrtBS()':              ['<bs>', '<c-]>'],
-"       \ 'PrtDelete()':          ['<del>'],
-"       \ 'PrtDeleteWord()':      ['<c-w>'],
-"       \ 'PrtClear()':           ['<c-u>'],
-"       \ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
-"       \ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
-"       \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
-"       \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
-"       \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
-"       \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
-"       \ 'PrtHistory(-1)':       ['<c-n>'],
-"       \ 'PrtHistory(1)':        ['<c-p>'],
-"       \ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-"       \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
-"       \ 'AcceptSelection("t")': ['<c-t>'],
-"       \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
-"       \ 'ToggleFocus()':        ['<s-tab>'],
-"       \ 'ToggleRegex()':        ['<c-r>'],
-"       \ 'ToggleByFname()':      ['<c-d>'],
-"       \ 'ToggleType(1)':        ['<c-f>', '<c-up>'],
-"       \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
-"       \ 'PrtExpandDir()':       ['<tab>'],
-"       \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
-"       \ 'PrtInsert()':          ['<c-\>'],
-"       \ 'PrtCurStart()':        ['<c-a>'],
-"       \ 'PrtCurEnd()':          ['<c-e>'],
-"       \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
-"       \ 'PrtCurRight()':        ['<c-l>', '<right>'],
-"       \ 'PrtClearCache()':      ['<F5>'],
-"       \ 'PrtDeleteEnt()':       ['<F7>'],
-"       \ 'CreateNewFile()':      ['<c-y>'],
-"       \ 'MarkToOpen()':         ['<c-z>'],
-"       \ 'OpenMulti()':          ['<c-o>'],
-"       \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
-"       \ }
-"}}}
-
-" https://github.com/scrooloose/nerdcommenter "{{{
-" let NERDSpaceDelims = 1
-" nmap <Leader>c <Plug>NERDCommenterToggle
-" vmap <Leader>c <Plug>NERDCommenterToggle
-"}}}
-
-
-" https://github.com/spolu/dwm.vim "{{{
-""" ~/.bundle/dwm.vim/plugin/dwm.vim
-let bundle = neobundle#get('dwm.vim')
-function! bundle.hooks.on_source(bundle)
-  let g:dwm_map_keys = 0 " (1:default keybind)
-  nmap <C-n> <Plug>DWMNew
-  nmap <C-c> <Plug>DWMClose
-  nmap <C-@> <Plug>DWMFocus
-  nmap <C-Space> <Plug>DWMFocus
-  nnoremap <C-j> <c-w>w
-  nnoremap <C-k> <c-w>W
-  " nmap <C-,> <Plug>DWMRotateCounterclockwise
-  " nmap <C-.> <Plug>DWMRotateClockwise
-  nmap <C-l> <Plug>DWMGrowMaster
-  nmap <C-h> <Plug>DWMShrinkMaster
-endfunction
-unlet bundle
-"}}}
-
-" https://github.com/scrooloose/syntastic.git "{{{
-let bundle = neobundle#get('syntastic')
-function! bundle.hooks.on_source(bundle)
-  let g:syntastic_mode_map = { 'mode': 'active',
-        \ 'active_filetypes': ['javascript'],
-        \ 'passive_filetypes': ['html']
-        \}
-  let g:syntastic_auto_loc_list = 2
-  let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
-  " let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
-  let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
-  let g:syntastic_python_checkers=['pylint']
-  let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
-  let g:syntastic_check_on_open = 0
-  let g:syntastic_enable_signs = 1
-  let g:syntastic_echo_current_error = 1
-  let g:syntastic_enable_highlighting = 1
-  let g:syntastic_php_php_args = '-l'
-  let g:syntastic_error_symbol='✗'
-  let g:syntastic_warning_symbol='⚠'
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
-endfunction
-unlet bundle
-"}}}
-
 
 
 "-------------------------------------------------
@@ -3809,6 +3676,7 @@ autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd if len(getqflist())
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 " }}}
 
+" }}}
 
 
 

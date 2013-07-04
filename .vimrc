@@ -2813,10 +2813,15 @@ nmap    F  [Quickfix]
 " Disable Ex-mode.
 nnoremap Q  q
 
+nnoremap [q :cprevious<CR>   " 前へ
+nnoremap ]q :cnext<CR>       " 次へ
+nnoremap [Q :<C-u>cfirst<CR> " 最初へ
+nnoremap ]Q :<C-u>clast<CR>  " 最後へ
+
 " Toggle quickfix window.
 nnoremap <silent> [Quickfix]<Space>
       \ :<C-u>call <SID>toggle_quickfix_window()<CR>
-function! s:toggle_quickfix_window()
+function! s:toggle_quickfix_window() "{{{
   let _ = winnr('$')
   cclose
   if _ == winnr('$')

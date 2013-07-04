@@ -2415,16 +2415,17 @@ unlet bundle
 let bundle = neobundle#get('memolist.vim')
 function! bundle.hooks.on_source(bundle)
   let g:memolist_path = $HOME . '/.vim_memo'
-  let g:memolist_memo_suffix = "txt"
+  let g:memolist_memo_suffix = "md"
   let g:memolist_memo_date = "%Y-%m-%d %H:%M"
   let g:memolist_prompt_tags = 1
   let g:memolist_prompt_categories = 1
-  let g:memolist_qfixgrep = 1
+  let g:memolist_qfixgrep = 0
   let g:memolist_vimfiler = 1
   let g:memolist_filename_prefix_none = 1
-  nnoremap <Space>mn  :MemoNew<CR>
-  nnoremap <Space>ml  :MemoList<CR>
-  nnoremap <Space>mg  :MemoGrep<CR>
+  command! -nargs=0 MemoGrep2 :Unite grep:~/.vim_memo -buffer-name=search -auto-preview -no-quit -resume
+  nnoremap [Space]mn  :MemoNew<CR>
+  nnoremap [Space]ml  :MemoList<CR>
+  nnoremap [Space]mg  :MemoGrep2<CR>
 endfunction
 
 unlet bundle

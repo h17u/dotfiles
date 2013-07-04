@@ -1832,7 +1832,7 @@ omap Q  <Plug>(smarttill-T)
 " changelog.vim"{{{
 autocmd MyAutoCmd BufNewFile,BufRead *.changelog setf changelog
 let g:changelog_timeformat = "%Y-%m-%d"
-let g:changelog_username = "Shougo "
+let g:changelog_username = "h17u "
 "}}}
 
 " quickrun.vim"{{{

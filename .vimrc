@@ -811,12 +811,10 @@ if exists('*FoldCCtext')
         \             | endif
 endif
 
-" Use vimgrep.
-"set grepprg=internal
-" Use grep.
+" set grepprg=internal
 " set grepprg=grep\ -nH
 " set grepprg=git\ grep\ -n
-set grepprg=ag
+set grepprg=ag\ --ignore-case\ --skip-vcs-ignores
 " set grepprg=jvgrep
 
 " Exclude = from isfilename.
@@ -1500,7 +1498,7 @@ nnoremap [unite]k   :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
 nnoremap [unite]rr  :<C-u>UniteWithCursorWord -buffer-name=help ref/refe<CR>
 nnoremap [unite]ri  :<C-u>UniteWithCursorWord -buffer-name=help ref/ri<CR>
 nnoremap [unite]gi  :<C-u>Unite -buffer-name=git giti<CR>
-vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+vnoremap /g y:Unite grep::-i:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 nnoremap <silent> [Space]b :<C-u>UniteBookmarkAdd<CR>
 
 " t: tags-and-searches "{{{
@@ -1516,17 +1514,16 @@ nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
 "}}}
 
 " Search.
-" nnoremap <silent> /
-"       \ :<C-u>Unite -buffer-name=search -no-split -start-insert line<CR>
 nnoremap <silent> /
-      \ :<C-u>Unite -buffer-name=search -auto-highlight -start-insert line:forward<CR>
+      \ :<C-u>Unite -buffer-name=search -auto-preview -start-insert line:forward<CR>
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
-" nnoremap [Alt]/  g/
 nnoremap <silent> ?
-      \ :<C-u>Unite -buffer-name=search -auto-highlight -start-insert line:backward<CR>
+      \ :<C-u>Unite -buffer-name=search -auto-preview -start-insert line:backward<CR>
 nnoremap <silent> *
-      \ :<C-u>UniteWithCursorWord -no-split -buffer-name=search line<CR>
+      \ :<C-u>UniteWithCursorWord -buffer-name=search -auto-preview line:forward<CR>
+nnoremap <silent> #
+      \ :<C-u>UniteWithCursorWord -buffer-name=search -auto-preview line:backward<CR>
 nnoremap [Alt]/       /
 nnoremap [Alt]?       ?
 cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
@@ -3630,7 +3627,7 @@ vnoremap g<c-]> <c-]>
 
 """ http://blog.soichiro.org/?p=66
 " ヴィジュアルモードで選択したテキストをnで検索する(レジスタv使用)
-vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
+" vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
 " gfでカーソル下のファイル名を新しいタブで開く
 " nnoremap gF :tabedit <cfile><CR>
 " vnoremap gF :tabedit <cfile><CR>
@@ -3642,7 +3639,7 @@ vnoremap <silent> d d:let @z=@"<CR>
 " ビジュアルモードで選択したテキストを消してレジスタzの内容を貼付ける(連続貼付可)
 vnoremap <silent> p x"zP
 " :makeや:grepをした際に自動的にquickfixが開くようにする
-autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd if len(getqflist()) != 0 | cw | endif
+autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd if len(getqflist()) != 0 | cwindow | endif
 " ファイルを開いたときに前回の編集箇所に移動
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 " }}}

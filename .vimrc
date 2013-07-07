@@ -489,10 +489,6 @@ NeoBundle 'kannokanno/unite-dwm', { 'autoload' : {
       \ }}
 NeoBundle 'altercation/vim-colors-solarized', '', 'default'
 NeoBundle 'tpope/vim-fugitive', '', 'default'
-NeoBundleLazy 'scrooloose/nerdtree', { 'autoload' : {
-      \ 'commands' : 'NERDTreeToggle'
-      \ }}
-" NeoBundle 'scrooloose/nerdcommenter', '', 'default'
 NeoBundleLazy 'scrooloose/syntastic', { 'autoload' : {
       \ 'filetypes' : ['javascript',
       \ 'json',
@@ -2257,8 +2253,6 @@ unlet bundle
 "}}}
 
 " Function keymappings: "{{{
-nnoremap <silent> <F6> :VimFilerExplorer<CR>
-nnoremap <silent> <F7> :NERDTreeToggle<CR>
 nnoremap <silent> <F8> :TagbarToggle<CR>
 "}}}
 

@@ -1056,7 +1056,10 @@ augroup MyAutoCmd
         \ | source <afile> | echo 'source ' . bufname('%') | endif
 
   " Manage long Rakefile easily
-  autocmd BufNewfile,BufRead Rakefile set foldmethod=syntax foldnestmax=1
+  autocmd BufNewfile,BufRead Rakefile setlocal foldmethod=syntax foldnestmax=1
+
+  " Json
+  autocmd BufNewfile,BufRead *.json,*.gyp setfiletype json |setlocal foldmethod=syntax conceallevel=2
 
   " Close help and git window by pressing q.
   autocmd FileType help,git-status,git-log,qf,

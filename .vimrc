@@ -1058,8 +1058,11 @@ augroup MyAutoCmd
   " Manage long Rakefile easily
   autocmd BufNewfile,BufRead Rakefile setlocal foldmethod=syntax foldnestmax=1
 
+  " Javascript
+  autocmd BufNewfile,BufRead *.js setfiletype javascript |setlocal foldmethod=indent
+
   " Json
-  autocmd BufNewfile,BufRead *.json,*.gyp setfiletype json |setlocal foldmethod=syntax conceallevel=2
+  autocmd BufNewfile,BufRead *.json,*.gyp setfiletype json |setlocal foldmethod=syntax conceallevel=1
 
   " Close help and git window by pressing q.
   autocmd FileType help,git-status,git-log,qf,
@@ -1102,8 +1105,7 @@ augroup MyAutoCmd
         \ | setlocal ft=hybrid | endif
 
   " Mercurial unified tests
-  autocmd BufNewFile,BufRead *.t set filetype=hgtest
-  let hgtest_fold=1
+  autocmd BufNewFile,BufRead *.t set filetype=hgtest | let hgtest_fold=1
   autocmd Syntax hgtest setlocal foldlevel=1
 
   autocmd BufRead,BufNewFile .vimperatorrc  setfiletype Vimperator|setlocal commentstring=\ \"%s
@@ -3063,6 +3065,7 @@ endfunction "}}}
 nnoremap <silent> [Window]y
       \ :<C-u>echo map(synstack(line('.'), col('.')),
       \     'synIDattr(v:val, "name")')<CR>
+"}}}
 "}}}
 
 "---------------------------------------------------------------------------

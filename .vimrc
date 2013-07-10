@@ -1038,7 +1038,7 @@ augroup MyAutoCmd
   autocmd BufNewfile,BufRead Rakefile setlocal foldmethod=syntax foldnestmax=1
 
   " Javascript
-  autocmd BufNewfile,BufRead *.js setfiletype javascript |setlocal foldmethod=indent
+  autocmd BufNewfile,BufRead *.js setfiletype javascript |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
 
   " Json
   autocmd BufNewfile,BufRead *.json,*.gyp setfiletype json |setlocal foldmethod=syntax conceallevel=1

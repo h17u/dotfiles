@@ -236,10 +236,12 @@ fi
 
 # Node.js
 export PATH=$PATH:$(npm bin --global 2>/dev/null)
-export NODE_PATH=/usr/local/lib/node:~/.npm:$(npm prefix --global 2>/dev/null)/lib/node_modules
+export NODE_PATH=$NODE_PATH:$(brew --prefix)/lib/node
+export NODE_PATH=$NODE_PATH:~/.npm
+export NODE_PATH=$NODE_PATH:$(npm prefix --global)/lib/node_modules
+export NODE_PATH=$NODE_PATH:$(brew --prefix)/lib/jsctags
 eval "$(npm completion 2>/dev/null)"
 # eval "$(bower completion 2>/dev/null)"
-#export NODE_PATH=$NODE_PATH:/usr/local/lib/jsctags
 # brew install node & npm at /usr/local/homebrew/Cellar/node/0.10.5/
 # npm install n at /usr/local/share/npm/lib/node_modules/n/
 # versionning node managed by n at /usr/local/n/

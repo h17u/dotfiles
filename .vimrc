@@ -526,6 +526,8 @@ NeoBundle 'kmnk/vim-unite-giti', { 'autoload' : {
 NeoBundle 'kmnk/vim-unite-svn', { 'autoload' : {
       \ 'unite_sources' : ['svn']
       \ }}
+NeoBundle 'editorconfig/editorconfig-vim', '', 'default'
+
 
 NeoBundleLocal ~/.vim/bundle
 "}}}

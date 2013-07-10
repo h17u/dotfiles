@@ -3563,10 +3563,10 @@ vnoremap g<c-]> <c-]>
 " ヴィジュアルモードで選択したテキストをnで検索する(レジスタv使用)
 " vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
 " gfでカーソル下のファイル名を新しいタブで開く
-" nnoremap gF :tabedit <cfile><CR>
-" vnoremap gF :tabedit <cfile><CR>
-nnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
-vnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
+nnoremap gf :tabedit <cfile><CR>
+vnoremap gf :tabedit <cfile><CR>
+" nnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
+" vnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
 " ヤンク、切り取り時にレジスタ"の値をzにもコピーしておく(連続貼付可に使う)
 vnoremap <silent> y y:let @z=@"<CR>
 vnoremap <silent> d d:let @z=@"<CR>

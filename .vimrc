@@ -2401,8 +2401,8 @@ if has('gui_running')
 endif
 
 " H, D: delete camlcasemotion. "{{{
-inoremap <expr>H           <SID>camelcase_delete(0)
-inoremap <expr>D           <SID>camelcase_delete(1)
+" inoremap <expr>H           <SID>camelcase_delete(0)
+" inoremap <expr>D           <SID>camelcase_delete(1)
 function! s:camelcase_delete(is_reverse)
   let save_ve = &l:virtualedit
   setlocal virtualedit=all

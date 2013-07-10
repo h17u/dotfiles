@@ -247,14 +247,6 @@ call neobundle#config('junkfile.vim', {
       \   'unite_sources' : ['junkfile', 'junkfile/new'],
       \ }})
 
-NeoBundle 'hrsh7th/vim-versions', '', 'default'
-call neobundle#config('vim-versions', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'insert' : 1,
-      \   'commands' : 'UniteVersions'},
-      \ })
-
 " NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'Shougo/unite-outline', '', 'default'
 call neobundle#config('unite-outline', {
@@ -1447,17 +1439,6 @@ unlet bundle
 
 " vinarise.vim"{{{
 let g:vinarise_enable_auto_detect = 1
-"}}}
-
-" vim-versions{{{
-let bundle = neobundle#get('vim-versions')
-function! bundle.hooks.on_source(bundle)
-  let g:versions#debug = 0
-  nnoremap <silent> [Space]gS :<C-u>UniteVersions status:!<CR>
-  nnoremap <silent> [Space]gL :<C-u>UniteVersions log:%<CR>
-endfunction
-
-unlet bundle
 "}}}
 
 " unite.vim"{{{

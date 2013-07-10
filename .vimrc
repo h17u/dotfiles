@@ -196,10 +196,6 @@ call neobundle#config('unite.vim',{
 NeoBundle 'Shougo/unite-build', '', 'default'
 NeoBundle 'Shougo/unite-ssh', '', 'default'
 NeoBundle 'Shougo/unite-sudo', '', 'default'
-NeoBundleLazy 'Shougo/vim-vcs', {
-      \ 'depends' : 'thinca/vim-openbuf',
-      \ 'autoload' : {'commands' : 'Vcs'},
-      \   }
 NeoBundle 'Shougo/vimfiler', '', 'default'
 call neobundle#config('vimfiler', {
       \ 'lazy' : 1,
@@ -1066,7 +1062,7 @@ augroup MyAutoCmd
 
   " Close help and git window by pressing q.
   autocmd FileType help,git-status,git-log,qf,
-        \gitcommit,quickrun,qfreplace,ref,vcs-commit,vcs-status
+        \gitcommit,quickrun,qfreplace,ref
         \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
   autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
         \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif

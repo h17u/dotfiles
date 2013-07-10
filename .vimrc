@@ -1041,7 +1041,7 @@ augroup MyAutoCmd
   autocmd BufNewfile,BufRead *.js setfiletype javascript |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
 
   " Json
-  autocmd BufNewfile,BufRead *.json,*.gyp setfiletype json |setlocal foldmethod=syntax conceallevel=1
+  autocmd BufNewfile,BufRead *.json,*.gyp,*.bowerrc,*.jshintrc setfiletype json |setlocal foldmethod=syntax conceallevel=1
 
   " Close help and git window by pressing q.
   autocmd FileType help,git-status,git-log,qf,

@@ -150,13 +150,6 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
 " NeoBundleLazy 'choplin/unite-vim_hacks'
 " NeoBundleLazy 'liquidz/vimfiler-sendto'
 
-NeoBundle 'Shougo/echodoc', '', 'default'
-call neobundle#config('echodoc', {
-      \ 'lazy' : 1,
-      \ 'autoload' : {
-      \   'insert' : 1,
-      \ }})
-
 NeoBundle 'Shougo/neocomplcache', '', 'default'
 call neobundle#config('neocomplcache', {
       \ 'lazy' : 1,
@@ -1429,14 +1422,6 @@ unlet bundle
 
 nnoremap <silent> [Window]f              :<C-u>Unite neosnippet/user neosnippet/runtime<CR>
 
-"}}}
-
-" echodoc.vim"{{{
-let bundle = neobundle#get('echodoc')
-function! bundle.hooks.on_source(bundle)
-  let g:echodoc_enable_at_startup = 1
-endfunction
-unlet bundle
 "}}}
 
 " vinarise.vim"{{{

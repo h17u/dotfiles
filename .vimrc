@@ -523,6 +523,10 @@ NeoBundleLazy 'Blackrush/vim-gocode', {
       \ 'autoload' : {
       \   'filetype' : 'go'
       \ }}
+NeoBundleLazy 'techlivezheng/vim-plugin-tagbar-phpctags', {
+      \ 'autoload' : {
+      \   'filetype' : 'php'
+      \ }}
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -2250,20 +2254,194 @@ function! bundle.hooks.on_source(bundle)
   highlight TagbarType cterm=bold ctermfg=55
   highlight TagbarHighlight cterm=bold,underline ctermfg=1
   highlight TagbarSignature ctermfg=70
-  "let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-  let g:tagbar_type_javascript = {
-        \ 'ctagstype' : 'JavaScript',
+  " Ada "{{{
+  let g:tagbar_type_ada = {
+        \ 'ctagstype': 'ada',
+        \ 'kinds' : [
+        \'P:package specs',
+        \'p:packages',
+        \'t:type',
+        \'u:subtypes',
+        \'c:record type components',
+        \'l:enum type literals',
+        \'v:variables',
+        \'f:formal parameters',
+        \'n:constants',
+        \'x:exceptions',
+        \'R:subprogram specs',
+        \'r:subprograms',
+        \'K:task specs',
+        \'k:tasks',
+        \'O:protected data specs',
+        \'o:protected data',
+        \'e:entries',
+        \'b:labels',
+        \'i:identifiers'
+        \]
+        \ } "}}}
+  " Coffeescript "{{{
+  if executable('coffeetags')
+    let g:tagbar_type_coffee = {
+          \ 'ctagsbin' : 'coffeetags',
+          \ 'ctagsargs' : '--include-vars',
+          \ 'kinds' : [
+          \ 'f:functions',
+          \ 'o:object',
+          \ ],
+          \ 'sro' : ".",
+          \ 'kind2scope' : {
+          \ 'f' : 'object',
+          \ 'o' : 'object',
+          \ }
+          \ }
+  endif "}}}
+  " CSS "{{{
+  let g:tagbar_type_css = {
+        \ 'ctagstype' : 'Css',
         \ 'kinds'     : [
-        \ 'c:class',
-        \ 'p:property',
-        \ 'm:method',
-        \ 'o:object',
-        \ 'f:function',
-        \ 'a:array',
-        \ 's:string',
-        \ 'v:variable'
+        \ 'c:classes',
+        \ 's:selectors',
+        \ 'i:identities'
         \ ]
-        \ }
+        \ } "}}}
+  " Go lang "{{{
+  let g:tagbar_type_go = {
+        \ 'ctagstype' : 'go',
+        \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+        \ ],
+        \ 'sro' : '.',
+        \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+        \ },
+        \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+        \ },
+        \ 'ctagsbin'  : 'gotags',
+        \ 'ctagsargs' : '-sort -silent'
+        \ } "}}}
+  " Groovy "{{{
+  let g:tagbar_type_groovy = {
+        \ 'ctagstype' : 'groovy',
+        \ 'kinds'     : [
+        \ 'p:package',
+        \ 'c:class',
+        \ 'i:interface',
+        \ 'f:function',
+        \ 'v:variables',
+        \ ]
+        \ } "}}}
+  " Haskell "{{{
+  if executable('lushtags')
+    let g:tagbar_type_haskell = {
+          \ 'ctagsbin' : 'lushtags',
+          \ 'ctagsargs' : '--ignore-parse-error --',
+          \ 'kinds' : [
+          \ 'm:module:0',
+          \ 'e:exports:1',
+          \ 'i:imports:1',
+          \ 't:declarations:0',
+          \ 'd:declarations:1',
+          \ 'n:declarations:1',
+          \ 'f:functions:0',
+          \ 'c:constructors:0'
+          \ ],
+          \ 'sro' : '.',
+          \ 'kind2scope' : {
+          \ 'd' : 'data',
+          \ 'n' : 'newtype',
+          \ 'c' : 'constructor',
+          \ 't' : 'type'
+          \ },
+          \ 'scope2kind' : {
+          \ 'data' : 'd',
+          \ 'newtype' : 'n',
+          \ 'constructor' : 'c',
+          \ 'type' : 't'
+          \ }
+          \ }
+  endif "}}}
+  " Markdown "{{{
+  let g:tagbar_type_markdown = {
+        \ 'ctagstype' : 'markdown',
+        \ 'kinds' : [
+        \ 'h:Heading_L1',
+        \ 'i:Heading_L2',
+        \ 'k:Heading_L3'
+        \ ]
+        \ } "}}}
+  " Php "{{{
+  let g:tagbar_phpctags_bin = $HOME . '/src/phpctags/phpctags'
+  let g:tagbar_phpctags_memory_limit = '512M'
+  "}}}
+  " Ruby "{{{
+  let g:tagbar_type_ruby = {
+        \ 'kinds' : [
+        \ 'm:modules',
+        \ 'c:classes',
+        \ 'd:describes',
+        \ 'C:contexts',
+        \ 'f:methods',
+        \ 'F:singleton methods'
+        \ ]
+        \ } "}}}
+  " Scala "{{{
+  let g:tagbar_type_scala = {
+        \ 'ctagstype' : 'Scala',
+        \ 'kinds'     : [
+        \ 'p:packages:1',
+        \ 'V:values',
+        \ 'v:variables',
+        \ 'T:types',
+        \ 't:traits',
+        \ 'o:objects',
+        \ 'a:aclasses',
+        \ 'c:classes',
+        \ 'r:cclasses',
+        \ 'm:methods'
+        \ ]
+        \ } "}}}
+  " Xquery "{{{
+  let g:tagbar_type_xquery = {
+        \ 'ctagstype' : 'xquery',
+        \ 'kinds'     : [
+        \ 'f:function',
+        \ 'v:variable',
+        \ 'm:module',
+        \ ]
+        \ } "}}}
+  " VHDL "{{{
+  let g:tagbar_type_vhdl = {
+        \ 'ctagstype': 'vhdl',
+        \ 'kinds' : [
+        \'d:prototypes',
+        \'b:package bodies',
+        \'e:entities',
+        \'a:architectures',
+        \'t:types',
+        \'p:processes',
+        \'f:functions',
+        \'r:procedures',
+        \'c:constants',
+        \'T:subtypes',
+        \'r:records',
+        \'C:components',
+        \'P:packages',
+        \'l:locals'
+        \]
+        \ } "}}}
 endfunction
 unlet bundle
 "}}}

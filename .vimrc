@@ -364,7 +364,6 @@ NeoBundleLazy 'basyura/unite-rails', { 'autoload' : {
 NeoBundleLazy 'ujihisa/unite-rake', { 'autoload' : {
       \ 'unite_sources' : 'rake',
       \ }}
-"NeoBundle 'taglist.vim'
 NeoBundleLazy 'rbtnn/hexript.vim'
 NeoBundleLazy 'tpope/vim-endwise'
 NeoBundleLazy 'kana/vim-tabpagecd'
@@ -2128,11 +2127,6 @@ nmap R <Plug>(operator-replace)
 xmap R <Plug>(operator-replace)
 xmap p <Plug>(operator-replace)
 "}}}
-
-" Taglist."{{{
-" let Tlist_Show_One_File = 1
-" let Tlist_Use_Right_Window = 1
-" let Tlist_Exit_OnlyWindow = 1"}}}
 
 " accelerated-jk "{{{
 if neobundle#is_installed('accelerated-jk')

@@ -512,10 +512,10 @@ NeoBundleLazy 'glidenote/memolist.vim', { 'autoload' : {
       \ 'insert' : 1,
       \ 'commands' : ['MemoNew', 'MemoList', 'MemoGrep']
       \ }}
-NeoBundle 'kmnk/vim-unite-giti', { 'autoload' : {
+NeoBundleLazy 'kmnk/vim-unite-giti', { 'autoload' : {
       \ 'unite_sources' : ['giti']
       \ }}
-NeoBundle 'kmnk/vim-unite-svn', { 'autoload' : {
+NeoBundleLazy 'kmnk/vim-unite-svn', { 'autoload' : {
       \ 'unite_sources' : ['svn']
       \ }}
 NeoBundle 'editorconfig/editorconfig-vim', '', 'default'

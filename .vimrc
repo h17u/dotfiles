@@ -481,7 +481,7 @@ NeoBundleLazy 'vim-scripts/jQuery', { 'autoload' : {
       \ 'filetypes' : ['javascript',
       \ 'json']
       \ }}
-NeoBundleLazy 'majutsushi/tagbar', { 'autoload' : {
+NeoBundle 'majutsushi/tagbar', { 'autoload' : {
       \ 'commands' : 'TagbarToggle'
       \ }}
 " NeoBundle 'nathanaelkane/vim-indent-guides', '', 'default'
@@ -1055,6 +1055,13 @@ augroup MyAutoCmd
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
+
+  " TagBar
+  autocmd FileType ada,c,cpp,coffee,go,groovy,haskell,html,
+        \java,javascript,markdown,
+        \perl,php,python,ruby,scala,
+        \tex,vhdl,vim,xml,xquery
+        \ nested :TagbarOpen
 
   " Enable omni completion.
   autocmd FileType ada setlocal omnifunc=adacomplete#Complete
@@ -2214,10 +2221,6 @@ endfunction
 unlet bundle
 "}}}
 
-" Function keymappings: "{{{
-nnoremap <silent> <F8> :TagbarToggle<CR>
-"}}}
-
 " Like A IDE :) "{{{
 function! s:likeIDE()
   cd %:p:h
@@ -2249,7 +2252,8 @@ function! bundle.hooks.on_source(bundle)
   let g:tagbar_autoshowtag = 1
   let g:tagbar_autofocus = 1
   let g:tagbar_sort = 0
-  let g:tagbar_compact = 1
+  let g:tagbar_compact = 0
+  let g:tagbar_iconchars = ['▸', '▾']
   highlight TagbarScope ctermfg=5
   highlight TagbarType cterm=bold ctermfg=55
   highlight TagbarHighlight cterm=bold,underline ctermfg=1
@@ -2678,6 +2682,8 @@ nnoremap [Space]w
 " Echo syntax name.
 nnoremap [Space]sy
       \ :<C-u>echo synIDattr(synID(line('.'), col('.'), 1), "name")<CR>
+" Toggle TagBar
+nnoremap <silent> [Space]t :<C-u>TagbarToggle<CR>
 
 " Easily edit .vimrc and .gvimrc "{{{
 nnoremap <silent> [Space]ev  :<C-u>edit $MYVIMRC<CR>

@@ -250,7 +250,7 @@ call neobundle#config('unite-outline', {
 
 NeoBundleLazy 'hail2u/vim-css3-syntax', {
       \ 'autoload' : {
-      \   'filetype' : 'css'
+      \   'filetypes' : 'css'
       \ }}
 NeoBundleLazy 'kana/vim-smartchr', { 'autoload' : {
       \ 'insert' : 1,
@@ -521,15 +521,15 @@ NeoBundleLazy 'kmnk/vim-unite-svn', { 'autoload' : {
 NeoBundle 'editorconfig/editorconfig-vim', '', 'default'
 NeoBundleLazy 'jnwhiteh/vim-golang', {
       \ 'autoload' : {
-      \   'filetype' : 'go'
+      \   'filetypes' : 'go'
       \ }}
 NeoBundleLazy 'Blackrush/vim-gocode', {
       \ 'autoload' : {
-      \   'filetype' : 'go'
+      \   'filetypes' : 'go'
       \ }}
 NeoBundleLazy 'techlivezheng/vim-plugin-tagbar-phpctags', {
       \ 'autoload' : {
-      \   'filetype' : 'php'
+      \   'filetypes' : 'php'
       \ }}
 
 

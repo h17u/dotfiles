@@ -519,6 +519,10 @@ NeoBundleLazy 'kmnk/vim-unite-svn', { 'autoload' : {
       \ 'unite_sources' : ['svn']
       \ }}
 NeoBundle 'editorconfig/editorconfig-vim', '', 'default'
+NeoBundleLazy 'jnwhiteh/vim-golang', {
+      \ 'autoload' : {
+      \   'filetype' : 'go'
+      \ }}
 NeoBundleLazy 'Blackrush/vim-gocode', {
       \ 'autoload' : {
       \   'filetype' : 'go'

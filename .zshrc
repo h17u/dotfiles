@@ -253,6 +253,7 @@ export PATH=$(brew --prefix)/share/python:$PATH
 export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
 
 # go
+export GOROOT=$(brew --prefix go)
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 

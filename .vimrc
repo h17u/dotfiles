@@ -1039,6 +1039,9 @@ augroup MyAutoCmd
   " Manage long Rakefile easily
   autocmd BufNewfile,BufRead Rakefile setlocal foldmethod=syntax foldnestmax=1
 
+  " Go
+  autocmd BufWritePre *.go Fmt
+
   " Javascript
   autocmd BufNewfile,BufRead *.js setfiletype javascript |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
 
@@ -1066,9 +1069,14 @@ augroup MyAutoCmd
   " Enable omni completion.
   autocmd FileType ada setlocal omnifunc=adacomplete#Complete
   autocmd FileType c setlocal omnifunc=ccomplete#Complete
+  autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp setlocal omnifunc=omni#cpp#complete#Main
+  autocmd FileType cpp setlocal omnifunc=cppcomplete#CompleteCPP
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType eruby,html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType go setlocal omnifunc=gocomplete#Complete
+  autocmd FileType java setlocal completefunc=javacomplete#CompleteParamsInfo
   autocmd FileType java setlocal omnifunc=javacomplete#Complete
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   if has('python3')
     autocmd FileType python setlocal omnifunc=python3complete#Complete

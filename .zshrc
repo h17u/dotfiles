@@ -247,6 +247,8 @@ eval "$(npm completion 2>/dev/null)"
 # versionning node managed by n at /usr/local/n/
 # http://nodejs.org/api/modules.html#modules_loading_from_the_global_folders
 
+# PHP55 and Pear
+export PATH=$(brew --prefix josegonzalez/php/php55)/bin:$PATH
 
 # Python
 export PATH=$(brew --prefix)/share/python:$PATH

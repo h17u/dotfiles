@@ -531,6 +531,7 @@ NeoBundleLazy 'techlivezheng/vim-plugin-tagbar-phpctags', {
       \ 'autoload' : {
       \   'filetypes' : 'php'
       \ }}
+NeoBundle 'Lokaltog/vim-easymotion', '', 'default'
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -2532,6 +2533,19 @@ function! bundle.hooks.on_source(bundle)
   nnoremap [Space]mn  :MemoNew<CR>
   nnoremap [Space]ml  :MemoList<CR>
   nnoremap [Space]mg  :MemoGrep2<CR>
+endfunction
+
+unlet bundle
+"}}}
+
+" vim-easymotion {{{
+let bundle = neobundle#get('vim-easymotion')
+function! bundle.hooks.on_source(bundle)
+  let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+  let g:EasyMotion_leader_key=";"
+  let g:EasyMotion_grouping=1
+  highlight EasyMotionTarget ctermbg=none ctermfg=red
+  highlight EasyMotionShade  ctermbg=none ctermfg=blue
 endfunction
 
 unlet bundle

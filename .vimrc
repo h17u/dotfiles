@@ -436,6 +436,10 @@ NeoBundleLazy 'teramako/jscomplete-vim', {
       \ 'autoload' : {
       \   'filetypes' : 'javascript'
       \ }}
+NeoBundleLazy 'myhere/vim-nodejs-complete', {
+      \ 'autoload' : {
+      \   'filetypes' : 'javascript'
+      \ }}
 
 if has('python')
   " NeoBundleLazy 'marijnh/tern_for_vim', {
@@ -1090,7 +1094,7 @@ augroup MyAutoCmd
   autocmd FileType go setlocal omnifunc=gocomplete#Complete
   autocmd FileType java setlocal completefunc=javacomplete#CompleteParamsInfo
   autocmd FileType java setlocal omnifunc=javacomplete#Complete
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
   autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
   if has('python3')
     autocmd FileType python setlocal omnifunc=python3complete#Complete
@@ -1235,6 +1239,7 @@ function! bundle.hooks.on_source(bundle)
   if !exists('g:neocomplete#sources#omni#functions')
     let g:neocomplete#sources#omni#functions = {}
   endif
+  let g:neocomplete#sources#omni#functions.javascript = 'nodejscomplete#CompleteJS'
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
@@ -1367,6 +1372,7 @@ function! bundle.hooks.on_source(bundle)
   if !exists('g:neocomplcache_omni_functions')
     let g:neocomplcache_omni_functions = {}
   endif
+  let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
   if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
   endif
@@ -2571,6 +2577,28 @@ function! bundle.hooks.on_source(bundle)
   nmap <silent>em  <Plug>Vm_toggle_sign
   nmap <silent>ej  <Plug>Vm_goto_next_sign
   nmap <silent>ek  <Plug>Vm_goto_prev_sign
+endfunction
+
+unlet bundle
+"}}}
+
+" jscomplete-vim {{{
+let bundle = neobundle#get('jscomplete-vim')
+function! bundle.hooks.on_source(bundle)
+  let g:jscomplete_use = ['dom', 'moz', 'es6th']
+endfunction
+
+unlet bundle
+"}}}
+
+" vim-nodejs-complete {{{
+let bundle = neobundle#get('vim-nodejs-complete')
+function! bundle.hooks.on_source(bundle)
+  let g:node_usejscomplete = 1
+  let g:nodejs_complete_config = {
+        \  'js_compl_fn': 'jscomplete#CompleteJS',
+        \  'max_node_compl_len': 25
+        \}
 endfunction
 
 unlet bundle

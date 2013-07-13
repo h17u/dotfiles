@@ -330,8 +330,10 @@ NeoBundleLazy 'tyru/caw.vim', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']
       \ }}
-NeoBundleLazy 'tyru/open-browser.vim', { 'autoload' : {
-      \ 'mappings' : '<Plug>(open-browser-wwwsearch)',
+NeoBundle 'tyru/open-browser.vim', { 'autoload' : {
+      \ 'filetypes' : 'markdown',
+      \ 'mappings' : [
+      \   '<Plug>(quickrun)', '<Plug>(open-browser-wwwsearch)']
       \ }}
 NeoBundleLazy 'tyru/operator-html-escape.vim'
 NeoBundleLazy 'tyru/vim-altercmd'
@@ -533,6 +535,9 @@ NeoBundleLazy 'techlivezheng/vim-plugin-tagbar-phpctags', {
       \ }}
 NeoBundle 'Lokaltog/vim-easymotion', '', 'default'
 NeoBundle 'zhisheng/visualmark.vim', '', 'default'
+NeoBundleLazy 'tpope/vim-markdown', { 'autoload' : {
+      \ 'filetypes' : 'markdown'
+      \ }}
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -1047,6 +1052,9 @@ augroup MyAutoCmd
 
   " Go
   autocmd BufWritePre *.go Fmt
+
+  " Markdown
+  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setfiletype markdown
 
   " Javascript
   autocmd BufNewfile,BufRead *.js setfiletype javascript |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
@@ -1820,12 +1828,17 @@ let g:changelog_username = "h17u "
 "}}}
 
 " quickrun.vim"{{{
-nmap <silent> <Leader>ru <Plug>(quickrun)
+nmap <silent> <Leader>r <Plug>(quickrun)
 let g:quickrun_config = {'*': {'hook/time/enable': '1'},}
 let g:quickrun_config['coffee'] = {
-     \'command' : 'coffee',
-     \'exec' : ['%c -cbp %s']
-     \}
+      \ 'command' : 'coffee',
+      \ 'exec' : ['%c -cbp %s']
+      \ }
+let g:quickrun_config['markdown'] = {
+      \ 'type': 'markdown/kramdown',
+      \ 'outputter': 'browser',
+      \ 'exec': '%c --input=markdown --output=html %o %s %a 2>/dev/null',
+      \ }
 "}}}
 
 " python.vim

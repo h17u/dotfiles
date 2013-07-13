@@ -532,6 +532,7 @@ NeoBundleLazy 'techlivezheng/vim-plugin-tagbar-phpctags', {
       \   'filetypes' : 'php'
       \ }}
 NeoBundle 'Lokaltog/vim-easymotion', '', 'default'
+NeoBundle 'zhisheng/visualmark.vim', '', 'default'
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -2550,6 +2551,18 @@ endfunction
 
 unlet bundle
 "}}}
+
+" visualmark.vim {{{
+let bundle = neobundle#get('visualmark.vim')
+function! bundle.hooks.on_source(bundle)
+  nmap <silent>em  <Plug>Vm_toggle_sign
+  nmap <silent>ej  <Plug>Vm_goto_next_sign
+  nmap <silent>ek  <Plug>Vm_goto_prev_sign
+endfunction
+
+unlet bundle
+"}}}
+
 
 "}}}
 

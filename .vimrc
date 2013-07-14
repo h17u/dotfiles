@@ -539,6 +539,9 @@ NeoBundle 'zhisheng/visualmark.vim', '', 'default'
 NeoBundleLazy 'tpope/vim-markdown', { 'autoload' : {
       \ 'filetypes' : 'markdown'
       \ }}
+NeoBundleLazy 'aaronbieber/quicktask', { 'autoload' : {
+      \ 'filetypes' : 'quicktask'
+      \ }}
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -1062,6 +1065,9 @@ augroup MyAutoCmd
 
   " Json
   autocmd BufNewfile,BufRead *.json,*.gyp,*.bowerrc,*.jshintrc setfiletype json |setlocal foldmethod=syntax conceallevel=1
+
+  " Quicktask
+  autocmd BufNewFile,BufRead *.quicktask setfiletype quicktask |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
 
   " Close help and git window by pressing q.
   autocmd FileType help,git-status,git-log,qf,

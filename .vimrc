@@ -1205,56 +1205,72 @@ let g:neocomplete#enable_at_startup = 1
 
 let bundle = neobundle#get('neocomplete.vim')
 function! bundle.hooks.on_source(bundle)
-  " Use smartcase.
+  let g:neocomplete#enable_ignore_case = 1
   let g:neocomplete#enable_smart_case = 1
-  " Use fuzzy completion.
-  let g:neocomplete#enable_fuzzy_completion = 1
+  let g:neocomplete#enable_fuzzy_completion = 0
+  let g:neocomplete#enable_camel_case_completion = 0
+  let g:neocomplete#enable_underbar_completion = 0
+  let g:neocomplete#disable_caching_file_path_pattern =
+        \ "\.log$\|_history$\|\.howm$\|\.jax$\|\.snippets$"
+  let g:neocomplete#lock_buffer_name_pattern =
+        \ '\*ku\*\|\.log$\|\.jax$\|\.log\.'
 
-  " Set minimum syntax keyword length.
   let g:neocomplete#sources#syntax#min_keyword_length = 3
-  " Set auto completion length.
-  let g:neocomplete#auto_completion_start_length = 2
-  " Set manual completion length.
-  let g:neocomplete#manual_completion_start_length = 0
-  " Set minimum keyword length.
+  let g:neocomplete#auto_completion_start_length = 3
+  let g:neocomplete#manual_completion_start_length = 3
   let g:neocomplete#min_keyword_length = 3
 
   " For auto select.
-"  let g:neocomplete#enable_complete_select = 1
-"  let g:neocomplete#enable_auto_select = 1
-"  let g:neocomplete#enable_refresh_always = 0
-"  if g:neocomplete#enable_complete_select
-"    set completeopt-=noselect
-"    set completeopt+=noinsert
-"  endif
+  " let g:neocomplete#enable_complete_select = 1
+  " let g:neocomplete#enable_auto_select = 1
+  " let g:neocomplete#enable_refresh_always = 1
+  " if g:neocomplete#enable_complete_select
+  "   set completeopt-=noselect
+  "   set completeopt+=noinsert
+  " endif
 
   let g:neocomplete#enable_auto_delimiter = 1
+  let g:neocomplete#enable_auto_close_preview = 1
   let g:neocomplete#disable_auto_select_buffer_name_pattern =
         \ '\[Command Line\]'
   let g:neocomplete#max_list = 100
   let g:neocomplete#force_overwrite_completefunc = 1
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
+
   if !exists('g:neocomplete#sources#omni#functions')
     let g:neocomplete#sources#omni#functions = {}
   endif
+  let g:neocomplete#sources#omni#functions.clojure = 'vimclojure#OmniCompletion'
+  let g:neocomplete#sources#omni#functions.go = 'gocomplete#Complete'
   let g:neocomplete#sources#omni#functions.javascript = 'nodejscomplete#CompleteJS'
+  let g:neocomplete#sources#omni#functions.sql = 'sqlcomplete#Complete'
+
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+  endif
+  let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+  let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+  let g:neocomplete#sources#omni#input_patterns.haxe = '\v([\]''"]|\w)(\.|\()\w*'
+  let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+  let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+
   if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
   endif
-  let g:neocomplete#enable_auto_close_preview = 1
-
   " let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-  let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
-  let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-  let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-  let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-  " For perlomni.vim setting.
-  " https://github.com/c9s/perlomni.vim
-  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  " Define same filetypes
+  if !exists('g:neocomplete#same_filetypes')
+    let g:neocomplete#same_filetypes = {}
+  endif
+  let g:neocomplete#same_filetypes.c = 'cpp,d'
+  let g:neocomplete#same_filetypes.cpp = 'c'
+  let g:neocomplete#same_filetypes.gitconfig = '_'
+  let g:neocomplete#same_filetypes.javascript = 'json'
+  let g:neocomplete#same_filetypes.json = 'javascript'
+  let g:neocomplete#same_filetypes._ = '_'
 
   " Define keyword pattern.
   if !exists('g:neocomplete#keyword_patterns')
@@ -1270,6 +1286,24 @@ function! bundle.hooks.on_source(bundle)
         \ 'Vinarise' : 'vinarise#complete',
         \}
   call neocomplete#custom#source('look', 'min_pattern_length', 4)
+
+  " Add directory files
+  if !exists('g:neocomplete#sources#dictionary#dictionaries')
+    let g:neocomplete#sources#dictionary#dictionaries = {}
+  endif
+  function! s:neocomplete_dictionary_config() "{{{
+    for fp in split(globpath("~/.vim/dict", "*.dict"), "\n")
+      let _name = fnamemodify(fp, ":p:r")
+      let g:neocomplete#sources#dictionary#dictionaries[_name] = fp
+    endfor
+
+    call extend(g:neocomplete#sources#dictionary#dictionaries, {
+          \ 'default'     : '',
+          \ 'javascript'  : $HOME . '/.vim/dict/node.dict',
+          \ 'eruby'       : $HOME . '/.vim/dict/ruby.dict',
+          \ })
+  endfunction "}}}
+  call s:neocomplete_dictionary_config()
 
   " mappings."{{{
   " <C-f>, <C-b>: page move.

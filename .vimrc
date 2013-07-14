@@ -168,7 +168,6 @@ call neobundle#config('neosnippet', {
       \   'filetypes' : 'snippet',
       \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
       \ }})
-" NeoBundle 'git@github.com:Shougo/neocomplcache-snippets-complete.git'
 
 NeoBundle 'Shougo/neobundle-vim-scripts', '', 'default'
 
@@ -399,6 +398,9 @@ NeoBundleLazy 'jiangmiao/simple-javascript-indenter', { 'autoload' : {
       \ 'filetypes' : 'javascript',
       \ }}
 NeoBundleLazy 'jelera/vim-javascript-syntax', { 'autoload' : {
+      \ 'filetypes' : 'javascript',
+      \ }}
+NeoBundleLazy 'othree/javascript-libraries-syntax.vim', { 'autoload' : {
       \ 'filetypes' : 'javascript',
       \ }}
 NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
@@ -2520,6 +2522,15 @@ function! bundle.hooks.on_source(bundle)
         \  'js_compl_fn': 'jscomplete#CompleteJS',
         \  'max_node_compl_len': 25
         \}
+endfunction
+
+unlet bundle
+"}}}
+
+" othree/javascript-libraries-syntax.vim {{{
+let bundle = neobundle#get('javascript-libraries-syntax.vim')
+function! bundle.hooks.on_source(bundle)
+  let g:used_javascript_libs = 'jquery,underscore,backbone,prelude,angularjs,requirejs'
 endfunction
 
 unlet bundle

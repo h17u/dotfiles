@@ -442,10 +442,11 @@ NeoBundleLazy 'myhere/vim-nodejs-complete', {
       \ }}
 
 if has('python')
-  " NeoBundleLazy 'marijnh/tern_for_vim', {
-  "       \ 'autoload' : {
-  "       \   'filetypes' : 'javascript'
-  "       \ }}
+  NeoBundleLazy 'marijnh/tern_for_vim', {
+        \ 'build' : {'others': 'npm install'},
+        \ 'autoload' : {
+        \   'filetypes' : 'javascript'
+        \ }}
 endif
 
 NeoBundleLazy 'thinca/vim-ft-help_fold', {

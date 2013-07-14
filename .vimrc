@@ -158,6 +158,7 @@ call neobundle#config('neocomplcache', {
       \ }})
 
 NeoBundle 'Shougo/neocomplete.vim', '', 'default'
+NeoBundle 'Shougo/context_filetype.vim', '', 'default'
 
 NeoBundle 'Shougo/neocomplcache-rsense', '', 'default'
 call neobundle#config('neocomplcache-rsense', {

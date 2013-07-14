@@ -542,6 +542,9 @@ NeoBundleLazy 'tpope/vim-markdown', { 'autoload' : {
 NeoBundleLazy 'aaronbieber/quicktask', { 'autoload' : {
       \ 'filetypes' : 'quicktask'
       \ }}
+NeoBundleLazy 'davidoc/taskpaper.vim', { 'autoload' : {
+      \ 'filetypes' : 'taskpaper'
+      \ }}
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -1065,6 +1068,9 @@ augroup MyAutoCmd
 
   " Json
   autocmd BufNewfile,BufRead *.json,*.gyp,*.bowerrc,*.jshintrc setfiletype json |setlocal foldmethod=syntax conceallevel=1
+
+  " Taskpaper
+  autocmd BufNewFile,BufRead *.taskpaper setfiletype taskpaper |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
 
   " Quicktask
   autocmd BufNewFile,BufRead *.quicktask setfiletype quicktask |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
@@ -2537,6 +2543,31 @@ unlet bundle
 let bundle = neobundle#get('javascript-libraries-syntax.vim')
 function! bundle.hooks.on_source(bundle)
   let g:used_javascript_libs = 'jquery,underscore,backbone,prelude,angularjs,requirejs'
+endfunction
+
+unlet bundle
+"}}}
+
+" davidoc/taskpaper.vim {{{
+let bundle = neobundle#get('taskpaper.vim')
+function! bundle.hooks.on_source(bundle)
+  autocmd MyAutoCmd FileType taskpaper call s:taskpaper_my_settings()
+  function! s:taskpaper_my_settings()
+    let g:task_paper_date_format = "%Y-%m-%dT%H:%M"
+    let g:task_paper_archive_project = "Archive"
+    let g:task_paper_follow_move = 0
+    let g:task_paper_search_hide_done = 1
+    let g:task_paper_styles={'wait': 'ctermfg=Blue guifg=Blue', 'FAIL': 'ctermbg=Red guibg=Red'}
+    " nnoremap <buffer> <silent> <Leader>tn :<C-u>call taskpaper#add_tag('next', '')<CR>
+    " nnoremap <buffer> <silent> <Leader>tN :<C-u>call taskpaper#delete_tag('next', '')<CR>
+    nnoremap <buffer> <silent> <Leader>tn :<C-u>call taskpaper#toggle_tag('next', '')<CR>
+    nnoremap <buffer> <silent> <Leader>tw :<C-u>call taskpaper#toggle_tag('wait', '')<CR>
+    " nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#add_tag('priority')<CR>
+    " nnoremap <buffer> <silent> <Leader>tQ :<C-u>call taskpaper#delete_tag('priority', '')<CR>
+    " nnoremap <buffer> <silent> <Leader>tQ :<C-u>call taskpaper#delete_tag('priority', '1')<CR> 
+    nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#toggle_tag('priority')<CR>
+    " nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#update_tag('priority')<CR>
+  endfunction
 endfunction
 
 unlet bundle

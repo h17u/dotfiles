@@ -1087,11 +1087,11 @@ augroup MyAutoCmd
   autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
   " TagBar
-  autocmd FileType ada,c,cpp,coffee,go,groovy,haskell,html,
-        \java,javascript,markdown,
-        \perl,php,python,ruby,scala,
-        \tex,vhdl,vim,xml,xquery
-        \ nested :TagbarOpen
+  " autocmd FileType ada,c,cpp,coffee,go,groovy,haskell,html,
+  "       \java,javascript,markdown,
+  "       \perl,php,python,ruby,scala,
+  "       \tex,vhdl,vim,xml,xquery
+  "       \ nested :TagbarOpen
 
   " Enable omni completion.
   autocmd FileType ada setlocal omnifunc=adacomplete#Complete

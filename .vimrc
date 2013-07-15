@@ -2596,6 +2596,27 @@ nnoremap < <<
 xnoremap > >gv
 xnoremap < <gv
 
+" Continuous move block in visualmode {{{
+" http://maarui.doorblog.jp/archives/7530764.html
+" http://d.hatena.ne.jp/tacahiroy/20120926/1348669837
+function! s:move_block(d) range
+  let cnt = a:lastline - a:firstline
+
+  if a:d ==# 'u'
+    let sign = '-'
+    let cnt = 2
+  else
+    let sign = '+'
+    let cnt += 1
+  endif
+
+  execute printf('%d,%dmove%s%d', a:firstline, a:lastline, sign, cnt)
+endfunction
+
+vnoremap <C-n> :call <SID>move_block('d')<Cr>==gv
+vnoremap <C-p> :call <SID>move_block('u')<Cr>==gv
+"}}}
+
 " xnoremap <silent> y "*y:let [@+,@"]=[@*,@*]<CR>
 "}}}
 

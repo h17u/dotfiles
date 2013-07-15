@@ -2496,11 +2496,11 @@ unlet bundle
 " vim-easymotion {{{
 let bundle = neobundle#get('vim-easymotion')
 function! bundle.hooks.on_source(bundle)
-  let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-  let g:EasyMotion_leader_key=";"
+  let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvb'
+  let g:EasyMotion_leader_key="f"
   let g:EasyMotion_grouping=1
-  highlight EasyMotionTarget ctermbg=none ctermfg=red
-  highlight EasyMotionShade  ctermbg=none ctermfg=blue
+  highlight link EasyMotionTarget ErrorMsg
+  highlight link EasyMotionShade  Comment
 endfunction
 
 unlet bundle

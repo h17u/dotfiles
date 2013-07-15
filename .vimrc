@@ -263,7 +263,8 @@ NeoBundleLazy 'kana/vim-operator-replace', {
       \   'mappings' : [
       \     ['nx', '<Plug>(operator-replace)']]
       \ }}
-NeoBundleLazy 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-indent'
 NeoBundleLazy 'Shougo/foldCC',
       \  { 'autoload' : { 'filetypes' : 'vim' }}
 NeoBundleLazy 'mattn/wwwrenderer-vim'

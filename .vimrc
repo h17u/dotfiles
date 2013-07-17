@@ -1918,7 +1918,7 @@ function! bundle.hooks.on_source(bundle)
         \ s:is_mac ? 'qlmanage -p' : 'gloobus-preview'
 
   " Open all git managed files in current directory "{{{
-  let s:git_repo_action = { 'description' : 'all file in the git repository' }
+  let s:git_repo_action = { 'description' : 'open all file in the git repository' }
   function! s:git_repo_action.func(candidate)
     if(system('git rev-parse --is-inside-work-tree') ==# "true\n" )
       execute 'args'
@@ -1928,8 +1928,6 @@ function! bundle.hooks.on_source(bundle)
       echoerr 'Not a git repository!'
     endif
   endfunction "}}}
-
-
   call unite#custom_action('file', 'git_repo_files', s:git_repo_action)
   unlet s:git_repo_action
 

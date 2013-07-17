@@ -1623,10 +1623,12 @@ function! bundle.hooks.on_source(bundle) "{{{
     imap <buffer> <C-z>     <Plug>(unite_toggle_transpose_window)
     imap <buffer> <C-y>     <Plug>(unite_narrowing_path)
     nmap <buffer> <C-y>     <Plug>(unite_narrowing_path)
-    nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+    " nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
     " nmap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
     " imap <buffer> <C-r>     <Plug>(unite_narrowing_input_history)
     " nmap <silent><buffer> <Tab>     :call <SID>NextWindow()<CR>
+    nnoremap <buffer><silent><C-h>   :<C-u>tabprevious<CR>
+    nnoremap <buffer><silent><C-l>   :<C-u>tabnext<CR>
     nnoremap <silent><buffer><expr> l
           \ unite#smart_map('l', unite#do_action('default'))
     nmap <buffer> <C-e>     <Plug>(unite_narrowing_input_history)
@@ -1947,6 +1949,8 @@ function! bundle.hooks.on_source(bundle)
     nnoremap <silent><buffer><expr> gy vimfiler#do_action('tabopen')
     nmap <buffer> p <Plug>(vimfiler_quick_look)
     " nmap <buffer> <Tab> <Plug>(vimfiler_switch_to_other_window)
+    nnoremap <buffer><silent><C-j>   :<C-u>wincmd w<CR>
+    nnoremap <buffer><silent><C-l>   :<C-u>tabnext<CR>
 
     " Migemo search.
     if !empty(unite#get_filters('matcher_migemo'))
@@ -2858,13 +2862,15 @@ nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
 nnoremap <silent> [Window]t  :<C-u>tabnew<CR>
 
-" tab navigation like firefox
+" tab navigation using tab
 nnoremap <silent><S-tab> :<c-u>tabprevious<CR>
 nnoremap <silent><tab>   :<c-u>tabnext<CR>
-" nnoremap <C-S-tab> :tabprevious<CR>
-" nnoremap <C-tab>   :tabnext<CR>
-" inoremap <C-S-tab> <Esc>:tabprevious<CR>i
-" inoremap <C-tab>   <Esc>:tabnext<CR>i
+
+" Window and tab navigation using c-hjkl key
+nnoremap <silent><C-j>   :<C-u>wincmd w<CR>
+nnoremap <silent><C-k>   :<C-u>wincmd W<CR>
+nnoremap <silent><C-h>   :<C-u>tabprevious<CR>
+nnoremap <silent><C-l>   :<C-u>tabnext<CR>
 
 " Tab jump
 for n in range(1, 9)

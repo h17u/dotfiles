@@ -2346,20 +2346,19 @@ function! bundle.hooks.on_source(bundle)
           \ }
           \ }
   endif "}}}
-  " " Javascript "{{{
-  " let g:tagbar_type_javascript = {
-  "       \ 'ctagsbin'  : '/usr/local/bin/node',
-  "       \ 'ctagsargs' : '~/src/estr/estr.js tags ',
-  "       \ 'kinds'     : [
-  "       \ 'f:function',
-  "       \ 'fe:function expression',
-  "       \ 'v:variable',
-  "       \ 've:variable error',
-  "       \ 'vp:variable parameters',
-  "       \ 'export:module properties',
-  "       \ 'prototype:object properties'
-  "       \ ]
-  "       \ } "}}}
+  " Javascript "{{{
+  let g:tagbar_type_javascript = {
+        \ 'ctagstype' : 'js',
+        \ 'kinds'     : [
+        \ 'o:object',
+        \ 'f:function',
+        \ 'a:array',
+        \ 's:string',
+        \ 'b:boolean',
+        \ 'n:number',
+        \ 'v:variable'
+        \ ]
+        \ } "}}}
   " Markdown "{{{
   let g:tagbar_type_markdown = {
         \ 'ctagstype' : 'markdown',

@@ -265,8 +265,7 @@ NeoBundleLazy 'kana/vim-operator-replace', {
       \ }}
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'kana/vim-textobj-indent'
-NeoBundleLazy 'Shougo/foldCC',
-      \  { 'autoload' : { 'filetypes' : 'vim' }}
+NeoBundle 'LeafCage/foldCC'
 NeoBundleLazy 'mattn/wwwrenderer-vim'
 NeoBundleLazy 'mattn/webapi-vim'
 " NeoBundle 'basyura/webapi-vim'
@@ -793,19 +792,13 @@ set foldenable
 " set foldmethod=indent
 set foldmethod=marker
 " Show folding level.
-set foldcolumn=3
+set foldcolumn=0
 set fillchars=vert:\|
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
 set commentstring=%s
+set foldtext=foldCC#foldtext()
+let g:foldCCtext_enable_autofdc_adjuster = 1
 
-if exists('*FoldCCtext')
-  " Use FoldCCtext().
-  set foldtext=FoldCCtext()
-  autocmd MyAutoCmd FileType *
-        \               if &filetype !=# 'help'
-        \             |   setlocal foldtext=FoldCCtext()
-        \             | endif
-endif
 
 " set grepprg=internal
 " set grepprg=grep\ -nH
@@ -3145,16 +3138,16 @@ nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 " xnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zcgv' : 'h'
 " If press l on fold, range fold open.
 " xnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
-noremap [Space]j zj
-noremap [Space]k zk
-noremap [Space]h zc
-noremap [Space]l zo
-noremap [Space]a za
-noremap [Space]m zM
-noremap [Space]i zMzv
-noremap [Space]rr zR
-noremap [Space]f zf
-noremap [Space]d zd
+" noremap [Space]j zj
+" noremap [Space]k zk
+" noremap [Space]h zc
+" noremap [Space]l zo
+" noremap [Space]a za
+" noremap [Space]m zM
+" noremap [Space]i zMzv
+" noremap [Space]rr zR
+" noremap [Space]f zf
+" noremap [Space]d zd
 " noremap [Space]u :<C-u>Unite outline:foldings<CR>
 "}}}
 

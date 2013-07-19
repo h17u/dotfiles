@@ -2853,9 +2853,9 @@ nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
 nnoremap <silent> [Window]t  :<C-u>tabnew<CR>
 
-" tab navigation using tab
-nnoremap <silent><S-tab> :<c-u>tabprevious<CR>
-nnoremap <silent><tab>   :<c-u>tabnext<CR>
+" buffer navigation using tab key
+nnoremap <silent><S-tab> :<c-u>bprevious<CR>
+nnoremap <silent><tab>   :<c-u>bnext<CR>
 
 " Window and tab navigation using c-hjkl key
 nnoremap <silent><C-j>   :<C-u>wincmd w<CR>

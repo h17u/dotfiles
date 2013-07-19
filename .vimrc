@@ -2853,6 +2853,20 @@ nnoremap <silent> [Window]o  :<C-u>only<CR>
 nnoremap <silent> [Window]b  :<C-u>Thumbnail<CR>
 nnoremap <silent> [Window]t  :<C-u>tabnew<CR>
 
+" buffer navigation using tab key
+nnoremap <silent><S-tab> :<c-u>bprevious<CR>
+nnoremap <silent><tab>   :<c-u>bnext<CR>
+
+" Window and tab navigation using c-hjkl key
+nnoremap <silent><C-j>   :<C-u>wincmd w<CR>
+nnoremap <silent><C-k>   :<C-u>wincmd W<CR>
+nnoremap <silent><C-h>   :<C-u>tabprevious<CR>
+nnoremap <silent><C-l>   :<C-u>tabnext<CR>
+
+" Tab jump
+for n in range(1, 9)
+  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
+endfor
 
 " A .vimrc snippet that allows you to move around windows beyond tabs "{{{
 " nnoremap <silent> <Tab> :call <SID>NextWindow()<CR>

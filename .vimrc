@@ -545,7 +545,6 @@ NeoBundleLazy 'aaronbieber/quicktask', { 'autoload' : {
 NeoBundleLazy 'davidoc/taskpaper.vim', { 'autoload' : {
       \ 'filetypes' : 'taskpaper'
       \ }}
-NeoBundle 'fholgado/minibufexpl.vim', '', 'default'
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -2578,38 +2577,6 @@ function! bundle.hooks.on_source(bundle)
     nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#toggle_tag('priority')<CR>
     " nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#update_tag('priority')<CR>
   endfunction
-endfunction
-
-unlet bundle
-"}}}
-
-" fholgado/minibufexpl.vim {{{
-let bundle = neobundle#get('minibufexpl.vim')
-function! bundle.hooks.on_source(bundle)
-  let g:miniBufExplorerAutoStart = 1
-  let g:miniBufExplBuffersNeeded = 1
-
-  let g:miniBufExplSplitBelow=0
-  let g:miniBufExplSplitToEdge=1
-
-  " buffer navigation using tab key
-  nnoremap <silent><S-tab> :<c-u>MBEbb<CR>
-  nnoremap <silent><tab>   :<c-u>MBEbf<CR>
-
-  " Window and tab navigation using c-hjkl key
-  nnoremap <silent><C-j>   :<C-u>wincmd w<CR>
-  nnoremap <silent><C-k>   :<C-u>wincmd W<CR>
-  nnoremap <silent><C-h>   :<C-u>MBEbp<CR>
-  nnoremap <silent><C-l>   :<C-u>MBEbn<CR>
-
-  " MiniBufExpl Colors
-  highlight MBENormal               guifg=#808080 guibg=fg
-  highlight MBEChanged              guifg=#CD5907 guibg=fg
-  highlight MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
-  highlight MBEVisibleChanged       guifg=#F1266F guibg=fg
-  highlight MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
-  highlight MBEVisibleActiveChanged guifg=#F1266F guibg=fg
-
 endfunction
 
 unlet bundle

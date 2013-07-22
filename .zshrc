@@ -59,8 +59,7 @@ setopt magic_equal_subst multios brace_ccl interactive_comments
 
 
 # Interactive operation...
-alias rm='rm -i' cp='cp -i' mv='mv -i'
-alias rr='command rm -rf'
+alias cp='cp -i' mv='mv -i'
 #alias ranking='sort|uniq -c|sort -nr|cat -n'
 #alias df='df -h' du='du -h'
 #alias gd='dirs -v; echo -n "select number: "; read newdir; cd +"$newdir"'
@@ -91,6 +90,16 @@ alias -g U=' --help | head'
 alias -g P=' --help | less'
 alias -g ...='../..'
 alias -g ....='../../..'
+
+# Replace rm with trash
+# https://github.com/rcmdnk/scripts/raw/master/trash.sh
+alias rm='~/bin/trash.sh'
+alias rr='~/bin/trash.sh -rf'
+alias trash='~/bin/trash.sh'
+export TRASHLIST=~/.trashlist
+export TRASHBOX=~/.Trash
+export MAXTRASHBOXSIZE=4096
+export MAXTRASHSIZE=`echo $MAXTRASHBOXSIZE "*" 0.1|bc -l|cut -d. -f1`
 
 
 # Completion

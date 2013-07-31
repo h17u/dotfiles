@@ -2947,11 +2947,14 @@ function! s:CustomBufferDelete(is_force)
 endfunction
 "}}}
 
-" JunkFile
+" JunkFile "{{{
 " nnoremap <silent> [Window]e  :<C-u>JunkfileOpen<CR>
-nnoremap <silent> [Window]e  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+nnoremap <silent> [Window]ee  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+command! -nargs=0 JunkFileGrep :Unite grep:~/.vim_junk -buffer-name=search -auto-preview -no-quit -resume
+nnoremap <silent> [Window]eg  :<C-u>JunkFileGrep<CR>
 command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
       \ strftime('%Y-%m-%d.md'))
+"}}}
 "}}}
 
 " e: Change basic commands "{{{

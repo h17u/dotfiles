@@ -2022,15 +2022,22 @@ endfunction
 autocmd MyAutoCmd FileType qf nnoremap <buffer> r :<C-u>Qfreplace<CR>
 
 " open-browser.vim"{{{
-nmap gs <Plug>(open-browser-wwwsearch)
-
 let bundle = neobundle#get('open-browser.vim')
 function! bundle.hooks.on_source(bundle)
+  let g:openbrowser_open_filepath_in_vim = 0
+  " let g:openbrowser_browser_commands = {'open' : 'open -a Chrome {shellescape(uri)}&'}
+
+  let g:netrw_nogx = 1
+  nmap gx <Plug>(openbrowser-smart-search)
+  vmap gx <Plug>(openbrowser-smart-search)
+
+  nmap gs <Plug>(open-browser-wwwsearch)
+
   nnoremap <Plug>(open-browser-wwwsearch)
         \ :<C-u>call <SID>www_search()<CR>
   function! s:www_search()
     let search_word = input('Please input search word: ', '',
-          \ 'customlist,wwwsearch#cmd_Wwwsearch_complete')
+          \ 'customlist,wwwsearch#cmd_wwwsearch_complete')
     if search_word != ''
       execute 'OpenBrowserSearch' escape(search_word, '"')
     endif

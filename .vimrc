@@ -1218,10 +1218,10 @@ function! bundle.hooks.on_source(bundle)
   let g:neocomplete#lock_buffer_name_pattern =
         \ '\*ku\*\|\.log$\|\.jax$\|\.log\.'
 
-  let g:neocomplete#sources#syntax#min_keyword_length = 3
-  let g:neocomplete#auto_completion_start_length = 3
-  let g:neocomplete#manual_completion_start_length = 3
-  let g:neocomplete#min_keyword_length = 3
+  let g:neocomplete#sources#syntax#min_keyword_length = 2
+  let g:neocomplete#auto_completion_start_length = 2
+  let g:neocomplete#manual_completion_start_length = 2
+  let g:neocomplete#min_keyword_length = 2
 
   " For auto select.
   " let g:neocomplete#enable_complete_select = 1
@@ -1288,7 +1288,7 @@ function! bundle.hooks.on_source(bundle)
         \ 'VimFiler' : 'vimfiler#complete',
         \ 'Vinarise' : 'vinarise#complete',
         \}
-  call neocomplete#custom#source('look', 'min_pattern_length', 4)
+  call neocomplete#custom#source('look', 'min_pattern_length', 2)
 
   " Add directory files
   if !exists('g:neocomplete#sources#dictionary#dictionaries')

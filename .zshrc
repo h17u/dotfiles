@@ -149,8 +149,6 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey '^k' history-beginning-search-backward-end
 bindkey '^j' history-beginning-search-forward-end
-bindkey '\\ep' history-beginning-search-backward-end
-bindkey '\\en' history-beginning-search-forward-end
 bindkey -M vicmd 'q' push-line # Command line stack
 #bindkey -M vicmd 'q' push-line-or-edit
 #bindkey -M vicmd 'q' push-input
@@ -160,14 +158,6 @@ bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
-
-
-# bind UP and DOWN arrow keys
-for keycode in '[' 'O'; do
-  bindkey "^[${keycode}A" history-substring-search-up
-  bindkey "^[${keycode}B" history-substring-search-down
-done
-unset keycode
 
 # bind P and N for EMACS mode
 bindkey -M emacs '^P' history-substring-search-up

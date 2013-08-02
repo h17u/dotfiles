@@ -115,6 +115,12 @@ zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' format '%BCompleting %d%b'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' use-cache yes
+
+# Completion for grunt
+zstyle ':completion::complete:grunt::options:' show_grunt_path yes
+zstyle ':completion::complete:grunt::options:' expire 1
+
 #zstyle ':completion:*' list-colors ''
 
 # LS_COLORS

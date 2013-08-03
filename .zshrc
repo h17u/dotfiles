@@ -73,7 +73,7 @@ alias whence='type -a'                        # where, of a sort
 alias grep='grep --color'                     # show differences in colour
 
 # Some shortcuts for different directory listings
-alias ls='gls --color=auto'
+alias ls='gls --color=auto --time-style=long-iso'
 alias ll='ls -l' la='ls -al'
 alias diff=$(brew --prefix colordiff)/bin/colordiff
 alias git=hub

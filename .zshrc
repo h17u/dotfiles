@@ -78,18 +78,31 @@ alias ll='ls -l' la='ls -al'
 alias diff=$(brew --prefix colordiff)/bin/colordiff
 alias git=hub
 
-# Global alias
+### Global aliases {{{
+#
+# 標準出力を表示しない
+alias -g NL='> /dev/null'
+# 標準出力/標準エラー出力を表示しない
+alias -g NLL='> /dev/null 2>&1'
+# 標準出力を標準エラー出力へ
+alias -g ER='1>&2'
+
 alias -g TELLME="&& say succeeded || say failed"
 alias -g G="| grep"
-alias -g H='| head'
-alias -g L="| less -R"
+alias -g L='| $PAGER'
 alias -g W='| wc'
+alias -g H='| head'
 alias -g T='| tail'
+alias -g S='| sed'
 alias -g V="| vim -R -"
 alias -g U=' --help | head'
 alias -g P=' --help | less'
+alias -g E=' --help | $PAGER'
+alias -g B='| cut | sort | uniq -c | sort -n'
 alias -g ...='../..'
 alias -g ....='../../..'
+
+# }}}
 
 # Replace rm with trash
 # https://github.com/rcmdnk/scripts/raw/master/trash.sh

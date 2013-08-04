@@ -1041,6 +1041,16 @@ set diffopt=filler,icase,iwhite
 set autoindent smartindent
 
 augroup MyAutoCmd
+  " typescript
+  autocmd BufRead,BufNewFile *.ts setl filetype=typescript
+
+  " less
+  autocmd BufRead,BufNewFile *.less setl filetype=less
+
+  " applescript
+  autocmd BufRead,BufNewFile *.applescript,*.scpt setl filetype=applescript
+  autocmd FileType applescript inoremap <buffer> <S-CR>  ￢<CR>
+
   " Enable gauche syntax.
   autocmd FileType scheme nested let b:is_gauche=1 | setlocal lispwords=define |
         \let b:current_syntax='' | syntax enable
@@ -1058,17 +1068,8 @@ augroup MyAutoCmd
   " Markdown
   autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setfiletype markdown
 
-  " Javascript
-  autocmd BufNewfile,BufRead *.js setfiletype javascript |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
-
   " Json
-  autocmd BufNewfile,BufRead *.json,*.gyp,*.bowerrc,*.jshintrc setfiletype json |setlocal foldmethod=syntax conceallevel=1
-
-  " Taskpaper
-  autocmd BufNewFile,BufRead *.taskpaper setfiletype taskpaper |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
-
-  " Quicktask
-  autocmd BufNewFile,BufRead *.quicktask setfiletype quicktask |setlocal foldmethod=indent ts=2 sts=2 sw=2 tw=0
+  autocmd BufNewfile,BufRead *.json,*.gyp,*.bowerrc,*.jshintrc setfiletype json
 
   " Close help and git window by pressing q.
   autocmd FileType help,git-status,git-log,qf,
@@ -1078,8 +1079,6 @@ augroup MyAutoCmd
         \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif
 
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
-
-  autocmd FileType ref nnoremap <buffer> <TAB> <C-w>w
 
   " TagBar
   " autocmd FileType ada,c,cpp,coffee,go,groovy,haskell,html,
@@ -1109,9 +1108,6 @@ augroup MyAutoCmd
   autocmd FileType sql setlocal omnifunc=sqlcomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-  autocmd FileType python setlocal foldmethod=indent
-  autocmd FileType vim setlocal foldmethod=syntax
-
   " Update filetype.
   autocmd BufWritePost *
   \ if &l:filetype ==# '' || exists('b:ftdetect')
@@ -1126,7 +1122,7 @@ augroup MyAutoCmd
   autocmd BufNewFile,BufRead *.t set filetype=hgtest | let hgtest_fold=1
   autocmd Syntax hgtest setlocal foldlevel=1
 
-  autocmd BufRead,BufNewFile .vimperatorrc  setfiletype Vimperator|setlocal commentstring=\ \"%s
+  autocmd BufRead,BufNewFile .vimperatorrc setfiletype vimperator |setlocal commentstring=\ \"%s
 
   " Improved include pattern.
   autocmd FileType html
@@ -1134,6 +1130,55 @@ augroup MyAutoCmd
         \ setlocal path+=./;/
   autocmd FileType php setlocal path+=/usr/local/share/pear
   autocmd FileType apache setlocal path+=./;/
+
+  " Set sw/sts/ts.
+  " sw  : shiftwidth (インデント時に使用されるスペースの数)
+  " sts : softtabstop (0でないなら、タブを入力時、その数値分だけ半角スペースを挿入)
+  " ts  : tabstop (タブを画面で表示する際の幅)
+  " et  : expandtab (有効時、タブを半角スペースとして挿入)
+  " ml  : modeline
+  " tw  : textwidth
+  " modeline : モードラインを有効
+  " http://nanasi.jp/articles/howto/file/modeline.html
+  autocmd!
+  autocmd FileType apache       setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType aspvbs       setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType c            setlocal sw=4 sts=4 ts=4 et fdm=syntax
+  autocmd FileType coffee       setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType cpp          setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType cs           setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType csh          setlocal sw=4 sts=4 ts=4 et fdm=marker
+  autocmd FileType css          setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType diff         setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType eruby        setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType gitcommit    setlocal sw=4 sts=4 ts=4 et fdm=indent tw=72
+  autocmd FileType gitconfig    setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType haml         setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType hgtest       setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType html         setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType java         setlocal sw=4 sts=4 ts=4 noet fdm=syntax
+  autocmd FileType javascript   setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType json         setlocal sw=2 sts=2 ts=2 et fdm=syntax conceallevel=1
+  autocmd FileType less         setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType make         setlocal sw=4 sts=4 ts=4 noet fdm=indent
+  autocmd FileType perl         setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType php          setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType python       setlocal sw=4 sts=4 ts=8 et fdm=indent tw=80
+  autocmd FileType quicktask    setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType ruby         setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType scala        setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType sh           setlocal sw=4 sts=4 ts=4 et fdm=marker
+  autocmd FileType sql          setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType typescript   setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType taskpaper    setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType vb           setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType vim          setlocal sw=2 sts=2 ts=2 et fdm=marker
+  autocmd FileType vimperatorrc setlocal sw=2 sts=2 ts=2 et fdm=marker
+  autocmd FileType wsh          setlocal sw=4 sts=4 ts=4 et fdm=indent
+  autocmd FileType xhtml        setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType xml          setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType yaml         setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType zsh          setlocal sw=4 sts=4 ts=4 et fdm=marker
 augroup END
 
 " PHP

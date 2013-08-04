@@ -545,6 +545,7 @@ NeoBundleLazy 'aaronbieber/quicktask', { 'autoload' : {
 NeoBundleLazy 'davidoc/taskpaper.vim', { 'autoload' : {
       \ 'filetypes' : 'taskpaper'
       \ }}
+NeoBundle 'bling/vim-airline'
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -2650,6 +2651,36 @@ function! bundle.hooks.on_source(bundle)
     nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#toggle_tag('priority')<CR>
     " nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#update_tag('priority')<CR>
   endfunction
+endfunction
+
+unlet bundle
+"}}}
+
+" bling/vim-airline {{{
+let bundle = neobundle#get('vim-airline')
+function! bundle.hooks.on_source(bundle)
+  let g:airline_left_sep = '⮀'
+  let g:airline_left_alt_sep = '⮁'
+  let g:airline_right_sep = '⮂'
+  let g:airline_right_alt_sep = '⮃'
+  let g:airline_branch_prefix = '⭠'
+  let g:airline_readonly_symbol = '⭤'
+  let g:airline_linecolumn_prefix = '⭡'
+  let g:airline_paste_symbol = 'ρ'
+  " let g:airline_left_sep='>'
+  " let g:airline_right_sep='<'
+  let g:airline_enable_branch=1
+  let g:airline_enable_syntastic=1
+  let g:airline_enable_tagbar=1
+  let g:airline_detect_modified=1
+  let g:airline_detect_paste=1
+  let g:airline_detect_iminsert=1
+  let g:airline_theme='dark'
+  let g:airline_powerline_fonts=0
+  let g:airline_mode_map = {}
+  let g:airline_exclude_filenames = []
+  let g:airline_exclude_filetypes = []
+  let g:airline_exclude_preview = 0
 endfunction
 
 unlet bundle

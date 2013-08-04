@@ -282,6 +282,14 @@ function zfman() {
     zman "$w"
 } # }}}
 
+# foreground-vi # {{{
+# http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
+function foreground-vi() {
+  fg %vi
+}
+zle -N foreground-vi
+bindkey '^Z' foreground-vi
+# }}}
 
 # C-x, C-pでコマンドをクリップボードにコピーする
 # http://d.hatena.ne.jp/hiboma/20120315/1331821642

@@ -960,8 +960,20 @@ set t_vb=
 set novisualbell
 
 " Display candidate supplement.
-set nowildmenu
+" set nowildmenu
 set wildmode=list:longest,full
+set wildmenu "{{{
+set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
+set wildignore+=*DS_Store*
+set wildignore+=vendor/rails/**
+set wildignore+=vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/Library/**,*/.rbenv/**
+set wildignore+=*/.nx/**,*.app
+"}}}
 " Increase history amount.
 set history=200
 " Display all the information of the tag by the supplement of the Insert mode.
@@ -1005,7 +1017,7 @@ set previewheight=8
 set helpheight=12
 
 " Don't redraw while macro executing.
-"set lazyredraw
+set lazyredraw
 
 " When a line is long, do not omit it in @.
 set display=lastline
@@ -1031,6 +1043,9 @@ set viewoptions+=cursor,folds
 
 " Diff
 set diffopt=filler,icase,iwhite
+
+" Show current cursorline
+set cursorline
 "}}}
 
 "---------------------------------------------------------------------------
@@ -1040,6 +1055,9 @@ set diffopt=filler,icase,iwhite
 set autoindent smartindent
 
 augroup MyAutoCmd
+  " Go previous editing line when file open
+  autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+
   " typescript
   autocmd BufRead,BufNewFile *.ts setl filetype=typescript
 
@@ -1078,6 +1096,9 @@ augroup MyAutoCmd
         \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif
 
   autocmd FileType gitcommit,qfreplace setlocal nofoldenable
+
+  " Open quickfix after make, grep
+  autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd if len(getqflist()) != 0 | cwindow | endif
 
   " TagBar
   " autocmd FileType ada,c,cpp,coffee,go,groovy,haskell,html,
@@ -3045,11 +3066,6 @@ nmap    F  [Quickfix]
 " Disable Ex-mode.
 nnoremap Q  q
 
-nnoremap [q :cprevious<CR>   " 前へ
-nnoremap ]q :cnext<CR>       " 次へ
-nnoremap [Q :<C-u>cfirst<CR> " 最初へ
-nnoremap ]Q :<C-u>clast<CR>  " 最後へ
-
 " Toggle quickfix window.
 nnoremap <silent> [Quickfix]<Space>
       \ :<C-u>call <SID>toggle_quickfix_window()<CR>
@@ -3062,6 +3078,13 @@ function! s:toggle_quickfix_window() "{{{
     setlocal whichwrap=b,s
   endif
 endfunction
+"}}}
+
+nnoremap [q :cprevious<CR>   " 前へ
+nnoremap ]q :cnext<CR>       " 次へ
+nnoremap [Q :<C-u>cfirst<CR> " 最初へ
+nnoremap ]Q :<C-u>clast<CR>  " 最後へ
+
 "}}}
 
 " Jump mark can restore column."{{{
@@ -3077,6 +3100,7 @@ nnoremap <silent> <C-b> <C-b>
 " Disable ZZ.
 nnoremap ZZ  <Nop>
 
+" TODO Conflict between comment out plugin
 " Like gv, but select the last changed text.
 " nnoremap gc  `[v`]
 " Specify the last changed text as {motion}.
@@ -3298,7 +3322,48 @@ endfunction "}}}
 nnoremap <silent> [Window]y
       \ :<C-u>echo map(synstack(line('.'), col('.')),
       \     'synIDattr(v:val, "name")')<CR>
-"}}}
+
+" Swap tjump
+nnoremap <c-]> g<c-]>
+vnoremap <c-]> g<c-]>
+nnoremap g<c-]> <c-]>
+vnoremap g<c-]> <c-]>
+
+" git-diff-aware version of gf commands. "{{{
+" http://labs.timedia.co.jp/2011/04/git-diff-aware-gf-commands-for-vim.html
+" nnoremap <expr> gf  <SID>do_git_diff_aware_gf('gf')
+nnoremap <expr> gF  <SID>do_git_diff_aware_gf('gF')
+nnoremap <expr> <C-w>f  <SID>do_git_diff_aware_gf('<C-w>f')
+nnoremap <expr> <C-w><C-f>  <SID>do_git_diff_aware_gf('<C-w><C-f>')
+nnoremap <expr> <C-w>F  <SID>do_git_diff_aware_gf('<C-w>F')
+nnoremap <expr> <C-w>gf  <SID>do_git_diff_aware_gf('<C-w>gf')
+nnoremap <expr> <C-w>gF  <SID>do_git_diff_aware_gf('<C-w>gF')
+
+function! s:do_git_diff_aware_gf(command)
+  let target_path = expand('<cfile>')
+  if target_path =~# '^[ab]/'  " with a peculiar prefix of git-diff(1)?
+    if filereadable(target_path) || isdirectory(target_path)
+      return a:command
+    else
+      " BUGS: Side effect - Cursor position is changed.
+      let [_, c] = searchpos('\f\+', 'cenW')
+      return c . '|' . 'v' . (len(target_path) - 2 - 1) . 'h' . a:command
+    endif
+  else
+    return a:command
+  endif
+endfunction
+" TODO
+nnoremap gf :tabedit <cfile><CR>
+vnoremap gf :tabedit <cfile><CR>
+" }}}
+
+" ヤンク、切り取り時にレジスタ"の値をzにもコピーしておく(連続貼付可に使う)
+vnoremap <silent> y y:let @z=@"<CR>
+vnoremap <silent> d d:let @z=@"<CR>
+" ビジュアルモードで選択したテキストを消してレジスタzの内容を貼付ける(連続貼付可)
+vnoremap <silent> p x"zP
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3379,6 +3444,10 @@ function! s:git_pull_all()
 
   lcd `=current_dir`
 endfunction "}}}
+
+" http://vim-users.jp/2009/05/hack17/
+command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
+
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3635,253 +3704,10 @@ set secure
 "}}}
 
 "---------------------------------------------------------------------------
-" Others2:"{{{
+" Experimental:"{{{
 "
 
 
-
-"-------------------------------------------------
-" Function "{{{
-"-------------------------------------------------
-" Paste Modenese "{{{
-let paste_mode = 0 " 0 = normal, 1 = paste
-
-function! Paste_on_off()
-  if g:paste_mode == 0
-    set paste
-    let g:paste_mode = 1
-  else
-    set nopaste
-    let g:paste_mode = 0
-  endif
-  return
-endfunction "}}}
-
-" Paste Mode <F12>
-nnoremap <silent> <F12> :call Paste_on_off()<CR>
-set pastetoggle=<F12>
-
-
-""" Alt key treats as meta key "{{{
-""" http://blog.remora.cx/2012/07/using-alt-as-meta-in-vim.html
-" let c = 'a'
-" while c <= 'z'
-"     execute "set <M-" . c . ">=\e" . c
-"     execute "imap \e" . c . " <M-" . c . ">"
-"     execute "set <M-S-" . c . ">=\e" . toupper(c)
-"     execute "imap \e" . toupper(c) . " <M-" . c . ">"
-"     let c = nr2char(1+char2nr(c))
-" endw
-" }}}
-
-
-" Open junk file."{{{
-""" http://vim-users.jp/2010/11/hack181/
-" command! -nargs=0 JunkFile call s:open_junk_file()
-" function! s:open_junk_file()
-"   let l:junk_dir = $HOME . '/.vim_junk'. strftime('/%Y/%m')
-"   if !isdirectory(l:junk_dir)
-"     call mkdir(l:junk_dir, 'p')
-"   endif
-"
-"   let l:filename = input('Junk Code: ', l:junk_dir.strftime('/%Y-%m-%d-%H%M%S.'))
-"   if l:filename != ''
-"     execute 'edit ' . l:filename
-"   endif
-" endfunction"}}}
-
-
-" git-diff-aware version of gf commands. "{{{
-""" http://labs.timedia.co.jp/2011/04/9-points-to-customize-automatic-indentation-in-vim.html
-"nnoremap <expr> gf  <SID>do_git_diff_aware_gf('gf')
-nnoremap <expr> gF  <SID>do_git_diff_aware_gf('gF')
-nnoremap <expr> <C-w>f  <SID>do_git_diff_aware_gf('<C-w>f')
-nnoremap <expr> <C-w><C-f>  <SID>do_git_diff_aware_gf('<C-w><C-f>')
-nnoremap <expr> <C-w>F  <SID>do_git_diff_aware_gf('<C-w>F')
-nnoremap <expr> <C-w>gf  <SID>do_git_diff_aware_gf('<C-w>gf')
-nnoremap <expr> <C-w>gF  <SID>do_git_diff_aware_gf('<C-w>gF')
-
-function! s:do_git_diff_aware_gf(command)
-  let target_path = expand('<cfile>')
-  if target_path =~# '^[ab]/'  " with a peculiar prefix of git-diff(1)?
-    if filereadable(target_path) || isdirectory(target_path)
-      return a:command
-    else
-      " BUGS: Side effect - Cursor position is changed.
-      let [_, c] = searchpos('\f\+', 'cenW')
-      return c . '|' . 'v' . (len(target_path) - 2 - 1) . 'h' . a:command
-    endif
-  else
-    return a:command
-  endif
-endfunction
-" }}}
-
-" http://vim-users.jp/2009/05/hack17/
-command! -nargs=1 -complete=file Rename f <args>|call delete(expand('#'))
-
-" }}}
-
-"-------------------------------------------------
-" Setting "{{{
-" set encoding=utf-8
-" "set encoding=shift_jis
-" set fileencodings=iso-2022-jp,utf-8,euc-jp,cp932
-" "set fileencodings=cp932,iso-2022-jp,utf-8,euc-jp
-" "set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
-" let $LANG='C'
-" "set helplang=ja,en
-" set helplang=en,ja
-"
-"
-" set laststatus=2
-" set tabstop=4       " numbers of spaces of tab character
-" set shiftwidth=4    " numbers of spaces to (auto)indent
-" set expandtab
-" "set scrolloff=3     " keep 3 lines when scrolling
-" set showcmd         " display incomplete commands
-" set hlsearch        " highlight searches
-" set incsearch       " do incremental searching
-" set ruler           " show the cursor position all the time
-" "set visualbell t_vb=    " turn off error beep/flash
-" "set novisualbell    " turn off visual bell
-" "set nobackup        " do not keep a backup file
-set cursorline
-"
-"
-"
-" "set directory=
-" "set number          " show line numbers
-" set ignorecase      " ignore case when searching
-" set smartcase
-" "set noignorecase   " don't ignore case
-" set nowrapscan
-" set title           " show title in console title bar
-" set ttyfast         " smoother changes
-" "set ttyscroll=0        " turn off scrolling, didn't work well with PuTTY
-" set modeline        " last lines in document sets vim mode
-" set modelines=3     " number lines checked for modelines
-" "set shortmess=atI   " Abbreviate messages
-" "set nostartofline   " don't jump to first character when paging
-" set whichwrap=b,s,h,l,<,>,[,]   " move freely between files
-" "set viminfo='20,<50,s10,h
-"
-" "set autoindent     " always set autoindenting on
-" "set smartindent        " smart indent
-"
-" "set cindent            " cindent
-" "set noautoindent
-" "set nosmartindent
-" "set nocindent
-"
-" "set autowrite      " auto saves changes when quitting and swiching buffer
-" "set expandtab      " tabs are converted to spaces, use only when required
-" set showmatch       " show matching braces, somewhat annoying...
-" set matchtime=5
-
-" set wildmode=longest:full,list:longest
-set wildmenu "{{{
-set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-set wildignore+=*DS_Store*
-set wildignore+=vendor/rails/**
-set wildignore+=vendor/cache/**
-set wildignore+=*.gem
-set wildignore+=log/**
-set wildignore+=tmp/**
-set wildignore+=*.png,*.jpg,*.gif
-set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/Library/**,*/.rbenv/**
-set wildignore+=*/.nx/**,*.app
-"}}}
-set nowrap         " don't wrap lines
-"set list	" タブ文字、行末など不可視文字を表示する
-"set listchars=eol:$,tab:>\ ,extends:<	" listで表示される文字のフォーマットを指定する
-"set clipboard=unnamed,autoselect
-"set splitbelow "新しいウィンドウを下に開く
-"set splitright "新しいウィンドウを右に開く
-
-
-
-" http://vim.wikia.com/wiki/Highlight_unwanted_spaces
-" Show trailing whitepace and spaces before a tab:
-" :autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
-
-
-
-" set helpheight=30
-" :let &keywordprg=':help'
-" :set keywordprg=man\ -s
-
-
-" statusline "{{{
-" http://blog.ruedap.com/entry/20110712/vim_statusline_git_branch_name
-"  set statusline=%<     " 行が長すぎるときに切り詰める位置
-"  set statusline+=[%n]  " バッファ番号
-"  set statusline+=%m    " %m 修正フラグ
-"  set statusline+=%r    " %r 読み込み専用フラグ
-"  set statusline+=%h    " %h ヘルプバッファフラグ
-"  set statusline+=%w    " %w プレビューウィンドウフラグ
-"  set statusline+=%{'['.(&fenc!=''?&fenc:&enc).':'.&ff.']'}  " fileencode, fileformat
-"  set statusline+=%y    " バッファ内のファイルのタイプ
-"  set statusline+=\     " 空白スペース
-"if winwidth(0) >= 130
-"  set statusline+=%F    " バッファ内のファイルのフルパス
-"else
-"  set statusline+=%t    " ファイル名のみ
-"endif
-"  set statusline+=%=    " 左寄せ項目と右寄せ項目の区切り
-"  set statusline+=%{fugitive#statusline()}  " Gitのブランチ名を表示
-"  set statusline+=\ \   " 空白スペース2個
-"  set statusline+=%l   " 何行目にカーソルがあるか
-"  set statusline+=/
-"  set statusline+=%L    " バッファ内の総行数
-"  set statusline+=,
-"  set statusline+=\ \   " 空白スペース2個
-"  set statusline+=%c    " 何列目にカーソルがあるか
-""  set statusline+=%V    " 画面上の何列目にカーソルがあるか
-"  set statusline+=\ \   " 空白スペース2個
-"  set statusline+=%P    " ファイル内の何％の位置にあるか
-"  set statusline+=\ \   " 空白スペース2個
-"  set statusline+=0x%B  " 文字コード
-"  set statusline+=\ \   " 空白スペース2個
-"}}}
-"}}}
-
-
-"""" http://labs.timedia.co.jp/2011/04/javascript-function-lambda-vim.html "{{{
-" setlocal conceallevel=2
-" syntax keyword javascriptlambda function conceal cchar=λ
-" highlight clear conceal
-" highlight link conceal identifier
-" highlight link javaScriptLambda Identifier
-"}}}
-
-"-------------------------------------------------
-" Key-mappings "{{{
-"-------------------------------------------------
-""" tjump
-nnoremap <c-]> g<c-]>
-vnoremap <c-]> g<c-]>
-nnoremap g<c-]> <c-]>
-vnoremap g<c-]> <c-]>
-
-""" http://blog.soichiro.org/?p=66
-" ヴィジュアルモードで選択したテキストをnで検索する(レジスタv使用)
-" vnoremap <silent> n "vy/\V<C-r>=substitute(escape(@v,'\/'),"\n",'\\n','g')<CR><CR>
-" gfでカーソル下のファイル名を新しいタブで開く
-nnoremap gf :tabedit <cfile><CR>
-vnoremap gf :tabedit <cfile><CR>
-" nnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
-" vnoremap gf :call DWM_Stack(1)<CR> :vertical topleft new <cfile><CR>
-" ヤンク、切り取り時にレジスタ"の値をzにもコピーしておく(連続貼付可に使う)
-vnoremap <silent> y y:let @z=@"<CR>
-vnoremap <silent> d d:let @z=@"<CR>
-" ビジュアルモードで選択したテキストを消してレジスタzの内容を貼付ける(連続貼付可)
-vnoremap <silent> p x"zP
-" :makeや:grepをした際に自動的にquickfixが開くようにする
-autocmd QuickfixCmdPost make,grep,grepadd,vimgrep,vimgrepadd if len(getqflist()) != 0 | cwindow | endif
-" ファイルを開いたときに前回の編集箇所に移動
-autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
-" }}}
 
 " }}}
 

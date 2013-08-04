@@ -1169,7 +1169,7 @@ augroup MyAutoCmd
   autocmd FileType sh           setlocal sw=4 sts=4 ts=4 et fdm=marker
   autocmd FileType sql          setlocal sw=4 sts=4 ts=4 et fdm=indent
   autocmd FileType typescript   setlocal sw=4 sts=4 ts=4 et fdm=indent
-  autocmd FileType taskpaper    setlocal sw=2 sts=2 ts=2 et fdm=indent
+  autocmd FileType taskpaper    setlocal sw=2 sts=2 ts=2 noet fdm=indent
   autocmd FileType vb           setlocal sw=4 sts=4 ts=4 et fdm=indent
   autocmd FileType vim          setlocal sw=2 sts=2 ts=2 et fdm=marker
   autocmd FileType vimperatorrc setlocal sw=2 sts=2 ts=2 et fdm=marker

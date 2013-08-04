@@ -545,7 +545,6 @@ NeoBundleLazy 'aaronbieber/quicktask', { 'autoload' : {
 NeoBundleLazy 'davidoc/taskpaper.vim', { 'autoload' : {
       \ 'filetypes' : 'taskpaper'
       \ }}
-NeoBundle 'Changed'
 
 
 NeoBundleLocal ~/.vim/bundle

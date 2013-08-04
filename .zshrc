@@ -71,6 +71,8 @@ alias pd='pushd' po='popd'
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
 alias whence='type -a'                        # where, of a sort
 alias grep='grep --color'                     # show differences in colour
+alias reload='exec zsh -l'
+alias d='dirs -v'
 
 # Some shortcuts for different directory listings
 alias ls='gls --color=auto --time-style=long-iso'

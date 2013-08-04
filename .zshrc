@@ -223,6 +223,8 @@ bindkey -M menuselect 'l' vi-forward-char
 # bind P and N for EMACS mode
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
+bindkey -M emacs '^R' history-incremental-pattern-search-backward
+bindkey -M emacs '^S' history-incremental-pattern-search-forward
 
 # bind k and j for VI mode
 bindkey -M vicmd 'k' history-substring-search-up

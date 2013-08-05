@@ -199,41 +199,123 @@ fi
 
 
 
-# key bindings
+# Key bindings {{{
 bindkey -e #Emacs
 #bindkey -v #VIM
-#bindkey -M emacs
-#bindkey -M vicmd
-#bindkey -M viins
-# zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init
 
+# emacs # {{{
 autoload -Uz history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey '^k' history-beginning-search-backward-end
-bindkey '^j' history-beginning-search-forward-end
-bindkey -M vicmd 'q' push-line # Command line stack
+bindkey -M emacs '^K' history-beginning-search-backward-end
+bindkey -M emacs '^J' history-beginning-search-forward-end
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+bindkey -M emacs '^R' history-incremental-pattern-search-backward
+bindkey -M emacs '^S' history-incremental-pattern-search-forward
+bindkey -M emacs '^T' backward-kill-line
+bindkey -M emacs '^U' kill-line
+bindkey -M emacs '^F' forward-word
+bindkey -M emacs '^B' backward-word
+bindkey -M emacs '^X^U' undo
+bindkey -M emacs '^X^R' redo
+
+# Smart insert-last-word # {{{
+autoload -Uz smart-insert-last-word
+zle -N insert-last-word smart-insert-last-word
+zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
+bindkey -M emacs '^]' insert-last-word
+# }}}
+
+# カーソルが行末だったら1文字削除,それ以外ならlist-expand # {{{
+function _delete-char-or-list-expand() {
+    if [[ -z "${RBUFFER}" ]]; then
+        # the cursor is at the end of the line
+        zle list-expand
+    else
+        zle delete-char
+    fi
+}
+zle -N _delete-char-or-list-expand
+bindkey -M emacs '^D' _delete-char-or-list-expand
+# }}}
+
+# カーソル前の単語をシングルコーテーションで囲む # {{{
+autoload -Uz modify-current-argument
+_quote-previous-word-in-single() {
+    modify-current-argument '${(qq)${(Q)ARG}}'
+    zle vi-forward-blank-word
+}
+zle -N _quote-previous-word-in-single
+bindkey -M emacs '^[S' _quote-previous-word-in-single
+# }}}
+
+# カーソル前の単語をダブルコーテーションで囲む # {{{
+_quote-previous-word-in-double() {
+    modify-current-argument '${(qqq)${(Q)ARG}}'
+    zle vi-forward-blank-word
+}
+zle -N _quote-previous-word-in-double
+bindkey -M emacs '^[D' _quote-previous-word-in-double
+# }}}
+
+# back-wordでの単語境界の設定 # {{{
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars " /@*?_-.[]~=&;!#$%^(){}<>"
+zstyle ':zle:*' word-style unspecified
+WORDCHARS=' /@*?_-.[]~=&;!#$%^(){}<>'
+# }}}
+
+# Command Line Stack の改良版 # {{{
+push_line_and_show_buffer_stack() {
+    POSTDISPLAY="
+stack: $LBUFFER"
+    zle push-line-or-edit
+}
+zle -N push_line_and_show_buffer_stack
+bindkey -M emacs '^[Q' push_line_and_show_buffer_stack
+# }}}
+
+# foreground-vi # {{{
+# http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
+function foreground-vi() {
+  fg %vi
+}
+zle -N foreground-vi
+bindkey -M emacs '^Z' foreground-vi
+# }}}
+
+# C-x, C-pでコマンドをクリップボードにコピーする #{{{
+# http://d.hatena.ne.jp/hiboma/20120315/1331821642
+function pbcopy-buffer() {
+  print -rn $BUFFER | pbcopy
+  zle -M "pbcopy: ${BUFFER}"
+}
+zle -N pbcopy-buffer
+bindkey -M emacs '^x^p' pbcopy-buffer
+# }}}
+# }}}
+
+# vicmd # {{{
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M vicmd 'q' push-line
 #bindkey -M vicmd 'q' push-line-or-edit
 #bindkey -M vicmd 'q' push-input
 bindkey -M vicmd 'H' run-help
+# }}}
+
+# menuselect # {{{
 zmodload zsh/complist
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
+# }}}
 
-# bind P and N for EMACS mode
-bindkey -M emacs '^P' history-substring-search-up
-bindkey -M emacs '^N' history-substring-search-down
-bindkey -M emacs '^R' history-incremental-pattern-search-backward
-bindkey -M emacs '^S' history-incremental-pattern-search-forward
+# }}}
 
-# bind k and j for VI mode
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-
-
-# http://memo.officebrook.net/20090205.html
 function google() { #{{{
   local str opt
   if [ $# != 0 ]; then
@@ -293,11 +375,11 @@ function zman() {
     fi
 } # }}}
 
-# zsh 用語検索
+# zsh 用語検索 # {{{
 # http://qiita.com/mollifier/items/14bbea7503910300b3ba
 function zwman() {
     zman "^       $1"
-}
+} # }}}
 
 # zsh フラグ検索 # {{{
 function zfman() {
@@ -307,24 +389,6 @@ function zfman() {
     zman "$w"
 } # }}}
 
-# foreground-vi # {{{
-# http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
-function foreground-vi() {
-  fg %vi
-}
-zle -N foreground-vi
-bindkey '^Z' foreground-vi
-# }}}
-
-# C-x, C-pでコマンドをクリップボードにコピーする
-# http://d.hatena.ne.jp/hiboma/20120315/1331821642
-function pbcopy-buffer() { #{{{
-  print -rn $BUFFER | pbcopy
-  zle -M "pbcopy: ${BUFFER}"
-}
-zle -N pbcopy-buffer
-bindkey '^x^p' pbcopy-buffer
-#}}}
 
 
 # 20111202

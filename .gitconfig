@@ -1,50 +1,88 @@
 [user]
-	name = Tomonobu Higashikawa
-	email = higashikawa.tomonobu@gmail.com
+  name = Tomonobu Higashikawa
+  email = higashikawa.tomonobu@gmail.com
 [github]
-	user = h17u
-	token = 72fc839ae18a45af11f66adf0fc2127f
+  user = h17u
+  token = 72fc839ae18a45af11f66adf0fc2127f
 [color]
-	ui = true
+  status      = auto
+  diff        = auto
+  branch      = auto
+  interactive = auto
+  grep        = auto
+  ui = true
 [alias]
+  stash-unapply = !git stash show -p | git apply -R
+  hist = log --pretty=format:\"%h %C(yellow)%ad%C(reset) %s%C(red)%d%C(reset) %C(blue)[%an]%C(reset)\" --graph --date=relative
+  # hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+  co = checkout
+  ci = commit
+  st = status --short --branch
+  br = branch
+  type = cat-file -t
+  dump = cat-file -p
+
+  # alias list
+  alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort
+
+  # Make this a git repo
+  this = !git init && git add . && git commit -m \"Initial commit\"
+
+  # Quickly add a file/dir to .gitignore.
+  ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo $1 >>.gitignore
+
+  # http://d.hatena.ne.jp/hirose31/20130724/1374648978
+  pull-dry-run  = !"git fetch origin; B=$(git rev-parse --abbrev-ref HEAD); git diff --stat --summary ${B}..origin/${B}"
+  # Amend with the same message
+  amend = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
+  # mergeの際にconflictが起きたファイルを編集
+  edit-unmerged   = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  # mergeの際にconflictが起きたファイルをadd
+  add-unmerged    = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+  # 指定したコミットで変更されたファイルを編集する
+  modified = "!f() { git diff $1..$1\\^ --name-only | xargs sh -c 'vim "$@" < /dev/tty' - ;}; f" delete-unmerged =  "!f() { git ls-files --deleted | cut -f2 | sort -u ; }; git rm `f`"
+
+  # git branch を最終更新時間でソート
+  brt  = "!f() { for i in `git branch | colrm 1 2` ; do echo `git log --date=iso8601 -n 1 --pretty='format:[%ai] %h' $i` $i ; done ; }; f | sort -r"
+  # ローカルブランチとリモートブランチを削除
+  brdd = !git branch -d "$1" && !git push --delete origin "$1"
+  # $1コミット以降に、統合ブランチ($2)へ取り込まれたトピックブランチの一覧を表示
+  ls-topic = !git log --oneline --abbrev-commit --merges $1..$2 | sed -e "s/.* '//;s/'.*//" | sort | uniq
+
+  # Remove files which have been deleted
+  remove  = !git ls-files -z --deleted | xargs -0 git rm
 [core]
-	excludesfile = /Users/tommy/.gitignore_global
-[alias]
-	stash-unapply = !git stash show -p | git apply -R
-	hist = log --pretty=format:\"%h %C(yellow)%ad%C(reset) %s%C(red)%d%C(reset) %C(blue)[%an]%C(reset)\" --graph --date=relative
-	# hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-	co = checkout
-	ci = commit
-	st = status
-	br = branch
-	type = cat-file -t
-	dump = cat-file -p
-[core]
-	autocrlf = input
-	excludesfile = /Users/tommy/.gitignore_global
-	pager = less
+  autocrlf = input
+  excludesfile = /Users/tommy/.gitignore_global
+  pager = less
+[push]
+  # defaultのpush先はtrackingしているリポジトリ
+  # git push はデフォルトでは、同じブランチ名がリモート上にあるならそれらを全てpushしてしまう
+  # この振る舞いを現在のブランチのみの push に限定することで誤ってpushしてしまうのを防止
+  # tracking=upstream
+  default = tracking
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
 [mergetool "gvimdiff3"]
-	cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+  cmd = gvim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 [mergetool "vimdiff3"]
-	cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
+  cmd = vim -f -d -c \"wincmd J\" \"$MERGED\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"
 [merge]
-	tool = vimdiff3
+  tool = vimdiff3
 [pager]
-	diff = 
+  diff = 
 [diff]
-	tool = vimdiff
-	external = git_diff_wrapper
+  tool = vimdiff
+  external = git_diff_wrapper
 [difftool]
-	prompt = false
+  prompt = false
 [rebase]
-	autosquash = true
+  autosquash = true
 [help]
-	autocorrect = 1
+  autocorrect = 1
 [url "https://"]
-	insteadOf = git://
+  insteadOf = git://

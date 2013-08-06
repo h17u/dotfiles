@@ -446,8 +446,8 @@ fi
 # }}}
 
 # Key bindings {{{
-bindkey -e #Emacs
-#bindkey -v #VIM
+# bindkey -e #Emacs
+bindkey -v #VIM
 
 # emacs # {{{
 autoload -Uz history-search-end
@@ -466,11 +466,35 @@ bindkey -M emacs '^C' send-break
 bindkey -M emacs '^X^U' undo
 bindkey -M emacs '^X^R' redo
 
+# Change keybind to vicmd like vim easy jj escape
+bindkey -M emacs -s 'jj' '^x^v'
+# }}}
+
+# vicmd # {{{
+bindkey -M viins '^K' history-beginning-search-backward-end
+bindkey -M viins '^J' history-beginning-search-forward-end
+bindkey -M viins '^P' history-substring-search-up
+bindkey -M viins '^N' history-substring-search-down
+bindkey -M viins '^R' history-incremental-pattern-search-backward
+bindkey -M viins '^S' history-incremental-pattern-search-forward
+# bindkey -M vicmd 'k' history-substring-search-up   
+# bindkey -M vicmd 'j' history-substring-search-down 
+bindkey -M vicmd 'q' push-line
+#bindkey -M vicmd 'q' push-line-or-edit
+#bindkey -M vicmd 'q' push-input
+bindkey -M vicmd 'H' run-help
+
+# Change keybind to vicmd like vim easy jj escape
+bindkey -M viins -s 'jj' '^['
+# }}}
+
 # like insert-last-word, except that non-words are ignored # {{{
 autoload -Uz smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
 zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
 bindkey -M emacs '^]' insert-last-word
+bindkey -M viins '^]' insert-last-word
+bindkey -M vicmd '^]' insert-last-word
 # }}}
 
 # like delete-char-or-list, except that list-expand is used # {{{
@@ -524,6 +548,7 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M emacs '^Xe' edit-command-line
 bindkey -M emacs '^X^E' edit-command-line
+bindkey -M vicmd '^X^E' edit-command-line
 # }}}
 
 # back-wordでの単語境界の設定 # {{{
@@ -542,12 +567,20 @@ stack: $LBUFFER"
 }
 zle -N push_line_and_show_buffer_stack
 bindkey -M emacs '^[Q' push_line_and_show_buffer_stack
+bindkey -M vicmd 'q' push_line_and_show_buffer_stack
 # }}}
 
 # foreground-vi # {{{
 # http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
+foreground-vi() {
+  fg %vi
+}
+zle -N foreground-vi
+bindkey '^Z' foreground-vi
 # http://gihyo.jp/dev/serial/01/zsh-book/0003?page=2
-bindkey -s '^z' '^[q %\\$EDITOR^m'
+# bindkey -M emacs -s '^z' '^[q %\\$EDITOR^m'
+# bindkey -M viins -s '^z' '^[q %\\$EDITOR^m'
+# bindkey -M vicmd -s '^z' '^[q %\\$EDITOR^m'
 # }}}
 
 # C-x, C-pでコマンドをクリップボードにコピーする #{{{
@@ -558,6 +591,8 @@ function pbcopy-buffer() {
 }
 zle -N pbcopy-buffer
 bindkey -M emacs '^X^P' pbcopy-buffer
+bindkey -M viins '^X^P' pbcopy-buffer
+bindkey -M vicmd '^X^P' pbcopy-buffer
 # }}}
 
 # ls by enter key if buffer is null # {{{
@@ -579,17 +614,8 @@ function do_enter() {
 }
 zle -N do_enter
 bindkey -M emacs '^M' do_enter
-# }}}
-
-# }}}
-
-# vicmd # {{{
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
-bindkey -M vicmd 'q' push-line
-#bindkey -M vicmd 'q' push-line-or-edit
-#bindkey -M vicmd 'q' push-input
-bindkey -M vicmd 'H' run-help
+bindkey -M viins '^M' do_enter
+bindkey -M vicmd '^M' do_enter
 # }}}
 
 # menuselect # {{{

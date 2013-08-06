@@ -92,6 +92,7 @@ alias l=' ls' ll=' ls -lh --time-style=long-iso' la=' ls -alh --time-style=long-
 alias ld=' ls -d' l1=' ls -1d' lt=' tree -F'
 alias diff=$(brew --prefix colordiff)/bin/colordiff
 alias git=hub
+alias vi='$EDITOR'
 # }}}
 
 # Global aliases {{{

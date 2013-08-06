@@ -546,11 +546,8 @@ bindkey -M emacs '^[Q' push_line_and_show_buffer_stack
 
 # foreground-vi # {{{
 # http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
-function foreground-vi() {
-  fg %vi
-}
-zle -N foreground-vi
-bindkey -M emacs '^Z' foreground-vi
+# http://gihyo.jp/dev/serial/01/zsh-book/0003?page=2
+bindkey -s '^z' '^[q %\\$EDITOR^m'
 # }}}
 
 # C-x, C-pでコマンドをクリップボードにコピーする #{{{

@@ -5,6 +5,19 @@ export HISTFILE=~/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=$HISTSIZE
 function history-all { history -E 1 } # 全履歴の一覧を出力する
+function zshaddhistory() { # {{{
+  # http://mollifier.hatenablog.com/entry/20090728/p1
+  local line cmd
+  line=${1%%$'\n'}
+  cmd=${line%% *}
+
+  # 以下の条件をすべて満たすものだけをヒストリに追加する
+  [[ ${#line} -ge 5
+  && ${cmd} != (l|l[sal])
+  && ${cmd} != (c|cd)
+  && ${cmd} != (m|man)
+  ]]
+} # }}}
 # }}}
 
 # Prompt # {{{

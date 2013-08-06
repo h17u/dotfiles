@@ -77,6 +77,7 @@ alias d='dirs -v'
 # Some shortcuts for different directory listings
 alias ls='gls --color=auto --time-style=long-iso'
 alias l=' ls' ll=' ls -lh --time-style=long-iso' la=' ls -alh --time-style=long-iso'
+alias ld=' ls -d' l1=' ls -1d' lt=' tree -F'
 alias diff=$(brew --prefix colordiff)/bin/colordiff
 alias git=hub
 
@@ -92,7 +93,7 @@ alias -g ER='1>&2'
 alias -g TELLME="&& say succeeded || say failed"
 alias -g G="| grep"
 alias -g L='| $PAGER'
-alias -g W='| wc'
+# alias -g W='| wc'
 alias -g H='| head'
 alias -g T='| tail'
 alias -g S='| sed'
@@ -101,8 +102,21 @@ alias -g U=' --help | head'
 alias -g P=' --help | less'
 alias -g E=' --help | $PAGER'
 alias -g B='| cut | sort | uniq -c | sort -n'
+alias -g W='| w3m -T text/html'
 alias -g ...='../..'
 alias -g ....='../../..'
+alias -g .....='../../../..'
+
+if which pbcopy >/dev/null 2>&1 ; then
+    # Mac
+    alias -g C='| pbcopy'
+elif which xsel >/dev/null 2>&1 ; then
+    # Linux
+    alias -g C='| xsel --input --clipboard'
+elif which putclip >/dev/null 2>&1 ; then
+    # Cygwin
+    alias -g C='| putclip'
+fi
 
 # }}}
 
@@ -337,6 +351,8 @@ bindkey -M menuselect 'l' vi-forward-char
 
 # }}}
 
+
+# Functions {{{
 function google() { #{{{
   local str opt
   if [ $# != 0 ]; then
@@ -410,6 +426,18 @@ function zfman() {
     zman "$w"
 } # }}}
 
+# make dir named by current date # {{{
+function make_date_dir_and_cd() {
+    local date_dir=$(date '+%Y-%m-%d')
+    if [ ! -d "$date_dir" ]; then
+        mkdir "$date_dir" || return
+    fi
+    cd "$date_dir"
+}
+alias ddir='make_date_dir_and_cd'
+# }}}
+
+# }}}
 
 
 # 20111202

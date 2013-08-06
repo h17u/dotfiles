@@ -212,22 +212,22 @@ bindkey -M emacs '^J' history-beginning-search-forward-end
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 bindkey -M emacs '^R' history-incremental-pattern-search-backward
-bindkey -M emacs '^S' history-incremental-pattern-search-forward
-bindkey -M emacs '^T' backward-kill-line
+# bindkey -M emacs '^S' history-incremental-pattern-search-forward
 bindkey -M emacs '^U' kill-line
-bindkey -M emacs '^F' forward-word
-bindkey -M emacs '^B' backward-word
+bindkey -M emacs '^T' forward-word
+bindkey -M emacs '^G' backward-word
+bindkey -M emacs '^C' send-break
 bindkey -M emacs '^X^U' undo
 bindkey -M emacs '^X^R' redo
 
-# Smart insert-last-word # {{{
+# like insert-last-word, except that non-words are ignored # {{{
 autoload -Uz smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
 zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:space:]])*'
 bindkey -M emacs '^]' insert-last-word
 # }}}
 
-# カーソルが行末だったら1文字削除,それ以外ならlist-expand # {{{
+# like delete-char-or-list, except that list-expand is used # {{{
 function _delete-char-or-list-expand() {
     if [[ -z "${RBUFFER}" ]]; then
         # the cursor is at the end of the line
@@ -240,23 +240,44 @@ zle -N _delete-char-or-list-expand
 bindkey -M emacs '^D' _delete-char-or-list-expand
 # }}}
 
-# カーソル前の単語をシングルコーテーションで囲む # {{{
+# kill backward one word, # {{{
+# where a word is defined as a series of non-blank characters
+function _kill-backward-blank-word() {
+    zle set-mark-command
+    zle vi-backward-blank-word
+    zle kill-region
+}
+zle -N _kill-backward-blank-word
+bindkey -M emacs '^S' _kill-backward-blank-word
+# }}}
+
+# quote previous word in single or double quote # {{{
 autoload -Uz modify-current-argument
 _quote-previous-word-in-single() {
     modify-current-argument '${(qq)${(Q)ARG}}'
     zle vi-forward-blank-word
 }
 zle -N _quote-previous-word-in-single
-bindkey -M emacs '^[S' _quote-previous-word-in-single
-# }}}
+bindkey -M emacs '^[s' _quote-previous-word-in-single
 
-# カーソル前の単語をダブルコーテーションで囲む # {{{
 _quote-previous-word-in-double() {
     modify-current-argument '${(qqq)${(Q)ARG}}'
     zle vi-forward-blank-word
 }
 zle -N _quote-previous-word-in-double
-bindkey -M emacs '^[D' _quote-previous-word-in-double
+bindkey -M emacs '^[d' _quote-previous-word-in-double
+# }}}
+
+# quote URL # {{{
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+# }}}
+
+# Edit the command line using your visual editor # {{{
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M emacs '^Xe' edit-command-line
+bindkey -M emacs '^X^E' edit-command-line
 # }}}
 
 # back-wordでの単語境界の設定 # {{{
@@ -293,7 +314,7 @@ function pbcopy-buffer() {
   zle -M "pbcopy: ${BUFFER}"
 }
 zle -N pbcopy-buffer
-bindkey -M emacs '^x^p' pbcopy-buffer
+bindkey -M emacs '^X^P' pbcopy-buffer
 # }}}
 # }}}
 

@@ -122,8 +122,8 @@ fi
 
 # Replace rm with trash
 # https://github.com/rcmdnk/scripts/raw/master/trash.sh
-alias rm='~/bin/trash.sh'
-alias rr='~/bin/trash.sh -rf'
+alias rm='~/bin/trash.sh >/dev/null 2>&1'
+alias rr='~/bin/trash.sh -rf >/dev/null 2>&1'
 alias trash='~/bin/trash.sh'
 export TRASHLIST=~/.trashlist
 export TRASHBOX=~/.Trash

@@ -51,6 +51,8 @@
 
   # Remove files which have been deleted
   remove  = !git ls-files -z --deleted | xargs -0 git rm
+
+  pbcopy = !printf "$1" | pbcopy
 [core]
   autocrlf = input
   excludesfile = /Users/tommy/.gitignore_global
@@ -86,3 +88,4 @@
   autocorrect = 1
 [url "https://"]
   insteadOf = git://
+

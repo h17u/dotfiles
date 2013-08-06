@@ -1,13 +1,13 @@
 # .zshrc
 
-# history
+# History # {{{
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000000
 export SAVEHIST=$HISTSIZE
 function history-all { history -E 1 } # 全履歴の一覧を出力する
+# }}}
 
-
-# prompt
+# Prompt # {{{
 #### http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Prompt-Expansion
 local pct=$'%0(?||%18(?||%{\e[31m%}))%#%{\e[m%}'
 #export PROMPT=$'%{\e[$[32+RANDOM%5]m%}%U%B%m%b'"$pct%u "
@@ -15,8 +15,10 @@ export PROMPT=$'%{\e[$[32+RANDOM%5]m%}%n@%m'"$pct "
 #export PROMPT="$pct "
 export RPROMPT='[%39<...<%~]' 
 #export RPROMPT='[%n@%m %39<...<%~]' 
-autoload colors
-colors
+# }}}
+
+# Set basic environment # {{{
+autoload colors && colors
 
 export BROWSER=w3m
 export EDITOR=vim
@@ -39,8 +41,10 @@ case ${UID} in
 esac
 export MANPATH=/opt/local/share/man:$MANPATH
 export MANPATH=/usr/local/share/man:$MANPATH
+export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
+# }}}
 
-# Set shell options
+# Set shell options # {{{
 setopt auto_cd auto_name_dirs auto_pushd pushd_ignore_dups
 setopt extended_history hist_ignore_dups hist_ignore_space hist_save_nodups
 setopt share_history inc_append_history hist_no_store hist_verify hist_reduce_blanks
@@ -55,33 +59,28 @@ setopt magic_equal_subst multios brace_ccl interactive_comments
 # setopt extended_glob
 #setopt globdots
 #setopt xtrace
+# }}}
 
-
-
-# Interactive operation...
+# Aliases # {{{
 alias cp='cp -i' mv='mv -i'
 #alias ranking='sort|uniq -c|sort -nr|cat -n'
 #alias df='df -h' du='du -h'
 #alias gd='dirs -v; echo -n "select number: "; read newdir; cd +"$newdir"'
 alias pd='pushd' po='popd'
 
-
-# Misc :)
-#export LESS=MrXEd
-export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
 alias whence='type -a'                        # where, of a sort
 alias grep='grep --color'                     # show differences in colour
 alias reload='exec zsh -l'
 alias d='dirs -v'
 
-# Some shortcuts for different directory listings
 alias ls='gls --color=auto --time-style=long-iso'
 alias l=' ls' ll=' ls -lh --time-style=long-iso' la=' ls -alh --time-style=long-iso'
 alias ld=' ls -d' l1=' ls -1d' lt=' tree -F'
 alias diff=$(brew --prefix colordiff)/bin/colordiff
 alias git=hub
+# }}}
 
-### Global aliases {{{
+# Global aliases {{{
 #
 # 標準出力を表示しない
 alias -g NL='> /dev/null'
@@ -120,7 +119,7 @@ fi
 
 # }}}
 
-# Replace rm with trash
+# Replace rm with trash # {{{
 # https://github.com/rcmdnk/scripts/raw/master/trash.sh
 alias rm='~/bin/trash.sh >/dev/null 2>&1'
 alias rr='~/bin/trash.sh -rf >/dev/null 2>&1'
@@ -129,6 +128,7 @@ export TRASHLIST=~/.trashlist
 export TRASHBOX=~/.Trash
 export MAXTRASHBOXSIZE=4096
 export MAXTRASHSIZE=`echo $MAXTRASHBOXSIZE "*" 0.1|bc -l|cut -d. -f1`
+# }}}
 
 ### zmv {{{
 #
@@ -178,8 +178,19 @@ alias zmvW="zmv -W"
 
 # }}}
 
+# run-help # {{{
+# http://qiita.com/items/81a9daf716d94b63f94f
+alias run-help >/dev/null 2>&1 && unalias run-help
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-openssl
+autoload -Uz run-help-p4
+autoload -Uz run-help-sudo
+autoload -Uz run-help-svk
+autoload -Uz run-help-svn
+# }}}
 
-# Completion
+# Completion # {{{
 autoload -Uz compinit && compinit
 autoload -Uz bashcompinit && bashcompinit
 source /usr/local/etc/bash_completion.d/tig-completion.bash
@@ -200,7 +211,9 @@ zstyle ':completion::complete:grunt::options:' expire 1
 
 #zstyle ':completion:*' list-colors ''
 
-# LS_COLORS
+# }}}
+
+# LS_COLORS # {{{
 # http://qiita.com/items/84fa4e051c3325098be3
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 #eval $(gdircolors ~/.dircolors/dircolors.256dark)
@@ -210,8 +223,7 @@ eval $(gdircolors ~/.dircolors/dircolors.ansi-universal)
 if [ -n "$LS_COLORS" ]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
-
-
+# }}}
 
 # Key bindings {{{
 bindkey -e #Emacs
@@ -373,7 +385,6 @@ bindkey -M menuselect 'l' vi-forward-char
 
 # }}}
 
-
 # Functions {{{
 function google() { #{{{
   local str opt
@@ -504,8 +515,7 @@ ls_abbrev() { # {{{
 
 # }}}
 
-
-# 20111202
+# PATH #{{{
 # Setup Amazon EC2 Command-Line Tools
 export EC2_HOME=~/.ec2
 export PATH=$PATH:$EC2_HOME/bin
@@ -564,23 +574,13 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 
-# Create and attach tmux session #{{{
-case ${UID} in
-0)
-    ;;
-*)
-    # iTerm2
-    if [ $ITERM_SESSION_ID ]; then
-        ~/bin/tmux_open_windows.sh 2>&1
-    fi
-esac #}}}
-
 # Remove duplicate $PATH entries
 # http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command 
 export PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export NODE_PATH=`echo -n $NODE_PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 #typeset -U path cdpath fpath manpath
+# }}}
 
 # antigen #{{{
 if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
@@ -760,19 +760,20 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
 fi
 #}}}
 
-# tmuxinator
+# Create and attach tmux session #{{{
+case ${UID} in
+0)
+    ;;
+*)
+    # iTerm2
+    if [ $ITERM_SESSION_ID ]; then
+        ~/bin/tmux_open_windows.sh 2>&1
+    fi
+esac #}}}
+
+# tmuxinator # {{{
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-
-# http://qiita.com/items/81a9daf716d94b63f94f
-alias run-help >/dev/null 2>&1 && unalias run-help
-autoload -Uz run-help
-autoload -Uz run-help-git
-autoload -Uz run-help-openssl
-autoload -Uz run-help-p4
-autoload -Uz run-help-sudo
-autoload -Uz run-help-svk
-autoload -Uz run-help-svn
-
+# }}}
 
 
 # -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-

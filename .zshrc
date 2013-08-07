@@ -1105,19 +1105,20 @@ makemodal () { # {{{
     zle -N "$1"
 } #}}}
 
-# Extend widgets
-makemodal vi-add-eol           INSERT
-makemodal vi-add-next          INSERT
-makemodal vi-change            INSERT
-makemodal vi-change-eol        INSERT
-makemodal vi-change-whole-line INSERT
-makemodal vi-insert            INSERT
-makemodal vi-insert-bol        INSERT
-makemodal vi-open-line-above   INSERT
-makemodal vi-substitute        INSERT
-makemodal vi-open-line-below   INSERT 1
-makemodal vi-replace           REPLACE
-makemodal vi-cmd-mode          NORMAL
+# Extend widgets #{{{
+# makemodal vi-add-eol           INSERT
+# makemodal vi-add-next          INSERT
+# makemodal vi-change            INSERT
+# makemodal vi-change-eol        INSERT
+# makemodal vi-change-whole-line INSERT
+# makemodal vi-insert            INSERT
+# makemodal vi-insert-bol        INSERT
+# makemodal vi-open-line-above   INSERT
+# makemodal vi-substitute        INSERT
+# makemodal vi-open-line-below   INSERT 1
+# makemodal vi-replace           REPLACE
+# makemodal vi-cmd-mode          NORMAL
+#}}}
 
 unfunction makemodal
 # }}}
@@ -1166,7 +1167,7 @@ if [ -n "$TMUX" ]; then
   tmux set -g status-right "${statr1a}${statr1}${statr2a}${statr2}" > /dev/null
 else
   # zsh
-  showmode $vimode
+  # showmode $vimode
 fi
 }
 zle -N zle-line-init

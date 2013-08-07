@@ -1,3 +1,2 @@
 #!/bin/sh
-uptime | sed -e 's/.* up *\(.*\)/\1/' -e 's/\(.*\),.* user.*/\1/' | awk -F, '{print $1 $2}' | tr -s ' '
-
+uptime | awk -F\  '{print $(NF - 2),$(NF - 1),$NF}'

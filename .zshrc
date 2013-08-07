@@ -1122,6 +1122,56 @@ makemodal vi-cmd-mode          NORMAL
 unfunction makemodal
 # }}}
 
+# Update tmux status line # {{{
+function zle-line-init zle-keymap-select {
+vimode="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
+
+# update status line
+if [ -n "$TMUX" ]; then
+  # tmux
+  if [ $vimode = "NORMAL" ]; then #{{{
+    statbg="colour236"
+    statfg="colour247"
+    statl1bg="colour240"
+    statl1fg="colour231"
+    statl2bg="colour148"
+    statl2fg="colour22"
+    statr1bg="colour240"
+    statr1fg="colour247"
+    statr2bg="colour252"
+    statr2fg="colour236"
+  else
+    statbg="colour24"
+    statfg="colour117"
+    statl1bg="colour31"
+    statl1fg="colour231"
+    statl2bg="colour231"
+    statl2fg="colour23"
+    statr1bg="colour31"
+    statr1fg="colour117"
+    statr2bg="colour117"
+    statr2fg="colour23"
+  fi #}}}
+  tmux set -g status-bg ${statbg} > /dev/null
+  tmux set -g status-fg ${statfg} > /dev/null
+  statl1="#[bg=${statl1bg}, fg=${statl1fg}] #H "
+  statl1a="#[bg=${statbg}, fg=${statl1bg}]⮀"
+  statl2="#[bg=${statl2bg}, fg=${statl2fg}] $vimode "
+  statl2a="#[bg=${statl1bg}, fg=${statl2bg}]⮀"
+  tmux set -g status-left "${statl2}${statl2a}${statl1}${statl1a}" > /dev/null
+  statr1="#[bg=${statr1bg}, fg=${statr1fg}] #($HOME/bin/battery.sh) "
+  statr1a="#[bg=${statbg}, fg=${statr1bg}]⮂"
+  statr2="#[bg=${statr2bg}, fg=${statr2fg}] %Y-%m-%d(%a) %H:%M "
+  statr2a="#[bg=${statr1bg}, fg=${statr2bg}]⮂"
+  tmux set -g status-right "${statr1a}${statr1}${statr2a}${statr2}" > /dev/null
+else
+  # zsh
+  showmode $vimode
+fi
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+# }}}
 
 
 # -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-

@@ -199,13 +199,9 @@ function zshaddhistory() { # {{{
 # }}}
 
 # Prompt # {{{
-#### http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html#Prompt-Expansion
-local pct=$'%0(?||%18(?||%{\e[31m%}))%#%{\e[m%}'
-#export PROMPT=$'%{\e[$[32+RANDOM%5]m%}%U%B%m%b'"$pct%u "
-export PROMPT=$'%{\e[$[32+RANDOM%5]m%}%n@%m'"$pct "
-#export PROMPT="$pct "
-export RPROMPT='[%39<...<%~]' 
-#export RPROMPT='[%n@%m %39<...<%~]' 
+# local pct=$'%0(?||%18(?||%{\e[31m%}))%#%{\e[m%}'
+# export PROMPT=$'%{\e[$[32+RANDOM%5]m%}%n@%m'"$pct "
+# export RPROMPT='[%39<...<%~]'
 # }}}
 
 # Set basic environment # {{{

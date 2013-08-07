@@ -1127,8 +1127,10 @@ vimode="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
 if [ -n "$TMUX" ]; then
   # tmux
   if [ $vimode = "NORMAL" ]; then #{{{
-    statbg="colour236"
-    statfg="colour247"
+    # statbg="colour236"
+    # statfg="colour247"
+    statbg="black"
+    statfg="cyan"
     statl1bg="colour240"
     statl1fg="colour231"
     statl2bg="colour148"
@@ -1138,8 +1140,10 @@ if [ -n "$TMUX" ]; then
     statr2bg="colour252"
     statr2fg="colour236"
   else
-    statbg="colour24"
-    statfg="colour117"
+    # statbg="colour24"
+    # statfg="colour117"
+    statbg="black"
+    statfg="cyan"
     statl1bg="colour31"
     statl1fg="colour231"
     statl2bg="colour231"
@@ -1156,11 +1160,14 @@ if [ -n "$TMUX" ]; then
   statl2="#[bg=${statl2bg}, fg=${statl2fg}] $vimode "
   statl2a="#[bg=${statl1bg}, fg=${statl2bg}]⮀"
   tmux set -g status-left "${statl2}${statl2a}${statl1}${statl1a}" > /dev/null
+  statr0="#[bg=${statr2bg}, fg=${statr2fg}] #($HOME/bin/load_average.sh) "
+  statr0a="#[bg=${statr1bg}, fg=${statr2bg}]⮂"
   statr1="#[bg=${statr1bg}, fg=${statr1fg}] #($HOME/bin/battery.sh) "
   statr1a="#[bg=${statbg}, fg=${statr1bg}]⮂"
   statr2="#[bg=${statr2bg}, fg=${statr2fg}] %Y-%m-%d(%a) %H:%M "
   statr2a="#[bg=${statr1bg}, fg=${statr2bg}]⮂"
-  tmux set -g status-right "${statr1a}${statr1}${statr2a}${statr2}" > /dev/null
+  # tmux set -g status-right "${statr1a}${statr1}${statr2a}${statr2}" > /dev/null
+  tmux set -g status-right "${statr0a}${statr0}${statr1a}${statr1}${statr2a}${statr2}" > /dev/null
 else
   # zsh
   # showmode $vimode

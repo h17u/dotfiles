@@ -650,13 +650,14 @@ bindkey -M viins '^J' history-beginning-search-forward-end
 bindkey -M viins '^P' history-substring-search-up
 bindkey -M viins '^N' history-substring-search-down
 bindkey -M viins '^R' history-incremental-pattern-search-backward
-bindkey -M viins '^S' history-incremental-pattern-search-forward
-# bindkey -M vicmd 'k' history-substring-search-up   
-# bindkey -M vicmd 'j' history-substring-search-down 
-bindkey -M vicmd 'q' push-line
+# bindkey -M viins '^S' history-incremental-pattern-search-forward
+bindkey -M viins '^C' send-break
+bindkey -M vicmd 'k' history-beginning-search-backward
+bindkey -M vicmd 'j' history-beginning-search-forward
+# bindkey -M vicmd 'q' push-line
 #bindkey -M vicmd 'q' push-line-or-edit
 #bindkey -M vicmd 'q' push-input
-bindkey -M vicmd 'H' run-help
+bindkey -M vicmd 'K' run-help
 
 # Change keybind to vicmd like vim easy jj escape
 bindkey -M viins -s 'jj' '^['
@@ -682,6 +683,7 @@ function _delete-char-or-list-expand() {
 }
 zle -N _delete-char-or-list-expand
 bindkey -M emacs '^D' _delete-char-or-list-expand
+bindkey -M viins '^D' _delete-char-or-list-expand
 # }}}
 
 # kill backward one word, # {{{
@@ -693,6 +695,7 @@ function _kill-backward-blank-word() {
 }
 zle -N _kill-backward-blank-word
 bindkey -M emacs '^S' _kill-backward-blank-word
+bindkey -M viins '^S' _kill-backward-blank-word
 # }}}
 
 # quote previous word in single or double quote # {{{
@@ -703,6 +706,7 @@ _quote-previous-word-in-single() {
 }
 zle -N _quote-previous-word-in-single
 bindkey -M emacs '^[s' _quote-previous-word-in-single
+bindkey -M vicmd '^X^S' _quote-previous-word-in-single
 
 _quote-previous-word-in-double() {
     modify-current-argument '${(qqq)${(Q)ARG}}'
@@ -710,6 +714,7 @@ _quote-previous-word-in-double() {
 }
 zle -N _quote-previous-word-in-double
 bindkey -M emacs '^[d' _quote-previous-word-in-double
+bindkey -M vicmd '^X^D' _quote-previous-word-in-double
 # }}}
 
 # quote URL # {{{

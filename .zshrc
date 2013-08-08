@@ -747,7 +747,7 @@ bindkey -M vicmd 'q' push_line_and_show_buffer_stack
 # foreground-vi # {{{
 # http://chneukirchen.org/blog/archive/2012/02/10-new-zsh-tricks-you-may-not-know.html
 foreground-vi() {
-  fg %vi
+  fg %$ED
 }
 zle -N foreground-vi
 bindkey '^Z' foreground-vi

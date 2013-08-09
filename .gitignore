@@ -6,6 +6,7 @@ bin/seagull
 
 #Git below:
 !/.zshrc
+!/.zprofile
 !/.vimrc
 !/.secret_vimrc
 !/.vimperatorrc

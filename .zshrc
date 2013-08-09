@@ -647,18 +647,19 @@ bindkey -M emacs -s 'jj' '^x^v'
 # }}}
 
 # vicmd # {{{
-bindkey -M viins '^K' history-beginning-search-backward-end
-bindkey -M viins '^J' history-beginning-search-forward-end
+bindkey -M viins '^K' history-beginning-search-backward
+bindkey -M viins '^J' history-beginning-search-forward
 bindkey -M viins '^P' history-substring-search-up
 bindkey -M viins '^N' history-substring-search-down
 bindkey -M viins '^R' history-incremental-pattern-search-backward
 # bindkey -M viins '^S' history-incremental-pattern-search-forward
+bindkey -M viins '^A' beginning-of-line
+bindkey -M viins '^E' end-of-line
 bindkey -M viins '^C' send-break
-bindkey -M vicmd 'k' history-beginning-search-backward
-bindkey -M vicmd 'j' history-beginning-search-forward
-# bindkey -M vicmd 'q' push-line
-#bindkey -M vicmd 'q' push-line-or-edit
-#bindkey -M vicmd 'q' push-input
+bindkey -M vicmd 'k' vi-up-line-or-history
+bindkey -M vicmd 'j' vi-down-line-or-history
+bindkey -M vicmd 'u' undo
+bindkey -M vicmd '^R' redo
 bindkey -M vicmd 'K' run-help
 
 # Change keybind to vicmd like vim easy jj escape
@@ -672,20 +673,6 @@ zstyle :insert-last-word match '*([^[:space:]][[:alpha:]/\\]|[[:alpha:]/\\][^[:s
 bindkey -M emacs '^]' insert-last-word
 bindkey -M viins '^]' insert-last-word
 bindkey -M vicmd '^]' insert-last-word
-# }}}
-
-# like delete-char-or-list, except that list-expand is used # {{{
-function _delete-char-or-list-expand() {
-    if [[ -z "${RBUFFER}" ]]; then
-        # the cursor is at the end of the line
-        zle list-expand
-    else
-        zle delete-char
-    fi
-}
-zle -N _delete-char-or-list-expand
-bindkey -M emacs '^D' _delete-char-or-list-expand
-bindkey -M viins '^D' _delete-char-or-list-expand
 # }}}
 
 # kill backward one word, # {{{
@@ -758,10 +745,6 @@ foreground-vi() {
 }
 zle -N foreground-vi
 bindkey '^Z' foreground-vi
-# http://gihyo.jp/dev/serial/01/zsh-book/0003?page=2
-# bindkey -M emacs -s '^z' '^[q %\\$EDITOR^m'
-# bindkey -M viins -s '^z' '^[q %\\$EDITOR^m'
-# bindkey -M vicmd -s '^z' '^[q %\\$EDITOR^m'
 # }}}
 
 # C-x, C-pでコマンドをクリップボードにコピーする #{{{

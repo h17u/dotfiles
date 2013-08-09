@@ -321,6 +321,11 @@ export MAXTRASHBOXSIZE=4096
 export MAXTRASHSIZE=`echo $MAXTRASHBOXSIZE "*" 0.1|bc -l|cut -d. -f1`
 # }}}
 
+# Enable visual-mode like vim # {{{
+# http://zshscreenvimvimpwget.blog27.fc2.com/blog-entry-3.html
+source $HOME/.zsh/zsh_vim_visualmode/vim_visualmode.plugin.zsh
+# }}}
+
 ### zmv {{{
 #
 #   簡単に複数ファイルのリネームが可能

@@ -205,6 +205,7 @@ function zshaddhistory() { # {{{
 # }}}
 
 # Set basic environment # {{{
+umask 002
 autoload -Uz colors && colors
 autoload -Uz add-zsh-hook
 
@@ -244,6 +245,7 @@ setopt multibyte print_eight_bit
 setopt auto_menu
 setopt auto_param_slash auto_remove_slash
 setopt magic_equal_subst multios brace_ccl interactive_comments
+setopt ignoreeof # forces the user to type exit or logout,  instead of just pressing ^D.
 # setopt extended_glob
 #setopt globdots
 #setopt xtrace

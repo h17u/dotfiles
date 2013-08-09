@@ -21,6 +21,7 @@
   br = branch
   type = cat-file -t
   dump = cat-file -p
+  a = add
 
   # alias list
   alias = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\\t => \\2/' | sort

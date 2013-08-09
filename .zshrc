@@ -214,7 +214,13 @@ export EDITOR=vim
 set meta-flag on set input-meta on set output-meta on set convert-meta off # for japanese
 export TERM=xterm-256color
 export PAGER=less
-export MANPAGER='less -R'
+export MANPAGER="/bin/sh -c \"col -b -x | \
+  vim -R -c 'set ft=man ts=8 nomod nolist nonu noma' \
+  -c 'map q :q<CR>' \
+  -c 'map b <C-U>' \
+  -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' \
+  -c 'nnoremap i <nop>' \
+  -\""
 export GREP_OPTIONS='--color=auto'
 #export LANG=ja_JP.UTF-8
 #export LANG=C

@@ -937,6 +937,12 @@ ls_abbrev() { # {{{
     fi
 } # }}}
 
+# kill background jobs # {{{
+function kill-jobs() {
+  if [ "$(jobs -p)" ]; then kill $(jobs -p); fi
+}
+# }}}
+
 # }}}
 
 # PATH #{{{

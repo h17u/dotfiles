@@ -1,7 +1,7 @@
 #!/bin/sh
-TEMP=/var/tmp/load_average
+TEMP=/var/tmp/rainbarf
 if  [ ! -e $TEMP  ] || [ $(( $(date +%s) - $(date +%s -r $TEMP) )) -gt 10 ]; then
-  nice -n 19 uptime | awk -F\  '{print "" $(NF - 1)}' | sed 's/,//g' >$TEMP
+  nice -n 19 rainbarf --width 20 --bolt --rgb >$TEMP
 fi
 cat $TEMP
 

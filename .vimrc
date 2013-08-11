@@ -319,10 +319,6 @@ NeoBundleLazy 'Shougo/unite-help', { 'autoload' : {
 NeoBundleLazy 'tsukkee/unite-tag', { 'autoload' : {
       \ 'unite_sources' : 'tag'
       \ }}
-NeoBundleLazy 'tyru/caw.vim', { 'autoload' : {
-      \ 'mappings' : [
-      \   '<Plug>(caw:prefix)', '<Plug>(caw:i:toggle)']
-      \ }}
 NeoBundle 'tyru/open-browser.vim', { 'autoload' : {
       \ 'filetypes' : 'markdown',
       \ 'mappings' : [
@@ -2119,25 +2115,6 @@ function! bundle.hooks.on_source(bundle)
 endfunction
 
 unlet bundle
-"}}}
-
-" caw.vim"{{{
-autocmd MyAutoCmd FileType * call s:init_caw()
-function! s:init_caw()
-  if !&l:modifiable
-    silent! nunmap <buffer> gc
-    silent! xunmap <buffer> gc
-    silent! nunmap <buffer> gcc
-    silent! xunmap <buffer> gcc
-
-    return
-  endif
-
-  nmap <buffer> gc <Plug>(caw:prefix)
-  xmap <buffer> gc <Plug>(caw:prefix)
-  nmap <buffer> gcc <Plug>(caw:i:toggle)
-  xmap <buffer> gcc <Plug>(caw:i:toggle)
-endfunction
 "}}}
 
 " autodate.vim"{{{

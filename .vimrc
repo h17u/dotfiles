@@ -3116,12 +3116,11 @@ nnoremap <silent> <C-b> <C-b>
 " Disable ZZ.
 nnoremap ZZ  <Nop>
 
-" TODO Conflict between comment out plugin
 " Like gv, but select the last changed text.
-" nnoremap gc  `[v`]
+nnoremap gc  `[v`]
 " Specify the last changed text as {motion}.
-" vnoremap <silent> gc  :<C-u>normal gc<CR>
-" onoremap <silent> gc  :<C-u>normal gc<CR>
+vnoremap <silent> gc  :<C-u>normal gc<CR>
+onoremap <silent> gc  :<C-u>normal gc<CR>
 
 " Auto escape / and ? in search command.
 cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'

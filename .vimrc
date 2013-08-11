@@ -495,7 +495,6 @@ NeoBundle 'taka84u9/vim-ref-ri', { 'autoload' : {
       \ }}
 " NeoBundle 'terryma/vim-expand-region', '', 'default'
 " NeoBundle 'terryma/vim-smooth-scroll', '', 'default'
-" NeoBundle 'osyo-manga/vim-anzu', '', 'default'
 " NeoBundle 'tpope/vim-surround', '', 'default'
 " NeoBundle 'tpope/vim-speeddating', '', 'default'
 " NeoBundle 'tpope/vim-abolish', '', 'default'
@@ -543,6 +542,7 @@ NeoBundleLazy 'davidoc/taskpaper.vim', { 'autoload' : {
       \ }}
 NeoBundle 'bling/vim-airline'
 NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'osyo-manga/vim-anzu'
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -2673,6 +2673,17 @@ endfunction
 unlet bundle
 "}}}
 
+" osyo-manga/vim-anzu {{{
+let bundle = neobundle#get('vim-anzu')
+function! bundle.hooks.on_source(bundle)
+  nmap n <Plug>(anzu-n-with-echo)
+  nmap N <Plug>(anzu-N-with-echo)
+  nmap * <Plug>(anzu-star-with-echo)
+  nmap # <Plug>(anzu-sharp-with-echo)
+endfunction
+
+unlet bundle
+"}}}
 
 "}}}
 

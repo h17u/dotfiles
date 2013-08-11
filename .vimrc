@@ -721,7 +721,9 @@ set smartcase
 " Enable incremental search.
 set incsearch
 " Don't highlight search result.
-set nohlsearch
+"set nohlsearch
+" Enable highlight search result.
+set hlsearch
 
 " Searches wrap around the end of the file.
 set wrapscan
@@ -1467,8 +1469,8 @@ let g:vinarise_enable_auto_detect = 1
 " The prefix key.
 nnoremap    [unite]   <Nop>
 xnoremap    [unite]   <Nop>
-nmap    ;f [unite]
-xmap    ;f [unite]
+nmap    ; [unite]
+xmap    ; [unite]
 cabbrev unite Unite
 
 
@@ -1505,18 +1507,18 @@ nnoremap <silent><expr> [Tag]p  &filetype == 'help' ?
 "}}}
 
 " Search.
-nnoremap <silent> /
+nnoremap <silent> [Alt]/
       \ :<C-u>Unite -buffer-name=search -auto-preview -start-insert line:forward<CR>
 nnoremap <expr> g/  <SID>smart_search_expr('g/',
       \ ":\<C-u>Unite -buffer-name=search -auto-preview -start-insert line_migemo\<CR>")
-nnoremap <silent> ?
+nnoremap <silent> [Alt]?
       \ :<C-u>Unite -buffer-name=search -auto-preview -start-insert line:backward<CR>
-nnoremap <silent> *
+nnoremap <silent> [Alt]*
       \ :<C-u>UniteWithCursorWord -buffer-name=search -auto-preview line:forward<CR>
-nnoremap <silent> #
+nnoremap <silent> [Alt]#
       \ :<C-u>UniteWithCursorWord -buffer-name=search -auto-preview line:backward<CR>
-nnoremap [Alt]/       /
-nnoremap [Alt]?       ?
+"nnoremap [Alt]/       /
+"nnoremap [Alt]?       ?
 cnoremap <expr><silent><C-g>        (getcmdtype() == '/') ?
       \ "\<ESC>:Unite -buffer-name=search -no-split line -input=".getcmdline()."\<CR>" : "\<C-g>"
 
@@ -1524,7 +1526,7 @@ function! s:smart_search_expr(expr1, expr2)
   return line('$') > 5000 ?  a:expr1 : a:expr2
 endfunction
 
-nnoremap <silent> n  :<C-u>UniteResume search -no-start-insert<CR>
+nnoremap <silent> [Alt]n  :<C-u>UniteResume search -no-start-insert<CR>
 
 let g:unite_source_history_yank_enable = 1
 

@@ -542,6 +542,7 @@ NeoBundleLazy 'davidoc/taskpaper.vim', { 'autoload' : {
       \ 'filetypes' : 'taskpaper'
       \ }}
 NeoBundle 'bling/vim-airline'
+NeoBundle 'scrooloose/nerdcommenter'
 
 
 NeoBundleLocal ~/.vim/bundle

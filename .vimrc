@@ -1088,7 +1088,7 @@ augroup MyAutoCmd
 
   " Close help and git window by pressing q.
   autocmd FileType help,git-status,git-log,qf,
-        \gitcommit,quickrun,qfreplace,ref
+        \gitcommit,git,gitrebase,gitsendemail,quickrun,qfreplace,ref
         \ nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>
   autocmd FileType * if (&readonly || !&modifiable) && !hasmapto('q', 'n')
         \ | nnoremap <buffer><silent> q :<C-u>call <sid>smart_close()<CR>| endif

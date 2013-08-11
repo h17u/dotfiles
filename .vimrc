@@ -3392,6 +3392,8 @@ vnoremap <silent> d d:let @z=@"<CR>
 " ビジュアルモードで選択したテキストを消してレジスタzの内容を貼付ける(連続貼付可)
 vnoremap <silent> p x"zP
 
+" Write if buffer is edited
+nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
 "}}}
 
 "---------------------------------------------------------------------------

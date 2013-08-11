@@ -15,8 +15,8 @@
   stash-unapply = !git stash show -p | git apply -R
   hist = log --pretty=format:\"%h %C(yellow)%ad%C(reset) %s%C(red)%d%C(reset) %C(blue)[%an]%C(reset)\" --graph --date=relative
   # hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
-  co = checkout
-  ci = commit
+  ch = checkout
+  co = commit
   st = status --short --branch
   br = branch
   type = cat-file -t

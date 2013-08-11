@@ -1843,6 +1843,12 @@ let g:quickrun_config['markdown'] = {
       \ 'outputter': 'browser',
       \ 'exec': '%c --input=markdown --output=html %o %s %a 2>/dev/null',
       \ }
+let g:quickrun_config['html'] = {
+      \ 'command' : 'cat',
+      \ 'exec' : ['%c %s'],
+      \ 'outputter': 'browser',
+      \ 'hook/time/enable': '0'
+      \ }
 "}}}
 
 " python.vim
@@ -2097,6 +2103,7 @@ function! bundle.hooks.on_source(bundle)
   let g:netrw_nogx = 1
   nmap gx <Plug>(openbrowser-smart-search)
   vmap gx <Plug>(openbrowser-smart-search)
+  nmap <silent> gb :exec 'silent !open -a Google\ Chrome % &'
 
   nmap gs <Plug>(open-browser-wwwsearch)
 

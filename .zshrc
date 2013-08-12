@@ -1129,62 +1129,84 @@ unfunction makemodal
 # }}}
 
 # Update tmux status line # {{{
-function zle-line-init zle-keymap-select {
-vimode="${${KEYMAP/vicmd/NORMAL}/(main|viins)/INSERT}"
+function zle-keymap-select zle-line-init zle-line-finish {
+vimode="${${KEYMAP/vicmd/n}/(main|viins)/i}"
+
+# update prompt
+case $KEYMAP in # {{{
+  vicmd)
+    PROMPT="[%{$fg_bold[cyan]%}$vimode%{$reset_color%}] %{$fg_bold[white]%}%%%{$reset_color%} "
+    ;;
+  main|viins)
+    PROMPT="[%{$fg_bold[cyan]%}$vimode%{$reset_color%}] %{$fg_bold[white]%}%%%{$reset_color%} "
+    ;;
+esac # }}}
+
+zle reset-prompt
+zle -R
+
 
 # update status line
-if [ -n "$TMUX" ]; then
-  # tmux
-  if [ $vimode = "NORMAL" ]; then #{{{
-    # statbg="colour236"
-    # statfg="colour247"
-    statbg="black"
-    statfg="cyan"
-    statl1bg="colour240"
-    statl1fg="colour231"
-    statl2bg="colour148"
-    statl2fg="colour22"
-    statr1bg="colour240"
-    statr1fg="colour247"
-    statr2bg="colour252"
-    statr2fg="colour236"
-  else
-    # statbg="colour24"
-    # statfg="colour117"
-    statbg="black"
-    statfg="cyan"
-    statl1bg="colour31"
-    statl1fg="colour231"
-    statl2bg="colour231"
-    statl2fg="colour23"
-    statr1bg="colour31"
-    statr1fg="colour117"
-    statr2bg="colour117"
-    statr2fg="colour23"
+if [ -n "$TMUX" ]; then #{{{
+
+  # set color according to keymap
+  if [ $vimode = 'n' ]; then #{{{
+    c1=('#00005f' '#dfff00')
+    c2=('#ffffff' '#444444')
+    c3=('#9cffd3' '#202020')
+  elif [ $vimode = 'i' ]; then
+    c1=('#00005f' '#00dfff')
+    c2=('#ffffff' '#005fff')
+    c3=('#ffffff' '#000080')
+  elif [ $vimode = 'v' ]; then
+    c1=('#000000' '#ffaf00')
+    c2=('#000000' '#ff5f00')
+    c3=('#ffffff' '#5f0000')
   fi #}}}
-  tmux set -g status-bg ${statbg} > /dev/null
-  tmux set -g status-fg ${statfg} > /dev/null
-  statl1="#[bg=${statl1bg}, fg=${statl1fg}] #H "
-  statl1a="#[bg=${statbg}, fg=${statl1bg}]⮀"
-  statl2="#[bg=${statl2bg}, fg=${statl2fg}] $vimode "
-  statl2a="#[bg=${statl1bg}, fg=${statl2bg}]⮀"
-  tmux set -g status-left "${statl2}${statl2a}${statl1}${statl1a}" > /dev/null
-  statr9=" #($HOME/bin/rainbarf.sh) "
-  statr0="#[bg=${statr2bg}, fg=${statr2fg}] #($HOME/bin/load_average.sh) "
-  statr0a="#[bg=${statr1bg}, fg=${statr2bg}]⮂"
-  statr1="#[bg=${statr1bg}, fg=${statr1fg}] #($HOME/bin/battery.sh) "
-  statr1a="#[bg=${statbg}, fg=${statr1bg}]⮂"
-  statr2="#[bg=${statr2bg}, fg=${statr2fg}] %m-%d(%a) %H:%M "
-  statr2a="#[bg=${statr1bg}, fg=${statr2bg}]⮂"
-  # tmux set -g status-right "${statr1a}${statr1}${statr2a}${statr2}" > /dev/null
-  # tmux set -g status-right "${statr0a}${statr0}${statr1a}${statr1}${statr2a}${statr2}" > /dev/null
-  tmux set -g status-right "${statr9}${statr0a}${statr0}${statr1a}${statr1}${statr2a}${statr2}" > /dev/null
-else
-  # zsh
-  # showmode $vimode
-fi
+
+  # status
+  tmux set-option -g status-fg "${c3[1]}" >/dev/null
+  tmux set-option -g status-bg "${c3[2]}" >/dev/null
+
+  # status left
+  p1="#[fg=${c1[1]},bg=${c1[2]}] $vimode "
+  p2="#[fg=${c2[1]},bg=${c2[2]}] #H "
+  p3="#[fg=${c3[1]},bg=${c3[2]}] #S "
+  tmux set-option -g status-left "${p1}${p2}${p3}" >/dev/null
+
+  # status right
+  p1="#[fg=${c1[1]},bg=${c1[2]}] %m-%d(%a) %H:%M "
+  p2="#[fg=${c2[1]},bg=${c2[2]}] #($HOME/bin/load_average.sh) "
+  p3="#[fg=${c3[1]},bg=${c3[2]}] #($HOME/bin/battery.sh) "
+  p4="#($HOME/bin/rainbarf.sh) "
+  tmux set-option -g status-right "${p4}${p3}${p2}${p1}" >/dev/null
+
+  # window status
+  tmux set-window-option -g window-status-fg "${c3[1]}" >/dev/null
+  tmux set-window-option -g window-status-bg "${c3[2]}" >/dev/null
+  tmux set-window-option -g window-status-current-fg "${c2[1]}" >/dev/null
+  tmux set-window-option -g window-status-current-bg "${c2[2]}" >/dev/null
+
+  # mode
+  tmux set-window-option -g mode-fg "${c1[1]}" >/dev/null
+  tmux set-window-option -g mode-bg "${c1[2]}" >/dev/null
+
+  # message
+  tmux set-option -g message-bg "${c1[1]}" >/dev/null
+  tmux set-option -g message-fg "${c1[2]}" >/dev/null
+  tmux set-option -g message-command-bg "${c1[1]}" >/dev/null
+  tmux set-option -g message-command-fg "${c1[2]}" >/dev/null
+
+  # pane border
+  tmux set-option -g pane-border-fg "${c3[1]}" >/dev/null
+  tmux set-option -g pane-border-bg "${c3[2]}" >/dev/null
+  tmux set-option -g pane-active-border-fg "${c2[1]}" >/dev/null
+  tmux set-option -g pane-active-border-bg "${c2[2]}" >/dev/null
+
+fi #}}}
 }
 zle -N zle-line-init
+zle -N zle-line-finish
 zle -N zle-keymap-select
 # }}}
 

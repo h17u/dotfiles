@@ -2637,7 +2637,7 @@ function! bundle.hooks.on_source(bundle)
     nnoremap <buffer> <silent> <Leader>tw :<C-u>call taskpaper#toggle_tag('wait', '')<CR>
     " nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#add_tag('priority')<CR>
     " nnoremap <buffer> <silent> <Leader>tQ :<C-u>call taskpaper#delete_tag('priority', '')<CR>
-    " nnoremap <buffer> <silent> <Leader>tQ :<C-u>call taskpaper#delete_tag('priority', '1')<CR> 
+    " nnoremap <buffer> <silent> <Leader>tQ :<C-u>call taskpaper#delete_tag('priority', '1')<CR>
     nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#toggle_tag('priority')<CR>
     " nnoremap <buffer> <silent> <Leader>tq :<C-u>call taskpaper#update_tag('priority')<CR>
   endfunction

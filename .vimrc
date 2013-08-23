@@ -2658,6 +2658,7 @@ function! bundle.hooks.on_source(bundle)
   let g:airline_detect_modified=1
   let g:airline_detect_paste=1
   let g:airline_detect_iminsert=1
+  let g:airline_detect_whitespace=1
   let g:airline_theme='dark'
   let g:airline_powerline_fonts=0
   let g:airline_mode_map = {}

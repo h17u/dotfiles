@@ -468,13 +468,7 @@ NeoBundle 'kannokanno/unite-dwm', { 'autoload' : {
       \ }}
 NeoBundle 'altercation/vim-colors-solarized', '', 'default'
 NeoBundle 'tpope/vim-fugitive', '', 'default'
-NeoBundleLazy 'scrooloose/syntastic', { 'autoload' : {
-      \ 'filetypes' : ['javascript',
-      \ 'json',
-      \ 'ruby',
-      \ 'perl'],
-      \ 'commands' : 'SyntasticCheck'
-      \ }}
+NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Townk/vim-autoclose', '', 'default'
 NeoBundleLazy 'vim-scripts/jQuery', { 'autoload' : {
       \ 'filetypes' : ['javascript',

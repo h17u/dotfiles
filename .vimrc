@@ -2503,7 +2503,7 @@ endfunction
 unlet bundle
 "}}}
 
-" scrooloose/syntastic.git "{{{
+" scrooloose/syntastic "{{{
 let bundle = neobundle#get('syntastic')
 function! bundle.hooks.on_source(bundle)
   let g:syntastic_mode_map = { 'mode': 'active',
@@ -2511,8 +2511,7 @@ function! bundle.hooks.on_source(bundle)
         \ 'passive_filetypes': ['html']
         \}
   let g:syntastic_auto_loc_list = 2
-  let g:syntastic_javascript_checkers=['gjslint', 'jshint', 'jslint']
-  " let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
+  let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
   let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
   let g:syntastic_python_checkers=['pylint']
   let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']

@@ -540,6 +540,7 @@ NeoBundle 'osyo-manga/vim-anzu'
 NeoBundleLazy 'mattn/emmet-vim',  { 'autoload' : {
       \ 'filetypes' : ['html','haml','slim','css','js','php']
       \ }}
+NeoBundle 'cohama/vim-insert-linenr'
 
 
 NeoBundleLocal ~/.vim/bundle

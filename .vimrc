@@ -2673,10 +2673,10 @@ unlet bundle
 " osyo-manga/vim-anzu {{{
 let bundle = neobundle#get('vim-anzu')
 function! bundle.hooks.on_source(bundle)
-  nmap n <Plug>(anzu-n-with-echo)
-  nmap N <Plug>(anzu-N-with-echo)
-  nmap * <Plug>(anzu-star-with-echo)
-  nmap # <Plug>(anzu-sharp-with-echo)
+  nmap n nzz<Plug>(anzu-update-search-status)
+  nmap N Nzz<Plug>(anzu-update-search-status)
+  nmap * <Plug>(anzu-star)
+  nmap # <Plug>(anzu-sharp)
 endfunction
 
 unlet bundle
@@ -3299,7 +3299,7 @@ xnoremap id  i"
 "}}}
 
 " Move to top/center/bottom.
-noremap <expr> zz (winline() == (winheight(0)+1)/ 2) ?
+noremap <expr> ZZ (winline() == (winheight(0)+1)/ 2) ?
       \ 'zt' : (winline() == 1)? 'zb' : 'zz'
 
 " Capitalize.
@@ -3307,7 +3307,7 @@ nnoremap gu gUiw`]
 inoremap <C-q> <ESC>gUiw`]a
 
 " Clear highlight.
-nnoremap <ESC><ESC> :nohlsearch<CR>
+nmap <silent> <ESC><ESC> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
 
 " operator-html-escape.vim
 nmap <Leader>h <Plug>(operator-html-escape)

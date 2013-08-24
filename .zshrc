@@ -547,6 +547,7 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
   ${=${(f)"$(cat /etc/hosts(|)(N) <<(ypcat hosts 2>/dev/null))"}%%\#*}
   ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2>/dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
 )'
+compdef mosh=ssh
 # }}}
 
 # Don't complete uninteresting users... # {{{
@@ -1001,7 +1002,7 @@ export PATH=$PATH:$GOPATH/bin
 
 
 # Remove duplicate $PATH entries
-# http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command 
+# http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command
 export PATH=`echo -n $PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export MANPATH=`echo -n $MANPATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 export NODE_PATH=`echo -n $NODE_PATH | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`

@@ -249,4 +249,4 @@ EOF
 "nmap ,tp :<C-u>twuri<CR><C-a><Right><Right><Right>
 
 
-" vim: set ft=vim:
+" vim:fen:fdm=marker:fmr={{{,}}}:fdl=0:fdc=1:ts=2:sw=2:sts=2:ft=vim

@@ -38,7 +38,7 @@ set previouspattern=\bprev|previous\b,prev,^前(の)?ページ,\b前.*,\b←,^<$
 "set default search engine to google japan 
 "set defsearch=google_ja
 
-set hintchars=hjklasdfg
+set hintchars=hjklasdfgzxcvbnmqwertyuiop1234567890
 set editor=vim
 
 

@@ -32,10 +32,12 @@ style -name commandline-ime chrome://* #liberator-commandline-command input {ime
 "[[と]]でページをめくる。日本語ページ対応
 "set nextpattern=\bnext,^>$,^>>$,^>,>$,\b>>\b,\bmore\b,\b次へ\b,\b続きを読む\b
 set nextpattern=\bnext\b,\bmore\b,next,^次(の)?ページ,\b次.*,→\b,^>$,^(>>|≫)$,^(>|≫),(>|≫)$,^次(へ|の|ペ),^続き,\bnext\b,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
-set previouspattern=\bprev|previous\b,prev,^前(の)?ページ,\b前.*,\b←,^<$,^(<<|≪)$,^(<|≪),(<|≪)$,^前(へ|の|ペ),^戻る,\bprev|previous\b,^<$,^(<<|«)$,^(<|«),(<|«)$ 
+set previouspattern=\bprev|previous\b,prev,^前(の)?ページ,\b前.*,\b←,^<$,^(<<|≪)$,^(<|≪),(<|≪)$,^前(へ|の|ペ),^戻る,\bprev|previous\b,^<$,^(<<|«)$,^(<|«),(<|«)$
 
 "ページ読み込み時にテキストボックスに自動でフォーカスされないようにする
-"set default search engine to google japan 
+set focuscontent
+
+"set default search engine to google japan
 "set defsearch=google_ja
 
 set hintchars=hjklasdfgzxcvbnmqwertyuiop1234567890
@@ -52,24 +54,33 @@ let g:mapleader = ','
 
 
 "j/kの移動量を5倍に
-map j 5<C-e>
-map k 5<C-y>
+noremap j 5<C-e>
+noremap k 5<C-y>
 
 "!でCSS無効
 "map ! :set invusermode<CR>
 noremap <Leader>sv :source ~/.vimperatorrc<CR>
 noremap x :tabclose<CR>
-noremap h :tabprevious<CR>
-noremap l :tabnext<CR>
-noremap <C-n> :forward<CR>
-noremap <C-p> :back<CR>
+noremap K :tabprevious<CR>
+noremap J :tabnext<CR>
+noremap <C-n> :tabmove +1<CR>
+noremap <C-p> :tabmove -1<CR>
+
+" Easy escape."{{{
+inoremap jj           <ESC>
+" cnoremap <expr> j       getcmdline()[getcmdpos()-2] ==# 'j' ? "\<BS>\<C-c>" : 'j'
+cnoremap jj           <ESC>
+
+inoremap j<Space>     j
+cnoremap j<Space>     j
+"}}}
 
 "command -nargs=+ mysearch open site:twilog.org/h17u <args>
 :command! -nargs=* google open google <args>
 "command! svr source ~/.vimperatorrc
 
 "yで選択範囲をコピー
-map y :echo 'Yank!'<CR>Y
+noremap y :echo 'Yank!'<CR>Y
 
 "<BS>で「戻る」
 "map <BS> H

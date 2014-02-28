@@ -57,12 +57,11 @@ let g:mapleader = ','
 noremap j 5<C-e>
 noremap k 5<C-y>
 
-"!でCSS無効
-"map ! :set invusermode<CR>
 noremap <Leader>sv :source ~/.vimperatorrc<CR>
-noremap x :tabclose<CR>
-noremap K :tabprevious<CR>
-noremap J :tabnext<CR>
+
+" Tab navigation
+noremap <C-k> :tabprevious<CR>
+noremap <C-j> :tabnext<CR>
 noremap <C-n> :tabmove +1<CR>
 noremap <C-p> :tabmove -1<CR>
 

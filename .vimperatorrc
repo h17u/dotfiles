@@ -20,7 +20,6 @@ set titlestring=Firefox
 set hlsearch
 
 "ビープ音を鳴らさずビジュアルベルを使用
-"set visualbell
 set visualbell
 highlight Bell display:none;
 
@@ -53,11 +52,7 @@ let g:mapleader = ','
 " nnoremap : ;
 
 
-"j/kの移動量を5倍に
-noremap j 5<C-e>
-noremap k 5<C-y>
-
-noremap <Leader>sv :source ~/.vimperatorrc<CR>
+noremap <Leader>sv :source ~/.vimperatorrc<CR>:echo 'source ~/.vimperatorrc'<CR>
 
 " Tab navigation
 noremap <C-k> :tabprevious<CR>

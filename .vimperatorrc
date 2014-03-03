@@ -197,19 +197,20 @@ let g:plugin_loader_plugins = "copy,bitly,auto_source"
 "}}}
 
 " copy.js "{{{
-"map c :copy<Space>
-map ,ctu :copy<Space>titleAndTinyUrl<CR>
-map ,cts :copy<Space>titleAndTinyUrlStarred<CR>
-"map ,ctt :copy<Space>title<CR>
-map ,ctt :copy<Space>titleAndUrl<CR>
-"map ,cu :copy<Space>tinyURL<CR>
-map ,ca :copy<Space>asin<CR>
+"noremap c :copy<Space>
+noremap <Leader>csu :copy<Space>titleAndTinyUrl<CR><Esc>
+noremap <Leader>css :copy<Space>titleAndTinyUrlStarred<CR><Esc>
+noremap <Leader>ctu :copy<Space>titleAndUrl<CR><Esc>
+noremap <Leader>ctt :copy<Space>title<CR><Esc>
+noremap <Leader>cu :copy<Space>url<CR><Esc>
+noremap <Leader>ca :copy<Space>asin<CR><Esc>
 javascript <<EOF
 liberator.globalVariables.copy_templates = [
     { label: 'titleAndTinyUrl', value: '', custom: function() { return '"' + buffer.title + '" ' + util.httpGet('http://api.bit.ly/v3/shorten?login=tommyio&apiKey=R_50fa223dc7c496cb8711738402105f1d&format=txt&uri=' + encodeURIComponent(buffer.URL)).responseText;} },
     { label: 'titleAndTinyUrlStarred', value: '', custom: function() { return '#Starred "' + buffer.title + '" ' + util.httpGet('http://api.bit.ly/v3/shorten?login=tommyio&apiKey=R_50fa223dc7c496cb8711738402105f1d&format=txt&uri=' + encodeURIComponent(buffer.URL)).responseText;} },
-    { label: 'titleAndUrl',    value: '"%TITLE%" %URL%' },
-    { label: 'title',          value: '%TITLE%' },
+    { label: 'titleAndUrl',    value: '"%TITLE%"\n%URL%' },
+    { label: 'title',          value: '"%TITLE%"' },
+    { label: 'url',            value: '%URL%' },
     { label: 'asin',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} },
 //    { label: 'hatena',         value: '[%URL%:title=%TITLE%]' },
 //    { label: 'hatenacite',     value: '>%URL%:title=%TITLE%>n%SEL%n<<' },

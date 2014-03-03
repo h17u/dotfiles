@@ -1,12 +1,15 @@
-"2.3.1 (created: 2010/04/07 18:56:53)
-
+"---------------------------------------------------------------------------
+" .vimperatorrc
+"---------------------------------------------------------------------------
+" Initialize:"{{{
+"
 set runtimepath=~/.vimperator
 source! ~/.vimperatorrc.local
+"}}}
 
-
-"+----------------------------------------------------------------------------------------+
-" 基本設定
-"+----------------------------------------------------------------------------------------+
+"---------------------------------------------------------------------------
+" Basic:"{{{
+"
 
 " for migemo find, hint
 " set hintmatching=custom
@@ -42,10 +45,11 @@ set focuscontent
 set hintchars=hjklasdfgzxcvbnmqwertyuiop1234567890
 set editor=vim
 
+"}}}
 
-"+----------------------------------------------------------------------------------------+
-" キーマップ設定
-"+----------------------------------------------------------------------------------------+
+"---------------------------------------------------------------------------
+" Key Mappings:"{{{
+"
 let g:mapleader = ','
 " let g:maplocalleader = 'm'
 " nnoremap ; :
@@ -54,11 +58,12 @@ let g:mapleader = ','
 
 noremap <Leader>sv :source ~/.vimperatorrc<CR>:echo 'source ~/.vimperatorrc'<CR>
 
-" Tab navigation
+" Tab navigation"{{{
 noremap <C-k> :tabprevious<CR>
 noremap <C-j> :tabnext<CR>
 noremap <C-n> :tabmove +1<CR>
 noremap <C-p> :tabmove -1<CR>
+"}}}
 
 " Easy escape."{{{
 inoremap jj           <ESC>
@@ -97,31 +102,31 @@ noremap y :echo 'Yank!'<CR>Y
 "<A-h>でヘルプを表示
 "map <A-h> :help<CR>
 
-"+----------------------------------------------------------------------------------------+
-" プラグイン設定
-"+----------------------------------------------------------------------------------------+
+"}}}
 
-"<C-Del>で検索語の強調表示をトグル(toggleHighlight.js)
-"map <C-Del> :toggleHighlight<CR>
-"<F2>でメニューバーをトグル(toggleToolbar-0.5.1.js)
-"map <F2> :toggleToolbar<CR>
-"<A-g>でGreasemonkeyをトグル(gmperator.js)
-"map <A-g> :gmset!<CR>
-"bではてブのコメントを表示(hatenabookmark_show.js 一部修正)
-"map b :hbinfo<CR>
-"<C-S-c>でタイトルとURLをコピー(copy.js)
-"map <C-C> :copy titleAndURL<CR>
-"<S-s>でBloglinesに登録(commandBookmarklet.js)
-"map S :Sub<CR>
+"---------------------------------------------------------------------------
+" Color Scheme:"{{{
+"
+colorscheme BrewBlue
+"colorscheme Sweets
+style -name tab-style-fix chrome://* <<EOM
+.tab-text-shadow,
+.tabs-newtab-button {
+  display: none !important;
+}
+EOM
+
+"}}}
+
+"---------------------------------------------------------------------------
+" Plugin:"{{{
+"
+
 let g:plugin_loader_roots = "~/src/vimperator-plugins/ ~/.vimperator/load/"
 let g:plugin_loader_plugins = "copy,bitly,auto_source"
 
 
-"+----------------------------------------------------------------------------------------+
-" 未プラグイン化スクリプト
-"+----------------------------------------------------------------------------------------+
-
-"Show feed-button to statusbar
+"Show feed-button to statusbar"{{{
 "http://d.hatena.ne.jp/teramako/20071205/p1
 ":javascript <<EOF
 "(function(){
@@ -133,24 +138,9 @@ let g:plugin_loader_plugins = "copy,bitly,auto_source"
 "	document.getElementById('status-bar').insertBefore(feedPanel,document.getElementById('security-button'));
 "})();
 "EOF
+"}}}
 
-"<C-c>で選択範囲のコピーと読み込みの中断
-"http://d.hatena.ne.jp/teramako/20071128/p2
-
-
-
-" colorscheme
-" ======================================================================
-colorscheme BrewBlue
-"colorscheme Sweets
-style -name tab-style-fix chrome://* <<EOM
-.tab-text-shadow,
-.tabs-newtab-button {
-  display: none !important;
-}
-EOM
-
-
+" multi_requester.js"{{{
 " http://twitter.g.hatena.ne.jp/VoQn/20090101/1230755193
 "map ,m,s :so<Space>$RUNTIME/plugin/multi_requester.js
 
@@ -204,8 +194,9 @@ EOM
 "	[',Mw', 'wikipedia-jp', '!']
 "];
 "EOF
+"}}}
 
-" copy.js
+" copy.js "{{{
 "map c :copy<Space>
 map ,ctu :copy<Space>titleAndTinyUrl<CR>
 map ,cts :copy<Space>titleAndTinyUrlStarred<CR>
@@ -228,8 +219,9 @@ liberator.globalVariables.copy_templates = [
     { label: 'tinyURL', value:  'Get Tiny URL', custom: function() { return util.httpGet('http://api.bit.ly/v3/shorten?login=tommyio&apiKey=R_50fa223dc7c496cb8711738402105f1d&format=txt&uri=' + encodeURIComponent(buffer.URL)).responseText;}}
 ];
 EOF
+"}}}
 
-
+" vimperator_twipperator_twitter_google_url_shortener"{{{
 " http://d.hatena.ne.jp/ruedap/20110205/vimperator_twipperator_twitter_google_url_shortener
 "javascript <<EOF
 "commands.addUserCommand(
@@ -246,12 +238,17 @@ EOF
 "    }
 ");
 "EOM
-"
-"""" twittperator.js
+""}}}
+
+" twittperator.js"{{{
 "nmap ,tt :<C-u>tw<Space>
 "nmap ,tf :<C-u>tw!<CR>
 "nmap ,tu :<C-u>tw!@<CR>
 "nmap ,tp :<C-u>twuri<CR><C-a><Right><Right><Right>
+""}}}
 
+
+
+"}}}
 
 " vim:fen:fdm=marker:fmr={{{,}}}:fdl=0:fdc=1:ts=2:sw=2:sts=2:ft=vim

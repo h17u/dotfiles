@@ -125,6 +125,10 @@ EOM
 let g:plugin_loader_roots = "~/src/vimperator-plugins/ ~/.vimperator/load/"
 let g:plugin_loader_plugins = "copy,bitly,auto_source"
 
+" hatenabookmark.js "{{{
+javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
+set complete+=H
+"}}}
 
 "Show feed-button to statusbar"{{{
 "http://d.hatena.ne.jp/teramako/20071205/p1

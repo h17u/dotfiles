@@ -723,8 +723,8 @@ set incsearch
 " Enable highlight search result.
 set hlsearch
 
-" Searches wrap around the end of the file.
-set wrapscan
+" Don't Search wrap around the end of the file.
+set nowrapscan
 "}}}
 
 "---------------------------------------------------------------------------

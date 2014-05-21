@@ -1038,7 +1038,7 @@ case ${UID} in
     ;;
 *)
     # iTerm2
-    if [ $ITERM_SESSION_ID ]; then
+    if [ "${TERM_PROGRAM}" = 'iTerm.app' ]; then
         ~/bin/tmux_open_windows.sh 2>&1
     fi
 esac #}}}

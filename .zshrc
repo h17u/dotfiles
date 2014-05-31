@@ -1064,65 +1064,6 @@ esac # }}}
 zle reset-prompt
 zle -R
 
-
-# update status line
-if [ -n "$TMUX" ]; then #{{{
-
-  # set color according to keymap
-  if [ $vimode = 'n' ]; then #{{{
-    c1=('#00005f' '#dfff00')
-    c2=('#ffffff' '#444444')
-    c3=('#9cffd3' '#202020')
-  elif [ $vimode = 'i' ]; then
-    c1=('#00005f' '#00dfff')
-    c2=('#ffffff' '#005fff')
-    c3=('#ffffff' '#000080')
-  elif [ $vimode = 'v' ]; then
-    c1=('#000000' '#ffaf00')
-    c2=('#000000' '#ff5f00')
-    c3=('#ffffff' '#5f0000')
-  fi #}}}
-
-  # status
-  tmux set-option -g status-fg "${c3[1]}" >/dev/null
-  tmux set-option -g status-bg "${c3[2]}" >/dev/null
-
-  # status left
-  p1="#[fg=${c1[1]},bg=${c1[2]}] $vimode "
-  p2="#[fg=${c2[1]},bg=${c2[2]}] #H "
-  p3="#[fg=${c3[1]},bg=${c3[2]}] #S "
-  tmux set-option -g status-left "${p1}${p2}${p3}" >/dev/null
-
-  # status right
-  p1="#[fg=${c1[1]},bg=${c1[2]}] %m-%d(%a) %H:%M "
-  p2="#[fg=${c2[1]},bg=${c2[2]}] #($HOME/bin/load_average.sh) "
-  p3="#[fg=${c3[1]},bg=${c3[2]}] #($HOME/bin/battery.sh) "
-  p4="#($HOME/bin/rainbarf.sh) "
-  tmux set-option -g status-right "${p4}${p3}${p2}${p1}" >/dev/null
-
-  # window status
-  tmux set-window-option -g window-status-fg "${c3[1]}" >/dev/null
-  tmux set-window-option -g window-status-bg "${c3[2]}" >/dev/null
-  tmux set-window-option -g window-status-current-fg "${c2[1]}" >/dev/null
-  tmux set-window-option -g window-status-current-bg "${c2[2]}" >/dev/null
-
-  # mode
-  tmux set-window-option -g mode-fg "${c1[1]}" >/dev/null
-  tmux set-window-option -g mode-bg "${c1[2]}" >/dev/null
-
-  # message
-  tmux set-option -g message-bg "${c1[1]}" >/dev/null
-  tmux set-option -g message-fg "${c1[2]}" >/dev/null
-  tmux set-option -g message-command-bg "${c1[1]}" >/dev/null
-  tmux set-option -g message-command-fg "${c1[2]}" >/dev/null
-
-  # pane border
-  tmux set-option -g pane-border-fg "${c3[1]}" >/dev/null
-  tmux set-option -g pane-border-bg "${c3[2]}" >/dev/null
-  tmux set-option -g pane-active-border-fg "${c2[1]}" >/dev/null
-  tmux set-option -g pane-active-border-bg "${c2[2]}" >/dev/null
-
-fi #}}}
 }
 zle -N zle-line-init
 zle -N zle-line-finish

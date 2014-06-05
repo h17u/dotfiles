@@ -212,7 +212,6 @@ autoload -Uz add-zsh-hook
 export BROWSER=w3m
 export EDITOR=vim
 set meta-flag on set input-meta on set output-meta on set convert-meta off # for japanese
-export TERM=xterm-256color
 export PAGER=less
 export MANPAGER="/bin/sh -c \"col -b -x | \
   vim -R -c 'set ft=man ts=8 nomod nolist nonu noma' \

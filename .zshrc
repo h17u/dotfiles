@@ -962,6 +962,20 @@ function pwd-clip() {
 }
 # }}}
 
+# mosh with tmux renaming window # {{{
+# "gnu screen - rename tmux window name to prompt_command, ps1 or remote ssh hostname? - Super User"
+# http://superuser.com/questions/249293/rename-tmux-window-name-to-prompt-command-ps1-or-remote-ssh-hostname
+function mosh() {
+export MOSH_TITLE_NOPREFIX=1
+if [ "${TMUX}" ]; then
+  tmux rename-window "$1"
+  command mosh "$@"
+  tmux set-window-option automatic-rename "on" 1>/dev/null
+else
+  command mosh "$@"
+fi
+}
+# }}}
 # }}}
 
 # PATH #{{{

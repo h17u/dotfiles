@@ -542,6 +542,7 @@ NeoBundleLazy 'mattn/emmet-vim',  { 'autoload' : {
       \ }}
 NeoBundle 'cohama/vim-insert-linenr'
 NeoBundle 'taichouchou2/alpaca_powertabline'
+NeoBundle 'guyht/vimwiki', 'alt-font'
 
 
 NeoBundleLocal ~/.vim/bundle

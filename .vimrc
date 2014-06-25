@@ -79,8 +79,8 @@ augroup MyAutoCmd
   autocmd!
 augroup END
 
-if filereadable(expand('~/.secret_vimrc'))
-  execute 'source' expand('~/.secret_vimrc')
+if filereadable(expand('~/.vimrc_secret'))
+  execute 'source' expand('~/.vimrc_secret')
 endif
 
 let s:neobundle_dir = expand('~/.bundle')

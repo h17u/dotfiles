@@ -8,7 +8,7 @@ bin/seagull
 !/.zshrc
 !/.zprofile
 !/.vimrc
-!/.secret_vimrc
+!/.vimrc_secret
 !/.vimperatorrc
 !/.tmux.conf
 !/.gitconfig

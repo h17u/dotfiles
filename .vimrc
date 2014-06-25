@@ -1645,9 +1645,11 @@ function! bundle.hooks.on_source(bundle) "{{{
           \ . '/.bundle/*/'], 1000)
     call unite#custom_alias('file', 'h', 'left')
     call unite#custom_default_action('directory', 'narrow')
-    call unite#custom_default_action('file', 'my_tabopen')
+  " call unite#custom#default_action('file', 'my_tabopen')
+
     call unite#custom_default_action('versions/git/status', 'commit')
-    call unite#custom_default_action('directory', 'cd')
+
+  " call unite#custom_default_action('directory', 'cd')
 
     " Custom actions."{{{
     let my_tabopen = {

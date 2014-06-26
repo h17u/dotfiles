@@ -3,6 +3,7 @@
 /*.
 bin/seagull
 .ssh/known_hosts
+.ssh/old
 
 #Git below:
 !/.zshrc

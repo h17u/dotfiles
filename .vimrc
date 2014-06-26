@@ -538,7 +538,6 @@ NeoBundleLazy 'davidoc/taskpaper.vim', { 'autoload' : {
       \ }}
 NeoBundle 'bling/vim-airline'
 NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'osyo-manga/vim-anzu'
 NeoBundleLazy 'mattn/emmet-vim',  { 'autoload' : {
       \ 'filetypes' : ['html','haml','slim','css','js','php']
       \ }}
@@ -2678,18 +2677,6 @@ endfunction
 unlet bundle
 "}}}
 
-" osyo-manga/vim-anzu {{{
-let bundle = neobundle#get('vim-anzu')
-function! bundle.hooks.on_source(bundle)
-  nmap n nzz<Plug>(anzu-update-search-status)
-  nmap N Nzz<Plug>(anzu-update-search-status)
-  nmap * <Plug>(anzu-star)
-  nmap # <Plug>(anzu-sharp)
-endfunction
-
-unlet bundle
-"}}}
-
 "}}}
 
 "---------------------------------------------------------------------------
@@ -3316,7 +3303,7 @@ nnoremap gu gUiw`]
 inoremap <C-q> <ESC>gUiw`]a
 
 " Clear highlight.
-nmap <silent> <ESC><ESC> :<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)
+nmap <silent> <ESC><ESC> :<C-u>nohlsearch<CR>
 
 " operator-html-escape.vim
 nmap <Leader>h <Plug>(operator-html-escape)

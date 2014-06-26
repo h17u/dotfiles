@@ -524,6 +524,8 @@ NeoBundleLazy 'techlivezheng/vim-plugin-tagbar-phpctags', {
       \   'filetypes' : 'php'
       \ }}
 NeoBundle 'Lokaltog/vim-easymotion', '', 'default'
+NeoBundle 'haya14busa/vim-easyoperator-line', '', 'default'
+NeoBundle 'haya14busa/vim-easyoperator-phrase', '', 'default'
 NeoBundle 'zhisheng/visualmark.vim', '', 'default'
 NeoBundleLazy 'tpope/vim-markdown', { 'autoload' : {
       \ 'filetypes' : 'markdown'

@@ -2567,13 +2567,24 @@ unlet bundle
 "}}}
 
 " vim-easymotion {{{
+" http://haya14busa.com/mastering-vim-easymotion/
 let bundle = neobundle#get('vim-easymotion')
 function! bundle.hooks.on_source(bundle)
-  let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvb'
-  let g:EasyMotion_leader_key="f"
-  let g:EasyMotion_grouping=1
-  highlight link EasyMotionTarget ErrorMsg
-  highlight link EasyMotionShade  Comment
+  let g:EasyMotion_do_mapping = 0
+  let g:EasyMotion_smartcase = 1
+  let g:EasyMotion_keys = ';HKLYUIOPNM,QWERTASDGZXCVBJF'
+  let g:EasyMotion_use_upper = 1
+  let g:EasyMotion_enter_jump_first = 1
+  let g:EasyMotion_space_jump_first = 1
+  let g:EasyMotion_use_migemo = 1
+
+  nmap f <Plug>(easymotion-s2)
+  xmap f <Plug>(easymotion-s2)
+  omap f <Plug>(easymotion-s2)
+
+  map F <Plug>(easymotion-bd-jk)
+  let g:EasyMotion_startofline = 0
+
 endfunction
 
 unlet bundle

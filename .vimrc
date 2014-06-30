@@ -545,6 +545,7 @@ NeoBundle 'cohama/vim-insert-linenr'
 NeoBundle 'taichouchou2/alpaca_powertabline'
 NeoBundle 'guyht/vimwiki', 'alt-font'
 NeoBundle 'vim-scripts/AnsiEsc.vim'
+NeoBundle 'chrisbra/csv.vim'
 
 
 NeoBundleLocal ~/.vim/bundle

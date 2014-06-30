@@ -542,7 +542,7 @@ NeoBundleLazy 'mattn/emmet-vim',  { 'autoload' : {
       \ 'filetypes' : ['html','haml','slim','css','js','php']
       \ }}
 NeoBundle 'cohama/vim-insert-linenr'
-NeoBundle 'taichouchou2/alpaca_powertabline'
+NeoBundle 'alpaca-tc/alpaca_powertabline'
 NeoBundle 'guyht/vimwiki', 'alt-font'
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 NeoBundle 'chrisbra/csv.vim'
@@ -2684,6 +2684,32 @@ function! bundle.hooks.on_source(bundle)
   let g:airline_exclude_filenames = []
   let g:airline_exclude_filetypes = []
   let g:airline_exclude_preview = 0
+endfunction
+
+unlet bundle
+"}}}
+
+" alpaca-tc/alpaca_powertabline {{{
+let bundle = neobundle#get('alpaca_powertabline')
+function! bundle.hooks.on_source(bundle)
+  let alpaca_powertabline_enable=1
+  let alpaca_powertabline_sep1=''
+  let alpaca_powertabline_sep2=''
+  let alpaca_powertabline_colors={
+        \   "base" : {
+        \     "bg" : 240,
+        \     "fg" : 255,
+        \   },
+        \   "sel" : {
+        \     "bg": 75,
+        \     "fg": 255,
+        \   },
+        \   "passive": {
+        \     "bg": 236,
+        \     "fg": 245,
+        \   },
+        \ }
+  let g:alpaca_powertabline_align_center=0
 endfunction
 
 unlet bundle

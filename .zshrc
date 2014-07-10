@@ -992,6 +992,12 @@ if [ "$PS1" ]; then
         export MANPATH=$(brew --prefix gnu-sed)/libexec/gnuman:$MANPATH
 fi
 
+# anyenv
+if [ -d $HOME/.anyenv ] ; then
+  export PATH="$HOME/.anyenv/bin:$PATH"
+  eval "$(anyenv init -)"
+fi
+
 # Amazon EC2 Command-Line Tools
 export EC2_HOME=~/.ec2
 export PATH=$PATH:$EC2_HOME/bin

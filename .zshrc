@@ -194,6 +194,7 @@ function zshaddhistory() { # {{{
   && ${cmd} != (l|l[sal])
   && ${cmd} != (c|cd)
   && ${cmd} != (m|man)
+  && ${cmd} != (r[mr])
   ]]
 } # }}}
 # }}}

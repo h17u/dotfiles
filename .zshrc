@@ -980,36 +980,27 @@ fi
 # }}}
 
 # PATH #{{{
-# Setup Amazon EC2 Command-Line Tools
-export EC2_HOME=~/.ec2
-export PATH=$PATH:$EC2_HOME/bin
-export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
-export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 
-### Added by the Heroku Toolbelt
-export PATH=/usr/local/heroku/bin:$PATH
-
-#20130306
-### Added for rbenv
-export PATH=$HOME/.rbenv/bin:$PATH
-eval "$(rbenv init -)"
-
-
-# added for my local bin directory
-#export PATH=$PATH:$EC2_HOME/bin
+# My local bin directory
 export PATH=$PATH:~/bin
 
-
-
-
-# for gnu coreutils alias
+# gnu coreutils alias
 if [ "$PS1" ]; then
         export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
         export PATH=$(brew --prefix gnu-sed)/libexec/gnubin:$PATH
         export MANPATH=$(brew --prefix coreutils)/libexec/gnuman:$MANPATH
         export MANPATH=$(brew --prefix gnu-sed)/libexec/gnuman:$MANPATH
 fi
+
+# Amazon EC2 Command-Line Tools
+export EC2_HOME=~/.ec2
+export PATH=$PATH:$EC2_HOME/bin
+export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
+export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
+export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
+
+# Heroku Toolbelt
+export PATH=/usr/local/heroku/bin:$PATH
 
 
 # Node.js

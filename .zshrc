@@ -1010,8 +1010,6 @@ export PATH=/usr/local/heroku/bin:$PATH
 
 
 
-# PHP55 and Pear
-export PATH=$(brew --prefix josegonzalez/php/php55)/bin:$PATH
 
 # Python
 export PATH=$(brew --prefix)/share/python:$PATH

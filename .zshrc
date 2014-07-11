@@ -1012,10 +1012,6 @@ export PATH=/usr/local/heroku/bin:$PATH
 
 
 
-# go
-export GOROOT=$(brew --prefix go)
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
 
 
 # Remove duplicate $PATH entries

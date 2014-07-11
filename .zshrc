@@ -1011,9 +1011,6 @@ export PATH=/usr/local/heroku/bin:$PATH
 
 
 
-# Python
-export PATH=$(brew --prefix)/share/python:$PATH
-export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
 
 # go
 export GOROOT=$(brew --prefix go)

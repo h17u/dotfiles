@@ -1009,18 +1009,6 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 export PATH=/usr/local/heroku/bin:$PATH
 
 
-# Node.js
-export PATH=$PATH:$(npm bin --global 2>/dev/null)
-export NODE_PATH=$NODE_PATH:$(brew --prefix)/lib/node
-export NODE_PATH=$NODE_PATH:~/.npm
-export NODE_PATH=$NODE_PATH:$(npm prefix --global)/lib/node_modules
-export NODE_PATH=$NODE_PATH:$(brew --prefix)/lib/jsctags
-eval "$(npm completion 2>/dev/null)"
-# eval "$(bower completion 2>/dev/null)"
-# brew install node & npm at /usr/local/homebrew/Cellar/node/0.10.5/
-# npm install n at /usr/local/share/npm/lib/node_modules/n/
-# versionning node managed by n at /usr/local/n/
-# http://nodejs.org/api/modules.html#modules_loading_from_the_global_folders
 
 # PHP55 and Pear
 export PATH=$(brew --prefix josegonzalez/php/php55)/bin:$PATH

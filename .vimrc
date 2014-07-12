@@ -150,7 +150,10 @@ NeoBundleLazy 'basyura/TweetVim', { 'depends' :
 " NeoBundleLazy 'choplin/unite-vim_hacks'
 " NeoBundleLazy 'liquidz/vimfiler-sendto'
 
-NeoBundle 'Shougo/neocomplete.vim', '', 'default'
+NeoBundleLazy 'Shougo/neocomplete.vim', {
+      \ 'autoload': {
+      \   'insert': 1,
+      \ }}
 NeoBundle 'Shougo/context_filetype.vim', '', 'default'
 
 NeoBundle 'Shougo/neocomplcache-rsense', '', 'default'

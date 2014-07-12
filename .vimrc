@@ -545,6 +545,19 @@ NeoBundle 'cohama/vim-insert-linenr'
 NeoBundle 'guyht/vimwiki', 'alt-font'
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 NeoBundle 'chrisbra/csv.vim'
+NeoBundleLazy 'lambdalisue/vim-django-support', {
+      \ 'autoload': {
+      \   'filetypes': ['python', 'python3', 'djangohtml']
+      \ }}
+NeoBundleLazy 'davidhalter/jedi-vim', {
+      \ 'autoload': {
+      \   'filetypes': ['python', 'python3', 'djangohtml']
+      \ }}
+NeoBundleLazy 'lambdalisue/vim-pyenv', {
+      \ 'depends': ['davidhalter/jedi-vim'],
+      \ 'autoload': {
+      \   'filetypes': ['python', 'python3', 'djangohtml']
+      \ }}
 
 
 NeoBundleLocal ~/.vim/bundle

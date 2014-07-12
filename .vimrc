@@ -566,6 +566,10 @@ NeoBundleLazy 'mattn/gist-vim', {
       \ 'autoload': {
       \   'commands': ['Gist'],
       \ }}
+NeoBundleLazy 'vim-scripts/TaskList.vim', {
+      \ 'autoload': {
+      \   'mappings': ['<Plug>TaskList'],
+      \}}
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -798,6 +802,7 @@ set matchpairs+=<:>
 
 " Display another buffer when current buffer isn't saved.
 set hidden
+set switchbuf=useopen
 
 " Auto reload if file is changed.
 "set autoread

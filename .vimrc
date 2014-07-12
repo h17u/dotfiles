@@ -561,6 +561,11 @@ NeoBundleLazy 'lambdalisue/vim-pyenv', {
       \ 'autoload': {
       \   'filetypes': ['python', 'python3', 'djangohtml']
       \ }}
+NeoBundleLazy 'mattn/gist-vim', {
+      \ 'depends': ['mattn/webapi-vim'],
+      \ 'autoload': {
+      \   'commands': ['Gist'],
+      \ }}
 
 
 NeoBundleLocal ~/.vim/bundle

@@ -570,6 +570,7 @@ NeoBundleLazy 'vim-scripts/TaskList.vim', {
       \ 'autoload': {
       \   'mappings': ['<Plug>TaskList'],
       \}}
+NeoBundle 'LeafCage/yankround.vim'
 
 
 NeoBundleLocal ~/.vim/bundle
@@ -1512,7 +1513,7 @@ nnoremap [unite]ma  :<C-u>Unite -start-insert output:map<Bar>map!<Bar>lmap<CR>
 nnoremap [unite]me  :<C-u>Unite output:message<CR>
 nnoremap [unite]di  :<C-u>Unite -buffer-name=files -default-action=lcd directory_mru<CR>
 nnoremap [unite]ta  :<C-u>UniteWithCursorWord -buffer-name=tag tag tag/include<CR>
-nnoremap [unite]y   :<C-u>Unite -buffer-name=register register history/yank<CR>
+nnoremap [unite]y   :<C-u>Unite yankround<CR>
 nnoremap [unite]gr  :<C-u>Unite grep -buffer-name=search -auto-preview -no-quit -resume<CR>
 nnoremap [unite]h   :<C-u>Unite -buffer-name=help help<CR>
 nnoremap [unite]k   :<C-u>UniteWithCursorWord -buffer-name=help help<CR>
@@ -2709,6 +2710,22 @@ function! bundle.hooks.on_source(bundle)
   let g:airline_exclude_filenames = []
   let g:airline_exclude_filetypes = []
   let g:airline_exclude_preview = 0
+endfunction
+
+unlet bundle
+"}}}
+
+" LeafCage/yankround.vim {{{
+let bundle = neobundle#get('yankround.vim')
+function! bundle.hooks.on_source(bundle)
+let g:yankround_max_history = 35
+let g:yankround_dir = '~/.cache/yankround'
+  nmap p <Plug>(yankround-p)
+  nmap P <Plug>(yankround-P)
+  nmap gp <Plug>(yankround-gp)
+  nmap gP <Plug>(yankround-gP)
+  nmap <C-p> <Plug>(yankround-prev)
+  nmap <C-n> <Plug>(yankround-next)
 endfunction
 
 unlet bundle

@@ -981,7 +981,9 @@ fi
 # anyenv
 if [ -d $HOME/.anyenv ] ; then
   export PATH="$HOME/.anyenv/bin:$PATH"
-  eval "$(anyenv init -)"
+  if [ -n "$TMUX" ]; then
+    eval "$(anyenv init -)"
+  fi
 fi
 
 # Amazon EC2 Command-Line Tools

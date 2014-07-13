@@ -171,6 +171,10 @@ call neobundle#config('neosnippet', {
       \   'filetypes' : 'snippet',
       \   'unite_sources' : ['snippet', 'neosnippet/user', 'neosnippet/runtime'],
       \ }})
+NeoBundleLazy 'Shougo/neosnippet-snippets', {
+      \ 'autoload': {
+      \   'insert': 1,
+      \ }}
 
 NeoBundle 'Shougo/neobundle-vim-scripts', '', 'default'
 
@@ -1481,7 +1485,6 @@ function! bundle.hooks.on_source(bundle)
 
   let g:neosnippet#enable_snipmate_compatibility = 1
 
-  let g:neosnippet#snippets_directory = '~/.vim/snippets'
 endfunction
 
 unlet bundle

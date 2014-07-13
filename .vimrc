@@ -2734,6 +2734,19 @@ endfunction
 unlet bundle
 "}}}
 
+" mattn/gist-vim {{{
+let bundle = neobundle#get('gist-vim')
+function! bundle.hooks.on_source(bundle)
+  let g:gist_detect_filetype = 1
+  let g:gist_browser_command = 'w3m %URL%'
+  let g:gist_show_privates = 1
+  let g:gist_post_private = 1
+  let g:gist_get_multiplefile = 1
+endfunction
+
+unlet bundle
+"}}}
+
 "}}}
 
 "---------------------------------------------------------------------------

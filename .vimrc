@@ -575,6 +575,10 @@ NeoBundleLazy 'vim-scripts/TaskList.vim', {
       \   'mappings': ['<Plug>TaskList'],
       \}}
 NeoBundle 'LeafCage/yankround.vim'
+NeoBundleLazy 'mattn/sonictemplate-vim', {
+      \ 'autoload': {
+      \   'commands': ['Template'],
+      \ }}
 
 
 NeoBundleLocal ~/.vim/bundle

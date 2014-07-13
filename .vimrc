@@ -2532,7 +2532,7 @@ let g:github_user = 'h17u'
 let bundle = neobundle#get('dwm.vim')
 function! bundle.hooks.on_source(bundle)
   let g:dwm_map_keys = 0
-  nmap <C-n> <Plug>DWMNew
+  nmap <C-C> <Plug>DWMNew
   nmap <C-c> <Plug>DWMClose
   nmap <C-@> <Plug>DWMFocus
   nmap <C-Space> <Plug>DWMFocus

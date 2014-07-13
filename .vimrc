@@ -3684,7 +3684,7 @@ else
   endif
 
   " Set path.
-  let $PATH = expand('~/bin').':/usr/local/bin/:'.$PATH
+  "let $PATH = expand('~/bin').':/usr/local/bin/:'.$PATH
 
   " For non GVim.
   if !has('gui_running')

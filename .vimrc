@@ -2721,11 +2721,13 @@ unlet bundle
 " LeafCage/yankround.vim {{{
 let bundle = neobundle#get('yankround.vim')
 function! bundle.hooks.on_source(bundle)
-let g:yankround_max_history = 35
-let g:yankround_dir = '~/.cache/yankround'
+  let g:yankround_max_history = 35
+  let g:yankround_dir = '~/.cache/yankround'
   nmap p <Plug>(yankround-p)
+  xmap p <Plug>(yankround-p)
   nmap P <Plug>(yankround-P)
   nmap gp <Plug>(yankround-gp)
+  xmap gp <Plug>(yankround-gp)
   nmap gP <Plug>(yankround-gP)
   nmap <C-p> <Plug>(yankround-prev)
   nmap <C-n> <Plug>(yankround-next)
@@ -3294,10 +3296,10 @@ xnoremap r <C-v>
 xnoremap v $h
 
 " Paste next line.
-nnoremap <silent> gp o<ESC>p^
-nnoremap <silent> gP O<ESC>P^
-xnoremap <silent> gp o<ESC>p^
-xnoremap <silent> gP O<ESC>P^
+"nnoremap <silent> gp o<ESC>p^
+"nnoremap <silent> gP O<ESC>P^
+"xnoremap <silent> gp o<ESC>p^
+"xnoremap <silent> gP O<ESC>P^
 
 " Folding."{{{
 " If press h on head, fold close.

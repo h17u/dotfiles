@@ -58,6 +58,11 @@ let g:mapleader = ','
 
 noremap <Leader>sv :source ~/.vimperatorrc<CR>:echo 'source ~/.vimperatorrc'<CR>
 
+" jk navigation "{{{
+noremap <S-j> j5
+noremap <S-k> k5
+"}}}
+
 " Tab navigation"{{{
 noremap <C-k> :tabprevious<CR>
 noremap <C-j> :tabnext<CR>

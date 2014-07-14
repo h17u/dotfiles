@@ -872,6 +872,7 @@ if v:version >= 703
   " Set undofile.
   set undofile
   let &undodir=&directory
+  set undodir=$HOME/.cache/undodir
 endif
 
 " Set tags file.

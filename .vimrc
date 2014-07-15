@@ -2756,6 +2756,16 @@ endfunction
 unlet bundle
 "}}}
 
+" lambdalisue/vim-pyenv {{{
+let bundle = neobundle#get('vim-pyenv')
+function! bundle.hooks.on_source(bundle)
+  let g:pyenv#pyenv_root = system('pyenv root')
+  "echo 'pyenv root:' . g:pyenv#pyenv_root
+endfunction
+
+unlet bundle
+"}}}
+
 "}}}
 
 "---------------------------------------------------------------------------

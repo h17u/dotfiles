@@ -730,7 +730,7 @@ WORDCHARS=' /@*?_-.[]~=&;!#$%^(){}<>'
 # Command Line Stack の改良版 # {{{
 push_line_and_show_buffer_stack() {
     POSTDISPLAY="
-stack: $LBUFFER"
+stack: $BUFFER"
     zle push-line-or-edit
 }
 zle -N push_line_and_show_buffer_stack

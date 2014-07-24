@@ -3327,17 +3327,17 @@ nnoremap <expr> l foldclosed(line('.')) != -1 ? 'zo0' : 'l'
 " xnoremap <expr> h col('.') == 1 && foldlevel(line('.')) > 0 ? 'zcgv' : 'h'
 " If press l on fold, range fold open.
 " xnoremap <expr> l foldclosed(line('.')) != -1 ? 'zogv0' : 'l'
-" noremap [Space]j zj
-" noremap [Space]k zk
-" noremap [Space]h zc
-" noremap [Space]l zo
-" noremap [Space]a za
-" noremap [Space]m zM
-" noremap [Space]i zMzv
-" noremap [Space]rr zR
-" noremap [Space]f zf
-" noremap [Space]d zd
-" noremap [Space]u :<C-u>Unite outline:foldings<CR>
+noremap [Space]j zj
+noremap [Space]k zk
+noremap [Space]h zc
+noremap [Space]l zo
+noremap [Space]a za
+noremap [Space]m zM
+noremap [Space]i zMzvzz
+noremap [Space]rr zR
+noremap [Space]f zf
+noremap [Space]d zd
+noremap [Space]u :<C-u>Unite outline:foldings<CR>
 "}}}
 
 " Substitute.

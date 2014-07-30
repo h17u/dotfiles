@@ -256,8 +256,13 @@ alias reload='exec zsh -l'
 alias d='dirs -v'
 
 alias ls='gls --color=auto --time-style=long-iso'
-alias l=' ls' ll=' ls -lh --time-style=long-iso' la=' ls -alh --time-style=long-iso'
-alias ld=' ls -d' l1=' ls -1d' lt=' tree -F'
+alias l=' ls'
+alias ll=' ls -lh --time-style=long-iso'
+alias la=' ls -alh --time-style=long-iso'
+alias lr=' ls -R'
+alias ld=' ls -d'
+alias l1=' ls -1d'
+alias lt=' tree -F'
 alias diff=$(brew --prefix colordiff)/bin/colordiff
 alias git=hub
 alias vi='$EDITOR'

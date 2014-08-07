@@ -11,18 +11,12 @@ source! ~/.vimperatorrc.local
 " Basic:"{{{
 "
 
-" for migemo find, hint
-" set hintmatching=custom
-set complete=slS
+set complete=tls
 
 set titlestring=Firefox
-"メニュー/ツール/リンクを表示
-"set guioptions=mTb
-"set guioptions=
-"ページ全体で検索語を強調表示
+set toolbars=addons
 set hlsearch
 
-"ビープ音を鳴らさずビジュアルベルを使用
 set visualbell
 highlight Bell display:none;
 
@@ -30,19 +24,18 @@ highlight Bell display:none;
 "ｺﾏﾝﾄﾞﾗｲﾝﾓｰﾄﾞ時に自動でimeをOFFにする
 " http://vimperator.g.hatena.ne.jp/teramako/20090311/1236776437
 style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+let g:ex_ime_mode = "inactive"
+let g:textarea_ime_mode = "inactive"
 
-"[[と]]でページをめくる。日本語ページ対応
-"set nextpattern=\bnext,^>$,^>>$,^>,>$,\b>>\b,\bmore\b,\b次へ\b,\b続きを読む\b
 set nextpattern=\bnext\b,\bmore\b,next,^次(の)?ページ,\b次.*,→\b,^>$,^(>>|≫)$,^(>|≫),(>|≫)$,^次(へ|の|ペ),^続き,\bnext\b,^>$,^(>>|»)$,^(>|»),(>|»)$,\bmore\b
 set previouspattern=\bprev|previous\b,prev,^前(の)?ページ,\b前.*,\b←,^<$,^(<<|≪)$,^(<|≪),(<|≪)$,^前(へ|の|ペ),^戻る,\bprev|previous\b,^<$,^(<<|«)$,^(<|«),(<|«)$
 
-"ページ読み込み時にテキストボックスに自動でフォーカスされないようにする
 set focuscontent
 
-"set default search engine to google japan
-"set defsearch=google_ja
+set hintmatching=custom
+set hintchars=hklyuiopnmqwertasdgzxcvbjf
+set status=input,location,position
 
-set hintchars=hjklasdfgzxcvbnmqwertyuiop1234567890
 set editor=vim
 
 "}}}

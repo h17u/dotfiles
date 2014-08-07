@@ -79,13 +79,14 @@ noremap y :echo 'Yank!'<CR>Y
 " Color Scheme:"{{{
 "
 colorscheme BrewBlue
-"colorscheme Sweets
 style -name tab-style-fix chrome://* <<EOM
 .tab-text-shadow,
 .tabs-newtab-button {
   display: none !important;
 }
 EOM
+
+hi -append Hint text-transform: uppercase;
 
 "}}}
 

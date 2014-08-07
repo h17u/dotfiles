@@ -44,12 +44,6 @@ set editor=vim
 " Key Mappings:"{{{
 "
 let g:mapleader = ','
-" let g:maplocalleader = 'm'
-" nnoremap ; :
-" nnoremap : ;
-
-
-noremap <Leader>sv :source ~/.vimperatorrc<CR>:echo 'source ~/.vimperatorrc'<CR>
 
 " jk navigation "{{{
 noremap <S-j> j5
@@ -72,33 +66,12 @@ inoremap j<Space>     j
 cnoremap j<Space>     j
 "}}}
 
-"command -nargs=+ mysearch open site:twilog.org/h17u <args>
+noremap <Leader>sv :source ~/.vimperatorrc<CR>:echo 'source ~/.vimperatorrc'<CR>
+noremap U :undo<Space>
+vnoremap <silent> <C-g> y<Esc><Esc>P
 :command! -nargs=* google open google <args>
-"command! svr source ~/.vimperatorrc
-
-"yで選択範囲をコピー
 noremap y :echo 'Yank!'<CR>Y
 
-"<BS>で「戻る」
-"map <BS> H
-"<A-Left>/<A-Right>かh/lでタブ移動
-"map <A-Left> <C-p>
-"map <A-Right> <C-n>
-"map h <C-p>
-"map l <C-n>
-"<A-Up>でその他のタブを閉じる
-"map <A-Up> :tabonly<CR>
-"<A-Down>で現在のタブを閉じる
-"map <A-Down> d
-"<S-Left>/<S-Right>で現在のタブの位置変更
-"map <S-Left>  :tabmove! -1<CR>
-"map <S-Right> :tabmove! +1<CR>
-"sで現在のページを保存
-"map s :saveas<CR>
-"<A-r>でFirefoxを再起動
-"map <A-r> :restart<CR>
-"<A-h>でヘルプを表示
-"map <A-h> :help<CR>
 
 "}}}
 

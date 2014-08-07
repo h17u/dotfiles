@@ -95,11 +95,45 @@ hi -append Hint text-transform: uppercase;
 "
 
 let g:plugin_loader_roots = "~/src/vimperator-plugins/ ~/.vimperator/load/"
-let g:plugin_loader_plugins = "copy,bitly,auto_source"
+let g:plugin_loader_plugins = "copy,bitly,auto_source,tombloo,hint-tombloo,migemo-find,caret-hint,migemo_hint,migemo_completion,forcefocuscontent"
+
+" tombloo.js "{{{
+nnoremap <Leader>t :tombloo!
+nnoremap <Leader>l :tombloo!Link<CR>
+vnoremap <Leader>q :tombloo!Quote<CR>
+"}}}
+
+" hint-tombloo-mod.js "{{{
+let g:hint_tombloo_key = 'r'
+"}}}
 
 " hatenabookmark.js "{{{
+" https://github.com/hatena/hatena-bookmark-xul/wiki/Vimperator-ではてなブックマーク拡張を使う
+javascript <<EOM
+liberator.globalVariables.hBookmark_shortcuts = {
+hintsAdd : 'B',
+hintsComment : '',
+add : [''],
+comment : ['C'],
+};
+liberator.globalVariables.hBookmark_commands = {
+        hbsearch             : 'hb[search]',
+        hbsearch_tab         : 'hbt[absearch]',
+        hbsearch_comment     : 'hbc[omment]',
+        hbsearch_comment_tab : 'hbtc[omment]',
+        hbsearch_url         : 'hbu[rl]',
+        hbsearch_url_tab     : 'hbtu[rl]',
+        hbsearch_title       : 'hbti[tle]',
+        hbsearch_title_tab   : 'hbtti[tle]',
+};
+liberator.globalVariables.hBookmark_bangFunction = 'entryPage';
+liberator.globalVariables.hBookmark_search_interval = 1000;
+liberator.globalVariables.hBookmark_search_limit = 10;
+liberator.globalVariables.hBookmark_search_max_limit = 100;
+EOM
 javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
 set complete+=H
+noremap <Leader>h :hbs
 "}}}
 
 "Show feed-button to statusbar"{{{
@@ -188,10 +222,11 @@ liberator.globalVariables.copy_templates = [
     { label: 'title',          value: '"%TITLE%"' },
     { label: 'url',            value: '%URL%' },
     { label: 'asin',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} },
+    { label: 'markdown',       value: '[%TITLE%](%URL% "%TITLE%")' },
+    { label: 'markdownsel',    value: '[%SEL%](%URL% "%TITLE%")' },
+    { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
 //    { label: 'hatena',         value: '[%URL%:title=%TITLE%]' },
 //    { label: 'hatenacite',     value: '>%URL%:title=%TITLE%>n%SEL%n<<' },
-//    { label: 'markdown',       value: '[%SEL%](%URL% "%TITLE%")' },
-//    { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
 //    { label: 'tinyURL', value:  'Get Tiny URL', custom: function() { return util.httpGet('http://tinyurl.com/api-create.php?url=' + encodeURIComponent(buffer.URL)).responseText; }},
     { label: 'tinyURL', value:  'Get Tiny URL', custom: function() { return util.httpGet('http://api.bit.ly/v3/shorten?login=tommyio&apiKey=R_50fa223dc7c496cb8711738402105f1d&format=txt&uri=' + encodeURIComponent(buffer.URL)).responseText;}}
 ];

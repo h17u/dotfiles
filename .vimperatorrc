@@ -11,7 +11,7 @@ source! ~/.vimperatorrc.local
 " Basic:"{{{
 "
 
-set complete=tls
+set complete=stl
 
 set titlestring=Firefox
 set toolbars=addons

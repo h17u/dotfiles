@@ -46,8 +46,8 @@ set editor=vim
 let g:mapleader = ','
 
 " jk navigation "{{{
-noremap <S-j> j5
-noremap <S-k> k5
+noremap <S-j> j20
+noremap <S-k> k20
 "}}}
 
 " Tab navigation"{{{

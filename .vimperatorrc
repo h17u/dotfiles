@@ -95,7 +95,7 @@ hi -append Hint text-transform: uppercase;
 "
 
 let g:plugin_loader_roots = "~/src/vimperator-plugins/ ~/.vimperator/load/"
-let g:plugin_loader_plugins = "copy,bitly,auto_source,tombloo,hint-tombloo,migemo-find,caret-hint,migemo_hint,migemo_completion,forcefocuscontent"
+let g:plugin_loader_plugins = "copy,bitly,auto_source,tombloo,hint-tombloo,migemo-find,caret-hint,migemo_hint,migemo_completion,forcefocuscontent,auto-focus-frame"
 
 " tombloo.js "{{{
 nnoremap <Leader>t :tombloo!

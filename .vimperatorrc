@@ -213,7 +213,7 @@ noremap <Leader>css :copy<Space>titleAndTinyUrlStarred<CR><Esc>
 noremap <Leader>ctu :copy<Space>titleAndUrl<CR><Esc>
 noremap <Leader>ctt :copy<Space>title<CR><Esc>
 noremap <Leader>cu :copy<Space>url<CR><Esc>
-noremap <Leader>ca :copy<Space>asin<CR><Esc>
+noremap <Leader>ca :copy<Space>amazon.co.jp<CR><Esc>
 javascript <<EOF
 liberator.globalVariables.copy_templates = [
     { label: 'titleAndTinyUrl', value: '', custom: function() { return '"' + buffer.title + '" ' + util.httpGet('http://api.bit.ly/v3/shorten?login=tommyio&apiKey=R_50fa223dc7c496cb8711738402105f1d&format=txt&uri=' + encodeURIComponent(buffer.URL)).responseText;} },
@@ -222,6 +222,8 @@ liberator.globalVariables.copy_templates = [
     { label: 'title',          value: '"%TITLE%"' },
     { label: 'url',            value: '%URL%' },
     { label: 'asin',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} },
+    { label: 'amazon.co.jp',   value: 'Amazon.co.jp', custom: function(){return 'http://www.amazon.co.jp/dp/' + content.document.getElementById('ASIN').value +'/';} },
+    { label: 'amazon.com',   value: 'Amazon.com', custom: function(){return 'http://www.amazon.com/dp/' + content.document.getElementById('ASIN').value +'/';} },
     { label: 'markdown',       value: '[%TITLE%](%URL% "%TITLE%")' },
     { label: 'markdownsel',    value: '[%SEL%](%URL% "%TITLE%")' },
     { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },

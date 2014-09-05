@@ -533,7 +533,6 @@ NeoBundleLazy 'techlivezheng/vim-plugin-tagbar-phpctags', {
 NeoBundle 'Lokaltog/vim-easymotion', '', 'default'
 NeoBundle 'haya14busa/vim-easyoperator-line', '', 'default'
 NeoBundle 'haya14busa/vim-easyoperator-phrase', '', 'default'
-NeoBundle 'zhisheng/visualmark.vim', '', 'default'
 NeoBundleLazy 'tpope/vim-markdown', { 'autoload' : {
       \ 'filetypes' : 'markdown'
       \ }}
@@ -2620,17 +2619,6 @@ function! bundle.hooks.on_source(bundle)
   map F <Plug>(easymotion-bd-jk)
   let g:EasyMotion_startofline = 0
 
-endfunction
-
-unlet bundle
-"}}}
-
-" visualmark.vim {{{
-let bundle = neobundle#get('visualmark.vim')
-function! bundle.hooks.on_source(bundle)
-  nmap <silent>em  <Plug>Vm_toggle_sign
-  nmap <silent>ej  <Plug>Vm_goto_next_sign
-  nmap <silent>ek  <Plug>Vm_goto_prev_sign
 endfunction
 
 unlet bundle

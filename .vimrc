@@ -549,7 +549,9 @@ NeoBundleLazy 'mattn/emmet-vim',  { 'autoload' : {
       \ }}
 NeoBundle 'cohama/vim-insert-linenr'
 NeoBundle 'powerman/vim-plugin-AnsiEsc'
-NeoBundle 'chrisbra/csv.vim'
+NeoBundleLazy 'chrisbra/csv.vim', { 'autoload' : {
+      \ 'filetypes' : 'csv'
+      \ }}
 NeoBundleLazy 'lambdalisue/vim-django-support', {
       \ 'autoload': {
       \   'filetypes': ['python', 'python3', 'djangohtml']

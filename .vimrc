@@ -474,6 +474,7 @@ NeoBundle 'kannokanno/unite-dwm', { 'autoload' : {
       \ 'commands' : 'Unite'
       \ }}
 NeoBundle 'altercation/vim-colors-solarized', '', 'default'
+NeoBundle 'Lokaltog/vim-distinguished', '', 'default'
 NeoBundle 'tpope/vim-fugitive', '', 'default'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'Townk/vim-autoclose', '', 'default'

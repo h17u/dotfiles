@@ -548,7 +548,6 @@ NeoBundleLazy 'mattn/emmet-vim',  { 'autoload' : {
       \ 'filetypes' : ['html','haml','slim','css','js','php']
       \ }}
 NeoBundle 'cohama/vim-insert-linenr'
-NeoBundle 'guyht/vimwiki', 'alt-font'
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 NeoBundle 'chrisbra/csv.vim'
 NeoBundleLazy 'lambdalisue/vim-django-support', {

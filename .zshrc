@@ -1002,11 +1002,9 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 # Heroku Toolbelt
 export PATH=$PATH:/usr/local/heroku/bin
 
-
-
-
-
-
+# Go
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin
 
 # Remove duplicate $PATH entries
 # http://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command

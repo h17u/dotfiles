@@ -3080,6 +3080,7 @@ function! s:PreviousWindowOrTab()
   endif
 endfunction
 "}}}
+
 nnoremap <silent> [Window]<Space>  :<C-u>call <SID>ToggleSplit()<CR>
 " If window isn't splited, split buffer. "{{{
 function! s:ToggleSplit()
@@ -3092,6 +3093,7 @@ function! s:ToggleSplit()
   endif
 endfunction
 "}}}
+
 " Split nicely."{{{
 command! SplitNicely call s:split_nicely()
 function! s:split_nicely()
@@ -3104,6 +3106,7 @@ function! s:split_nicely()
   wincmd p
 endfunction
 "}}}
+
 " Delete current buffer."{{{
 nnoremap <silent> [Window]d  :<C-u>call <SID>CustomBufferDelete(0)<CR>
 " Force delete current buffer.
@@ -3118,6 +3121,23 @@ function! s:CustomBufferDelete(is_force)
   else
     silent! execute 'bdelete ' . current
   endif
+endfunction
+"}}}
+
+" Move window to new tab."{{{
+" http://haya14busa.com/reading-vim-help/
+nnoremap <silent> [Window]m :<C-u>call <SID>MoveToNewTab()<CR>
+function! s:MoveToNewTab()
+  tab split
+  tabprevious
+
+  if winnr('$') > 1
+    close
+  elseif bufnr('$') > 1
+    buffer #
+  endif
+
+  tabnext
 endfunction
 "}}}
 

@@ -258,14 +258,15 @@ alias d='dirs -v'
 
 alias ls='gls --color=auto --time-style=long-iso'
 alias l=' ls'
-alias ll=' ls -lh --time-style=long-iso'
-alias la=' ls -alh --time-style=long-iso'
+alias ll=' ls -lh'
+alias la=' ls -alh'
 alias lr=' ls -R'
 alias ld=' ls -d'
-alias l1=' ls -1d'
+alias l1=' ls -1'
 alias lt=' tree -F'
 alias diff=$(brew --prefix colordiff)/bin/colordiff
 alias git=hub
+alias g=git
 alias vi='$EDITOR'
 alias lockscreen='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 alias screensaver='open -a /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app'

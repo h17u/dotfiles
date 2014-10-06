@@ -1607,7 +1607,7 @@ let g:unite_source_menu_menus.enc.command_candidates = [
       \       ['sjis', 'Sjis'],
       \       ['unicode', 'Unicode'],
       \     ]
-nnoremap <silent> [unite];e :<C-u>Unite menu:enc<CR>
+nnoremap <silent> [unite]e :<C-u>Unite menu:enc<CR>
 
 let g:unite_source_menu_menus.fenc = {
       \     'description' : 'Change file fenc option.',
@@ -1623,7 +1623,7 @@ let g:unite_source_menu_menus.fenc.command_candidates = [
       \       ['sjis', 'WSjis'],
       \       ['unicode', 'WUnicode'],
       \     ]
-nnoremap <silent> [unite];f :<C-u>Unite menu:fenc<CR>
+nnoremap <silent> [unite]fe :<C-u>Unite menu:fenc<CR>
 
 let g:unite_source_menu_menus.ff = {
       \     'description' : 'Change file format option.',
@@ -1633,7 +1633,7 @@ let g:unite_source_menu_menus.ff.command_candidates = {
       \       'dos'    : 'WDos',
       \       'mac'    : 'WMac',
       \     }
-nnoremap <silent> [unite];w :<C-u>Unite menu:ff<CR>
+nnoremap <silent> [unite]ff :<C-u>Unite menu:ff<CR>
 
 let g:unite_source_menu_menus.unite = {
       \     'description' : 'Start unite sources',
@@ -1648,7 +1648,7 @@ let g:unite_source_menu_menus.unite.command_candidates = {
       \       'message'    : 'Unite output:message',
       \       'scriptnames': 'Unite output:scriptnames',
       \     }
-nnoremap <silent> [unite];u :<C-u>Unite menu:unite -resume<CR>
+nnoremap <silent> [unite]u :<C-u>Unite menu:unite -resume<CR>
 "}}}
 let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle) "{{{

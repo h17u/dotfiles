@@ -166,6 +166,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle zsh-users/zsh-history-substring-search
     antigen bundle zsh-users/zsh-completions src
     antigen bundle s7anley/zsh-geeknote
+    antigen bundle motemen/ghq zsh
 
     # http://blog.m4i.jp/entry/2012/01/26/064329
     antigen bundle m4i/cdd

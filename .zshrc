@@ -159,6 +159,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle web-search
     # antigen bundle yum
     # antigen bundle zeus
+    antigen bundle brew-cask
     #}}}
 
     # Bundles othoer repo
@@ -225,6 +226,7 @@ esac
 export MANPATH=/opt/local/share/man:$MANPATH
 export MANPATH=/usr/local/share/man:$MANPATH
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
+export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/usr/local/homebrew-cask/Caskroom"
 # }}}
 
 # Set shell options # {{{

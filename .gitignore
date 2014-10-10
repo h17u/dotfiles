@@ -22,3 +22,4 @@ bin/seagull
 !/.tigrc
 !/.muttrc
 !/.dircolors
+!/.peco

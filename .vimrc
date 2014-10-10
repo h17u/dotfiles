@@ -841,7 +841,8 @@ let g:foldCCtext_enable_autofdc_adjuster = 1
 " set grepprg=internal
 " set grepprg=grep\ -nH
 " set grepprg=git\ grep\ -n
-set grepprg=ag\ --ignore-case\ --skip-vcs-ignores
+" set grepprg=ag\ --ignore-case\ --skip-vcs-ignores
+set grepprg=pt\ --ignore-case\ --skip-vcs-ignores
 " set grepprg=jvgrep
 
 " Exclude = from isfilename.
@@ -1767,7 +1768,13 @@ function! bundle.hooks.on_source(bundle) "{{{
     let g:unite_prompt = '» '
   endif
 
-  if executable('ag')
+  if executable('pt')
+    " Use pt in unite grep source.
+    let g:unite_source_grep_command = 'pt'
+    let g:unite_source_grep_default_opts = '--nocolor --nogroup --ignore-case'
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_encoding = 'utf-8'
+  elseif executable('ag')
     " Use ag in unite grep source.
     let g:unite_source_grep_command = 'ag'
     let g:unite_source_grep_default_opts = '--nocolor --nogroup --hidden --ignore-case'

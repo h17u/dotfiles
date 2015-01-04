@@ -1,0 +1,19 @@
+" Easy escape."{{{
+imap jj           <ESC>
+" cnoremap <expr> j       getcmdline()[getcmdpos()-2] ==# 'j' ? "\<BS>\<C-c>" : 'j'
+omap jj           <ESC>
+
+imap j<Space>     j
+omap j<Space>     j
+"}}}
+
+
+set incsearch
+set ignorecase
+set smartcase
+
+" Default to global substitutions on lines
+set gdefault
+
+" Use the system pasteboard
+set pasteboard

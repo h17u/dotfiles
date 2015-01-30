@@ -4,7 +4,7 @@
 " Initialize:"{{{
 "
 
-" Before neobundle#rc "{{{
+" Before neobundle "{{{
 if !&compatible
   " Enable no Vi compatible commands.
   set nocompatible
@@ -125,11 +125,11 @@ let g:neobundle#enable_tail_path = 1
 let g:neobundle#default_options = {
       \ 'default' : { 'overwrite' : 0 },
       \ }
-
-call neobundle#rc(s:neobundle_dir)
 "}}}
 
-" neobundle.vim"{{{
+" neobundle#begin "{{{
+call neobundle#begin(s:neobundle_dir)
+
 NeoBundleFetch 'Shougo/neobundle.vim', '', 'default'
 
 " NeoBundle 'tpope/vim-surround', {
@@ -581,8 +581,9 @@ NeoBundleLazy 'mattn/sonictemplate-vim', {
       \   'commands': ['Template'],
       \ }}
 
-
 NeoBundleLocal ~/.vim/bundle
+
+call neobundle#end()
 "}}}
 
 

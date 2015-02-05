@@ -974,7 +974,11 @@ fi
 }
 # }}}
 
-# Select zsh history by peco # {{{
+# }}}
+
+# Peco {{{
+
+# Select zsh history {{{
 function peco-select-history() {
 local tac
 if which tac > /dev/null; then
@@ -990,7 +994,7 @@ zle -N peco-select-history
 bindkey '^r' peco-select-history
 # }}}
 
-# Select ghq list by peco # {{{
+# Select ghq list {{{
 function peco-src () {
 local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
 if [ -n "$selected_dir" ]; then

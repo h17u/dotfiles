@@ -1007,6 +1007,18 @@ zle -N peco-src
 bindkey '^]' peco-src
 # }}}
 
+# Kill process {{{
+# http://k0kubun.hatenablog.com/entry/2014/07/06/033336
+function peco-pkill() {
+for pid in `ps aux | peco | awk '{ print $2 }'`
+do
+  kill $pid
+  echo "Killed ${pid}"
+done
+}
+alias pk="peco-pkill"
+# }}}
+
 # }}}
 
 # PATH #{{{

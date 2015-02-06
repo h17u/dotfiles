@@ -247,6 +247,35 @@ setopt ignoreeof # forces the user to type exit or logout,  instead of just pres
 #setopt xtrace
 # }}}
 
+# grc for more colors {{{
+# https://github.com/pengwynn/grc
+# https://github.com/szymonkaliski/Dotfiles/blob/master/Dotfiles/zshrc
+if hash grc 2> /dev/null; then
+  alias colourify='grc -es --colour=auto'
+  alias diff='colourify diff'
+  alias configure='colourify configure'
+  alias cvs='colourify cvs'
+  alias diff='colourify diff'
+  alias dig='colourify dig'
+  alias esperanto='colourify esperanto'
+  alias gcc='colourify gcc'
+  # alias ifconfig='colourify ifconfig'
+  alias irclog='colourify irclog'
+  alias ldap='colourify ldap'
+  # alias log='colourify log'
+  # alias ls='colourify ls'
+  alias mount='colourify mount'
+  alias mount2='colourify mount2'
+  alias mtr='colourify mtr'
+  alias netstat='colourify netstat'
+  alias ping='colourify ping'
+  alias proftpd='colourify proftpd'
+  alias ps='colourify ps'
+  alias traceroute='colourify traceroute'
+  alias wdiff='colourify wdiff'
+fi
+# }}}
+
 # Aliases # {{{
 alias cp='cp -i' mv='mv -i'
 #alias ranking='sort|uniq -c|sort -nr|cat -n'
@@ -267,7 +296,6 @@ alias lr=' ls -R'
 alias ld=' ls -d'
 alias l1=' ls -1'
 alias lt=' tree -F'
-alias diff=$(brew --prefix colordiff)/bin/colordiff
 alias git=hub
 alias g=git
 alias vi='$EDITOR'

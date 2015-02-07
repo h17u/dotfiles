@@ -2593,7 +2593,7 @@ nnoremap [Space]gb :<C-u>Gblame<Enter>
 " Memolist {{{
 let bundle = neobundle#get('memolist.vim')
 function! bundle.hooks.on_source(bundle)
-  let g:memolist_path = $HOME . '/.vim_memo'
+  let g:memolist_path = $HOME . '/Dropbox/Memo'
   let g:memolist_memo_suffix = "md"
   let g:memolist_memo_date = "%Y-%m-%d %H:%M"
   let g:memolist_prompt_tags = 1
@@ -2601,10 +2601,10 @@ function! bundle.hooks.on_source(bundle)
   let g:memolist_qfixgrep = 0
   let g:memolist_vimfiler = 1
   let g:memolist_filename_prefix_none = 1
-  command! -nargs=0 MemoGrep2 :Unite grep:~/.vim_memo -buffer-name=search -auto-preview -no-quit -resume
-  nnoremap [Space]mn  :MemoNew<CR>
-  nnoremap [Space]ml  :MemoList<CR>
-  nnoremap [Space]mg  :MemoGrep2<CR>
+  command! -nargs=0 MemoGrep2 :Unite grep:~/Dropbox/Memo -buffer-name=search -auto-preview -no-quit
+  nnoremap [Window]ee  :MemoNew<CR>
+  nnoremap [Window]el  :MemoList<CR>
+  nnoremap [Window]eg  :MemoGrep2<CR>
 endfunction
 
 unlet bundle

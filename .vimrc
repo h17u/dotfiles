@@ -3150,10 +3150,11 @@ endfunction
 "}}}
 
 " JunkFile "{{{
+let g:junkfile#directory = $HOME . '/Dropbox/Junk'
 " nnoremap <silent> [Window]e  :<C-u>JunkfileOpen<CR>
-nnoremap <silent> [Window]ee  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
-command! -nargs=0 JunkFileGrep :Unite grep:~/.vim_junk -buffer-name=search -auto-preview -no-quit -resume
-nnoremap <silent> [Window]eg  :<C-u>JunkFileGrep<CR>
+nnoremap <silent> [Window]je  :<C-u>Unite junkfile/new junkfile -start-insert<CR>
+command! -nargs=0 JunkFileGrep :Unite grep:~/Dropbox/Junk -buffer-name=search -auto-preview -no-quit
+nnoremap <silent> [Window]jg  :<C-u>JunkFileGrep<CR>
 command! -nargs=0 JunkfileDiary call junkfile#open_immediately(
       \ strftime('%Y-%m-%d.md'))
 "}}}

@@ -94,8 +94,8 @@ hi -append Hint text-transform: uppercase;
 " Plugin:"{{{
 "
 
-let g:plugin_loader_roots = "~/src/github.com/vimpr/vimperator-plugins/ ~/.vimperator/load/ ~/src/evernote-clearly-vimp/plugin"
-let g:plugin_loader_plugins = "copy,bitly,auto_source,tombloo,hint-tombloo,migemo-find,caret-hint,migemo_hint,migemo_completion,forcefocuscontent,auto-focus-frame,evernote-clearly"
+let g:plugin_loader_roots = "~/src/github.com/vimpr/vimperator-plugins/ ~/.vimperator/load/"
+let g:plugin_loader_plugins = "copy,bitly,auto_source,tombloo,hint-tombloo,migemo-find,caret-hint,migemo_hint,migemo_completion,forcefocuscontent,auto-focus-frame"
 
 " tombloo.js "{{{
 nnoremap <Leader>t :tombloo!
@@ -263,9 +263,6 @@ EOF
 "nmap ,tp :<C-u>twuri<CR><C-a><Right><Right><Right>
 ""}}}
 
-" evernote-clearly.js "{{{
-noremap <Leader>e :clearly<CR>
-""}}}
 
 
 

@@ -1049,12 +1049,12 @@ alias pk="peco-pkill"
 
 # Search file recursively and edit {{{
 function peco-search-file() {
-${1:=$(pwd)}
+${1:="$(pwd)"}
 local selected=$(find $1 -maxdepth 2 | peco)
-if [[ -d $selected ]]; then
-  peco-search-file $selected
-elif [[ -f $selected ]]; then
-  $EDITOR $selected
+if [[ -d "$selected" ]]; then
+  peco-search-file "$selected"
+elif [[ -f "$selected" ]]; then
+  $EDITOR "$selected"
 fi
 }
 # }}}

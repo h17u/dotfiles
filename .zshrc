@@ -1059,6 +1059,25 @@ fi
 }
 # }}}
 
+# Edit or Search file recursively {{{
+function peco-edit-file() {
+local param=''
+local delimiter='-'
+local extension='.md'
+if [[ $# -eq 0 ]]; then
+  peco-search-file
+else
+  while [ $# -ne 0 ]
+  do
+    param="${param}$1${delimiter}"
+    shift
+  done
+  $EDITOR "${param}$(date +"%Y%m%d-%H%M")${extension}"
+fi
+}
+alias eed='peco-edit-file'
+# }}}
+
 # }}}
 
 # PATH #{{{

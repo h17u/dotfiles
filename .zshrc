@@ -1014,7 +1014,7 @@ if which tac > /dev/null; then
 else
   tac="tail -r"
 fi
-BUFFER=$(fc -l -n 1 | eval $tac | peco --query "$LBUFFER")
+BUFFER=$(\history -n 1 | eval $tac | awk '!a[$0]++' | peco --query "$LBUFFER")
 CURSOR=$#BUFFER
 zle clear-screen
 }

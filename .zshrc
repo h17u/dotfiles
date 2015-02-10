@@ -231,7 +231,7 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/usr/local/homebrew
 
 # Set shell options # {{{
 setopt auto_cd auto_name_dirs auto_pushd pushd_ignore_dups
-setopt extended_history hist_ignore_dups hist_ignore_space hist_save_nodups
+setopt extended_history hist_ignore_space hist_save_nodups
 setopt share_history inc_append_history hist_no_store hist_verify hist_reduce_blanks
 setopt prompt_subst correct list_packed nolistbeep
 setopt list_types no_beep always_last_prompt

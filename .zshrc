@@ -1078,6 +1078,12 @@ fi
 alias eed='peco-edit-file'
 # }}}
 
+# Grep by pt and edit {{{
+function ptvim () {
+vim -p $(pt "$@" | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
+}
+# }}}
+
 # }}}
 
 # PATH #{{{

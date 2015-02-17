@@ -2563,7 +2563,7 @@ function! bundle.hooks.on_source(bundle)
         \}
   let g:syntastic_auto_loc_list = 2
   let g:syntastic_javascript_checkers=['jshint', 'jslint', 'gjslint']
-  let g:syntastic_javascript_gjslint_conf=' --nojsdoc'
+  let g:syntastic_javascript_gjslint_args=' --nojsdoc'
   let g:syntastic_python_checkers=['pylint']
   let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
   let g:syntastic_check_on_open = 0

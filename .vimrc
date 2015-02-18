@@ -2958,10 +2958,6 @@ nnoremap <silent> [Space]rg
       \ echo "source $MYGVIMRC"<CR>
 "}}}
 
-" Useful save mappings.
-nnoremap <silent> <Leader><Leader> :<C-u>update<CR>
-inoremap <silent> <Leader><Leader> <Esc> :<C-u>update<CR>
-
 " Change current directory.
 nnoremap <silent> [Space]cd :<C-u>call <SID>cd_buffer_dir()<CR>
 function! s:cd_buffer_dir() "{{{

@@ -1826,7 +1826,7 @@ omap <silent> [Alt]b <Plug>CamelCaseMotion_b
 " smartchr.vim"{{{
 let bundle = neobundle#get('vim-smartchr')
 function! bundle.hooks.on_source(bundle)
-  inoremap <expr> , smartchr#one_of(', ', ',')
+  inoremap <expr> , smartchr#one_of(',', ', ')
 
   augroup MyAutoCmd
     " Substitute .. into -> .

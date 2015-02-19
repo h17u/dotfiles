@@ -252,9 +252,6 @@ NeoBundleLazy 'hail2u/vim-css3-syntax', {
       \ 'autoload' : {
       \   'filetypes' : 'css'
       \ }}
-NeoBundleLazy 'kana/vim-smartchr', { 'autoload' : {
-      \ 'insert' : 1,
-      \ }}
 NeoBundleLazy 'kana/vim-smartword', { 'autoload' : {
       \ 'mappings' : [
       \   '<Plug>(smartword-w)', '<Plug>(smartword-b)', '<Plug>(smartword-ge)']
@@ -1822,41 +1819,6 @@ nmap <silent> [Alt]b <Plug>CamelCaseMotion_b
 xmap <silent> [Alt]b <Plug>CamelCaseMotion_b
 omap <silent> [Alt]b <Plug>CamelCaseMotion_b
 ""}}}
-
-" smartchr.vim"{{{
-let bundle = neobundle#get('vim-smartchr')
-function! bundle.hooks.on_source(bundle)
-  inoremap <expr> , smartchr#one_of(',', ', ')
-
-  augroup MyAutoCmd
-    " Substitute .. into -> .
-    autocmd FileType c,cpp inoremap <buffer> <expr> . smartchr#loop('.', '->', '...')
-    autocmd FileType perl,php inoremap <buffer> <expr> . smartchr#loop(' . ', '->', '.')
-    autocmd FileType perl,php inoremap <buffer> <expr> - smartchr#loop('-', '->')
-    autocmd FileType vim inoremap <buffer> <expr> . smartchr#loop('.', ' . ', '..', '...')
-
-    autocmd FileType haskell,int-ghci
-          \ inoremap <buffer> <expr> + smartchr#loop('+', ' ++ ')
-          \| inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
-          \| inoremap <buffer> <expr> $ smartchr#loop(' $ ', '$')
-          \| inoremap <buffer> <expr> \ smartchr#loop('\ ', '\')
-          \| inoremap <buffer> <expr> : smartchr#loop(':', ' :: ', ' : ')
-          \| inoremap <buffer> <expr> . smartchr#loop('.', ' . ', '..')
-
-    autocmd FileType scala
-          \ inoremap <buffer> <expr> - smartchr#loop('-', ' -> ', ' <- ')
-          \| inoremap <buffer> <expr> = smartchr#loop(' = ', '=', ' => ')
-          \| inoremap <buffer> <expr> : smartchr#loop(': ', ':', ' :: ')
-          \| inoremap <buffer> <expr> . smartchr#loop('.', ' => ')
-
-    autocmd FileType eruby
-          \ inoremap <buffer> <expr> > smartchr#loop('>', '%>')
-          \| inoremap <buffer> <expr> < smartchr#loop('<', '<%', '<%=')
-  augroup END
-endfunction
-
-unlet bundle
-"}}}
 
 " smarttill.vim"{{{
 xmap q  <Plug>(smarttill-t)

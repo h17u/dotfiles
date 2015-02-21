@@ -1062,7 +1062,7 @@ fi
 # Edit or Search file recursively {{{
 function peco-edit-file() {
 local param=''
-local delimiter='-'
+local delimiter='_'
 local extension='.md'
 if [[ $# -eq 0 ]]; then
   peco-search-file

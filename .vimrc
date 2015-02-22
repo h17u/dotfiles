@@ -2563,7 +2563,8 @@ unlet bundle
 " othree/javascript-libraries-syntax.vim {{{
 let bundle = neobundle#get('javascript-libraries-syntax.vim')
 function! bundle.hooks.on_source(bundle)
-  let g:used_javascript_libs = 'jquery,underscore,backbone,prelude,angularjs,requirejs'
+  " let g:used_javascript_libs = 'jquery,underscore,backbone,angularjs,angularui,react,flux,requirejs,sugar,jasmine,chai,handlebars'
+  let g:used_javascript_libs = 'jquery,angularjs,angularui,requirejs,sugar,jasmine,chai'
 endfunction
 
 unlet bundle

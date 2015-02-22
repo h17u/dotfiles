@@ -407,9 +407,6 @@ NeoBundleLazy 'bkad/CamelCaseMotion', { 'autoload' : {
 NeoBundleLazy 'HybridText', { 'autoload' : {
       \ 'filetypes' : 'hybrid',
       \ }}
-NeoBundleLazy 'AndrewRadev/switch.vim', { 'autoload' : {
-      \ 'commands' : 'Switch',
-      \ }}
 NeoBundleLazy 'kana/vim-niceblock', { 'autoload' : {
       \ 'mappings' : ['<Plug>(niceblock-I)', '<Plug>(niceblock-A)']
       \ }}
@@ -2196,23 +2193,6 @@ function! bundle.hooks.on_source(bundle)
   AlterCommand w[rite] Write
 endfunction
 unlet bundle
-"}}}
-
-" switch.vim{{{
-" http://www.vimninjas.com/2012/09/12/switch/
-let g:variable_style_switch_definitions = [
-\   {
-\     'f': {
-\       'foo': 'bar'
-\     },
-\
-\     'b': {
-\       'bar': 'foo'
-\     },
-\   }
-\ ]
-" nnoremap <silent> + :call switch#Switch(g:variable_style_switch_definitions)<CR>
-nnoremap <silent> ! :Switch<cr>
 "}}}
 
 " vim-niceblock "{{{

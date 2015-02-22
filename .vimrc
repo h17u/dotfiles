@@ -2222,18 +2222,6 @@ endfunction
 unlet bundle
 "}}}
 
-" Like A IDE :) "{{{
-function! s:likeIDE()
-  cd %:p:h
-  VimFilerExplorer -simple
-  wincmd l
-  TagbarToggle
-  wincmd h
-  SrcExplToggle
-endfunction
-nnoremap <silent> <Leader>id :call <SID>likeIDE()<CR>
-"}}}
-
 " majutsushi/tagbar "{{{
 let bundle = neobundle#get('tagbar')
 function! bundle.hooks.on_source(bundle)

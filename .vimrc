@@ -378,7 +378,6 @@ NeoBundleLazy 'deton/jasegment.vim', { 'autoload' : {
       \               ['x', '<Plug>JaSegmentMoveVB'],
       \ ],
       \ }}
-NeoBundleLazy 'wesleyche/SrcExpl', { 'autoload' : { 'commands' : ['SrcExplToggle', 'SrcExpl', 'SrcExplClose'] } }
 
 " From vim.org
 NeoBundleLazy 'godlygeek/csapprox', { 'terminal' : 1 }
@@ -2234,18 +2233,6 @@ function! s:likeIDE()
 endfunction
 nnoremap <silent> <Leader>id :call <SID>likeIDE()<CR>
 "}}}
-
-" wesleyche/SrcExpl "{{{
-let bundle = neobundle#get('SrcExpl')
-function! bundle.hooks.on_source(bundle)
-  nnoremap <silent> <Leader>sc :SrcExplToggle<CR>
-  let g:SrcExpl_RefreshTime = 1
-  let g:SrcExpl_UpdateTags = 1
-  let g:SrcExpl_WinHeight = 10
-  let g:SrcExpl_pluginList = ["__Tag_List__", "NERD_tree_1", "Source_Explorer", "*unite*", "*vimfiler* - explorer", "__Tagbar__" ]
-endfunction
-unlet bundle
-" }}}
 
 " majutsushi/tagbar "{{{
 let bundle = neobundle#get('tagbar')

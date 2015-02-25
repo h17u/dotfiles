@@ -1072,7 +1072,7 @@ else
     param="${param}$1${delimiter}"
     shift
   done
-  $EDITOR "${param}$(date +"%Y%m%d-%H%M")${extension}"
+  $EDITOR "${param}$(date +"%Y%m%d")${delimiter}$(date +"%H%M")${extension}"
 fi
 }
 alias eed='peco-edit-file'

@@ -211,6 +211,8 @@ noremap <Leader>csu :copy<Space>titleAndTinyUrl<CR><Esc>
 noremap <Leader>css :copy<Space>titleAndTinyUrlStarred<CR><Esc>
 noremap <Leader>ctu :copy<Space>titleAndUrl<CR><Esc>
 noremap <Leader>ctl :copy<Space>titleAndUrl1Line<CR><Esc>
+noremap <Leader>cta :copy<Space>titleAndUrlAnchor<CR><Esc>
+noremap <Leader>ctm :copy<Space>titleAndUrlMarkdown<CR><Esc>
 noremap <Leader>ctt :copy<Space>title<CR><Esc>
 noremap <Leader>cu :copy<Space>url<CR><Esc>
 noremap <Leader>caj :copy<Space>amazon.co.jp<CR><Esc>
@@ -221,6 +223,8 @@ liberator.globalVariables.copy_templates = [
     { label: 'titleAndTinyUrlStarred', value: '', custom: function() { return '#Starred "' + buffer.title + '" ' + util.httpGet('http://api.bit.ly/v3/shorten?login=tommyio&apiKey=R_50fa223dc7c496cb8711738402105f1d&format=txt&uri=' + encodeURIComponent(buffer.URL)).responseText;} },
     { label: 'titleAndUrl',    value: '"%TITLE%"\n%URL%' },
     { label: 'titleAndUrl1Line',    value: '%TITLE% %URL%' },
+    { label: 'titleAndUrlAnchor',    value: '<a href="%URL%">%TITLE%</a>' },
+    { label: 'titleAndUrlMarkdown',    value: '[%TITLE%](%URL%)' },
     { label: 'title',          value: '"%TITLE%"' },
     { label: 'url',            value: '%URL%' },
     { label: 'asin',   value: 'copy ASIN code from Amazon', custom: function(){return (content.document.getElementById('ASIN') || content.document.getElementsByName('ASIN.0')[0]).value;} },

@@ -136,20 +136,6 @@ set complete+=H
 noremap <Leader>h :hbs
 "}}}
 
-"Show feed-button to statusbar"{{{
-"http://d.hatena.ne.jp/teramako/20071205/p1
-":javascript <<EOF
-"(function(){
-"	var feedPanel = document.createElement('statusbarpanel');
-"	var feedButton = document.getElementById('feed-button');
-"	feedPanel.setAttribute('id','feed-panel-clone');
-"	feedPanel.appendChild(feedButton.cloneNode(true));
-"	feedButton.parentNode.removeChild(feedButton);
-"	document.getElementById('status-bar').insertBefore(feedPanel,document.getElementById('security-button'));
-"})();
-"EOF
-"}}}
-
 " multi_requester.js"{{{
 " http://twitter.g.hatena.ne.jp/VoQn/20090101/1230755193
 "map ,m,s :so<Space>$RUNTIME/plugin/multi_requester.js

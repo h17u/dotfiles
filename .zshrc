@@ -828,6 +828,17 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 # }}}
 
+# echo datetime # {{{
+function echo-datetime() {
+local delimiter='_'
+local datetime=$(date +"%Y%m%d")${delimiter}$(date +"%H%M")
+echo -n ${datetime}
+# print ${datetime}
+}
+zle -N echo-datetime
+bindkey -M viins '^X^D' echo-datetime
+# }}}
+
 # }}}
 
 # Functions {{{

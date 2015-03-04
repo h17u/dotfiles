@@ -315,8 +315,6 @@ alias -g ER='1>&2'
 alias -g TELLME="&& say succeeded || say failed"
 alias -g G="| grep"
 alias -g L='| $PAGER'
-# alias -g W='| wc'
-alias -g H='| head'
 alias -g T='| tail'
 alias -g S='| sed'
 alias -g V="| vim -R -"
@@ -1095,6 +1093,14 @@ alias ee='peco-edit-file'
 function ptvim () {
 vim -p $(pt "$@" | peco --query "$LBUFFER" | awk -F : '{print "-c " $2 " " $1}')
 }
+# }}}
+
+# Select git hash by peco {{{
+# http://qiita.com/sona-tar/items/fe401c597e8e51d4e243
+function git-hash(){
+git log --oneline --branches | peco | awk '{print $1}'
+}
+alias -g H='$(git-hash)'
 # }}}
 
 # }}}

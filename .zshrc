@@ -1086,7 +1086,7 @@ else
   $EDITOR "${param}$(date +"%Y%m%d")${delimiter}$(date +"%H%M")${extension}"
 fi
 }
-alias eed='peco-edit-file'
+alias ee='peco-edit-file'
 # }}}
 
 # Grep by pt and edit {{{

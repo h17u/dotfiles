@@ -1103,6 +1103,14 @@ git log --oneline --branches | peco | awk '{print $1}'
 alias -g H='$(git-hash)'
 # }}}
 
+# Select git changed files by peco {{{
+# http://qiita.com/sona-tar/items/fe401c597e8e51d4e243
+function git-changed-files(){
+git status --short | peco | awk '{print $2}'
+}
+alias -g F='$(git-changed-files)'
+# }}}
+
 # }}}
 
 # PATH #{{{

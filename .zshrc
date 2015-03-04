@@ -1035,15 +1035,17 @@ bindkey '^r' peco-select-history
 
 # Select ghq list {{{
 function peco-src () {
-local selected_dir=$(ghq list -p | peco --query "$LBUFFER")
-if [ -n "$selected_dir" ]; then
-  BUFFER="cd ${selected_dir}"
-  zle accept-line
+local selected=$(ghq list -p | peco --query "$*")
+if [[ -n "$selected" ]]; then
+  if [ -t 1 ]; then
+    # Call in piped output
+    print -z "cd ${selected}"
+  else
+    # Call in shell command
+    print "$selected"
+  fi
 fi
-zle clear-screen
 }
-zle -N peco-src
-bindkey '^]' peco-src
 # }}}
 
 # Kill process {{{

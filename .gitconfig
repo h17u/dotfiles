@@ -29,8 +29,10 @@
   # Make this a git repo
   this = !git init && git add . && git commit -m \"Initial commit\"
 
-  # Quickly add a file/dir to .gitignore.
-  ignore = !([ ! -e .gitignore ] && touch .gitignore) | echo $1 >>.gitignore
+  # Call gitignore.io api
+  ignore = !"f() { local s=$1; shift; \
+    while [ $# -gt 0 ]; do s=\"$s,$1\"; shift; done;\
+    curl \"https://www.gitignore.io/api/$s\"; }; f"
 
   # http://d.hatena.ne.jp/hirose31/20130724/1374648978
   pull-dry-run  = !"git fetch origin; B=$(git rev-parse --abbrev-ref HEAD); git diff --stat --summary ${B}..origin/${B}"

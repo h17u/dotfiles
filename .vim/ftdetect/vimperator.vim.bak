@@ -1,2 +1,0 @@
-au BufRead,BufNewFile .vimperatorrc    set filetype=vim
-

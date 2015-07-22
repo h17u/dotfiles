@@ -4,11 +4,20 @@ srcdir="$(pwd)"
 destdir="$HOME"
 
 if [[ -d "$srcdir" ]]; then
-  echo "Symlinking dotfiles from $srcdir"
+  echo "Copying dotfiles from $srcdir"
+  echo "Symlinking bin executables from $srcdir"
 else
   echo "$srcdir does not exist"
   exit 1
 fi
+
+copy() {
+  from="$1"
+  to="$2"
+  echo "Copying '$from' to '$to'"
+  /bin/rm -rf "$to"
+  cp -rp "$from" "$to"
+}
 
 link() {
   from="$1"
@@ -18,9 +27,9 @@ link() {
   ln --symbolic --relative --force "$from" "$to"
 }
 
-# Symlink dotfiles to home
+# Copying dotfiles to home
 for file in $(find "$srcdir/home" -name '.*' -depth 1); do
-  link "$file" "$destdir/$(basename $file)"
+  copy "$file" "$destdir/$(basename $file)"
 done
 
 # Symlink executables to bin

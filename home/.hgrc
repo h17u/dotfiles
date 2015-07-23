@@ -1,0 +1,3 @@
+[ui]
+username=Tomonobu Higashikawa <tomonobu.higashikawa@gmail.com>
+ssh = ssh -C

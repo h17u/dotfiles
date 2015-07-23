@@ -1145,7 +1145,7 @@ export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
 export PATH=$PATH:/usr/local/heroku/bin
 
 # Go
-export GOPATH=$HOME/.go
+export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
 
 # Remove duplicate $PATH entries

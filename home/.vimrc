@@ -83,7 +83,7 @@ if filereadable(expand('~/.vimrc_secret'))
   execute 'source' expand('~/.vimrc_secret')
 endif
 
-let s:neobundle_dir = expand('~/.bundle')
+let s:neobundle_dir = expand('~/.vim_bundle')
 
 if has('vim_starting') "{{{
   " Set runtimepath.

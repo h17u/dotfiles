@@ -125,7 +125,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle rebar
     # antigen bundle redis-cli
     # antigen bundle repo
-    # antigen bundle rsync
+    antigen bundle rsync
     # antigen bundle ruby
     # antigen bundle rvm
     # antigen bundle safe-paste

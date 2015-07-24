@@ -335,15 +335,9 @@ fi
 
 # }}}
 
-# Replace rm with trash # {{{
-# https://github.com/rcmdnk/scripts/raw/master/trash.sh
-alias rm='~/bin/trash.sh >/dev/null 2>&1'
-alias rr='~/bin/trash.sh -rf >/dev/null 2>&1'
-alias trash='~/bin/trash.sh'
-export TRASHLIST=~/.trashlist
-export TRASHBOX=~/.Trash
-export MAXTRASHBOXSIZE=4096
-export MAXTRASHSIZE=`echo $MAXTRASHBOXSIZE "*" 0.1|bc -l|cut -d. -f1`
+# Trash # {{{
+# sindresorhus/trash https://github.com/sindresorhus/trash
+alias t=trash
 # }}}
 
 # Enable visual-mode like vim # {{{

@@ -169,13 +169,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     antigen bundle zsh-users/zsh-completions src
     antigen bundle s7anley/zsh-geeknote
     antigen bundle motemen/ghq zsh
-
-    # http://blog.m4i.jp/entry/2012/01/26/064329
-    antigen bundle m4i/cdd
-    #TODO update antigen to source file below
-    if [[ -f $HOME/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-m4i-SLASH-cdd.git/cdd ]]; then
-      source $HOME/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-m4i-SLASH-cdd.git/cdd
-    fi
+    antigen bundle m4i/cdd cdd
 
     # Tell antigen that you're done.
     antigen apply

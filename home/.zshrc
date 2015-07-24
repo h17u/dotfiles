@@ -95,6 +95,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle lol
     # antigen bundle macports
     # antigen bundle mercurial
+    antigen bundle mosh
     # antigen bundle mvn
     # antigen bundle mysql-macports
     # antigen bundle nanoc

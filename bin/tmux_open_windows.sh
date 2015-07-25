@@ -32,7 +32,7 @@ tmux new-session -s "$session_name" -n $window_name -d
 cd ~
 for i in {1..9}; do
     tmux new-window -t "$session_name:$i" -n "$window_name$i" >/dev/null 2>&1
-    if [ $i -gt 5 ]; then
+    if [ $i -gt 7 ]; then
         tmux split-window -h -t "$session_name:$i" -p 50
         tmux select-pane -R -t "$session_name:$i"
         #tmux send-keys -t "$session_name:$i" "man tmux" C-m

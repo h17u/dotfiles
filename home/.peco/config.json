@@ -4,5 +4,12 @@
       "migemogrep",
       "$QUERY"
     ]
+  },
+  "Style": {
+    "Basic": ["on_default", "default"],
+    "SavedSelection": ["bold", "on_green", "black"],
+    "Selected": ["bold", "on_cyan", "black"],
+    "Query": ["white", "bold"],
+    "Matched": ["black", "on_white"]
   }
 }

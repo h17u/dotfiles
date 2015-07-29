@@ -412,6 +412,7 @@ fpath=(~/.zsh/completions(N-/) ${fpath})
 autoload -Uz compinit && compinit -u -d ~/.zcompdump
 autoload -Uz bashcompinit && bashcompinit
 source /usr/local/etc/bash_completion.d/tig-completion.bash
+source ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-m4i-SLASH-cdd.git/cdd
 #autoload -Uz vcs_info
 #autoload -Uz promptinit && promptinit
 #autoload -Uz predict-on && predict-on

@@ -291,7 +291,6 @@ alias lr=' ls -R'
 alias ld=' ls -d'
 alias l1=' ls -1'
 alias lt=' tree -F'
-alias git=hub
 alias g=git
 alias vi='$EDITOR'
 alias lockscreen='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'

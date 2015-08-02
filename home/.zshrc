@@ -72,7 +72,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle git-flow-avh
     # antigen bundle git-hubflow
     # antigen bundle git-remote-branch
-    # antigen bundle gitfast
+    antigen bundle gitfast
     # antigen bundle github
     # antigen bundle gnu-utils
     # antigen bundle go

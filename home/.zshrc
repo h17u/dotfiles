@@ -42,7 +42,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle capistrano
     # antigen bundle celery
     # antigen bundle cloudapp
-    antigen bundle coffee
+    # antigen bundle coffee
     # antigen bundle colemak
     antigen bundle colored-man
     # antigen bundle colorize
@@ -71,9 +71,9 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle git-flow
     # antigen bundle git-flow-avh
     # antigen bundle git-hubflow
-    # antigen bundle git-remote-branch
+    antigen bundle git-remote-branch
     antigen bundle gitfast
-    # antigen bundle github
+    antigen bundle github
     # antigen bundle gnu-utils
     # antigen bundle go
     antigen bundle golang
@@ -157,7 +157,7 @@ if [[ -f $HOME/.zsh/antigen/antigen.zsh ]]; then
     # antigen bundle virtualenvwrapper
     # antigen bundle vundle
     # antigen bundle wakeonlan
-    antigen bundle web-search
+    # antigen bundle web-search
     # antigen bundle yum
     # antigen bundle zeus
     antigen bundle brew-cask

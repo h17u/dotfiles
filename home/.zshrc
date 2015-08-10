@@ -218,8 +218,6 @@ case ${UID} in
     export LANG=C
     ;;
 esac
-export MANPATH=/opt/local/share/man:$MANPATH
-export MANPATH=/usr/local/share/man:$MANPATH
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
 export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/usr/local/homebrew-cask/Caskroom"
 # }}}
@@ -1114,6 +1112,11 @@ if [ "$PS1" ]; then
         export MANPATH=$(brew --prefix coreutils)/libexec/gnuman:$MANPATH
         export MANPATH=$(brew --prefix gnu-sed)/libexec/gnuman:$MANPATH
 fi
+
+# manpath
+export MANPATH=/opt/local/share/man:$MANPATH
+export MANPATH=/usr/local/share/man:$MANPATH
+export MANPATH=${HOME}/share/man:$MANPATH
 
 # anyenv
 if [ -d $HOME/.anyenv ] ; then

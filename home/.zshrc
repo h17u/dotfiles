@@ -1123,6 +1123,9 @@ if [ -d $HOME/.anyenv ] ; then
   fi
 fi
 
+# NodeJS
+export NODE_PATH=$NODE_PATH:~/lib/node_modules
+
 # Amazon EC2 Command-Line Tools
 export EC2_HOME=~/.ec2
 export PATH=$PATH:$EC2_HOME/bin

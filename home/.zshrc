@@ -194,7 +194,6 @@ umask 002
 autoload -Uz colors && colors
 autoload -Uz add-zsh-hook
 
-export BROWSER=w3m
 export EDITOR=vim
 set meta-flag on set input-meta on set output-meta on set convert-meta off # for japanese
 export PAGER=less

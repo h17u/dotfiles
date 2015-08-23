@@ -517,7 +517,12 @@ NeoBundleLazy 'Blackrush/vim-gocode', {
       \ 'autoload' : {
       \   'filetypes' : 'go'
       \ }}
-NeoBundleLazy 'techlivezheng/vim-plugin-tagbar-phpctags', {
+NeoBundleLazy 'vim-php/tagbar-phpctags.vim', {
+      \ 'build' : {
+      \   'cygwin' : 'make -f Makefile',
+      \   'mac' : 'make -f Makefile',
+      \   'unix' : 'make -f Makefile'
+      \ },
       \ 'autoload' : {
       \   'filetypes' : 'php'
       \ }}
@@ -2377,8 +2382,7 @@ function! bundle.hooks.on_source(bundle)
         \ ]
         \ } "}}}
   " Php "{{{
-  let g:tagbar_phpctags_bin = $HOME . '/src/phpctags/phpctags'
-  let g:tagbar_phpctags_memory_limit = '512M'
+  let g:tagbar_phpctags_memory_limit = '128M'
   "}}}
   " Ruby "{{{
   let g:tagbar_type_ruby = {

@@ -1,7 +1,7 @@
 #!/bin/sh
 TEMP=/var/tmp/battery
 if  [ ! -e $TEMP  ] || [ $(( $(date +%s) - $(date +%s -r $TEMP) )) -gt 10 ]; then
-  nice -n 19 pmset -g ps | awk '{ if (NR == 2) print $2 }' | sed 's/;//g' >$TEMP
+  nice -n 19 pmset -g ps | awk '{ if (NR == 2) print $3 }' | sed 's/;//g' >$TEMP
 fi
 cat $TEMP
 

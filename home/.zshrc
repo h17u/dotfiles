@@ -218,7 +218,7 @@ case ${UID} in
     ;;
 esac
 export LESS='--tabs=4 --no-init --LONG-PROMPT --ignore-case --RAW-CONTROL-CHARS'
-export HOMEBREW_CASK_OPTS="--appdir=/Applications --caskroom=/usr/local/homebrew-cask/Caskroom"
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 # }}}
 
 # Set shell options # {{{

@@ -1129,7 +1129,7 @@ fi
 export NODE_PATH=$NODE_PATH:~/lib/node_modules
 
 # Ruby
-export PATH=~/.gem/ruby/2.0.0/bin:$PATH
+export PATH=~/.gem/ruby/2.3.0/bin:$PATH
 
 # Amazon EC2 Command-Line Tools
 export EC2_HOME=~/.ec2

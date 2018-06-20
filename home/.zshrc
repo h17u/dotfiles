@@ -1009,7 +1009,7 @@ if which tac > /dev/null; then
 else
   tac="tail -r"
 fi
-BUFFER=$(\history -n 1 | eval $tac | awk '!a[$0]++' | peco --query "$LBUFFER")
+BUFFER=$(\history -n 1 | eval $tac | awk '!a[$0]++' | peco --query --initial-filter Fuzzy "$LBUFFER")
 CURSOR=$#BUFFER
 zle clear-screen
 }
@@ -1059,7 +1059,7 @@ fi
 # Edit or Search file recursively {{{
 function peco-edit-file() {
 local param=''
-local delimiter='_'
+local delimiter='-'
 local extension='.md'
 if [[ $# -eq 0 ]]; then
   peco-search-file
